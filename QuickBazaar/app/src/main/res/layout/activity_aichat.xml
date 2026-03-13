@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FB"
+    tools:context=".QuickActivity.AIChatActivity">
+
+    <!-- Header Section -->
+    <View
+        android:id="@+id/header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/teal_dark"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnBackAi"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:padding="12dp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@android:color/white" />
+
+    <TextView
+        android:id="@+id/tvAiTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="sans-serif-black"
+        android:text="Quick AI Buddy"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/btnBackAi"
+        app:layout_constraintStart_toEndOf="@id/btnBackAi"
+        app:layout_constraintTop_toTopOf="@id/btnBackAi" />
+
+    <!-- Chat Area with RecyclerView -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewChat"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="12dp"
+        android:clipToPadding="false"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardInput"
+        app:layout_constraintTop_toBottomOf="@id/header_bg" />
+
+    <ProgressBar
+        android:id="@+id/progressBarAi"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:indeterminateTint="@color/teal_dark"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/cardInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header_bg" />
+
+    <!-- Input Section -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardCornerRadius="28dp"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="4dp">
+
+            <EditText
+                android:id="@+id/etAiQuery"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="Type your message..."
+                android:inputType="textCapSentences"
+                android:paddingHorizontal="20dp"
+                android:textSize="15sp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnSendAi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:src="@drawable/ic_search"
+                app:backgroundTint="@color/teal_dark"
+                app:fabCustomSize="42dp"
+                app:tint="@android:color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

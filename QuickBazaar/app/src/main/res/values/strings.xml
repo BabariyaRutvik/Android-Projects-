@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QuickBazaar</string>
+    <string name="default_web_client_id">330233740392-l5vesk6r08t0l3636a4v1dnnpcnotcs5.apps.googleusercontent.com</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_notification_channel_id">Quick Bazaar Notification</string>
+</resources>

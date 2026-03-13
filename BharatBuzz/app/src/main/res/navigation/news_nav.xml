@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_nav"
+    app:startDestination="@id/nav_home">
+
+
+    <!-- home fragment -->
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.bharatbuzz.NewsFragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home"
+        />
+
+
+    <!-- category fragment-->
+
+    <fragment
+        android:id="@+id/nav_category"
+        android:name="com.example.bharatbuzz.NewsFragment.CategoryFragment"
+        android:label="Category"
+        tools:layout="@layout/fragment_category"
+        />
+
+
+<!-- bookmark fragment-->
+    <fragment
+        android:id="@+id/nav_bookmarks"
+        android:name="com.example.bharatbuzz.NewsFragment.BookmarkFragment"
+        android:label="Bookmark"
+        tools:layout="@layout/fragment_bookmark"
+        />
+
+
+<!-- settings fragment-->
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.bharatbuzz.NewsFragment.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings"
+        />
+
+
+    <!-- Sports fragment -->
+    <fragment
+        android:id="@+id/nav_sports"
+        android:name="com.example.bharatbuzz.NewsFragment.SportsFragment"
+        android:label="Sports"
+        tools:layout="@layout/fragment_sports"
+        />
+
+    <!-- technology Fragment -->
+
+    <fragment
+        android:id="@+id/nav_technology"
+        android:name="com.example.bharatbuzz.NewsFragment.TechnologyFragment"
+        android:label="Technology"
+        tools:layout="@layout/fragment_technology"
+        />
+
+<!-- Business Fragment -->
+
+    <fragment
+        android:id="@+id/nav_business"
+        android:name="com.example.bharatbuzz.NewsFragment.BusinessFragment"
+        android:label="Business"
+        tools:layout="@layout/fragment_business"
+        />
+
+<!-- Health Fragment -->
+
+
+    <fragment
+        android:id="@+id/nav_health"
+        android:name="com.example.bharatbuzz.NewsFragment.HealthFragment"
+        android:label="Health"
+        tools:layout="@layout/fragment_health"
+        />
+
+
+
+    <!-- Entertainment Fragment -->
+
+    <fragment
+        android:id="@+id/nav_entertainment"
+        android:name="com.example.bharatbuzz.NewsFragment.EntertainmentFragment"
+        android:label="Entertainment"
+        tools:layout="@layout/fragment_entertainment"
+        />
+
+
+<!-- Politics Fragment-->
+
+    <fragment
+        android:id="@+id/nav_politics"
+        android:name="com.example.bharatbuzz.NewsFragment.PoliticsFragment"
+        android:label="Politics"
+        tools:layout="@layout/fragment_politics"
+        />
+
+
+
+
+
+</navigation>

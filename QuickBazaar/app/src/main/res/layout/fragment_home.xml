@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".BazaarFragment.HomeFragment">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:id="@+id/linear_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="20dp"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:id="@+id/text_user_greetings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hi, User 👋"
+                        android:textColor="@color/teal_dark"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:fontFamily="sans-serif-black" />
+
+                    <TextView
+                        android:id="@+id/text_user_location"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Your Location"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp"
+                        android:drawablePadding="4dp"
+                        app:drawableStartCompat="@drawable/ic_location" />
+
+                </LinearLayout>
+
+                <!-- AI Assistant Icon -->
+                <ImageView
+                    android:id="@+id/img_ai_chat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/google_btn_bg"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_ai_sparkle"
+                    app:tint="@color/teal_dark"
+                    android:contentDescription="AI Assistant" />
+
+                <!-- Notification Icon with Badge -->
+                <FrameLayout
+                    android:id="@+id/frame_notification"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/img_notification"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:background="@drawable/google_btn_bg"
+                        android:padding="8dp"
+                        android:src="@drawable/ic_notifications"
+                        app:tint="@color/teal_dark"
+                        android:contentDescription="Notifications" />
+
+                    <TextView
+                        android:id="@+id/tv_notification_badge"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="top|end"
+                        android:background="@drawable/badge_circle"
+                        android:gravity="center"
+                        android:text="0"
+                        android:textColor="@android:color/white"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_searchview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/linear_header"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="8dp"
+                app:cardCornerRadius="13dp"
+                app:cardMaxElevation="3dp">
+                <EditText
+                    android:id="@+id/et_search"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@android:color/transparent"
+                    app:drawableStartCompat="@drawable/ic_search"
+                    android:drawablePadding="12dp"
+                    android:hint="Search products..."
+                    android:paddingHorizontal="16dp"
+                    android:textSize="14sp"
+                    android:inputType="text"
+                    android:autofillHints="none" />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_banner"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginHorizontal="20dp"
+                app:layout_constraintTop_toBottomOf="@id/card_searchview"
+                android:layout_marginTop="20dp"
+                app:cardCornerRadius="16dp"
+                app:cardMaxElevation="10dp">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_grocery_cart"
+                    android:background="@color/teal_light"
+                    android:contentDescription="Promotions" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/text_cat_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card_banner"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Categories"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/teal_dark"
+                android:fontFamily="sans-serif-black" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycerview_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_cat_label"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal"
+                android:paddingHorizontal="16dp"
+                android:clipToPadding="false"
+                tools:listitem="@layout/item_category" />
+
+            <TextView
+                android:id="@+id/text_popular_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/recycerview_category"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="Popular Product"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/teal_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycerview_popular_products"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:paddingHorizontal="12dp"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                app:layout_constraintTop_toBottomOf="@id/text_popular_label"
+                tools:listitem="@layout/item_product" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

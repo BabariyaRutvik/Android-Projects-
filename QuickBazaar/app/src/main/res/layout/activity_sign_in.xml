@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    tools:context=".QuickActivity.AuthActivity.SignInActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="32dp">
+
+            <!-- Header: Logo + App Name -->
+            <LinearLayout
+                android:id="@+id/ll_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="60dp">
+
+                <ImageView
+                    android:id="@+id/image_grocery_cart"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/ic_grocery_cart"
+                    android:contentDescription="Grocery Cart Icon" />
+
+                <TextView
+                    android:id="@+id/tv_quick"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quick"
+                    android:textColor="@color/teal_dark"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginStart="8dp" />
+
+                <TextView
+                    android:id="@+id/tv_bazaar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bazaar"
+                    android:textColor="@color/bread_orange"
+                    android:textSize="34sp"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-condensed"
+                    android:layout_marginStart="4dp" />
+            </LinearLayout>
+
+            <!-- Welcome Text -->
+            <TextView
+                android:id="@+id/text_welcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ll_header"
+                android:layout_marginTop="48dp"
+                android:text="Welcome Back!"
+                android:textStyle="bold"
+                android:textSize="28sp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/teal_dark" />
+
+            <TextView
+                android:id="@+id/text_sign_in"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_welcome"
+                android:text="Sign in to continue"
+                android:textColor="@color/text_secondary"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:layout_marginTop="8dp" />
+
+            <!-- Email Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="32dp"
+                android:hint="Email"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="@color/teal_primary"
+                app:hintTextColor="@color/teal_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_sign_in"
+                app:startIconDrawable="@drawable/ic_email"
+                app:startIconTint="@color/teal_dark">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="50dp"
+                    android:background="@drawable/edit_bg"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Password Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/text_input_layout_password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="16dp"
+                android:hint="Password"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusBottomEnd="16dp"
+                app:boxStrokeColor="@color/teal_primary"
+                app:hintTextColor="@color/teal_primary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_email"
+                app:startIconDrawable="@drawable/ic_password"
+                app:startIconTint="@color/teal_dark"
+                app:passwordToggleEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="50dp"
+                    android:background="@drawable/edit_bg"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/text_forgot_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password ?"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:textColor="@color/item_blue"
+                android:fontFamily="sans-serif-medium"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSignIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/text_forgot_password"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_bg"
+                android:text="Sign In"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif-black"
+                android:textAllCaps="false"
+                />
+
+            <TextView
+                android:id="@+id/tv_or"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="OR"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp"
+                app:layout_constraintTop_toBottomOf="@id/btnSignIn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="16dp" />
+
+            <!-- Google Sign-In Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGoogleSignIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/google_btn_bg"
+                android:drawableStart="@drawable/ic_google"
+                android:drawablePadding="12dp"
+                android:paddingStart="40dp"
+                android:paddingEnd="40dp"
+                android:text="Sign in with Google"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textAllCaps="false"
+                android:fontFamily="sans-serif-medium"
+                app:layout_constraintTop_toBottomOf="@id/tv_or"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnGoogleSignIn"
+                android:orientation="horizontal"
+                android:layout_marginTop="32dp"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Don't Have an Account ? "
+                    android:textColor="@color/text_secondary"
+                    android:fontFamily="sans-serif" />
+
+                <TextView
+                    android:id="@+id/tv_sign_up"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sign Up"
+                    android:textColor="@color/bread_orange"
+                    android:textStyle="bold"
+                    android:fontFamily="sans-serif-black" />
+
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminateTint="@color/teal_primary"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

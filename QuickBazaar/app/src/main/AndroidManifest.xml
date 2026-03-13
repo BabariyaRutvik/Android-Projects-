@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Location Permissions Added -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <!-- Required for some GMS verification processes on certain devices -->
+    <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
+
+    <queries>
+        <package android:name="com.google.android.gms" />
+        <package android:name="com.android.vending" />
+        <intent>
+            <action android:name="com.google.android.gms.auth.api.signin.SERVICE_CONFIG_UPDATED" />
+        </intent>
+        <intent>
+            <action android:name="com.google.android.gms.auth.GOOGLE_SIGN_IN" />
+        </intent>
+    </queries>
+
+    <application
+        android:name=".QuickBazaarApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.QuickBazaar">
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <meta-data
+            android:name="com.google.android.gms.auth.api.signin.CLIENT_ID"
+            android:value="@string/default_web_client_id" />
+
+        <service
+            android:name=".MessageService.FirebaseMessageService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".QuickActivity.AIChatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.OrderSuccessActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.MyOrdersActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.CheckoutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.ProductFullScreenActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.AuthActivity.SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.AuthActivity.SignInActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuickActivity.SplashScreenActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".QuickActivity.MainActivity"
+            android:exported="true" />
+    </application>
+
+</manifest>

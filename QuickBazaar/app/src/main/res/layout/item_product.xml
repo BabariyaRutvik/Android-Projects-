@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="3dp"
+    app:cardMaxElevation="4dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="12dp">
+
+        <!-- Image Section with background -->
+        <View
+            android:id="@+id/view_img_bg"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:background="#F4F7F7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/img_product"
+            android:layout_width="0dp"
+            android:layout_height="160dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_grocery_cart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <!-- Discount Badge (e.g. 10% OFF) -->
+        <TextView
+            android:id="@+id/tv_discount_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/nav_selected_bg"
+            android:backgroundTint="#FF5252"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="15% OFF"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Popular Badge -->
+        <TextView
+            android:id="@+id/tv_popular_badge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@drawable/nav_selected_bg"
+            android:backgroundTint="@color/teal_dark"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="4dp"
+            android:text="Popular"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Details Section -->
+        <TextView
+            android:id="@+id/tv_product_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="12dp"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="2"
+            android:minLines="2"
+            android:text="Fresh Organic Red Tomatoes"
+            android:textColor="#212121"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/view_img_bg" />
+
+        <TextView
+            android:id="@+id/tv_product_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:text="500 g"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
+
+        <!-- Rating Section -->
+        <LinearLayout
+            android:id="@+id/layout_product_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_product_unit">
+
+            <RatingBar
+                android:id="@+id/product_rating_bar"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressTint="#FFC107"
+                android:secondaryProgressTint="#FFC107"
+                android:stepSize="0.1" />
+
+            <TextView
+                android:id="@+id/tv_product_rating_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="0.0"
+                android:textColor="#757575"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <!-- Price Section -->
+        <LinearLayout
+            android:id="@+id/layout_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@id/btn_add_to_bag"
+            app:layout_constraintEnd_toStartOf="@id/btn_add_to_bag"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_add_to_bag">
+
+            <TextView
+                android:id="@+id/tv_product_discount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="₹45"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_product_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="₹60"
+                android:textColor="#9E9E9E"
+                android:textSize="13sp" />
+
+        </LinearLayout>
+
+        <!-- Modern ADD Button -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_to_bag"
+            android:layout_width="75dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/add_button_bg"
+            android:padding="0dp"
+            android:stateListAnimator="@null"
+            android:text="ADD"
+            android:textAllCaps="true"
+            android:textColor="@color/basket_green"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_product_rating"
+            android:elevation="2dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

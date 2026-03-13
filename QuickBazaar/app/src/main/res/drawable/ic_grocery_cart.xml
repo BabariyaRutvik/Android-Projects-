@@ -1,0 +1,29 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Basket Body -->
+    <path
+        android:fillColor="@color/basket_green"
+        android:pathData="M20,50 L80,50 L75,85 L25,85 Z" />
+
+    <!-- Front shading of basket -->
+    <path
+        android:fillColor="#43A047"
+        android:pathData="M20,50 L80,50 L80,55 L20,55 Z" />
+
+    <!-- Handles -->
+    <path
+        android:strokeColor="@color/teal_dark"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M40,50 C40,20 60,20 60,50" />
+    <path
+        android:strokeColor="@color/teal_primary"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M35,55 C35,25 55,25 55,55" />
+
+</vector>

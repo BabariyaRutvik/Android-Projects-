@@ -1,0 +1,15 @@
+*.iml
+.gradle
+/local.properties
+/.idea/
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+
+# Firebase configuration (IMPORTANT)
+app/google-services.json
+
+# Local configuration
+local.properties

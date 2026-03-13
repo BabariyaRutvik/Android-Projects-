@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/alice_blue"
+    tools:context=".NewsFragment.HomeFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="8dp">
+
+        <!-- Custom Toolbar with Search -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:paddingHorizontal="16dp">
+
+
+
+            <TextView
+                android:id="@+id/txtAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="BharatBuzz"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                app:searchIcon="@drawable/ic_search"
+                app:queryHint="Search news..."
+                app:iconifiedByDefault="true"
+                android:maxWidth="1000dp" />
+
+        </RelativeLayout>
+
+        <!-- Sticky Tab Layout -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:tabIndicatorHeight="0dp"
+            app:tabMode="scrollable"
+            app:tabRippleColor="@android:color/transparent" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Content ViewPager -->
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPagerCategories"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
