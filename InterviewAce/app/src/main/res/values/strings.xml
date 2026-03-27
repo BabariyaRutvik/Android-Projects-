@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">InterviewAce</string>
+    <string name="default_web_client_id">431994431939-hat3gg6k3vo7fnqk0s03pq1483e5e4v0.apps.googleusercontent.com</string>
+    <string name="score_format">Score: %1$d/100</string>
+    <string name="avg_score_format">%1$d%%</string>
+    <string name="cert_score_format">Score: %1$d/100</string>
+
+    <!-- Profile Strings -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="sessions">Sessions</string>
+    <string name="avg_score">Avg Score</string>
+    <string name="certificates">Certificates</string>
+    <string name="my_information">My Information</string>
+    <string name="my_certificates">My Certificates</string>
+    <string name="settings">Settings</string>
+    <string name="notifications">Notifications</string>
+    <string name="language">Language</string>
+    <string name="about_app">About App</string>
+    <string name="rate_app">Rate App</string>
+    <string name="share_app">Share App</string>
+    <string name="logout">Logout</string>
+    <string name="english">English</string>
+    <string name="select_language">Select Language</string>
+    <string name="logout_confirm">Are you sure you want to logout?</string>
+    <string name="cancel">Cancel</string>
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bootom_nav_graph"
+    app:startDestination="@id/nav_home">
+
+
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.interviewace.fragment.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home"
+        />
+
+
+    <fragment
+        android:id="@+id/nav_practice"
+        android:name="com.example.interviewace.fragment.PracticeFragment"
+        android:label="Practice"
+        tools:layout="@layout/fragment_practice"
+        />
+
+
+    <fragment
+        android:id="@+id/nav_process"
+        android:name="com.example.interviewace.fragment.ProcessFragment"
+        android:label="Process"
+        tools:layout="@layout/fragment_process"
+        />
+
+
+    <fragment
+        android:id="@+id/nav_certificate"
+        android:name="com.example.interviewace.fragment.CertificateFragment"
+        android:label="Certificate"
+        tools:layout="@layout/fragment_certificate"
+        />
+
+
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.interviewace.fragment.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"
+        />
+
+
+
+</navigation>

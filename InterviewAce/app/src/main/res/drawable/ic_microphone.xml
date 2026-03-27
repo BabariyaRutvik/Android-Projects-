@@ -1,0 +1,46 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Light Blue Background Circle -->
+    <path
+        android:fillColor="#E1EFFF"
+        android:pathData="M100,100m-80,0a80,80 0,1 1,160 0a80,80 0,1 1,-160 0" />
+
+    <!-- Microphone Body -->
+    <path
+        android:fillColor="#1A56DB"
+        android:pathData="M100,45c-8.28,0 -15,6.72 -15,15v25c0,8.28 6.72,15 15,15s15,-6.72 15,-15V60c0,-8.28 -6.72,-15 -15,-15z" />
+
+    <!-- Microphone Stand/U-Shape -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M78,85v5c0,12.15 9.85,22 22,22s22,-9.85 22,-22v-5" />
+
+    <!-- Microphone Base -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M100,112v10M90,122h20" />
+
+    <!-- Small Blue Circle with Smiley -->
+    <path
+        android:fillColor="#1A56DB"
+        android:pathData="M145,125m-15,0a15,15 0,1 1,30 0a15,15 0,1 1,-30 0" />
+
+    <!-- White Smiley Face -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M140,122c0.55,0 1,0.45 1,1s-0.45,1 -1,1s-1,-0.45 -1,-1s0.45,-1 1,-1zM150,122c0.55,0 1,0.45 1,1s-0.45,1 -1,1s-1,-0.45 -1,-1s0.45,-1 1,-1z" />
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="1.5"
+        android:strokeLineCap="round"
+        android:pathData="M141,130c1.5,1.5 6.5,1.5 8,0" />
+
+</vector>

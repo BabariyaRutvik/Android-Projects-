@@ -1,0 +1,41 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- 1. Soft Background Container -->
+    <path
+        android:fillColor="#F4F8FF"
+        android:pathData="M35,35h130a20,20 0,0 1,20 20v90a20,20 0,0 1,-20 20h-130a20,20 0,0 1,-20 -20v-90a20,20 0,0 1,20 -20z" />
+
+    <!-- 2. Tilted Blue Card (With rounded corners) -->
+    <path
+        android:fillColor="#E1EFFF"
+        android:pathData="M75,55 L140,65 C145,66 148,70 147,75 L133,140 C132,145 128,148 123,147 L58,137 C53,136 50,132 51,127 L65,62 C66,57 70,54 75,55 Z" />
+
+    <!-- 3. Top-Right Yellow Circle -->
+    <path
+        android:fillColor="#FFB800"
+        android:pathData="M145,65m-12,0a12,12 0,1 1,24 0a12,12 0,1 1,-24 0" />
+
+    <!-- 4. Bottom-Left Yellow Circle -->
+    <path
+        android:fillColor="#FFB800"
+        android:pathData="M65,138m-10,0a10,10 0,1 1,20 0a10,10 0,1 1,-20 0" />
+
+    <!-- 5. Medal Ribbon (The blue 'W' shape) -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M90,112 L85,132 L100,123 L115,132 L110,112" />
+
+    <!-- 6. Medal Circle (Outline) -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="5"
+        android:pathData="M100,100m-18,0a18,18 0,1 1,36 0a18,18 0,1 1,-36 0" />
+
+</vector>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Brand Colors -->
+    <color name="brand_blue">#1A56DB</color>
+    <color name="brand_dark">#0F172A</color>
+
+    <!-- Main Backgrounds -->
+    <color name="light_main_bg">#F8FAFF</color>
+    <color name="white_bg">#FFFFFF</color>
+
+    <!-- Primary Blue - Buttons -->
+    <color name="accent_blue">#1A56DB</color>
+    <color name="accent_blue_light">#EFF6FF</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1E293B</color>
+    <color name="text_secondary">#64748B</color>
+
+    <!-- EditText Colors -->
+    <color name="edit_text_bg">#F1F5F9</color>
+    <color name="edit_text_border">#CBD5E1</color>
+    <color name="edit_text_hint">#94A3B8</color>
+
+    <!-- Status Colors -->
+    <color name="success_green">#059669</color>
+    <color name="warning_orange">#D97706</color>
+    <color name="error_red">#DC2626</color>
+
+
+    <color name="green">#22C55E</color>
+    <color name="neavy_blue">#1E3A8A</color>
+    <color name="orrange">#F97316</color>
+    <color name="teal">#009688</color>
+
+
+    <!-- Card Colors -->
+    <color name="card_bg">#FFFFFF</color>
+    <color name="card_stroke">#E2E8F0</color>
+
+
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_bg">#FFFFFF</color>
+    <color name="bottom_nav_active">#1A56DB</color>
+    <color name="bottom_nav_inactive">#94A3B8</color>
+
+
+    <color name="silver">#CCCCCC</color>
+    <color name="cardIllustration">#EFF6FF</color>
+
+    <!-- Role Icon Backgrounds (Soft Colors) -->
+    <color name="bg_soft_blue">#EFF6FF</color>
+    <color name="bg_soft_purple">#F5F3FF</color>
+    <color name="bg_soft_green">#ECFDF5</color>
+    <color name="bg_soft_orange">#FFF7ED</color>
+    <color name="bg_soft_pink">#FDF2F8</color>
+
+    <!-- Role Icon Tints -->
+    <color name="tint_blue">#2563EB</color>
+    <color name="tint_purple">#7C3AED</color>
+    <color name="tint_green">#059669</color>
+    <color name="tint_orange">#D97706</color>
+    <color name="tint_pink">#DB2777</color>
+
+</resources>

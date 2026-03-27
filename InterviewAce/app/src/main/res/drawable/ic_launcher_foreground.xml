@@ -1,0 +1,17 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Shield Shape -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,15C42.5,15 32.2,19.5 24.5,26.8C24.5,45.8 29.5,66.8 54,85C78.5,66.8 83.5,45.8 83.5,26.8C75.8,19.5 65.5,15 54,15Z" />
+
+    <!-- Inner Star -->
+    <path
+        android:fillColor="#1A56DB"
+        android:pathData="M54,35L58.5,46.2L70.5,47.2L61.5,55.1L64.2,66.8L54,60.5L43.8,66.8L46.5,55.1L37.5,47.2L49.5,46.2L54,35Z" />
+
+</vector>

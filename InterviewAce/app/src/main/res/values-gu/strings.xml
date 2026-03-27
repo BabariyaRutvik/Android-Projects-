@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">ઈન્ટરવ્યુએસ</string>
+    <string name="score_format">સ્કોર: %1$d/100</string>
+
+    <!-- Profile Strings -->
+    <string name="edit_profile">પ્રોફાઇલ સંપાદિત કરો</string>
+    <string name="sessions">સત્રો</string>
+    <string name="avg_score">સરેરાશ સ્કોર</string>
+    <string name="certificates">પ્રમાણપત્રો</string>
+    <string name="my_information">મારી માહિતી</string>
+    <string name="my_certificates">મારા પ્રમાણપત્રો</string>
+    <string name="settings">સેટિંગ્સ</string>
+    <string name="notifications">સૂચનાઓ</string>
+    <string name="language">ભાષા</string>
+    <string name="about_app">એપ્લિકેશન વિશે</string>
+    <string name="rate_app">એપ રેટ કરો</string>
+    <string name="share_app">એપ્લિકેશન શેર કરો</string>
+    <string name="logout">લોગઆઉટ</string>
+    <string name="english">ગુજરાતી</string>
+    <string name="select_language">ભાષા પસંદ કરો</string>
+    <string name="logout_confirm">શું તમે ખરેખર લોગઆઉટ કરવા માંગો છો?</string>
+    <string name="cancel">રદ કરો</string>
+</resources>

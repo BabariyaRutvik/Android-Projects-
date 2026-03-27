@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!--Nav home -->
+    <item
+        android:title="Home"
+        android:id="@+id/nav_home"
+        android:icon="@drawable/ic_nav_home"
+        app:showAsAction="always"
+        />
+
+
+    <!-- Nav Practice -->
+
+    <item
+        android:title="Practice"
+        android:id="@+id/nav_practice"
+        android:icon="@drawable/ic_nav_practice"
+        app:showAsAction="always"
+        />
+
+
+    <!-- Nav Progress -->
+    <item
+        android:title="Progress"
+        android:id="@+id/nav_process"
+        android:icon="@drawable/ic_nav_progress"
+        app:showAsAction="always"
+        />
+
+
+    <!-- Nav Certificate -->
+
+    <item
+        android:id="@+id/nav_certificate"
+        android:title="Certificate"
+        android:icon="@drawable/ic_nav_certificate"
+        app:showAsAction="always"
+        />
+
+
+    <!-- Nav Profile -->
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_nav_profile"
+        app:showAsAction="always"
+        />
+
+
+
+
+
+</menu>

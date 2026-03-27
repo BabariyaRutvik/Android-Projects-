@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_main_bg"
+    tools:context=".fragment.PracticeFragment">
+
+    <!-- Attractive Modern Header -->
+    <RelativeLayout
+        android:id="@+id/relative_header"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:background="@color/brand_blue"
+        android:paddingHorizontal="16dp"
+        android:elevation="8dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_back_arrow"
+            android:padding="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            app:tint="@color/white"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:id="@+id/text_select_role"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Select Role"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-black"/>
+    </RelativeLayout>
+
+    <!-- Content below header -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/relative_header"
+        app:layout_constraintBottom_toTopOf="@id/btn_start_interview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingBottom="20dp">
+
+            <!-- Subtitle -->
+            <TextView
+                android:id="@+id/text_subtitle_role"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Choose what you want to practice"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-medium" />
+
+            <!-- Properly Aligned Chip Group  -->
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group_difficulty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                app:singleSelection="true"
+                app:selectionRequired="true"
+                app:singleLine="true"
+                app:chipSpacingHorizontal="12dp">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_easy"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Easy"
+                    android:textAlignment="center"
+                    android:textColor="@color/chip_text_selector"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:chipStrokeColor="@color/chip_stroke_selector"
+                    app:chipStrokeWidth="1dp"
+                    android:fontFamily="sans-serif-black"
+                    app:chipCornerRadius="24dp"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_medium"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:checked="true"
+                    android:text="Medium"
+                    android:fontFamily="sans-serif-black"
+                    android:textAlignment="center"
+                    android:textColor="@color/chip_text_selector"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:chipStrokeColor="@color/chip_stroke_selector"
+                    app:chipStrokeWidth="1dp"
+                    app:chipCornerRadius="24dp"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip_hard"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+                    android:layout_width="100dp"
+                    android:layout_height="48dp"
+                    android:text="Hard"
+                    android:fontFamily="sans-serif-black"
+                    android:textAlignment="center"
+                    android:textColor="@color/chip_text_selector"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/chip_background_selector"
+                    app:chipStrokeColor="@color/chip_stroke_selector"
+                    app:chipStrokeWidth="1dp"
+                    app:chipCornerRadius="24dp"/>
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- RecyclerView with Proper Padding -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_roles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingHorizontal="16dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                tools:listitem="@layout/item_roles"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Start Button -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start_interview"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_margin="20dp"
+        android:text="START INTERVIEW"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-black"
+        android:background="@drawable/button_bg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

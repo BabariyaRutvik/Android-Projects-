@@ -1,0 +1,54 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+
+    <!-- Background Rounded Square -->
+    <path
+        android:fillColor="#E1EFFF"
+        android:pathData="M60,60h80a12,12 0,0 1,12 12v56a12,12 0,0 1,-12 12h-80a12,12 0,0 1,-12 -12v-56a12,12 0,0 1,12 -12z" />
+
+    <!-- Chart L-Shape Base -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M80,80v40h40" />
+
+    <!-- Bar 1 (Shortest) -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M90,110v10" />
+
+    <!-- Bar 2 (Middle) -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M100,100v20" />
+
+    <!-- Bar 3 (Tallest) -->
+    <path
+        android:strokeColor="#1A56DB"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M110,90v30" />
+
+    <!-- Green Success Badge -->
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M145,75m-18,0a18,18 0,1 1,36 0a18,18 0,1 1,-36 0" />
+
+    <!-- White Checkmark -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M137,75l5,5l10,-10" />
+
+</vector>

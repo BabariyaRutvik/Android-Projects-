@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_main_bg"
+    tools:context=".fragment.HomeFragment">
+
+    <!-- Attractive Glassmorphism Home Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/layout_header"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="20dp"
+        android:background="@color/brand_blue"
+        android:elevation="8dp">
+
+        <TextView
+            android:id="@+id/text_greeting_user"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Hi, Rutvik Babariya"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/relative_profile"/>
+
+        <!-- Premium Profile Circle -->
+        <FrameLayout
+            android:id="@+id/relative_profile"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toStartOf="@id/relative_notification"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_circle_blue"
+            android:backgroundTint="#4DFFFFFF">
+
+            <TextView
+                android:id="@+id/tv_profile_initial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="R"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="bold"/>
+        </FrameLayout>
+
+        <!-- Premium Notification Bell with Sharp Badge -->
+        <FrameLayout
+            android:id="@+id/relative_notification"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/bg_circle_light_blue"
+            android:backgroundTint="#33FFFFFF">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_notification"
+                app:tint="@color/white" />
+
+            <!-- Notification Badge -->
+            <TextView
+                android:id="@+id/tv_notification_badge"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="top|end"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="2dp"
+                android:background="@drawable/bg_circle_red_light"
+                android:backgroundTint="@color/error_red"
+                android:gravity="center"
+                android:text="3"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:fontFamily="sans-serif-black"
+                android:textStyle="bold"
+                android:visibility="visible"
+                tools:text="3" />
+
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- main scroll content -->
+   <androidx.core.widget.NestedScrollView
+       android:layout_width="match_parent"
+       android:layout_height="0dp"
+       android:fillViewport="true"
+       android:scrollbars="none"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/layout_header"
+       >
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical"
+           android:padding="22dp"
+           >
+
+           <!-- Streak Card-->
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               app:cardCornerRadius="22dp"
+               app:cardElevation="0dp"
+               app:cardBackgroundColor="@color/white"
+               >
+
+               <androidx.constraintlayout.widget.ConstraintLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:padding="20dp"
+                   >
+
+                   <RelativeLayout
+                       android:layout_width="56dp"
+                       android:layout_height="56dp"
+                       android:background="@drawable/bg_circle_orange_light"
+                       android:id="@+id/relative_streak"
+                       app:layout_constraintStart_toStartOf="parent"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       >
+
+                       <ImageView
+                           android:layout_width="28dp"
+                           android:layout_height="28dp"
+                           android:layout_gravity="center"
+                           android:src="@drawable/ic_fire"
+                           android:layout_centerInParent="true"/>
+
+                   </RelativeLayout>
+
+
+                   <TextView
+                       android:id="@+id/tv_streak_title"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="16dp"
+                       android:fontFamily="sans-serif-black"
+                       android:text="7 Day Streak"
+                       android:textColor="@color/text_primary"
+                       android:textSize="18sp"
+                       app:layout_constraintBottom_toTopOf="@+id/tv_streak_subtitle"
+                       app:layout_constraintStart_toEndOf="@id/relative_streak"
+                       app:layout_constraintTop_toTopOf="parent"
+                       app:layout_constraintVertical_chainStyle="packed" />
+
+                   <TextView
+                       android:id="@+id/tv_streak_subtitle"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginStart="16dp"
+                       android:layout_marginTop="4dp"
+                       android:fontFamily="sans-serif-medium"
+                       android:text="Keep it going!"
+                       android:textColor="@color/text_secondary"
+                       android:textSize="14sp"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintStart_toEndOf="@id/relative_streak"
+                       app:layout_constraintTop_toBottomOf="@id/tv_streak_title" />
+
+                   <TextView
+                       android:id="@+id/tv_streak_count"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:fontFamily="sans-serif-black"
+                       android:text="7"
+                       android:textColor="#FF6D00"
+                       android:textSize="44sp"
+                       app:layout_constraintBottom_toBottomOf="parent"
+                       app:layout_constraintEnd_toEndOf="parent"
+                       app:layout_constraintTop_toTopOf="parent" />
+
+
+               </androidx.constraintlayout.widget.ConstraintLayout>
+           </androidx.cardview.widget.CardView>
+
+
+           <!-- today s goal are to complete -->
+           <androidx.cardview.widget.CardView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginTop="22dp"
+               app:cardCornerRadius="22dp"
+               app:cardElevation="0dp"
+               app:cardBackgroundColor="@color/white"
+               >
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:padding="20dp"
+                   >
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:fontFamily="sans-serif-black"
+                       android:text="Today's Goal"
+                       android:textColor="@color/text_primary"
+                       android:textSize="18sp" />
+
+                   <ProgressBar
+                       android:id="@+id/pb_goal"
+                       android:layout_width="match_parent"
+                       android:layout_height="9dp"
+                       android:layout_marginTop="20dp"
+                       android:progress="34"
+                       android:progressDrawable="@drawable/custom_progress_bar"
+                       style="@android:style/Widget.ProgressBar.Horizontal"
+                       />
+
+
+                   <TextView
+                       android:id="@+id/tv_goal_status"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="12dp"
+                       android:fontFamily="sans-serif-medium"
+                       android:text="1 of 3 sessions completed"
+                       android:textColor="@color/text_secondary"
+                       android:textSize="14sp" />
+
+               </LinearLayout>
+
+           </androidx.cardview.widget.CardView>
+
+           <!-- Start Interview Button -->
+           <androidx.appcompat.widget.AppCompatButton
+               android:id="@+id/btn_start_interview"
+               android:layout_width="match_parent"
+               android:layout_height="52dp"
+               android:layout_marginTop="24dp"
+               android:background="@drawable/button_bg"
+               android:drawableStart="@drawable/ic_play"
+               android:drawablePadding="-20dp"
+               android:fontFamily="sans-serif-black"
+               android:paddingStart="40dp"
+               android:text="START INTERVIEW"
+               android:textColor="@color/white"
+               android:textSize="18sp"
+               app:elevation="4dp" />
+
+            <!-- Choose Role Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Choose Role"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"/>
+
+            <!-- Role RecyclerView Grid -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_roles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2"
+                tools:listitem="@layout/item_role_card_dash"/>
+
+            <!-- Recent Sessions Section -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Recent Sessions"
+                android:textColor="@color/text_primary"
+                android:textSize="18sp"/>
+
+            <!-- Sessions RecyclerView List -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_sessions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_sessions"/>
+       </LinearLayout>
+
+   </androidx.core.widget.NestedScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
