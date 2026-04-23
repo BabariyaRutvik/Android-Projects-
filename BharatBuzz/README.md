@@ -22,7 +22,7 @@
 ## 🛠️ Tech Stack
 
 - **Language**: Java
-- **Architecture**: MVVM / MVC with ViewBinding
+- **Architecture**: MVC with ViewBinding
 - **Networking**: [Retrofit](https://square.github.io/retrofit/) with Gson Converter
 - **Local Database**: [Room Persistence Library](https://developer.android.com/training/data-storage/room)
 - **Image Loading**: [Glide](https://github.com/bumptech/glide)
