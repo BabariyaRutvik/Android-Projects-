@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.quickbazaar.R;
 import com.example.quickbazaar.QuickActivity.AuthActivity.SignInActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -24,10 +26,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                // Start your app main activity
-                Intent i = new Intent(SplashScreenActivity.this, SignInActivity.class);
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                Intent i;
+                if (user != null) {
+                    i = new Intent(SplashScreenActivity.this, MainActivity.class);
+                } else {
+                    i = new Intent(SplashScreenActivity.this, SignInActivity.class);
+                }
                 startActivity(i);
-                // close this activity
                 finish();
             }
         }, 3000); // 3 seconds

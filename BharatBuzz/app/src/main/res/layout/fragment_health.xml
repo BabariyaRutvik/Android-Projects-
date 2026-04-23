@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/alice_blue">
+        android:background="@color/bg_color">
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmerView"
@@ -38,9 +38,9 @@
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="Top Health Headlines"
-                    android:textColor="@color/black"
+                    android:textColor="@color/text_primary"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:fontFamily="sans-serif-black" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/view_pager_top_health_news"

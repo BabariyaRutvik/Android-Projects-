@@ -1,35 +1,31 @@
 package com.example.bharatbuzz.NewsActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+import android.os.Looper;
 
 import com.example.bharatbuzz.R;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply theme before super.onCreate
-        SharedPreferences sharedPreferences = getSharedPreferences("Settings", Context.MODE_PRIVATE);
-        boolean isDarkMode = sharedPreferences.getBoolean("DarkMode", false);
-        if (isDarkMode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
 
-        new Handler().postDelayed(() -> {
-            Intent intent = new Intent(SplashScreenActivity.this, MainActivity.class);
-            startActivity(intent);
+        // Delay for 3 seconds, then check login status
+        new Handler(Looper.getMainLooper()).postDelayed(() -> {
+            if (isFinishing()) return;
+
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                // User is logged in
+                startActivity(new Intent(SplashScreenActivity.this, MainActivity.class));
+            } else {
+                // User is NOT logged in
+                startActivity(new Intent(SplashScreenActivity.this, SignInActivity.class));
+            }
             finish();
         }, 3000);
     }

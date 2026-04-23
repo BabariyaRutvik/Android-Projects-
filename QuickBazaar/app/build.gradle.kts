@@ -19,7 +19,7 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         // Gemini API Key configuration
-        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyC95QzM5S6VU1OP9nMpwNfbs6ByPhMzU-Q\"")
+        buildConfigField("String", "GEMINI_API_KEY", "\"AIzaSyB_mUBiBEgm0uvnV_CznjLYT_1BLOv1McY\"")
     }
 
     buildTypes {
@@ -79,6 +79,9 @@ dependencies {
     implementation(libs.retrofit.converter.gson)
     implementation(libs.gson)
     implementation(libs.okhttp.logging)
+
+    // WorkManager
+    implementation(libs.work.runtime)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

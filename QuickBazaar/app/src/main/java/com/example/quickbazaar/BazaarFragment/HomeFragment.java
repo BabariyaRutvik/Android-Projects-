@@ -1,16 +1,12 @@
 package com.example.quickbazaar.BazaarFragment;
 
+import android.app.Activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,10 +22,8 @@ import androidx.activity.result.IntentSenderRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -40,7 +34,6 @@ import com.example.quickbazaar.BazaarModel.Category;
 import com.example.quickbazaar.BazaarModel.Product;
 import com.example.quickbazaar.BazaarModel.User;
 import com.example.quickbazaar.BazaarViewModel.CartViewModel;
-import com.example.quickbazaar.MessageService.FirebaseMessageService;
 import com.example.quickbazaar.QuickActivity.AIChatActivity;
 import com.example.quickbazaar.QuickActivity.ProductFullScreenActivity;
 import com.example.quickbazaar.R;
@@ -62,7 +55,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
@@ -82,13 +74,6 @@ public class HomeFragment extends Fragment {
     private ActivityResultLauncher<IntentSenderRequest> gpsLauncher;
 
     private static final String TAG = "HomeFragment";
-
-    private final BroadcastReceiver notificationReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            updateNotificationBadge();
-        }
-    };
 
     public HomeFragment() {}
 
@@ -151,10 +136,6 @@ public class HomeFragment extends Fragment {
         fetchProduct();
         fetchBannerFromFirestore();
 
-        // Setup notification click and badge
-        binding.imgNotification.setOnClickListener(v -> resetNotificationCount());
-        updateNotificationBadge();
-
         // Setup Location Click
         binding.textUserLocation.setOnClickListener(v -> requestLocationPermission());
 
@@ -163,6 +144,9 @@ public class HomeFragment extends Fragment {
             Intent intent = new Intent(getContext(), AIChatActivity.class);
             startActivity(intent);
         });
+
+        // Hide notification badge as FCM is removed
+        binding.tvNotificationBadge.setVisibility(View.GONE);
     }
 
     private void requestLocationPermission() {
@@ -173,6 +157,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void checkGPSAndGetLocation() {
+        Activity activity = getActivity();
+        if (activity == null) return;
+
         LocationRequest locationRequest = new LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000)
                 .setMinUpdateIntervalMillis(5000)
                 .build();
@@ -180,14 +167,17 @@ public class HomeFragment extends Fragment {
         LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                 .addLocationRequest(locationRequest);
 
-        SettingsClient client = LocationServices.getSettingsClient(requireActivity());
+        SettingsClient client = LocationServices.getSettingsClient(activity);
         Task<LocationSettingsResponse> task = client.checkLocationSettings(builder.build());
 
-        task.addOnSuccessListener(requireActivity(), locationSettingsResponse -> {
-            getLastLocation();
+        task.addOnSuccessListener(activity, locationSettingsResponse -> {
+            if (isAdded()) {
+                getLastLocation();
+            }
         });
 
-        task.addOnFailureListener(requireActivity(), e -> {
+        task.addOnFailureListener(activity, e -> {
+            if (!isAdded()) return;
             if (e instanceof ResolvableApiException) {
                 try {
                     ResolvableApiException resolvable = (ResolvableApiException) e;
@@ -202,15 +192,16 @@ public class HomeFragment extends Fragment {
 
     @SuppressLint("MissingPermission")
     private void getLastLocation() {
+        Activity activity = getActivity();
+        if (activity == null) return;
+
         fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(requireActivity(), location -> {
-                    if (binding == null) return;
+                .addOnSuccessListener(activity, location -> {
+                    if (binding == null || !isAdded()) return;
                     if (location != null) {
                         updateAddressUI(location.getLatitude(), location.getLongitude());
                     } else {
-                        if (getContext() != null) {
-                            Toast.makeText(getContext(), "Unable to get location. Try again.", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getContext(), "Unable to get location. Try again.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
@@ -234,60 +225,23 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void updateNotificationBadge() {
-        if (getContext() == null || binding == null) return;
-        SharedPreferences prefs = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-        int count = prefs.getInt("notification_count", 0);
-
-        if (count > 0) {
-            binding.tvNotificationBadge.setText(String.valueOf(count));
-            binding.tvNotificationBadge.setVisibility(View.VISIBLE);
-        } else {
-            binding.tvNotificationBadge.setVisibility(View.GONE);
-        }
-    }
-
-    private void resetNotificationCount() {
-        if (getContext() == null) return;
-        SharedPreferences prefs = getContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
-        prefs.edit().putInt("notification_count", 0).apply();
-        updateNotificationBadge();
-        if (getContext() != null) {
-            Toast.makeText(getContext(), "Notifications Cleared", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (getContext() != null) {
-            LocalBroadcastManager.getInstance(requireContext()).registerReceiver(
-                    notificationReceiver, new IntentFilter(FirebaseMessageService.ACTION_NOTIFICATION_RECEIVED));
-        }
-        updateNotificationBadge();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (getContext() != null) {
-            LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(notificationReceiver);
-        }
-    }
-
     private void fetchUserData() {
         if (mAuth.getCurrentUser() != null) {
             String uid = mAuth.getCurrentUser().getUid();
             firestore.collection("users").document(uid).get()
                     .addOnSuccessListener(documentSnapshot -> {
-                        if (binding != null && documentSnapshot.exists()) {
+                        if (binding != null && isAdded() && documentSnapshot.exists()) {
                             User user = documentSnapshot.toObject(User.class);
                             if (user != null && user.getFullName() != null && !user.getFullName().isEmpty()) {
                                 binding.textUserGreetings.setText("Hi, " + user.getFullName() + " 👋");
                             }
                         }
                     })
-                    .addOnFailureListener(e -> Log.e(TAG, "Error fetching user data", e));
+                    .addOnFailureListener(e -> {
+                        if (isAdded()) {
+                            Log.e(TAG, "Error fetching user data", e);
+                        }
+                    });
         }
     }
 
@@ -317,7 +271,7 @@ public class HomeFragment extends Fragment {
     private void fetchBannerFromFirestore() {
         firestore.collection("Banners").limit(1).get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
-                    if (binding != null && !queryDocumentSnapshots.isEmpty()) {
+                    if (binding != null && isAdded() && !queryDocumentSnapshots.isEmpty()) {
                         String imageUrl = queryDocumentSnapshots.getDocuments().get(0).getString("imageUrl");
                         if (imageUrl != null && !imageUrl.isEmpty()) {
                             // Find the ImageView inside the cardBanner frame
@@ -339,7 +293,11 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 })
-                .addOnFailureListener(e -> Log.e(TAG, "Error fetching banner", e));
+                .addOnFailureListener(e -> {
+                    if (isAdded()) {
+                        Log.e(TAG, "Error fetching banner", e);
+                    }
+                });
     }
 
     private void setupCategory() {
@@ -374,7 +332,7 @@ public class HomeFragment extends Fragment {
     private void FetchCategory(){
         firestore.collection("Category").orderBy("priority").get()
                 .addOnCompleteListener(task -> {
-                    if (binding != null && task.isSuccessful()){
+                    if (binding != null && isAdded() && task.isSuccessful()){
                         List<Category> newList = new ArrayList<>();
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()){
                             newList.add(documentSnapshot.toObject(Category.class));
@@ -389,7 +347,7 @@ public class HomeFragment extends Fragment {
     private void fetchProduct(){
         firestore.collection("products").whereEqualTo("isPopular", true).limit(20).get()
                 .addOnCompleteListener(task -> {
-                    if (binding != null && task.isSuccessful()){
+                    if (binding != null && isAdded() && task.isSuccessful()){
                         List<Product> newList = new ArrayList<>();
                         for (QueryDocumentSnapshot documentSnapshot : task.getResult()) {
                             Product product = documentSnapshot.toObject(Product.class);

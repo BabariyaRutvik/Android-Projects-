@@ -43,27 +43,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Your cart is empty!"
-            android:textColor="@color/black"
+            android:textColor="?attr/colorOnSurface"
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_start_shopping"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:backgroundTint="#4CAF50"
+            app:backgroundTint="?attr/colorPrimary"
             android:text="Start Shopping"
             android:textAllCaps="false"
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            app:cornerRadius="12dp" />
     </LinearLayout>
 
     <!-- Bottom Checkout Section -->
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/layout_bottom_checkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardElevation="16dp"
+        app:cardBackgroundColor="?attr/colorSurface"
+        app:shapeAppearanceOverlay="@style/ShapeAppearance.App.TopRounded"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <LinearLayout
@@ -83,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Total Amount"
-                    android:textColor="#757575"
+                    android:textColor="?android:attr/textColorSecondary"
                     android:textSize="16sp" />
 
                 <TextView
@@ -91,24 +94,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="₹0.00"
-                    android:textColor="@color/black"
+                    android:textColor="?attr/colorOnSurface"
                     android:textSize="20sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_checkout"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:backgroundTint="#4CAF50"
+                app:backgroundTint="?attr/colorPrimary"
                 android:text="Proceed to Checkout"
                 android:textAllCaps="false"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:cornerRadius="8dp" />
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <ProgressBar
         android:id="@+id/progress_bar_cart"

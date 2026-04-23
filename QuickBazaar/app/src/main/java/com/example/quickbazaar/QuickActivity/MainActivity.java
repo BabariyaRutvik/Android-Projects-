@@ -5,35 +5,30 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quickbazaar.BazaarFragment.CartFragment;
 import com.example.quickbazaar.BazaarFragment.CategoryFragment;
 import com.example.quickbazaar.BazaarFragment.HomeFragment;
 import com.example.quickbazaar.BazaarFragment.ProfileFragment;
+import com.example.quickbazaar.BazaarModel.User;
 import com.example.quickbazaar.R;
 import com.example.quickbazaar.databinding.ActivityMainBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.messaging.FirebaseMessaging;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding binding;
     private static final int NOTIFICATION_PERMISSION_CODE = 101;
-    private static final String TAG = "MainActivityFCM";
+    private static final String TAG = "MainActivity";
+    private FirebaseFirestore firestore;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,22 +36,16 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        firestore = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+
         setSupportActionBar(binding.toolbar);
 
-        // 1. AUTOMATIC TOPIC SUBSCRIPTION (Like News Apps)
-        // This ensures the device receives any notification sent to the "general" topic
-        FirebaseMessaging.getInstance().subscribeToTopic("general")
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        Log.d(TAG, "Subscribed to 'general' topic automatically");
-                    }
-                });
+        // Fetch user name for toolbar/menu display
+        fetchUserName();
 
-        // 2. Request Notification Permission (Required for Android 13+)
+        // Request Notification Permission (Required for Android 13+ and WorkManager notifications)
         requestNotificationPermission();
-
-        // 3. Keep token updated in Firestore for personalized notifications
-        syncFCMToken();
 
         if (savedInstanceState == null) {
             loadFragment(new HomeFragment(), "Quick Bazaar");
@@ -89,21 +78,26 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void syncFCMToken() {
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
-            if (task.isSuccessful() && task.getResult() != null) {
-                saveTokenToFirestore(task.getResult());
-            }
-        });
-    }
-
-    private void saveTokenToFirestore(String token) {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            Map<String, Object> data = new HashMap<>();
-            data.put("fcmToken", token);
-            FirebaseFirestore.getInstance().collection("Users").document(user.getUid())
-                    .set(data, com.google.firebase.firestore.SetOptions.merge());
+    private void fetchUserName() {
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            firestore.collection("users").document(currentUser.getUid()).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (binding == null) return;
+                        if (documentSnapshot.exists()) {
+                            User user = documentSnapshot.toObject(User.class);
+                            if (user != null && user.getFullName() != null && !user.getFullName().isEmpty()) {
+                                try {
+                                    String firstName = user.getFullName().split(" ")[0];
+                                    binding.toolbar.setTitle("Hi, " + firstName);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "Error parsing name", e);
+                                    binding.toolbar.setTitle("Quick Bazaar");
+                                }
+                            }
+                        }
+                    })
+                    .addOnFailureListener(e -> Log.e(TAG, "Error fetching user name", e));
         }
     }
 
@@ -116,7 +110,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment, String title) {
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle(title);
+        if (getSupportActionBar() != null) {
+            // If it's the home fragment, we might want to keep the "Hi, User" title
+            if (fragment instanceof HomeFragment && mAuth.getCurrentUser() != null) {
+                fetchUserName(); // Refresh name
+            } else {
+                getSupportActionBar().setTitle(title);
+            }
+        }
         getSupportFragmentManager().beginTransaction().replace(R.id.nav_host_fragment, fragment).commit();
     }
 }

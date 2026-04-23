@@ -52,13 +52,6 @@ public class AIChatActivity extends AppCompatActivity {
 
         setupRecyclerView();
 
-        binding.btnBackAi.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(AIChatActivity.this,"Ai",Toast.LENGTH_SHORT).show();
-            }
-        });
-
         binding.btnBackAi.setOnClickListener(v -> finish());
 
         binding.btnSendAi.setOnClickListener(v -> {
@@ -108,6 +101,7 @@ public class AIChatActivity extends AppCompatActivity {
     }
 
     private void askGemini(String query) {
+        if (binding == null) return;
         binding.progressBarAi.setVisibility(View.VISIBLE);
 
         GeminiRequest request = new GeminiRequest(query);
@@ -115,6 +109,7 @@ public class AIChatActivity extends AppCompatActivity {
         GeminiApiClient.getApiService().generateContent(API_KEY, request).enqueue(new Callback<GeminiResponse>() {
             @Override
             public void onResponse(@NonNull Call<GeminiResponse> call, @NonNull Response<GeminiResponse> response) {
+                if (isFinishing() || isDestroyed() || binding == null) return;
                 binding.progressBarAi.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     GeminiResponse geminiResponse = response.body();
@@ -123,7 +118,8 @@ public class AIChatActivity extends AppCompatActivity {
                         String text = geminiResponse.getCandidates().get(0).getContent().getParts().get(0).getText();
                         addAiMessage(text);
                     } else {
-                        addAiMessage("AI generated an empty response. This might be due to safety filters.");
+                        // Suppress error codes/messages for empty responses
+                        Log.w("AIChatActivity", "Gemini returned no candidates");
                     }
                 } else {
                     handleError(response);
@@ -132,20 +128,17 @@ public class AIChatActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(@NonNull Call<GeminiResponse> call, @NonNull Throwable t) {
+                if (isFinishing() || isDestroyed() || binding == null) return;
                 binding.progressBarAi.setVisibility(View.GONE);
                 Log.e("AIChatActivity", "Failure: " + t.getMessage());
-                addAiMessage("Failure: " + t.getMessage());
+                addAiMessage("Connection issue. Please check your internet and try again.");
             }
         });
     }
 
     private void handleError(Response<GeminiResponse> response) {
-        try {
-            String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
-            Log.e("AIChatActivity", "Error Code: " + response.code() + ", Body: " + errorBody);
-            addAiMessage("Error: " + response.code() + "\n" + errorBody);
-        } catch (IOException e) {
-            addAiMessage("Error reading error message.");
-        }
+        if (isFinishing() || isDestroyed() || binding == null) return;
+        Log.e("AIChatActivity", "Error Code: " + response.code());
+        addAiMessage("I'm sorry, I couldn't process your request. Please try again later.");
     }
 }

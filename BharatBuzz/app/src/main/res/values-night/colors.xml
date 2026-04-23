@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dynamic Theme Colors for Night Mode (Premium Matte Black) -->
+    <color name="bg_color">#0F1115</color>
+    <color name="card_bg">#1A1D24</color>
+    <color name="text_primary">#F0F0F0</color>
+    <color name="text_secondary">#A0A4AB</color>
+    <color name="divider_color">#252932</color>
+
+    <color name="header_bg">#0F1115</color>
+    <color name="header_text">#FFFFFF</color>
+    <color name="header_icon_tint">#FFFFFF</color>
+
+    <!-- Keep standard colors standard -->
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="alice_blue">#0F1115</color>
+</resources>

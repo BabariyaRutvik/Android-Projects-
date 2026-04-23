@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +14,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BharatBuzz">
+        <activity
+            android:name=".NewsActivity.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NewsActivity.SignInActivity"
+            android:exported="false" />
         <activity
             android:name=".NewsActivity.FullScreenNewsActivity"
             android:exported="false" />
@@ -27,7 +34,7 @@
         </activity>
         <activity
             android:name=".NewsActivity.MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>

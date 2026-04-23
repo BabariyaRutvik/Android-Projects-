@@ -53,7 +53,12 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNews> {
         holder.txtSourceAndTime.setText(source + " • " + time);
 
         // Check if bookmarked
-        boolean isBookmarked = database.articleDao().isBookmarked(article.getUrl());
+        boolean isBookmarked = false;
+        try {
+            isBookmarked = database.articleDao().isBookmarked(article.getUrl());
+        } catch (Exception e) {
+            // Fallback for DB errors or closed DB
+        }
         holder.imgFav.setImageResource(isBookmarked ? R.drawable.ic_bookmark_filled : R.drawable.ic_bookmark_border);
 
         // Loading News Image using Glide
@@ -64,14 +69,18 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.MyNews> {
                 .into(holder.imgNews);
 
         holder.imgFav.setOnClickListener(v -> {
-            if (database.articleDao().isBookmarked(article.getUrl())) {
-                database.articleDao().deleteBookmark(article);
-                holder.imgFav.setImageResource(R.drawable.ic_bookmark_border);
-                Toast.makeText(context, "Removed from Bookmarks", Toast.LENGTH_SHORT).show();
-            } else {
-                database.articleDao().insertBookmark(article);
-                holder.imgFav.setImageResource(R.drawable.ic_bookmark_filled);
-                Toast.makeText(context, "Added to Bookmarks", Toast.LENGTH_SHORT).show();
+            try {
+                if (database.articleDao().isBookmarked(article.getUrl())) {
+                    database.articleDao().deleteBookmark(article);
+                    holder.imgFav.setImageResource(R.drawable.ic_bookmark_border);
+                    Toast.makeText(context, "Removed from Bookmarks", Toast.LENGTH_SHORT).show();
+                } else {
+                    database.articleDao().insertBookmark(article);
+                    holder.imgFav.setImageResource(R.drawable.ic_bookmark_filled);
+                    Toast.makeText(context, "Added to Bookmarks", Toast.LENGTH_SHORT).show();
+                }
+            } catch (Exception e) {
+                Toast.makeText(context, "Error updating bookmark", Toast.LENGTH_SHORT).show();
             }
         });
 

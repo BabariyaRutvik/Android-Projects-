@@ -11,7 +11,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.bharatbuzz.NewsAdapter.HomeFragmentPagerAdapter;
 import com.example.bharatbuzz.R;
@@ -57,6 +56,25 @@ public class HomeFragment extends Fragment {
 
         setCustomTabs();
         setupSearch();
+        setupScrollEffect();
+    }
+
+    private void setupScrollEffect() {
+        // Apply consistent background color to the header
+        int headerColor = ContextCompat.getColor(requireContext(), R.color.bg_color);
+        binding.appBarLayout.setBackgroundColor(headerColor);
+        binding.tabLayout.setBackgroundColor(headerColor);
+
+        binding.appBarLayout.setElevation(0f);
+
+        binding.appBarLayout.addOnOffsetChangedListener((appBarLayout, i) -> {
+            // Apply elevation when scrolled to create a "lifted" appearance
+            if (Math.abs(i) > 0) {
+                binding.appBarLayout.setElevation(8f);
+            } else {
+                binding.appBarLayout.setElevation(0f);
+            }
+        });
     }
 
     private void setupSearch() {
@@ -82,7 +100,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void performSearch(String query) {
-        // Get current fragment from ViewPager2
+        // Delegate search query to the currently active category fragment
         Fragment currentFragment = getChildFragmentManager().findFragmentByTag("f" + binding.viewPagerCategories.getCurrentItem());
         if (currentFragment instanceof SearchableFragment) {
             ((SearchableFragment) currentFragment).onSearchQuery(query);
@@ -90,13 +108,19 @@ public class HomeFragment extends Fragment {
     }
 
     private void setCustomTabs() {
-        for (int i = 0; i < binding.tabLayout.getTabCount(); i++) {
+        int tabCount = binding.tabLayout.getTabCount();
+        for (int i = 0; i < tabCount; i++) {
             TabLayout.Tab tab = binding.tabLayout.getTabAt(i);
-            if (tab != null) {
+            if (tab != null && i < tabTitles.length && i < tabColors.length) {
                 View customView = LayoutInflater.from(getContext()).inflate(R.layout.custom_tab, null);
                 TextView tabText = customView.findViewById(R.id.tabText);
                 tabText.setText(tabTitles[i]);
-                tabText.getBackground().setTint(ContextCompat.getColor(requireContext(), tabColors[i]));
+                
+                // Safety check for background drawable
+                if (tabText.getBackground() != null) {
+                    tabText.getBackground().setTint(ContextCompat.getColor(requireContext(), tabColors[i]));
+                }
+
                 tab.setCustomView(customView);
             }
         }

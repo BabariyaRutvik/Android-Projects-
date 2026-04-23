@@ -87,6 +87,13 @@ public class SignupActivity extends AppCompatActivity {
             binding.editEmail.requestFocus();
             return;
         }
+
+        if (!email.endsWith("@gmail.com")) {
+            binding.editEmail.setError("Please enter a valid @gmail.com address");
+            binding.editEmail.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(password)){
             binding.editPassword.setError("Password is Required");
             binding.editPassword.requestFocus();
@@ -115,7 +122,7 @@ public class SignupActivity extends AppCompatActivity {
                     String createdAt = String.valueOf(System.currentTimeMillis());
 
                     // Create User model object
-                    User user = new User(userId, fullName, phoneNumber, email, createdAt);
+                    User user = new User(userId, fullName, phoneNumber, email, createdAt, "");
 
                     // Save user to Firestore
                     firestore.collection("users")

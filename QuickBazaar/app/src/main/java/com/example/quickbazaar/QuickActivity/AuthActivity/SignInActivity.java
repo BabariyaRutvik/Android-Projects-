@@ -15,36 +15,33 @@ import androidx.credentials.CredentialManager;
 import androidx.credentials.CredentialManagerCallback;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
+import androidx.credentials.exceptions.GetCredentialCancellationException;
 import androidx.credentials.exceptions.GetCredentialException;
+import androidx.credentials.exceptions.GetCredentialProviderConfigurationException;
 
 import com.example.quickbazaar.BazaarModel.User;
 import com.example.quickbazaar.QuickActivity.MainActivity;
 import com.example.quickbazaar.R;
 import com.example.quickbazaar.databinding.ActivitySignInBinding;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.libraries.identity.googleid.GetGoogleIdOption;
 import com.google.android.libraries.identity.googleid.GoogleIdTokenCredential;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
 
 import java.util.UUID;
 import java.util.concurrent.Executor;
 
 public class SignInActivity extends AppCompatActivity {
 
-    ActivitySignInBinding binding;
+    private static final String TAG = "SignInActivity";
+    private ActivitySignInBinding binding;
 
     private FirebaseAuth mAuth;
     private CredentialManager credentialManager;
     private FirebaseFirestore db;
-
-    private static final String TAG = "SignInActivity";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +52,11 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
+        // Redirect if already logged in
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(SignInActivity.this, MainActivity.class));
             finish();
+            return;
         }
 
         credentialManager = CredentialManager.create(this);
@@ -70,56 +69,49 @@ public class SignInActivity extends AppCompatActivity {
         });
     }
 
-    private void SignInWithEmailAndPassword(){
+    private void SignInWithEmailAndPassword() {
         String email = binding.editEmail.getText().toString().trim();
         String password = binding.editPass.getText().toString();
 
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             binding.editEmail.setError("Email is required");
             binding.editEmail.requestFocus();
             return;
         }
-        if (TextUtils.isEmpty(password)){
+
+        if (!email.endsWith("@gmail.com")) {
+            binding.editEmail.setError("Please enter a valid @gmail.com address");
+            binding.editEmail.requestFocus();
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
             binding.editPass.setError("Password is Required");
             binding.editPass.requestFocus();
             return;
         }
+
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.btnSignIn.setEnabled(false);
-        
-        mAuth.signInWithEmailAndPassword(email,password)
-                .addOnSuccessListener(authResult ->{
-                    binding.progressBar.setVisibility(View.GONE);
-                    if (mAuth.getCurrentUser() != null) {
-                        // We DON'T call SaveUserToFireStore here because it would overwrite
-                        // the fullName from SignupActivity with an empty string.
-                        
-                        Toast.makeText(this, "SignIn Successfully", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
-                    } else {
-                        resetUI();
-                        Toast.makeText(this, "User session error", Toast.LENGTH_SHORT).show();
-                    }
 
-                }).addOnFailureListener(error ->{
+        mAuth.signInWithEmailAndPassword(email, password)
+                .addOnSuccessListener(authResult -> {
+                    navigateToMain("SignIn Successfully");
+                }).addOnFailureListener(error -> {
                     resetUI();
                     Toast.makeText(this, "SignIn Failed: " + error.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void SignInWithGoogle(){
+    private void SignInWithGoogle() {
         binding.progressBar.setVisibility(View.VISIBLE);
         binding.btnGoogleSignIn.setEnabled(false);
-        
-        String nonce = UUID.randomUUID().toString();
 
+        String nonce = UUID.randomUUID().toString();
         GetGoogleIdOption getGoogleIdOption = new GetGoogleIdOption.Builder()
-                .setServerClientId(getString(R.string.default_web_client_id)) 
-                .setFilterByAuthorizedAccounts(false)
                 .setNonce(nonce)
+                .setServerClientId(getString(R.string.default_web_client_id))
+                .setFilterByAuthorizedAccounts(false)
                 .build();
 
         GetCredentialRequest getCredentialRequest = new GetCredentialRequest.Builder()
@@ -127,31 +119,25 @@ public class SignInActivity extends AppCompatActivity {
                 .build();
 
         Executor executor = ContextCompat.getMainExecutor(this);
-        
-        credentialManager.getCredentialAsync(
-                this,
-                getCredentialRequest,
-                null,
-                executor,
+        credentialManager.getCredentialAsync(this, getCredentialRequest, null, executor,
                 new CredentialManagerCallback<GetCredentialResponse, GetCredentialException>() {
                     @Override
-                    public void onResult(GetCredentialResponse result) {
-                        HandledGoogleSignIn(result);
+                    public void onResult(GetCredentialResponse response) {
+                        HandledGoogleSignIn(response);
                     }
 
                     @Override
-                    public void onError(GetCredentialException e) {
-                        Log.e(TAG, "getCredentialAsync error", e);
+                    public void onError(@NonNull GetCredentialException e) {
+                        Log.e(TAG, "Credential Manager Error: " + e.getMessage());
+                        Toast.makeText(SignInActivity.this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
                         resetUI();
-                        Toast.makeText(SignInActivity.this, "Google Sign-In Cancelled or Failed", Toast.LENGTH_SHORT).show();
                     }
                 }
         );
     }
 
-    private void HandledGoogleSignIn(GetCredentialResponse result){
-        Credential credential = result.getCredential();
-
+    private void HandledGoogleSignIn(GetCredentialResponse response) {
+        Credential credential = response.getCredential();
         if (credential instanceof GoogleIdTokenCredential) {
             GoogleIdTokenCredential googleIdTokenCredential = (GoogleIdTokenCredential) credential;
             FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
@@ -160,77 +146,108 @@ public class SignInActivity extends AppCompatActivity {
                 GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
                 FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
             } catch (Exception e) {
-                Log.e(TAG, "Error parsing Google ID token credential", e);
+                Log.e(TAG, "Error parsing Google ID token", e);
                 resetUI();
-                Toast.makeText(this, "Sign-In Failed: Parsing error", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error processing account information", Toast.LENGTH_SHORT).show();
             }
         } else {
             resetUI();
-            Toast.makeText(this, "Sign-In Failed: Unexpected response type", Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "Unknown credential type: " + credential.getType());
+            Toast.makeText(this, "Unknown credential type", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void FirebaseSignInWithGoogle(String idToken){
-        AuthCredential credential = GoogleAuthProvider.getCredential(idToken,null);
-
-        mAuth.signInWithCredential(credential)
+    private void FirebaseSignInWithGoogle(String idToken) {
+        AuthCredential authCredential = GoogleAuthProvider.getCredential(idToken, null);
+        mAuth.signInWithCredential(authCredential)
                 .addOnSuccessListener(authResult -> {
-                    binding.progressBar.setVisibility(View.GONE);
                     if (mAuth.getCurrentUser() != null) {
                         String uid = mAuth.getCurrentUser().getUid();
-                        String name = mAuth.getCurrentUser().getDisplayName();
                         String email = mAuth.getCurrentUser().getEmail();
+                        String name = mAuth.getCurrentUser().getDisplayName();
+                        String profileImage = (mAuth.getCurrentUser().getPhotoUrl() != null) ? mAuth.getCurrentUser().getPhotoUrl().toString() : "";
 
-                        // For Google sign-in, we use Merge to avoid overwriting existing fields (like phone)
-                        // but ensure new Google users have a record.
-                        SaveUserToFireStoreMerge(uid, name, email);
-                        
-                        Toast.makeText(SignInActivity.this, "Google Sign-In Successful", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);
-                        finish();
+                        // Enforce @gmail.com for Google Sign-In as well
+                        if (email != null && !email.endsWith("@gmail.com")) {
+                            mAuth.signOut();
+                            resetUI();
+                            Toast.makeText(this, "Only @gmail.com accounts are allowed.", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
+                        CheckUserAndNavigate(uid, name, email, profileImage);
                     } else {
                         resetUI();
-                        Toast.makeText(SignInActivity.this, "User session error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SignInActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
                     }
                 })
                 .addOnFailureListener(e -> {
                     Log.e(TAG, "Firebase Auth failed", e);
                     resetUI();
-                    Toast.makeText(SignInActivity.this, "Google Sign-In Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignInActivity.this, "Sign-In Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
     }
 
-    private void SaveUserToFireStoreMerge(String uid, String name, String email) {
-        String createdAt = String.valueOf(System.currentTimeMillis());
-        // Using a Map or checking existence first is safer, but Merge is a good start.
-        User user = new User(uid, name, "", email, createdAt);
+    private void CheckUserAndNavigate(String uid, String name, String email, String profileImage) {
+        db.collection("users").document(uid).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document != null && !document.exists()) {
+                    Log.d(TAG, "New user detected. Saving record to Firestore.");
+                    String createdAt = String.valueOf(System.currentTimeMillis());
+                    User user = new User(uid, name, "", email, createdAt, profileImage);
+                    db.collection("users").document(uid).set(user)
+                            .addOnSuccessListener(aVoid -> navigateToMain("Registration Successful!"))
+                            .addOnFailureListener(e -> {
+                                resetUI();
+                                Toast.makeText(this, "Error saving user: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
+                } else {
+                    Log.d(TAG, "Existing user. Navigating to Home.");
+                    navigateToMain("Welcome Back!");
+                }
+            } else {
+                resetUI();
+                Log.e(TAG, "Firestore data fetch failed", task.getException());
+                Toast.makeText(this, "Error checking user data", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-        db.collection("users")
-                .document(uid)
-                .set(user, SetOptions.merge())
-                .addOnFailureListener(e -> Log.e(TAG, "Error saving user to Firestore", e));
+    private void navigateToMain(String message) {
+        binding.progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void ForgotPassword() {
-       String email = binding.editEmail.getText().toString().trim();
+        String email = binding.editEmail.getText().toString().trim();
 
-       if (TextUtils.isEmpty(email)){
-           binding.editEmail.setError("Email is Required");
-           binding.editEmail.requestFocus();
-           return;
-       }
-       binding.progressBar.setVisibility(View.VISIBLE);
-       mAuth.sendPasswordResetEmail(email)
-               .addOnSuccessListener(unused -> {
-                   binding.progressBar.setVisibility(View.GONE);
-                   Toast.makeText(this, "Reset Link Sent To Your Email", Toast.LENGTH_SHORT).show();
-               })
-               .addOnFailureListener(error ->{
-                   binding.progressBar.setVisibility(View.GONE);
-                   Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
-               });
+        if (TextUtils.isEmpty(email)) {
+            binding.editEmail.setError("Email is Required");
+            binding.editEmail.requestFocus();
+            return;
+        }
+
+        if (!email.endsWith("@gmail.com")) {
+            binding.editEmail.setError("Please enter a valid @gmail.com address");
+            binding.editEmail.requestFocus();
+            return;
+        }
+
+        binding.progressBar.setVisibility(View.VISIBLE);
+        mAuth.sendPasswordResetEmail(email)
+                .addOnSuccessListener(unused -> {
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "Reset link sent to your email", Toast.LENGTH_SHORT).show();
+                })
+                .addOnFailureListener(error -> {
+                    binding.progressBar.setVisibility(View.GONE);
+                    Toast.makeText(this, "Error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                });
     }
 
     private void resetUI() {

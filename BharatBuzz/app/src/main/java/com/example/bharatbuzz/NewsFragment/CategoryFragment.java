@@ -31,8 +31,10 @@ public class CategoryFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        setupListeners();
+    }
 
-        // Click listeners for each category card
+    private void setupListeners() {
         binding.cardSports.setOnClickListener(v -> 
                 Navigation.findNavController(requireView()).navigate(R.id.nav_sports));
 

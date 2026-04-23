@@ -151,6 +151,13 @@ public class SignUpActivity extends AppCompatActivity {
             return;
 
         }
+        // Restrict to @gmail.com
+        if (!email.toLowerCase().endsWith("@gmail.com")) {
+            binding.etEmail.setError("Only @gmail.com addresses are allowed");
+            binding.etEmail.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(college)){
             binding.etCollege.setError("College is Required");
             binding.etCollege.requestFocus();
@@ -259,7 +266,7 @@ public class SignUpActivity extends AppCompatActivity {
                         resetUI();
 
                         if (!(e instanceof GetCredentialCancellationException)){
-                            Toast.makeText(SignUpActivity.this, "Error getting credential", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(SignUpActivity.this, "Error getting credential: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
 
                     }
@@ -274,21 +281,20 @@ public class SignUpActivity extends AppCompatActivity {
             GoogleIdTokenCredential googleIdTokenCredential = (GoogleIdTokenCredential) credential;
            FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
 
-        }
-        else if (credential.getType().equals(GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)){
+        } else if (credential.getType().equals(GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)) {
             try {
                 GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
                 FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
-            }catch (Exception e){
-                Log.e(TAG, "Error getting credential", e);
+            } catch (Exception e) {
+                Log.e(TAG, "Error parsing Google ID token", e);
                 resetUI();
-                Toast.makeText(SignUpActivity.this, "Error getting credential", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(this, "Error parsing Google ID token", Toast.LENGTH_SHORT).show();
             }
         }
         else {
             Log.e(TAG, "Unknown credential type: " + credential.getType());
             resetUI();
+            Toast.makeText(this, "Unknown credential type: " + credential.getType(), Toast.LENGTH_SHORT).show();
         }
     }
     private void FirebaseSignInWithGoogle(String idToken){
@@ -300,6 +306,14 @@ public class SignUpActivity extends AppCompatActivity {
                         String uid = mAuth.getCurrentUser().getUid();
                         String email = mAuth.getCurrentUser().getEmail();
                         String name = mAuth.getCurrentUser().getDisplayName();
+
+                        // Restrict Google Sign-in to @gmail.com
+                        if (email == null || !email.toLowerCase().endsWith("@gmail.com")) {
+                            mAuth.signOut();
+                            resetUI();
+                            Toast.makeText(SignUpActivity.this, "Only @gmail.com addresses are allowed", Toast.LENGTH_LONG).show();
+                            return;
+                        }
 
 
                         // checking if new user

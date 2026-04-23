@@ -6,7 +6,7 @@
     android:paddingHorizontal="16dp"
     android:paddingVertical="8dp"
     android:gravity="center"
-    android:textColor="@color/white"
+    android:textColor="@color/pure_white"
     android:textStyle="bold"
     android:textSize="14sp"
     android:background="@drawable/tab_background_pill" />

@@ -78,7 +78,7 @@ public class CategoryFragment extends Fragment {
                 .orderBy("priority")
                 .get()
                 .addOnCompleteListener(task -> {
-                    if (binding == null) return;
+                    if (binding == null || !isAdded()) return;
                     
                     binding.progressBar.setVisibility(View.GONE);
                     if (task.isSuccessful()) {
@@ -90,9 +90,7 @@ public class CategoryFragment extends Fragment {
                         categoryAdapter.updateData(categoryList);
                     } else {
                         Log.e(TAG, "Error getting categories: ", task.getException());
-                        if (getContext() != null) {
-                            Toast.makeText(getContext(), "Failed to load categories", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getContext(), "Failed to load categories", Toast.LENGTH_SHORT).show();
                     }
                 });
     }

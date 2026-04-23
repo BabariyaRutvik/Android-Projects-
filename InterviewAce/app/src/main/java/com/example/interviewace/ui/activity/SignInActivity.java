@@ -17,6 +17,7 @@ import androidx.credentials.CredentialManager;
 import androidx.credentials.CredentialManagerCallback;
 import androidx.credentials.GetCredentialRequest;
 import androidx.credentials.GetCredentialResponse;
+import androidx.credentials.exceptions.GetCredentialCancellationException;
 import androidx.credentials.exceptions.GetCredentialException;
 
 import com.example.interviewace.R;
@@ -132,8 +133,10 @@ public class SignInActivity extends AppCompatActivity {
                     @Override
                     public void onError(@NonNull GetCredentialException e) {
                         Log.e(TAG, "Credential Manager Error: " + e.getMessage());
-                        Toast.makeText(SignInActivity.this, "Google Sign-In Failed", Toast.LENGTH_SHORT).show();
                         resetUI();
+                        if (!(e instanceof GetCredentialCancellationException)) {
+                            Toast.makeText(SignInActivity.this, "Google Sign-In Failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
         );
@@ -144,9 +147,18 @@ public class SignInActivity extends AppCompatActivity {
         if (credential instanceof GoogleIdTokenCredential) {
             GoogleIdTokenCredential googleIdTokenCredential = (GoogleIdTokenCredential) credential;
             FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
+        } else if (credential.getType().equals(GoogleIdTokenCredential.TYPE_GOOGLE_ID_TOKEN_CREDENTIAL)) {
+            try {
+                GoogleIdTokenCredential googleIdTokenCredential = GoogleIdTokenCredential.createFrom(credential.getData());
+                FirebaseSignInWithGoogle(googleIdTokenCredential.getIdToken());
+            } catch (Exception e) {
+                Log.e(TAG, "Error parsing Google ID token", e);
+                resetUI();
+                Toast.makeText(this, "Error parsing Google ID token", Toast.LENGTH_SHORT).show();
+            }
         } else {
             resetUI();
-            Toast.makeText(this, "Unknown credential type", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Unknown credential type: " + credential.getType(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -157,6 +169,15 @@ public class SignInActivity extends AppCompatActivity {
                     if (auth.getCurrentUser() != null) {
                         String uid = auth.getCurrentUser().getUid();
                         String email = auth.getCurrentUser().getEmail();
+
+                        // Restrict Google Sign-in to @gmail.com
+                        if (email == null || !email.toLowerCase().endsWith("@gmail.com")) {
+                            auth.signOut();
+                            resetUI();
+                            Toast.makeText(SignInActivity.this, "Only @gmail.com addresses are allowed", Toast.LENGTH_LONG).show();
+                            return;
+                        }
+
                         String name = auth.getCurrentUser().getDisplayName();
                         String profilePic = auth.getCurrentUser().getPhotoUrl() != null ? auth.getCurrentUser().getPhotoUrl().toString() : "";
 
@@ -210,6 +231,13 @@ public class SignInActivity extends AppCompatActivity {
             binding.etEmail.setError("Email is required");
             return;
         }
+
+        if (!email.toLowerCase().endsWith("@gmail.com")) {
+            binding.etEmail.setError("Only @gmail.com addresses are allowed");
+            binding.etEmail.requestFocus();
+            return;
+        }
+
         if (TextUtils.isEmpty(password)) {
             binding.etPassword.setError("Password is required");
             return;

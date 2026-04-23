@@ -46,6 +46,23 @@ public class CheckoutActivity extends AppCompatActivity {
         observeCart();
 
         binding.btnPlaceOrder.setOnClickListener(v -> validateAndPlaceOrder());
+
+        // Update username in checkout if needed
+        updateHeaderWithUserName();
+    }
+
+    private void updateHeaderWithUserName() {
+        if (auth.getCurrentUser() != null) {
+            firestore.collection("users").document(auth.getCurrentUser().getUid()).get()
+                    .addOnSuccessListener(documentSnapshot -> {
+                        if (documentSnapshot.exists()) {
+                            String name = documentSnapshot.getString("fullName");
+                            if (name != null && !name.isEmpty()) {
+                                // If there's a place for name in checkout header, update it here
+                            }
+                        }
+                    });
+        }
     }
 
     private void observeCart() {
@@ -78,8 +95,32 @@ public class CheckoutActivity extends AppCompatActivity {
         String address = binding.etAddress.getText().toString().trim();
         String city = binding.etCity.getText().toString().trim();
 
-        if (name.isEmpty() || phone.isEmpty() || address.isEmpty() || city.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+        boolean isValid = true;
+
+        if (name.isEmpty()) {
+            binding.etFullName.setError("Name is required");
+            isValid = false;
+        }
+
+        if (phone.isEmpty()) {
+            binding.etPhoneNumber.setError("Phone number is required");
+            isValid = false;
+        } else if (phone.length() != 10) {
+            binding.etPhoneNumber.setError("Enter a valid 10-digit number");
+            isValid = false;
+        }
+
+        if (address.isEmpty()) {
+            binding.etAddress.setError("Address is required");
+            isValid = false;
+        }
+
+        if (city.isEmpty()) {
+            binding.etCity.setError("City is required");
+            isValid = false;
+        }
+
+        if (!isValid) {
             return;
         }
 

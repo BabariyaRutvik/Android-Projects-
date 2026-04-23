@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ભારતબઝ</string>
+    <string name="settings">સેટિંગ્સ</string>
+    <string name="dark_mode">ડાર્ક મોડ</string>
+    <string name="notifications">નોટિફિકેશન</string>
+    <string name="app_language">એપ્લિકેશનની ભાષા</string>
+    <string name="about_bharatbuzz">ભારતબઝ વિશે</string>
+    <string name="sign_out">સાઇન આઉટ</string>
+    <string name="select_language">ભાષા પસંદ કરો</string>
+</resources>

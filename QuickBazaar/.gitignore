@@ -9,7 +9,7 @@
 .cxx
 
 # Firebase configuration (IMPORTANT)
-app/google-services.json
+# app/google-services.json
 
 # Local configuration
 local.properties

@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F5F7FB"
+    android:fitsSystemWindows="true"
     tools:context=".QuickActivity.AIChatActivity">
 
     <!-- Header Section -->
     <View
         android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="60dp"
         android:background="@color/teal_dark"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -20,12 +21,12 @@
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="12dp"
         android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/header_bg"
         app:tint="@android:color/white" />
 
     <TextView
@@ -37,16 +38,16 @@
         android:text="Quick AI Buddy"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@id/btnBackAi"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintStart_toEndOf="@id/btnBackAi"
-        app:layout_constraintTop_toTopOf="@id/btnBackAi" />
+        app:layout_constraintTop_toTopOf="@id/header_bg" />
 
     <!-- Chat Area with RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="8dp"
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/cardInput"

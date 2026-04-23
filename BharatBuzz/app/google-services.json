@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "90942726818",
+    "project_id": "bharatbuzz-531b5",
+    "storage_bucket": "bharatbuzz-531b5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:90942726818:android:dc16d09660a4b897a3edfb",
+        "android_client_info": {
+          "package_name": "com.example.bharatbuzz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "90942726818-7knaa4890kk5vmhniesmg3dtdd05lhjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bharatbuzz",
+            "certificate_hash": "c1407d8c8951d72946701982cc7b37190c389273"
+          }
+        },
+        {
+          "client_id": "90942726818-qgio5m5o6gn6bm7gq20rt9o0m78vcssj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn6S_8rz5HlBITySiQhRNoYu1y4SeWH1o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "90942726818-qgio5m5o6gn6bm7gq20rt9o0m78vcssj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

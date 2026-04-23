@@ -7,6 +7,7 @@ public class User
     private String phoneNumber;
     private String email;
     private String createdAt;
+    private String profileImage;
 
 
     //  parameterized constructor
@@ -18,6 +19,15 @@ public class User
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.createdAt = createdAt;
+    }
+
+    public User(String userId, String fullName, String phoneNumber, String email, String createdAt, String profileImage) {
+        this.userId = userId;
+        this.fullName = fullName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.createdAt = createdAt;
+        this.profileImage = profileImage;
     }
     // default constructor
 
@@ -66,5 +76,13 @@ public class User
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

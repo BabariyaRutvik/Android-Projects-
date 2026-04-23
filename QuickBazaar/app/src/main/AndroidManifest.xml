@@ -71,10 +71,12 @@
             android:exported="false" />
         <activity
             android:name=".QuickActivity.AuthActivity.SignupActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".QuickActivity.AuthActivity.SignInActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".QuickActivity.SplashScreenActivity"
             android:exported="true">

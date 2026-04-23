@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
+    android:fitsSystemWindows="true"
     tools:context=".QuickActivity.CheckoutActivity">
 
     <!-- Header -->
@@ -12,7 +13,7 @@
         android:id="@+id/layout_header"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@color/white"
+        android:background="@color/teal_dark"
         android:elevation="4dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -27,13 +28,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@color/black" />
+            app:tint="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Checkout"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -60,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Shipping Address"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -82,6 +83,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Full Name"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textCursorDrawable="@null"
                         android:inputType="textPersonName" />
 
                     <EditText
@@ -90,6 +93,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Phone Number"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textCursorDrawable="@null"
+                        android:maxLength="10"
                         android:inputType="phone" />
 
                     <EditText
@@ -98,6 +104,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="Complete Address (House No, Street, Area)"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textCursorDrawable="@null"
                         android:inputType="textPostalAddress" />
 
                     <EditText
@@ -106,6 +114,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:hint="City"
+                        android:textColor="?attr/colorOnSurface"
+                        android:textCursorDrawable="@null"
                         android:inputType="text" />
 
                 </LinearLayout>
@@ -117,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Payment Method"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -156,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:text="Order Summary"
-                android:textColor="@color/black"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -223,7 +233,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Total Payable"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                         <TextView

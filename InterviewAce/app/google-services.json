@@ -12,7 +12,20 @@
           "package_name": "com.example.interviewace"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "431994431939-bnudgo3kv256bpotkqjj420t0eoph4oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.interviewace",
+            "certificate_hash": "c1407d8c8951d72946701982cc7b37190c389273"
+          }
+        },
+        {
+          "client_id": "431994431939-hat3gg6k3vo7fnqk0s03pq1483e5e4v0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCjNpU8Ql4A2mCnfyDx6Uxxz0nPqfFu3co"
@@ -20,7 +33,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "431994431939-hat3gg6k3vo7fnqk0s03pq1483e5e4v0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

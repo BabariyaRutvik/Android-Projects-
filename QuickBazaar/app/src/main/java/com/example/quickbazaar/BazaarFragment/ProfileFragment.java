@@ -1,10 +1,14 @@
 package com.example.quickbazaar.BazaarFragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,7 +55,7 @@ public class ProfileFragment extends Fragment {
         binding.menuLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Logout();
+                showLogoutDialog();
             }
         });
 
@@ -72,6 +76,32 @@ public class ProfileFragment extends Fragment {
 
 
     }
+
+    private void showLogoutDialog() {
+        if (getContext() == null) return;
+
+        View dialogView = LayoutInflater.from(getContext()).inflate(R.layout.dialog_logout, null);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setView(dialogView);
+
+        AlertDialog dialog = builder.create();
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        Button btnCancel = dialogView.findViewById(R.id.btnCancel);
+        Button btnLogout = dialogView.findViewById(R.id.btnLogout);
+
+        btnCancel.setOnClickListener(v -> dialog.dismiss());
+
+        btnLogout.setOnClickListener(v -> {
+            dialog.dismiss();
+            Logout();
+        });
+
+        dialog.show();
+    }
+
     private void FetchUserData(){
         String userId = auth.getUid();
 
@@ -88,11 +118,18 @@ public class ProfileFragment extends Fragment {
                              binding.tvProfileName.setText(user.getFullName());
                              binding.tvProfileEmail.setText(user.getEmail());
 
-
-
-                             Glide.with(this)
-                                     .load(R.drawable.ic_person)
-                                     .into(binding.imgProfileAvatar);
+                             String profileImageUrl = user.getProfileImage();
+                             if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                                 Glide.with(this)
+                                         .load(profileImageUrl)
+                                         .placeholder(R.drawable.ic_person)
+                                         .error(R.drawable.ic_person)
+                                         .into(binding.imgProfileAvatar);
+                             } else {
+                                 Glide.with(this)
+                                         .load(R.drawable.ic_person)
+                                         .into(binding.imgProfileAvatar);
+                             }
                          }
                     }).addOnFailureListener(error ->{
                         if (getContext() != null) {

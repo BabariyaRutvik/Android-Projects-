@@ -5,88 +5,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
+    android:fitsSystemWindows="true"
     tools:context=".QuickActivity.AuthActivity.SignupActivity">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="32dp">
+            android:paddingBottom="40dp">
 
-            <!-- Header: Logo + App Name -->
+            <!-- Top Decorative Circle -->
+            <View
+                android:id="@+id/view_decor"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_marginTop="-100dp"
+                android:layout_marginStart="-100dp"
+                android:background="@drawable/badge_circle"
+                android:backgroundTint="#1A008080"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Header Section -->
             <LinearLayout
                 android:id="@+id/ll_header"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="40dp"
                 android:gravity="center_vertical"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginTop="40dp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
                     android:id="@+id/image_grocery_cart"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/ic_grocery_cart"
-                    android:contentDescription="Grocery Cart Icon" />
+                    android:contentDescription="Grocery Cart Icon"
+                    android:src="@drawable/ic_grocery_cart" />
 
-                <TextView
-                    android:id="@+id/tv_quick"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quick"
-                    android:textColor="@color/teal_dark"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-condensed"
-                    android:layout_marginStart="8dp" />
+                    android:layout_marginStart="12dp"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_bazaar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Bazaar"
-                    android:textColor="@color/bread_orange"
-                    android:textSize="34sp"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-condensed"
-                    android:layout_marginStart="4dp" />
+                    <TextView
+                        android:id="@+id/tv_quick"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Quick"
+                        android:textColor="?attr/colorPrimary"
+                        android:textSize="32sp" />
+
+                    <TextView
+                        android:id="@+id/tv_bazaar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-6dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Bazaar"
+                        android:textColor="@color/bread_orange"
+                        android:textSize="20sp"
+                        android:letterSpacing="0.1" />
+                </LinearLayout>
             </LinearLayout>
 
-            <!-- Create Account Text -->
             <TextView
                 android:id="@+id/text_create_account"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ll_header"
-                android:layout_marginTop="32dp"
-                android:text="Create an Account"
-                android:textStyle="bold"
+                android:layout_marginTop="40dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Create Account"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="28sp"
-                android:fontFamily="sans-serif-medium"
-                android:textColor="@color/teal_dark" />
+                app:layout_constraintStart_toStartOf="@+id/text_input_layout_full_name"
+                app:layout_constraintTop_toBottomOf="@id/ll_header" />
 
-            <!-- sub title -->
             <TextView
                 android:id="@+id/text_subtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/text_create_account"
-                android:text="Join QuickBazaar today!"
-                android:textColor="@color/text_secondary"
-                android:textSize="16sp"
+                android:layout_marginTop="4dp"
                 android:fontFamily="sans-serif"
-                android:layout_marginTop="8dp" />
+                android:text="Start your fresh journey with us!"
+                android:textColor="?android:attr/textColorSecondary"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="@+id/text_create_account"
+                app:layout_constraintTop_toBottomOf="@id/text_create_account" />
 
             <!-- Full Name Field -->
             <com.google.android.material.textfield.TextInputLayout
@@ -95,28 +109,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="24dp"
                 android:hint="Full Name"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusBottomEnd="16dp"
-                app:boxStrokeColor="@color/teal_primary"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxStrokeColor="@color/input_stroke_selector"
+                app:boxStrokeWidth="1.5dp"
+                app:boxStrokeWidthFocused="2dp"
                 app:hintTextColor="@color/teal_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_subtitle"
                 app:startIconDrawable="@drawable/ic_person"
-                app:startIconTint="@color/teal_dark">
+                app:startIconTint="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_full_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:background="@drawable/edit_bg"
-                    android:inputType="textPersonName" />
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="textPersonName"
+                    android:paddingStart="48dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Phone Field -->
@@ -126,28 +145,34 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="16dp"
-                android:hint="Phone"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Phone Number"
                 app:boxCornerRadiusBottomEnd="16dp"
-                app:boxStrokeColor="@color/teal_primary"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxStrokeColor="@color/input_stroke_selector"
+                app:boxStrokeWidth="1.5dp"
+                app:boxStrokeWidthFocused="2dp"
                 app:hintTextColor="@color/teal_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_input_layout_full_name"
                 app:startIconDrawable="@drawable/ic_phone"
-                app:startIconTint="@color/teal_dark">
+                app:startIconTint="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:background="@drawable/edit_bg"
-                    android:inputType="phone" />
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:paddingStart="48dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Email Field -->
@@ -157,28 +182,33 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="16dp"
-                android:hint="Email"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
+                android:layout_marginEnd="24dp"
+                android:hint="Email Address"
                 app:boxCornerRadiusBottomEnd="16dp"
-                app:boxStrokeColor="@color/teal_primary"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxStrokeColor="@color/input_stroke_selector"
+                app:boxStrokeWidth="1.5dp"
+                app:boxStrokeWidthFocused="2dp"
                 app:hintTextColor="@color/teal_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_input_layout_phone"
                 app:startIconDrawable="@drawable/ic_email"
-                app:startIconTint="@color/teal_dark">
+                app:startIconTint="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:background="@drawable/edit_bg"
-                    android:inputType="textEmailAddress" />
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="48dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <!-- Password Field -->
@@ -188,81 +218,86 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:layout_marginEnd="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
                 android:hint="Password"
-                app:boxCornerRadiusTopStart="16dp"
-                app:boxCornerRadiusTopEnd="16dp"
-                app:boxCornerRadiusBottomStart="16dp"
                 app:boxCornerRadiusBottomEnd="16dp"
-                app:boxStrokeColor="@color/teal_primary"
+                app:boxCornerRadiusBottomStart="16dp"
+                app:boxCornerRadiusTopEnd="16dp"
+                app:boxCornerRadiusTopStart="16dp"
+                app:boxStrokeColor="@color/input_stroke_selector"
+                app:boxStrokeWidth="1.5dp"
+                app:boxStrokeWidthFocused="2dp"
                 app:hintTextColor="@color/teal_primary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/text_input_layout_email"
+                app:passwordToggleEnabled="true"
+                app:passwordToggleTint="@color/text_secondary"
                 app:startIconDrawable="@drawable/ic_password"
-                app:startIconTint="@color/teal_dark"
-                app:passwordToggleEnabled="true">
+                app:startIconTint="?attr/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="50dp"
-                    android:background="@drawable/edit_bg"
-                    android:inputType="textPassword" />
+                    android:fontFamily="sans-serif-medium"
+                    android:inputType="textPassword"
+                    android:paddingStart="48dp"
+                    android:textColor="?attr/colorOnSurface"
+                    android:textCursorDrawable="@null"
+                    android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnSignUp"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="60dp"
                 android:layout_marginStart="24dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginEnd="24dp"
-                android:layout_marginTop="32dp"
                 android:background="@drawable/button_bg"
+                android:elevation="4dp"
+                android:fontFamily="sans-serif-black"
                 android:text="Sign Up"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:fontFamily="sans-serif-black"
-                android:textAllCaps="false"
-                />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/text_input_layout_password" />
 
             <LinearLayout
                 android:id="@+id/layout_goto_signin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btnSignUp"
-                android:orientation="horizontal"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:padding="16dp"
+                android:layout_marginTop="32dp"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="?attr/selectableItemBackground">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSignUp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Already have an Account? "
-                    android:textColor="@color/text_secondary"
-                    android:fontFamily="sans-serif" />
+                    android:fontFamily="sans-serif"
+                    android:text="Already have an account?"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:textSize="15sp" />
 
                 <TextView
                     android:id="@+id/tv_sign_in"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="sans-serif-black"
                     android:text="Sign In"
                     android:textColor="@color/bread_orange"
-                    android:textStyle="bold"
-                    android:fontFamily="sans-serif-black" />
-
+                    android:textSize="15sp" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

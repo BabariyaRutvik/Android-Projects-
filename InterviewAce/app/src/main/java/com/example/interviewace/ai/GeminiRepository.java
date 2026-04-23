@@ -16,7 +16,7 @@ import retrofit2.Response;
 public class GeminiRepository {
 
     private final GeminiApiService apiService;
-    private static final String API_KEY = BuildConfig.GEMINI_API_KEY;
+    private static final String API_KEY = "AIzaSyCzL3hV5sSHejcvbQdA6IzHTESQYUkhcSA";
     
     private boolean isRequestInProgress = false;
     private long lastRequestTime = 0;
@@ -80,7 +80,9 @@ public class GeminiRepository {
                 } else {
                     try {
                         String errorBody = response.errorBody() != null ? response.errorBody().string() : "Unknown error";
-                        if (response.code() == 429) {
+                        if (response.code() == 403) {
+                             callback.onError("API Error 403: Permission Denied. Check if your API Key is valid and the Generative Language API is enabled in Google Cloud Console.");
+                        } else if (response.code() == 429) {
                             callback.onError("Daily limit reached or too many requests. Please try again later.");
                         } else {
                             callback.onError("API Error " + response.code() + ": " + errorBody);

@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Standard Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="pure_black">#000000</color>
+    <color name="pure_white">#FFFFFF</color>
 
-    <!-- App Colors -->
+    <!-- App Branding -->
+    <color name="header_bg">#FFFFFF</color>
+    <color name="header_text">#1A1A1A</color>
+    <color name="header_icon_tint">#1A1A1A</color>
     <color name="navy_blue">#121927</color>
     <color name="active_blue">#2196F3</color>
     <color name="inactive_grey">#757575</color>
     <color name="sky_blue">#5C93F1</color>
+    <color name="orange_primary">#FF6D00</color>
+
+    <!-- Dynamic Theme Colors - Light Mode -->
+    <color name="bg_color">#F2F4F7</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#666666</color>
+    <color name="divider_color">#E5E7EB</color>
 
     <!-- News Category Colors (Main) -->
     <color name="sports">#4CAF50</color>
@@ -34,8 +48,6 @@
     <color name="politics_start">#455A64</color>
     <color name="politics_end">#263238</color>
 
-    <!-- major color -->
     <color name="light_gray">#EEEEEE</color>
-    <color name="alice_blue">#F8F9FA</color>
-    <color name="nvy_blue">#1A237E</color>
+    <color name="alice_blue">#F2F4F7</color>
 </resources>

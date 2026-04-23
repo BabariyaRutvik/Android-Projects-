@@ -3,6 +3,8 @@
     <style name="Base.Theme.BharatBuzz" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/navy_blue</item>
         <item name="colorSecondary">@color/active_blue</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
     <style name="Theme.BharatBuzz" parent="Base.Theme.BharatBuzz" />
