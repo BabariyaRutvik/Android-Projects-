@@ -16,7 +16,7 @@ import retrofit2.Response;
 public class GeminiRepository {
 
     private final GeminiApiService apiService;
-    private static final String API_KEY = "AIzaSyCzL3hV5sSHejcvbQdA6IzHTESQYUkhcSA";
+    private static final String API_KEY = BuildConfig.GEMINI_API_KEY;
     
     private boolean isRequestInProgress = false;
     private long lastRequestTime = 0;

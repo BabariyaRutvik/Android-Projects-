@@ -99,11 +99,10 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Score Card View -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/white"
+                android:backgroundTint="@color/white_bg"
                 app:cardCornerRadius="20dp"
                 app:cardElevation="0dp">
 
@@ -367,6 +366,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:cardBackgroundColor="@color/white_bg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="false">
@@ -374,7 +374,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/white_bg">
 
                     <View
                         android:layout_width="match_parent"
@@ -411,7 +412,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
                                 android:text="Correct Points"
-                                android:textColor="#1A237E"
+                                android:textColor="@color/text_primary"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -434,6 +435,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                app:cardBackgroundColor="@color/white_bg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardPreventCornerOverlap="false">
@@ -441,7 +443,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:background="@color/white_bg">
 
                     <View
                         android:layout_width="match_parent"
@@ -478,7 +481,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="12dp"
                                 android:text="Missing Points"
-                                android:textColor="#1A237E"
+                                android:textColor="@color/text_primary"
                                 android:textSize="18sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -500,7 +503,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="20dp"
-                android:backgroundTint="#F0F7FF"
+                android:backgroundTint="@color/white_bg"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp">
 
@@ -535,7 +538,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="12dp"
                             android:text="Suggested Answer"
-                            android:textColor="#1A237E"
+                            android:textColor="@color/text_primary"
                             android:textSize="18sp"
                             android:textStyle="bold" />
                     </LinearLayout>
@@ -546,7 +549,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:lineSpacingExtra="5dp"
-                        android:textColor="#5C6BC0"
+                        android:textColor="@color/text_secondary"
                         android:textSize="15sp"
                         tools:text="Suggested answer will appear here..." />
 

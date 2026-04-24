@@ -56,6 +56,7 @@
     <color name="bg_soft_green">#ECFDF5</color>
     <color name="bg_soft_orange">#FFF7ED</color>
     <color name="bg_soft_pink">#FDF2F8</color>
+    <color name="bg_soft_red">#FEF2F2</color>
 
     <!-- Role Icon Tints -->
     <color name="tint_blue">#2563EB</color>

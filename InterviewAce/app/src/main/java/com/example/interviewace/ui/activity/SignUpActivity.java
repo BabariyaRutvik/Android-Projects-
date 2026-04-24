@@ -207,7 +207,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                 binding.progressBar.setVisibility(View.GONE);
                                 Toast.makeText(this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
-                                goToMain();
+                                goToSignIn();
 
                             })
                             .addOnFailureListener(e -> {
@@ -326,7 +326,7 @@ public class SignUpActivity extends AppCompatActivity {
                         else {
                             Toast.makeText(SignUpActivity.this, "Welcome back " + name, Toast.LENGTH_SHORT).show();
 
-                            goToMain();
+                            goToSignIn();
                         }
                     }
                 })
@@ -352,7 +352,7 @@ public class SignUpActivity extends AppCompatActivity {
                 .set(user)
                 .addOnSuccessListener(aVoid -> {
                     Toast.makeText(SignUpActivity.this, "Google Sign Up Successful!", Toast.LENGTH_SHORT).show();
-                    goToMain();
+                    goToSignIn();
                 })
                 .addOnFailureListener(e->{
                     resetUI();
@@ -361,8 +361,9 @@ public class SignUpActivity extends AppCompatActivity {
                 });
 
     }
-    private void goToMain() {
-        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+    private void goToSignIn() {
+        mAuth.signOut();
+        Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();

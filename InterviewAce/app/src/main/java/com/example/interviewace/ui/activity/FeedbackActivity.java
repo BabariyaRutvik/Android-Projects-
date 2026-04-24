@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.interviewace.R;
@@ -166,14 +167,14 @@ public class FeedbackActivity extends AppCompatActivity {
         binding.llCorrectPointsContainer.removeAllViews();
         if (feedbackResponse.getCorrectPoints() != null) {
             for (String point : feedbackResponse.getCorrectPoints()) {
-                addPointView(binding.llCorrectPointsContainer, point, R.drawable.bg_point_correct, 0xFF2E7D32);
+                addPointView(binding.llCorrectPointsContainer, point, R.drawable.bg_point_correct, ContextCompat.getColor(this, R.color.success_green));
             }
         }
 
         binding.llMissingPointsContainer.removeAllViews();
         if (feedbackResponse.getMissingPoints() != null) {
             for (String point : feedbackResponse.getMissingPoints()) {
-                addPointView(binding.llMissingPointsContainer, point, R.drawable.bg_point_missing, 0xFFEF6C00);
+                addPointView(binding.llMissingPointsContainer, point, R.drawable.bg_point_missing, ContextCompat.getColor(this, R.color.warning_orange));
             }
         }
         binding.tvSuggestedAnswer.setText(feedbackResponse.getSuggestedAnswer());

@@ -74,14 +74,14 @@ public class Pre_interview_Activity extends AppCompatActivity {
         // Update Question Count and Minutes based on difficulty
         if (difficulty != null) {
             if (difficulty.equalsIgnoreCase("Easy")) {
-                binding.tvQuestionCount.setText("15");
-                binding.tvMinuteCount.setText("1");
+                binding.tvQuestionCount.setText("10");
+                binding.tvMinuteCount.setText("3");
             } else if (difficulty.equalsIgnoreCase("Medium")) {
-                binding.tvQuestionCount.setText("20");
-                binding.tvMinuteCount.setText("1");
-            } else if (difficulty.equalsIgnoreCase("Hard")) {
                 binding.tvQuestionCount.setText("15");
-                binding.tvMinuteCount.setText("1");
+                binding.tvMinuteCount.setText("3");
+            } else if (difficulty.equalsIgnoreCase("Hard")) {
+                binding.tvQuestionCount.setText("20");
+                binding.tvMinuteCount.setText("3");
             }
         }
 

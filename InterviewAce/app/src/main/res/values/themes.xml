@@ -4,6 +4,8 @@
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/accent_blue</item>
         <item name="android:windowBackground">@color/light_main_bg</item>
+        <item name="android:textColorPrimary">@color/text_primary</item>
+        <item name="android:textColorSecondary">@color/text_secondary</item>
     </style>
 
     <style name="Theme.InterviewAce" parent="Base.Theme.InterviewAce" />

@@ -118,7 +118,7 @@
                android:layout_height="wrap_content"
                app:cardCornerRadius="22dp"
                app:cardElevation="0dp"
-               app:cardBackgroundColor="@color/white"
+               app:cardBackgroundColor="@color/white_bg"
                >
 
                <androidx.constraintlayout.widget.ConstraintLayout
@@ -199,7 +199,7 @@
                android:layout_marginTop="22dp"
                app:cardCornerRadius="22dp"
                app:cardElevation="0dp"
-               app:cardBackgroundColor="@color/white"
+               app:cardBackgroundColor="@color/white_bg"
                >
 
                <LinearLayout

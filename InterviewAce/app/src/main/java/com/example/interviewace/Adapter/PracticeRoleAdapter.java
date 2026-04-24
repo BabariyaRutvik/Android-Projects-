@@ -47,11 +47,11 @@ public class PracticeRoleAdapter extends RecyclerView.Adapter<PracticeRoleAdapte
 
         // Selection UI
         if (selectedPosition == position){
-            holder.binding.getRoot().setStrokeWidth(3);
+            holder.binding.getRoot().setStrokeWidth(4);
             holder.binding.getRoot().setStrokeColor(ContextCompat.getColor(context, R.color.accent_blue));
         } else {
-            holder.binding.getRoot().setStrokeWidth(1);
-            holder.binding.getRoot().setStrokeColor(ContextCompat.getColor(context, R.color.white));
+            holder.binding.getRoot().setStrokeWidth(2);
+            holder.binding.getRoot().setStrokeColor(ContextCompat.getColor(context, R.color.card_stroke));
         }
 
         // Click event

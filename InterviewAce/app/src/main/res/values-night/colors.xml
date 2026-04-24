@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FFFFFF</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Brand Colors -->
+    <color name="brand_blue">#3B82F6</color>
+    <color name="brand_dark">#F1F5F9</color>
+
+    <!-- Selection / Accent Colors for Dark Mode -->
+    <color name="accent_blue">#60A5FA</color>
+    <color name="accent_blue_light">#1E293B</color>
+
+    <!-- Main Backgrounds -->
+    <color name="light_main_bg">#0F172A</color>
+    <color name="white_bg">#1E293B</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#F1F5F9</color>
+    <color name="text_secondary">#94A3B8</color>
+
+    <!-- EditText Colors -->
+    <color name="edit_text_bg">#1E293B</color>
+    <color name="edit_text_border">#334155</color>
+    <color name="edit_text_hint">#64748B</color>
+
+    <!-- Card Colors -->
+    <color name="card_bg">#1E293B</color>
+    <color name="card_stroke">#334155</color>
+
+    <!-- Bottom Nav -->
+    <color name="bottom_nav_bg">#0F172A</color>
+
+    <color name="cardIllustration">#1E293B</color>
+
+    <!-- Role Icon Backgrounds (Soft Colors in Dark Mode) -->
+    <color name="bg_soft_blue">#2D3748</color>
+    <color name="bg_soft_purple">#44337A</color>
+    <color name="bg_soft_green">#22543D</color>
+    <color name="bg_soft_orange">#744210</color>
+    <color name="bg_soft_pink">#702459</color>
+    <color name="bg_soft_red">#63171B</color>
+
+    <!-- Semantic Colors in Dark Mode -->
+    <color name="success_green">#4ADE80</color>
+    <color name="warning_orange">#FB923C</color>
+    <color name="error_red">#F87171</color>
+    <color name="neavy_blue">#93C5FD</color>
+    <color name="green">#4ADE80</color>
+    <color name="orrange">#FB923C</color>
+    <color name="teal">#2DD4BF</color>
+
+    <!-- Role Icon Tints (Brighter in Dark Mode) -->
+    <color name="tint_blue">#60A5FA</color>
+    <color name="tint_purple">#A78BFA</color>
+    <color name="tint_green">#4ADE80</color>
+    <color name="tint_orange">#FB923C</color>
+    <color name="tint_pink">#F472B6</color>
+
+</resources>
