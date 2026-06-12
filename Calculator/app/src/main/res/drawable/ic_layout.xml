@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- A 2x2 square grid layout icon -->
+    <path
+        android:fillColor="@color/icon_color"
+        android:pathData="M3,11h7V3H3v8zm0,10h7v-8H3v8zm11,0h7v-8h-7v8zm0-18v8h7V3h-7z" />
+</vector>

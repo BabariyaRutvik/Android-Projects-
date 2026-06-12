@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <!-- Top-left: Square Root Symbol -->
+    <path
+        android:fillColor="@color/icon_color"
+        android:pathData="M 2.5,7.5 h1.2 l1.3,3.5 L 7.7,5 H 10 v1.5 H 8.5 L 6,12 H 4.8 L 3.3,7.5 H 2.5 Z" />
+    <!-- Top-right: Pi Symbol -->
+    <path
+        android:fillColor="@color/icon_color"
+        android:pathData="M 14,5 h6.5 v1.5 h-1 v4 c0,0.5 -0.3,0.8 -0.8,0.8 s-0.8,-0.3 -0.8,-0.8 v-4 h-1.6 v4 c0,0.5 -0.3,0.8 -0.8,0.8 s-0.8,-0.3 -0.8,-0.8 v-4 h-0.7 v-1.5 Z" />
+    <!-- Bottom-left: Factorial Exclamation Point -->
+    <path
+        android:fillColor="@color/icon_color"
+        android:pathData="M 5.2,13 h1.6 v5 H 5.2 v-5 Z M 5.2,20 h1.6 v1.6 H 5.2 V 20 Z" />
+    <!-- Bottom-right: Equals Symbol -->
+    <path
+        android:fillColor="@color/icon_color"
+        android:pathData="M 14,14.5 h6 v1.5 h-6 z M 14,17.5 h6 v1.5 h-6 z" />
+</vector>

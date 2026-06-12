@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="app_background">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="btn_number">#F1F3F4</color>
+    <color name="btn_operation">#D2D5D8</color>
+    <color name="btn_equals">#FF9500</color>
+    <color name="btn_ac_text">#FF9500</color>
+    <color name="icon_color">#000000</color>
+    <color name="divider_color">#E0E0E0</color>
+    <color name="ripple_color">#20000000</color>
+</resources>

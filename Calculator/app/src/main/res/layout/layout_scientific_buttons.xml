@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingHorizontal="4dp"
+    android:fitsSystemWindows="true"
+    android:weightSum="3">
+
+    <!-- Row S1: !~!!, e, ^, rad -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="!~!!"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="e"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="^"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="rad"
+            android:textAllCaps="false"
+            android:textColor="@color/btn_ac_text"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- Row S2: log, pi, ( ), swap arrows -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="log"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="π"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="( )"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:src="@drawable/ic_inverse"
+            app:tint="@color/text_primary"
+            android:scaleType="centerInside"
+            android:minHeight="0dp" />
+    </LinearLayout>
+
+    <!-- Row S3: sin, cos, tan, cot -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:paddingHorizontal="4dp">
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="sin"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="cos"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="tan"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:background="@drawable/btn_number"
+            android:minHeight="0dp"
+            android:text="cot"
+            android:textAllCaps="false"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+</LinearLayout>
