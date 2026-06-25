@@ -1,0 +1,130 @@
+<resources>
+    <string name="app_name">ક્વિક નોટ્સ</string>
+    <string name="content_hint">કૃપા કરીને અહીં સામગ્રી દાખલ કરો...</string>
+    <string name="add">ઉમેરો</string>
+    <string name="month">મહિનો</string>
+    <string name="week">અઠવાડિયું</string>
+
+    <!-- Home -->
+    <string name="home">હોમ</string>
+    <string name="calendar">કેલેન્ડર</string>
+    <string name="notes_label">નોંધો</string>
+    <string name="selected_count">%1$d પસંદ કરેલ</string>
+    <string name="empty_home_msg">તમારા જીવનને વ્યવસ્થિત રાખો.</string>
+    <string name="search_hint">શોધો...</string>
+
+    <!-- Calendar -->
+    <string name="no_tasks">અહીં કોઈ કાર્યો નથી</string>
+
+    <!-- Settings Strings -->
+    <string name="settings">સેટિંગ્સ</string>
+    <string name="dark_mode">ડાર્ક મોડ</string>
+    <string name="default_folder">ડિફોલ્ટ ફોલ્ડર</string>
+    <string name="language_options">ભાષા વિકલ્પો</string>
+    <string name="font_size">ફોન્ટ સાઈઝ</string>
+    <string name="start_of_the_week">અઠવાડિયાની શરૂઆત</string>
+    <string name="notification_bar">નોટિફિકેશન બાર</string>
+    <string name="security">સુરક્ષા</string>
+    <string name="set_password">પાસવર્ડ સેટ કરો</string>
+    <string name="change_password">પાસવર્ડ બદલો</string>
+    <string name="others">અન્ય</string>
+    <string name="share">શેર કરો</string>
+    <string name="privacy_policy">ગોપનીયતા નીતિ</string>
+    <string name="recycle_bin">રિસાયકલ બિન</string>
+    <string name="archive">આર્કાઇવ</string>
+    <string name="feedback_suggestion">પ્રતિસાદ અથવા સૂચન</string>
+    <string name="security_pref_desc">સુરક્ષા/તમારી વ્યક્તિગત પસંદગી</string>
+    <string name="widget">વિજેટ</string>
+    <string name="widget_desc">સ્ટીકી નોટ્સ/ક્વિક એક્સેસ ટૂલબાર</string>
+
+    <!-- Sort Bottom Sheet -->
+    <string name="sort_by">આના દ્વારા સૉર્ટ કરો</string>
+    <string name="general">સામાન્ય</string>
+    <string name="folder">ફોલ્ડર</string>
+    <string name="name_az">નામ (A-Z)</string>
+    <string name="name_za">નામ (Z-A)</string>
+    <string name="time">સમય</string>
+    <string name="reminder_time">રીમાઇન્ડર સમય</string>
+    <string name="last_modified_new">છેલ્લે ફેરફાર કરેલ (નવા થી જૂના)</string>
+    <string name="last_modified_old">છેલ્લે ફેરફાર કરેલ (જૂના થી નવા)</string>
+    <string name="creation_time_new">બનાવવાનો સમય (નવા થી જૂના)</string>
+    <string name="creation_time_old">બનાવવાનો સમય (જૂના થી નવા)</string>
+
+    <!-- Search -->
+    <string name="type">પ્રકાર</string>
+    <string name="txt">ટીએક્સટી</string>
+    <string name="checklist">ચેકલિસ્ટ</string>
+    <string name="list">યાદી</string>
+    <string name="grid">ગ્રીડ</string>
+    <string name="details">વિગતો</string>
+    <string name="search_results">શોધ પરિણામો</string>
+
+    <!-- Dialog Strings -->
+    <string name="language">ભાષા</string>
+    <string name="cancel">રદ કરો</string>
+    <string name="save">સાચવો</string>
+    <string name="done">થઈ ગયું</string>
+    <string name="edit">ફેરફાર કરો</string>
+    <string name="move_to">આમાં ખસેડો</string>
+    <string name="delete_confirm_title">નોંધ કાઢી નાખવી?</string>
+    <string name="delete_confirm_msg">શું તમે ખરેખર આ નોંધને રિસાયકલ બિનમાં ખસેડવા માંગો છો?</string>
+    <string name="delete">કાઢી નાખો</string>
+    <string name="undo">પૂર્વવત્ કરો</string>
+    <string name="note_archived">નોંધ આર્કાઇવ કરવામાં આવી</string>
+    <string name="moved_to_recycle">રિસાયકલ બિનમાં ખસેડવામાં આવ્યું</string>
+
+    <!-- Add Note -->
+    <string name="edited_label">ફેરફાર કરેલ : %1$s</string>
+    <string name="title_hint">શીર્ષક</string>
+    <string name="select_all">બધું પસંદ કરો</string>
+    <string name="pin">પિન</string>
+    <string name="lock">લોક</string>
+    <string name="today">આજે</string>
+    <string name="restore">પુનઃસ્થાપિત કરો</string>
+    <string name="all">બધા</string>
+    <string name="empty_bin_msg">તમારી કાઢી નાખેલી નોંધો અહીં દેખાશે</string>
+    <string name="delete_permanently">કાયમી ધોરણે કાઢી નાખો</string>
+    <string name="empty_bin_confirm_title">રિસાયકલ બિન ખાલી કરવું?</string>
+    <string name="empty_bin_confirm_msg">રિસાયકલ બિનમાંની બધી નોંધો કાયમી ધોરણે કાઢી નાખવામાં આવશે.</string>
+    <string name="empty_action">ખાલી કરો</string>
+    <string name="delete_perm_confirm_msg">શું તમે ખરેખર આ નોંધને કાયમી ધોરણે કાઢી નાખવા માંગો છો?</string>
+    <string name="delete_perm_multiple_msg">શું તમે ખરેખર નોંધ(ઓ)ને કાયમી ધોરણે કાઢી નાખવા માંગો છો?</string>
+    <string name="notes_restored_msg">%1$d નોંધો પુનઃસ્થાપિત કરવામાં આવી</string>
+    <string name="notes_deleted_msg">%1$d નોંધો કાઢી નાખવામાં આવી</string>
+    <string name="note_restored_msg">નોંધ પુનઃસ્થાપિત કરવામાં આવી</string>
+    <string name="note_deleted_perm_msg">નોંધ કાયમી ધોરણે કાઢી નાખવામાં આવી</string>
+    <string name="bin_emptied_msg">રિસાયકલ બિન ખાલી કરવામાં આવ્યું</string>
+    <string name="empty_archive_msg">તમારી આર્કાઇવ કરેલી નોંધો અહીં દેખાશે</string>
+    <string name="note_unarchived">નોંધ અનઆર્કાઇવ કરવામાં આવી</string>
+    <string name="unarchive">અનઆર્કાઇવ</string>
+
+    <!-- Language Names -->
+    <string name="english">અંગ્રેજી</string>
+    <string name="hindi">હિન્દી</string>
+    <string name="gujarati">ગુજરાતી</string>
+    <string name="monday">સોમવાર</string>
+    <string name="sunday">રવિવાર</string>
+
+    <string name="tip">ટિપ</string>
+    <string name="notification_off_tip">જો તમે તેને બંધ કરશો તો રિમાઇન્ડર્સ સમયસર નહીં હોય.</string>
+    <string name="continue_label">ચાલુ રાખો</string>
+
+    <string name="set_password_title">પાસવર્ડ સેટ કરો</string>
+    <string name="change_password_title">પાસવર્ડ બદલો</string>
+    <string name="remove_password_title">પાસવર્ડ દૂર કરો</string>
+    <string name="draw_pattern_msg">અનલૉક પેટર્ન દોરો</string>
+    <string name="draw_pattern_confirm_msg">પુષ્ટિ કરવા માટે ફરીથી પેટર્ન દોરો</string>
+    <string name="connect_4_dots">ઓછામાં ઓછા 4 બિંદુઓ જોડો</string>
+    <string name="pattern_not_match">પેટર્ન મેળ ખાતી નથી</string>
+    <string name="pattern_wrong">ખોટી પેટર્ન</string>
+    <string name="forgot_password">પાસવર્ડ ભૂલી ગયા છો?</string>
+    <string name="password_set_success">પાસવર્ડ સફળતાપૂર્વક સેટ થયો</string>
+    <string name="password_changed_success">પાસવર્ડ સફળતાપૂર્વક બદલાયો</string>
+    <string name="password_removed_success">પાસવર્ડ સફળતાપૂર્વક દૂર કરવામાં આવ્યો</string>
+    <string name="set_password_first">કૃપા કરીને પહેલા પાસવર્ડ સેટ કરો</string>
+
+    <!-- Font Size Screen -->
+    <string name="heading_1">હેડિંગ 1</string>
+    <string name="heading_2">હેડિંગ 2</string>
+    <string name="font_sample_text">નોટપેડ એ એન્ડ્રોઇડ માટે એક અદ્ભુત નોટ એપ્લિકેશન છે. તે તમારી જરૂરિયાતોને પૂર્ણ કરવા માટે બે નોટ-લેકિંગ મોડ્સ, ટેક્સ્ટ મોડ અને ચેકલિસ્ટ મોડ પ્રદાન કરે છે. સ્ટીકી નોટ વિજેટ્સ, નોટ રિમાઇન્ડર્સ અને નોટ લોક જેવી સુવિધાઓ નોંધ લેવાનું સરળ, ઝડપી અને સુરક્ષિત બનાવે છે. તમે ટાઇપ કરો છો તેમ નોંધો આપમેળે સાચવવામાં આવે છે, જેથી તમે પેન અને કાગળનો ઉપયોગ કરવાની જેમ જ નોંધ લઈ શકો.</string>
+</resources>

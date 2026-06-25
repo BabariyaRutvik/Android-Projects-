@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:id="@+id/imgDrag"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_drag_handle"
+        android:alpha="0.6"
+        android:contentDescription="Drag handle"/>
+
+    <ImageView
+        android:id="@+id/checkbox"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="12dp"
+        android:src="@drawable/ic_checkbox_rounded"
+        android:alpha="0.8"
+        android:contentDescription="Checkbox"/>
+
+    <EditText
+        android:id="@+id/edtItem"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="12dp"
+        android:background="@null"
+        android:hint=""
+        android:textSize="20sp"
+        android:textColor="@color/text_primary"
+        android:inputType="textCapSentences"
+        android:importantForAutofill="no" />
+
+    <ImageView
+        android:id="@+id/imgDelete"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_close"
+        android:alpha="0.6"
+        android:contentDescription="Delete item"/>
+
+</LinearLayout>

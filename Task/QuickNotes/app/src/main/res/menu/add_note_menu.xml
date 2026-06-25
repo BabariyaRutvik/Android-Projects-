@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_pin"
+        android:icon="@drawable/ic_pin"
+        android:title="Pin"
+        app:showAsAction="always" />
+
+
+    <item
+        android:id="@+id/menu_more"
+        android:title="More"
+        android:icon="@drawable/ic_more"
+        app:showAsAction="always">
+
+        <menu>
+
+            <item
+                android:id="@+id/note_checks"
+                android:title="Checklist"
+                android:icon="@drawable/ic_check_menu"/>
+
+            <item
+                android:id="@+id/note_share"
+                android:title="Share"
+                android:icon="@drawable/ic_share_menu"/>
+
+            <item
+                android:id="@+id/note_pdf"
+                android:title="Export as PDF"
+                android:icon="@drawable/ic_pdf_menu"/>
+
+            <item
+                android:id="@+id/note_reminder"
+                android:title="Reminder"
+                android:icon="@drawable/ic_reminder_menu"/>
+
+            <item
+                android:id="@+id/note_info"
+                android:title="Note Info"
+                android:icon="@drawable/ic_info_menu"/>
+
+        </menu>
+
+    </item>
+
+
+
+
+</menu>

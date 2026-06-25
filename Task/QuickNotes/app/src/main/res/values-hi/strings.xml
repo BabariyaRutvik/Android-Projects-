@@ -1,0 +1,130 @@
+<resources>
+    <string name="app_name">क्विक नोट्स</string>
+    <string name="content_hint">कृपया यहाँ सामग्री दर्ज करें...</string>
+    <string name="add">जोड़ें</string>
+    <string name="month">महीना</string>
+    <string name="week">सप्ताह</string>
+
+    <!-- Home -->
+    <string name="home">होम</string>
+    <string name="calendar">कैलेंडर</string>
+    <string name="notes_label">नोट्स</string>
+    <string name="selected_count">%1$d चयनित</string>
+    <string name="empty_home_msg">अपने जीवन को व्यवस्थित रखें।</string>
+    <string name="search_hint">खोजें...</string>
+
+    <!-- Calendar -->
+    <string name="no_tasks">यहाँ कोई कार्य नहीं है</string>
+
+    <!-- Settings Strings -->
+    <string name="settings">सेटिंग्स</string>
+    <string name="dark_mode">डार्क मोड</string>
+    <string name="default_folder">डिफ़ॉल्ट फ़ोल्डर</string>
+    <string name="language_options">भाषा विकल्प</string>
+    <string name="font_size">फ़ॉन्ट आकार</string>
+    <string name="start_of_the_week">सप्ताह की शुरुआत</string>
+    <string name="notification_bar">अधिसूचना पट्टी</string>
+    <string name="security">सुरक्षा</string>
+    <string name="set_password">पासवर्ड सेट करें</string>
+    <string name="change_password">पासवर्ड बदलें</string>
+    <string name="others">अन्य</string>
+    <string name="share">शेयर करें</string>
+    <string name="privacy_policy">गोપनीयता नीति</string>
+    <string name="recycle_bin">रीसायकल बिन</string>
+    <string name="archive">आर्काइव</string>
+    <string name="feedback_suggestion">फीडबैक या सुझाव</string>
+    <string name="security_pref_desc">सुरक्षा/आपकी व्यक्तिगत पसंद</string>
+    <string name="widget">विजेट</string>
+    <string name="widget_desc">स्टिकी नोट्स/त्वरित पहुँच टूलबार</string>
+
+    <!-- Sort Bottom Sheet -->
+    <string name="sort_by">इसके द्वारा क्रमबद्ध करें</string>
+    <string name="general">सामान्य</string>
+    <string name="folder">फ़ोल्डर</string>
+    <string name="name_az">नाम (A-Z)</string>
+    <string name="name_za">नाम (Z-A)</string>
+    <string name="time">समय</string>
+    <string name="reminder_time">रिमाइंडर का समय</string>
+    <string name="last_modified_new">अंतिम संशोधित (नया से पुराना)</string>
+    <string name="last_modified_old">अंतिम संशोधित (पुराना से नया)</string>
+    <string name="creation_time_new">निर्माण समय (नया से पुराना)</string>
+    <string name="creation_time_old">निर्माण समय (पुराना से नया)</string>
+
+    <!-- Search -->
+    <string name="type">प्रकार</string>
+    <string name="txt">टीएक्सटी</string>
+    <string name="checklist">चेकलिस्ट</string>
+    <string name="list">सूची</string>
+    <string name="grid">ग्रिड</string>
+    <string name="details">विवरण</string>
+    <string name="search_results">खोज परिणाम</string>
+
+    <!-- Dialog Strings -->
+    <string name="language">भाषा</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="save">सहेजें</string>
+    <string name="done">हो गया</string>
+    <string name="edit">संपादित करें</string>
+    <string name="move_to">इसमें ले जाएं</string>
+    <string name="delete_confirm_title">नोट हटाएं?</string>
+    <string name="delete_confirm_msg">क्या आप वाकई इस नोट को रीसायकल बिन में ले जाना चाहते हैं?</string>
+    <string name="delete">हटाएं</string>
+    <string name="undo">पूर्ववत करें</string>
+    <string name="note_archived">नोट आर्काइव किया गया</string>
+    <string name="moved_to_recycle">रीसायकल बिन में ले जाया गया</string>
+
+    <!-- Add Note -->
+    <string name="edited_label">संपादित : %1$s</string>
+    <string name="title_hint">शीर्षक</string>
+    <string name="select_all">सभी चुनें</string>
+    <string name="pin">पिन</string>
+    <string name="lock">लॉक</string>
+    <string name="today">आज</string>
+    <string name="restore">पुनઃસ્થાપિત</string>
+    <string name="all">सभी</string>
+    <string name="empty_bin_msg">आपके हटाए गए नोट्स यहाँ दिखाई देंगे</string>
+    <string name="delete_permanently">स्थायी रूप से हटाएं</string>
+    <string name="empty_bin_confirm_title">रीसायकल बिन खाली करें?</string>
+    <string name="empty_bin_confirm_msg">रीसायकल बिन के सभी नोट स्थायी रूप से हटा दिए जाएंगे।</string>
+    <string name="empty_action">खाली करें</string>
+    <string name="delete_perm_confirm_msg">क्या आप वाकई इस नोट को स्थायी रूप से हटाना चाहते हैं?</string>
+    <string name="delete_perm_multiple_msg">क्या आप वाकई नोटों को स्थायी रूप से हटाना चाहते हैं?</string>
+    <string name="notes_restored_msg">%1$d नोट पुनर्स्थापित किए गए</string>
+    <string name="notes_deleted_msg">%1$d नोट हटा दिए गए</string>
+    <string name="note_restored_msg">नोट पुनर्स्थापित किया गया</string>
+    <string name="note_deleted_perm_msg">नोट स्थायी रूप से हटा दिया गया</string>
+    <string name="bin_emptied_msg">रीसायकल बिन खाली कर दिया गया</string>
+    <string name="empty_archive_msg">आपकी आर्काइव की गई नोट यहाँ दिखाई देंगी</string>
+    <string name="note_unarchived">नोट अनआर्काइव किया गया</string>
+    <string name="unarchive">अनआर्काइव</string>
+
+    <!-- Language Names -->
+    <string name="english">अंग्रेजी</string>
+    <string name="hindi">हिन्दी</string>
+    <string name="gujarati">गुजराती</string>
+    <string name="monday">सोमवार</string>
+    <string name="sunday">रविवार</string>
+
+    <string name="tip">सुझाव</string>
+    <string name="notification_off_tip">यदि आप इसे बंद करते हैं तो रिमाइंडर समय पर नहीं हो सकते हैं।</string>
+    <string name="continue_label">जारी रखें</string>
+
+    <string name="set_password_title">पासवर्ड सेट करें</string>
+    <string name="change_password_title">पासवर्ड बदलें</string>
+    <string name="remove_password_title">पासवर्ड हटाएं</string>
+    <string name="draw_pattern_msg">अनलॉक पैटर्न बनाएं</string>
+    <string name="draw_pattern_confirm_msg">पुष्टि करने के लिए फिर से पैटर्न बनाएं</string>
+    <string name="connect_4_dots">कम से कम 4 डॉट्स कनेक्ट करें</string>
+    <string name="pattern_not_match">पैटर्न मेल नहीं खाते</string>
+    <string name="pattern_wrong">गलत पैटर्न</string>
+    <string name="forgot_password">पासवर्ड भूल गए?</string>
+    <string name="password_set_success">पासवर्ड सफलतापूर्वक सेट हो गया</string>
+    <string name="password_changed_success">पासवर्ड सफलतापूर्वक बदल गया</string>
+    <string name="password_removed_success">पासवर्ड सफलतापूर्वक हटा दिया गया</string>
+    <string name="set_password_first">कृपया पहले पासवर्ड सेट करें</string>
+
+    <!-- Font Size Screen -->
+    <string name="heading_1">शीर्षक 1</string>
+    <string name="heading_2">शीर्षक 2</string>
+    <string name="font_sample_text">नोटपैड एंड्रॉइड के लिए एक शानदार नोट ऐप है। यह आपकी आवश्यकताओं को पूरी तरह से पूरा करने के लिए दो नोट-लेकिंग मोड, टेक्स्ट मोड और चेकलिस्ट मोड प्रदान करता है। स्टिकी नोट विजेट, नोट रिमाइंडर और नोट लॉक जैसी सुविधाएं नोट लेने को सरल, त्वरित और सुरक्षित बनाती हैं। आपके टाइप करते ही नोट्स अपने आप सेव हो जाते हैं, जिससे आप पेन और पेपर की तरह ही नोट्स ले सकते हैं।</string>
+</resources>

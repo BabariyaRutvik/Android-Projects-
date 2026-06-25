@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="@color/main_bg">
+
+    <TextView android:id="@+id/tvMon" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Mon" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvTue" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Tue" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvWed" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Wed" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvThu" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Thu" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvFri" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Fri" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvSat" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sat" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+    <TextView android:id="@+id/tvSun" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Sun" android:gravity="center" android:textColor="@color/gray_text" android:textStyle="bold" android:textSize="12sp"/>
+</LinearLayout>

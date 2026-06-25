@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RetrofitApi</string>
+    <string name="details">User Details</string>
+    <string name="users_list">Users List</string>
+
+
+</resources>

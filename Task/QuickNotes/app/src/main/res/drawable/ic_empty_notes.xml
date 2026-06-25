@@ -1,0 +1,25 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="200dp"
+    android:viewportWidth="200"
+    android:viewportHeight="200">
+    <!-- Background Paper -->
+    <path
+        android:fillColor="#E1F5FE"
+        android:pathData="M50,40 L150,40 L170,60 L170,160 L50,160 Z" />
+    <!-- Folded Corner -->
+    <path
+        android:fillColor="#B3E5FC"
+        android:pathData="M150,40 L170,60 L150,60 Z" />
+    <!-- Lines on Paper -->
+    <path
+        android:fillColor="#BDBDBD"
+        android:pathData="M70,80 L130,80 L130,85 L70,85 Z M70,100 L150,100 L150,105 L70,105 Z M70,120 L150,120 L150,125 L70,125 Z" />
+    <!-- Pen -->
+    <path
+        android:fillColor="#1A73E8"
+        android:pathData="M140,50 L180,90 L175,95 L135,55 Z" />
+    <path
+        android:fillColor="#0D47A1"
+        android:pathData="M175,95 L180,90 L185,95 L180,100 Z" />
+</vector>

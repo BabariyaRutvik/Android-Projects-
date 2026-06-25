@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Basic Palette -->
+    <color name="black">#FFFFFFFF</color> <!-- Black text becomes White in dark mode -->
+    <color name="white">#FFFFFFFF</color> <!-- White is always White -->
+    <color name="main_bg">#121212</color>
+    <color name="surface_bg">#1E1E1E</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#E1E1E1</color>
+    <color name="text_secondary">#B0B0B0</color>
+    <color name="gray_text">#AAAAAA</color>
+    <color name="hint_color">#777777</color>
+
+    <!-- UI Elements -->
+    <color name="gray_icon">#B0B0B0</color>
+    <color name="gray_version">#888888</color>
+    <color name="divider_color">#333333</color>
+    <color name="search_bar_bg">#252525</color>
+
+    <!-- Note Card Specifics (Darker versions of light colors) -->
+    <color name="light_yellow">#3D3400</color>
+    <color name="light_green">#1B3D1D</color>
+    <color name="light_blue">#1B2E3D</color>
+    <color name="light_red">#3D1B1B</color>
+    <color name="light_orange">#3D2B1B</color>
+    <color name="light_pink">#3D1B2E</color>
+    <color name="light_purple">#2E1B3D</color>
+    <color name="light_white">#252525</color>
+    <color name="light_gray">#2C2C2C</color>
+    <color name="light_sky_blue">#1B323D</color>
+
+    <!-- Badges -->
+    <color name="badge_personal_bg">#3D3400</color>
+    <color name="badge_personal_text">#FBC02D</color>
+    <color name="badge_work_bg">#1B3D1D</color>
+    <color name="badge_work_text">#4CAF50</color>
+    <color name="badge_others_bg">#1B2E3D</color>
+    <color name="badge_others_text">#2196F3</color>
+    <color name="badge_untitled_pink_bg">#3D1B2E</color>
+    <color name="badge_untitled_pink_text">#E91E63</color>
+    <color name="badge_untitled_red_bg">#3D1B1B</color>
+    <color name="badge_untitled_red_text">#F44336</color>
+    <color name="badge_untitled_orange_bg">#3D2B1B</color>
+    <color name="badge_untitled_orange_text">#FB8C00</color>
+    <color name="badge_untitled_purple_bg">#2E1B3D</color>
+    <color name="badge_untitled_purple_text">#9C27B0</color>
+    <color name="badge_untitled_gray_bg">#252525</color>
+    <color name="badge_untitled_gray_text">#B0B0B0</color>
+    <color name="badge_untitled_dark_gray_bg">#1E1E1E</color>
+    <color name="badge_untitled_dark_gray_text">#E1E1E1</color>
+</resources>

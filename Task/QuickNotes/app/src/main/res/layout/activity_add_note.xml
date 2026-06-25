@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    tools:context=".Activity.AddNoteActivity">
+
+
+    <!-- top toolbar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar_add_note"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/ic_arrow_back"
+        app:navigationIconTint="@color/text_primary" />
+
+    <!-- Reminded Bar -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/layoutRemindedBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:cardBackgroundColor="#607D8B"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_add_note">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="20dp"
+            android:paddingVertical="8dp">
+
+            <TextView
+                android:id="@+id/txtRemindedInfo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reminded: 06-25 11:25 AM"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imgCheckReminder"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_done"
+                app:tint="@color/white" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- edited time -->
+    <TextView
+        android:id="@+id/text_esited_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Edited : 06-17 10:47 AM"
+        android:textColor="@color/gray_text"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutRemindedBar" />
+
+
+    <!-- category Spinner -->
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/categorySpinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:background="@null"
+        android:overlapAnchor="false"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toBottomOf="@id/text_esited_time"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        android:background="@null"
+        android:hint="@string/title_hint"
+        android:maxLines="2"
+        android:textColor="@color/text_primary"
+        android:textColorHint="@color/hint_color"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/imgReminder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_esited_time" />
+
+    <!-- reminder -->
+    <ImageView
+        android:id="@+id/imgReminder"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_calender_outline"
+        app:tint="@color/gray_icon"
+        app:layout_constraintBottom_toBottomOf="@id/edt_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/edt_title" />
+
+
+    <!-- devider -->
+    <View
+        android:id="@+id/viewDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:background="@color/divider_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edt_title" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardReminderInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="#D4F0E4"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="0dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/viewDivider">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <ImageView
+                android:id="@+id/imgRepeatIcon"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:src="@drawable/ic_swap_horizontal"
+                app:tint="@color/text_primary" />
+
+            <TextView
+                android:id="@+id/txtReminderDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="06-25 10:55 AM"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- content edittext -->
+    <EditText
+        android:id="@+id/edtContent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:gravity="top|start"
+        android:hint="@string/content_hint"
+        android:inputType="textMultiLine|textCapSentences"
+        android:textColor="@color/text_secondary"
+        android:textColorHint="@color/hint_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@id/bottomToolbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardReminderInfo" />
+
+    <!-- bottom toolbar placeholder -->
+   <com.google.android.material.card.MaterialCardView
+       android:id="@+id/bottomToolbar"
+       android:layout_width="0dp"
+       android:layout_height="60dp"
+       app:cardCornerRadius="0dp"
+       app:cardElevation="12dp"
+       app:cardBackgroundColor="@color/surface_bg"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent">
+
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:paddingStart="16dp"
+           android:paddingEnd="16dp">
+
+           <ImageView
+               android:id="@+id/imgAdd"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:src="@drawable/ic_add_image"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <ImageView
+               android:id="@+id/imgFont"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:layout_marginStart="20dp"
+               android:src="@drawable/ic_text_format"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toEndOf="@id/imgAdd"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <ImageView
+               android:id="@+id/imgPalette"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:layout_marginStart="20dp"
+               android:src="@drawable/ic_palette"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toEndOf="@id/imgFont"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <ImageView
+               android:id="@+id/imgUndo"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:alpha="0.3"
+               android:src="@drawable/ic_undo"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/imgRedo"
+               app:layout_constraintHorizontal_chainStyle="packed"
+               app:layout_constraintStart_toEndOf="@id/imgPalette"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <ImageView
+               android:id="@+id/imgRedo"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:layout_marginStart="20dp"
+               android:alpha="0.3"
+               android:src="@drawable/ic_redo"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toStartOf="@id/imgDone"
+               app:layout_constraintStart_toEndOf="@id/imgUndo"
+               app:layout_constraintTop_toTopOf="parent" />
+
+           <ImageView
+               android:id="@+id/imgDone"
+               android:layout_width="28dp"
+               android:layout_height="28dp"
+               android:src="@drawable/ic_done"
+               app:tint="@color/gray_icon"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintTop_toTopOf="parent" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </com.google.android.material.card.MaterialCardView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
