@@ -1,5 +1,6 @@
 package com.example.quicknotes.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,11 +9,21 @@ import android.view.ViewGroup;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.net.Uri;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -22,6 +33,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.quicknotes.Activity.AddCheckListActivity;
 import com.example.quicknotes.Activity.AddNoteActivity;
+import com.example.quicknotes.Activity.ReminderActivity;
 import com.example.quicknotes.Adapter.CategoryAdapter;
 import com.example.quicknotes.Adapter.NotesAdapter;
 import com.example.quicknotes.BottomSheet.AddNoteBottomSheet;
@@ -35,8 +47,15 @@ import com.example.quicknotes.R;
 import com.example.quicknotes.Utils.CategoryPrefs;
 import com.example.quicknotes.databinding.FragmentHomeBinding;
 
+import androidx.core.content.FileProvider;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class HomeFragment extends Fragment {
 
@@ -47,9 +66,12 @@ public class HomeFragment extends Fragment {
     private LiveData<List<Note>> currentNotesLiveData;
     private String selectedCategory = "All";
     private ViewSelectionBottomSheet.ViewType currentViewType = ViewSelectionBottomSheet.ViewType.DETAILS;
+    private ActivityResultLauncher<Intent> lockLauncher;
+    private Note noteToOpen;
+    private boolean isUnlockingSelection = false;
+    private List<Note> pendingDeleteNotes;
 
     public HomeFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -71,16 +93,38 @@ public class HomeFragment extends Fragment {
 
         noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
+        lockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == android.app.Activity.RESULT_OK) {
+                if (noteToOpen != null) {
+                    openNoteActivity(noteToOpen);
+                    noteToOpen = null;
+                } else if (isUnlockingSelection) {
+                    performLockUnlock(false);
+                    isUnlockingSelection = false;
+                } else if (pendingDeleteNotes != null) {
+                    performMoveToRecycleBin(pendingDeleteNotes);
+                    pendingDeleteNotes = null;
+                }
+            } else {
+                noteToOpen = null;
+                isUnlockingSelection = false;
+                pendingDeleteNotes = null;
+            }
+        });
+
         NotesAdapterInit();
         CategoryAdapterInit();
 
-        // Initial observation
         observeNotes(noteViewModel.getAllNotes());
 
-        // Click events
         binding.toolbarHome.setOverflowIcon(ContextCompat.getDrawable(requireContext(), R.drawable.ic_more));
         binding.toolbarHome.setOnMenuItemClickListener(this::onOptionsItemSelected);
         binding.toolbarHome.inflateMenu(R.menu.home_popoup);
+
+        binding.imgReminderNotes.setOnClickListener(v->{
+            Intent intent = new Intent(getActivity(), ReminderActivity.class);
+            startActivity(intent);
+        });
         
 
 
@@ -122,7 +166,7 @@ public class HomeFragment extends Fragment {
             Toast.makeText(requireContext(), "Updated Pin status", Toast.LENGTH_SHORT).show();
         });
 
-        binding.imgCalendarSelection.setOnClickListener(v -> Toast.makeText(requireContext(), "Calendar clicked", Toast.LENGTH_SHORT).show());
+       
     }
 
     private void setSelectionMode(boolean isSelectionMode) {
@@ -130,38 +174,275 @@ public class HomeFragment extends Fragment {
             binding.layoutNormalHeader.setVisibility(View.GONE);
             binding.layoutSelectionHeader.setVisibility(View.VISIBLE);
             binding.layoutSelectionBottom.setVisibility(View.VISIBLE);
-            binding.txtNotesLabel.setVisibility(View.VISIBLE);
+            binding.txtNotesLabel.setVisibility(View.GONE);
             binding.fabAdd.setVisibility(View.GONE);
+
+            binding.imgPinSelection.setVisibility(View.VISIBLE);
+            binding.imgReminderNotes.setVisibility(View.VISIBLE);
+            binding.btnMoreSelection.setVisibility(View.VISIBLE);
+
+            int lightGray = ContextCompat.getColor(requireContext(), R.color.light_gray);
+            binding.layoutSelectionHeader.setBackgroundColor(lightGray);
+            binding.layoutSelectionBottom.setBackgroundColor(lightGray);
+
             notesAdapter.setSelectionMode(true);
             
-            // Initial count update
             int count = notesAdapter.getSelectedNoteIds().size();
             binding.txtSelectionCount.setText(getString(R.string.selected_count, count));
+            updateSelectionUI(count);
         } else {
             binding.layoutNormalHeader.setVisibility(View.VISIBLE);
             binding.layoutSelectionHeader.setVisibility(View.GONE);
             binding.layoutSelectionBottom.setVisibility(View.GONE);
             binding.txtNotesLabel.setVisibility(View.GONE);
             binding.fabAdd.setVisibility(View.VISIBLE);
+
+            binding.imgPinSelection.setVisibility(View.VISIBLE);
+            binding.imgReminderNotes.setVisibility(View.VISIBLE);
+            binding.btnMoreSelection.setVisibility(View.VISIBLE);
+            
+            binding.imgPinSelection.setColorFilter(null);
+            binding.imgReminderNotes.setColorFilter(null);
+            if (binding.btnMoreSelection.getChildCount() > 0) {
+                View child = binding.btnMoreSelection.getChildAt(0);
+                if (child instanceof ImageView) {
+                    ((ImageView) child).setColorFilter(null);
+                }
+            }
+
+            int surfaceColor = ContextCompat.getColor(requireContext(), R.color.surface_bg);
+            binding.layoutSelectionHeader.setBackgroundColor(surfaceColor);
+            binding.layoutSelectionBottom.setBackgroundColor(surfaceColor);
+
             notesAdapter.setSelectionMode(false);
         }
     }
 
+    private void updateSelectionUI(int count) {
+        boolean isSingleSelection = (count == 1);
+        int activeColor = ContextCompat.getColor(requireContext(), R.color.primary_blue);
+        
+        binding.imgPinSelection.setVisibility(isSingleSelection ? View.VISIBLE : View.GONE);
+        binding.imgPinSelection.setEnabled(isSingleSelection);
+        binding.imgPinSelection.setColorFilter(activeColor);
+        
+        binding.imgReminderNotes.setVisibility(isSingleSelection ? View.VISIBLE : View.GONE);
+        binding.imgReminderNotes.setEnabled(isSingleSelection);
+        binding.imgReminderNotes.setColorFilter(activeColor);
+        
+        binding.btnMoreSelection.setEnabled(count > 0);
+        if (binding.btnMoreSelection.getChildCount() > 0) {
+            View child = binding.btnMoreSelection.getChildAt(0);
+            if (child instanceof ImageView) {
+                ((ImageView) child).setColorFilter(activeColor);
+            }
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
     private void showSelectionMoreMenu(View view) {
         androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(requireContext(), view);
-        popupMenu.getMenu().add(getString(R.string.select_all));
-        popupMenu.getMenu().add(getString(R.string.pin));
-        popupMenu.getMenu().add(getString(R.string.lock));
+        popupMenu.getMenuInflater().inflate(R.menu.selection_more_menu, popupMenu.getMenu());
+
+        boolean allSelectedCompleted = true;
+        List<Integer> selectedIds = notesAdapter.getSelectedNoteIds();
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null && !note.isCompleted()) {
+                allSelectedCompleted = false;
+                break;
+            }
+        }
+
+        boolean allSelectedLocked = true;
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null && !note.isLocked()) {
+                allSelectedLocked = false;
+                break;
+            }
+        }
+
+        final boolean isChecking = !allSelectedCompleted;
+        final boolean isLocking = !allSelectedLocked;
+
+        MenuItem checkItem = popupMenu.getMenu().findItem(R.id.menu_check);
+        if (allSelectedCompleted) {
+            checkItem.setTitle(R.string.uncheck);
+            checkItem.setIcon(R.drawable.ic_checkbox_blank);
+        } else {
+            checkItem.setTitle(R.string.check);
+            checkItem.setIcon(R.drawable.ic_check_menu);
+        }
+
+        MenuItem lockItem = popupMenu.getMenu().findItem(R.id.menu_lock);
+        if (allSelectedLocked) {
+            lockItem.setTitle(R.string.unlock);
+            lockItem.setIcon(R.drawable.ic_lock_settings); 
+        } else {
+            lockItem.setTitle(R.string.lock);
+            lockItem.setIcon(R.drawable.ic_lock_settings);
+        }
+
+        MenuItem shareItem = popupMenu.getMenu().findItem(R.id.menu_share);
+        shareItem.setVisible(true);
+        if (selectedIds.size() == 1) {
+            Note note = noteViewModel.getNoteById(selectedIds.get(0));
+            if (note != null && note.isLocked()) {
+                shareItem.setEnabled(false);
+                if (shareItem.getIcon() != null) {
+                    shareItem.getIcon().setAlpha(130);
+                }
+            } else {
+                shareItem.setEnabled(true);
+                if (shareItem.getIcon() != null) {
+                    shareItem.getIcon().setAlpha(255);
+                }
+            }
+        } else {
+            // Visible but disabled for multiple selection
+            shareItem.setEnabled(false);
+            if (shareItem.getIcon() != null) {
+                shareItem.getIcon().setAlpha(130);
+            }
+        }
+
+        MenuBuilder menuBuilder = (MenuBuilder) popupMenu.getMenu();
+        menuBuilder.setOptionalIconsVisible(true);
 
         popupMenu.setOnMenuItemClickListener(item -> {
-            if (item.getTitle().equals(getString(R.string.select_all))) {
-                notesAdapter.selectAll();
-            } else {
-                Toast.makeText(requireContext(), item.getTitle() + " clicked", Toast.LENGTH_SHORT).show();
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_check) {
+                handleCheckSelection(isChecking);
+                return true;
+            } else if (itemId == R.id.menu_lock) {
+                handleLockSelection(isLocking);
+                return true;
+            } else if (itemId == R.id.menu_add_widget) {
+                Toast.makeText(requireContext(), "Add widget clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.menu_share) {
+                if (!selectedIds.isEmpty()) {
+                    Note note = noteViewModel.getNoteById(selectedIds.get(0));
+                    if (note != null) {
+                        showShareAsDialog(note);
+                    }
+                }
+                return true;
             }
-            return true;
+            return false;
         });
-        popupMenu.show();
+
+        MenuPopupHelper optionsMenu = new MenuPopupHelper(requireContext(), menuBuilder, view);
+        optionsMenu.setForceShowIcon(true);
+        optionsMenu.show();
+    }
+
+    private void showShareAsDialog(Note note) {
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_share_as, null);
+        AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+                .setBackground(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+                .create();
+
+        dialogView.findViewById(R.id.btnShareImage).setOnClickListener(v -> {
+            openNoteActivityForShare(note, "IMAGE");
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnSharePDF).setOnClickListener(v -> {
+            openNoteActivityForShare(note, "PDF");
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnShareText).setOnClickListener(v -> {
+            shareNoteAsText(note);
+            dialog.dismiss();
+            setSelectionMode(false);
+        });
+
+        dialog.show();
+    }
+
+    private void shareNoteAsText(Note note) {
+        String shareBody;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            StringBuilder sb = new StringBuilder(note.getTitle()).append("\n\n");
+            String[] lines = note.getDescription().split("\n");
+            for (String line : lines) {
+                String[] parts = line.split("\\|", 2);
+                if (parts.length == 2) {
+                    sb.append(parts[0].equals("1") ? "☑ " : "☐ ").append(parts[1]).append("\n");
+                }
+            }
+            shareBody = sb.toString();
+        } else {
+            shareBody = note.getTitle() + "\n\n" + note.getDescription();
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, note.getTitle());
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(intent, getString(R.string.share)));
+    }
+
+    private void openNoteActivityForShare(Note note, String type) {
+        Intent intent;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            intent = new Intent(requireContext(), com.example.quicknotes.Activity.AddCheckListActivity.class);
+        } else {
+            intent = new Intent(requireContext(), com.example.quicknotes.Activity.AddNoteActivity.class);
+        }
+        intent.putExtra("note_id", note.getId());
+        intent.putExtra("extra_share_type", type);
+        startActivity(intent);
+        setSelectionMode(false);
+    }
+
+    private void handleCheckSelection(boolean isChecking) {
+        List<Integer> selectedIds = notesAdapter.getSelectedNoteIds();
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null) {
+                note.setCompleted(isChecking);
+                noteViewModel.update(note);
+            }
+        }
+        setSelectionMode(false);
+        String message = isChecking ? getString(R.string.check) : getString(R.string.uncheck);
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleLockSelection(boolean isLocking) {
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("security_prefs", android.content.Context.MODE_PRIVATE);
+        if (!prefs.getBoolean("is_enabled", false)) {
+            Toast.makeText(requireContext(), R.string.set_password_first, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isLocking) {
+            performLockUnlock(true);
+        } else {
+            isUnlockingSelection = true;
+            Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+            intent.putExtra("extra_mode", "mode_verify");
+            lockLauncher.launch(intent);
+        }
+    }
+
+    private void performLockUnlock(boolean isLocking) {
+        List<Integer> selectedIds = notesAdapter.getSelectedNoteIds();
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null) {
+                note.setLocked(isLocking);
+                noteViewModel.update(note);
+            }
+        }
+        setSelectionMode(false);
+        String msg = isLocking ? "Locked" : "Unlocked";
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     private void showDeleteConfirmDialog() {
@@ -178,19 +459,36 @@ public class HomeFragment extends Fragment {
         dialogView.findViewById(R.id.btnDelete).setOnClickListener(v -> {
             List<Integer> selectedIds = notesAdapter.getSelectedNoteIds();
             List<Note> deletedNotes = new ArrayList<>();
+            boolean hasLocked = false;
             for (int id : selectedIds) {
                 Note note = noteViewModel.getNoteById(id);
                 if (note != null) {
                     deletedNotes.add(note);
-                    noteViewModel.moveToRecycleBin(note);
+                    if (note.isLocked()) hasLocked = true;
                 }
             }
+
+            if (hasLocked) {
+                pendingDeleteNotes = deletedNotes;
+                Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+                intent.putExtra("extra_mode", "mode_verify");
+                lockLauncher.launch(intent);
+            } else {
+                performMoveToRecycleBin(deletedNotes);
+            }
+            
             setSelectionMode(false);
             dialog.dismiss();
-            showUndoSnackbar(deletedNotes, getString(R.string.moved_to_recycle), false);
         });
 
         dialog.show();
+    }
+
+    private void performMoveToRecycleBin(List<Note> notes) {
+        for (Note note : notes) {
+            noteViewModel.moveToRecycleBin(note);
+        }
+        showUndoSnackbar(notes, getString(R.string.moved_to_recycle), false);
     }
 
     private void observeNotes(LiveData<List<Note>> liveData) {
@@ -354,15 +652,14 @@ public class HomeFragment extends Fragment {
         notesAdapter = new NotesAdapter(new NotesAdapter.OnNoteClickListener() {
             @Override
             public void onNoteClick(Note note) {
-                Intent intent;
-                if ("CHECKLIST".equals(note.getNoteType())) {
-                    intent = new Intent(requireContext(), AddCheckListActivity.class);
+                if (note.isLocked()) {
+                    noteToOpen = note;
+                    Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+                    intent.putExtra("extra_mode", "mode_verify");
+                    lockLauncher.launch(intent);
                 } else {
-                    intent = new Intent(requireContext(), AddNoteActivity.class);
+                    openNoteActivity(note);
                 }
-                // Pass note ID for editing existing note
-                intent.putExtra("note_id", note.getId());
-                startActivity(intent);
             }
 
             @Override
@@ -376,10 +673,22 @@ public class HomeFragment extends Fragment {
                     setSelectionMode(false);
                 } else {
                     binding.txtSelectionCount.setText(getString(R.string.selected_count, count));
+                    updateSelectionUI(count);
                 }
             }
         });
         binding.recyerviewNotes.setAdapter(notesAdapter);
+    }
+
+    private void openNoteActivity(Note note) {
+        Intent intent;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            intent = new Intent(requireContext(), AddCheckListActivity.class);
+        } else {
+            intent = new Intent(requireContext(), AddNoteActivity.class);
+        }
+        intent.putExtra("note_id", note.getId());
+        startActivity(intent);
     }
 
     private void CategoryAdapterInit() {

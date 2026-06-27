@@ -96,6 +96,14 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
         else {
             holder.cardNote.setStrokeWidth(0);
         }
+
+        // Lock icon
+        if (note.isLocked()) {
+            holder.imgLock.setVisibility(View.VISIBLE);
+        } else {
+            holder.imgLock.setVisibility(View.GONE);
+        }
+
         // for not pin
         if (note.isPinned()){
             holder.imgPin.setVisibility(View.VISIBLE);
@@ -283,9 +291,7 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
         MaterialCardView cardNote;
         View viewColor;
         TextView textTitle, textDescription, textTime;
-
-        ImageView imgPin;
-
+        ImageView imgPin, imgLock;
 
         public ArchivedNotesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -296,6 +302,7 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
             textDescription = itemView.findViewById(R.id.txtDescription);
             textTime = itemView.findViewById(R.id.txtTime);
             imgPin = itemView.findViewById(R.id.imgPin);
+            imgLock = itemView.findViewById(R.id.imgLock);
         }
     }
 

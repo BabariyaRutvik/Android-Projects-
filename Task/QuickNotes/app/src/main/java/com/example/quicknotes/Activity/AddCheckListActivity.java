@@ -9,6 +9,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.Toast;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
+import android.view.LayoutInflater;
+import android.annotation.SuppressLint;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.content.FileProvider;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import androidx.annotation.NonNull;
 
@@ -56,6 +68,9 @@ public class AddCheckListActivity extends AppCompatActivity {
     private String selectedColor = "#FFFFFF";
     private boolean isPinned = false;
     private boolean isCompleted = false;
+    private boolean isArchived = false;
+    private boolean isDeleted = false;
+    private boolean isLocked = false;
     private int noteId = -1;
     private long createdTime = -1;
     private final List<String> categories = Arrays.asList(
@@ -74,7 +89,8 @@ public class AddCheckListActivity extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, Math.max(systemBars.bottom, ime.bottom));
             return insets;
         });
 
@@ -109,6 +125,17 @@ public class AddCheckListActivity extends AppCompatActivity {
             List<ChecklistItem> items = new ArrayList<>();
             items.add(new ChecklistItem("", false));
             setupRecyclerView(items);
+        }
+
+        String shareType = getIntent().getStringExtra("extra_share_type");
+        if (shareType != null) {
+            binding.main.post(() -> {
+                if (shareType.equals("IMAGE")) {
+                    shareNoteAsImage();
+                } else if (shareType.equals("PDF")) {
+                    shareNoteAsPDF();
+                }
+            });
         }
 
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
@@ -149,11 +176,7 @@ public class AddCheckListActivity extends AppCompatActivity {
         });
 
         binding.imgDone.setOnClickListener(v -> {
-            if (noteId == -1) {
-                saveChecklist(false); // Save new checklist
-            } else {
-                updateChecklist(); // Explicitly update existing checklist
-            }
+            saveChecklist(false);
             finish();
         });
 
@@ -228,6 +251,9 @@ public class AddCheckListActivity extends AppCompatActivity {
             selectedColor = note.getNoteColor();
             isPinned = note.isPinned();
             isCompleted = note.isCompleted();
+            isArchived = note.isArchived();
+            isDeleted = note.isDeleted();
+            isLocked = note.isLocked();
             createdTime = note.getCreatedTime();
 
             if (selectedColor != null && !selectedColor.isEmpty()) {
@@ -289,8 +315,55 @@ public class AddCheckListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean isNewNote = (noteId == -1);
+
+        MenuItem archiveItem = menu.findItem(R.id.check_archive);
+        MenuItem widgetItem = menu.findItem(R.id.check_widget);
+        MenuItem deleteItem = menu.findItem(R.id.check_delete);
+        MenuItem lockItem = menu.findItem(R.id.check_lock);
+
+        if (isNewNote) {
+            if (archiveItem != null) archiveItem.setVisible(false);
+            if (widgetItem != null) widgetItem.setVisible(false);
+            if (deleteItem != null) deleteItem.setVisible(false);
+            if (lockItem != null) lockItem.setVisible(false);
+        } else {
+            if (archiveItem != null) archiveItem.setVisible(true);
+            if (widgetItem != null) widgetItem.setVisible(true);
+            if (deleteItem != null) deleteItem.setVisible(true);
+            if (lockItem != null) {
+                lockItem.setVisible(true);
+                lockItem.setTitle(isLocked ? "Unlock" : "Lock");
+            }
+        }
+
+        // Tint icons
+        int grayColor = ContextCompat.getColor(this, R.color.gray_icon);
+        MenuItem moreItem = menu.findItem(R.id.check_more);
+        if (moreItem != null) {
+            Menu subMenu = moreItem.getSubMenu();
+            if (subMenu != null) {
+                for (int i = 0; i < subMenu.size(); i++) {
+                    MenuItem subItem = subMenu.getItem(i);
+                    if (subItem != null && subItem.getIcon() != null) {
+                        subItem.getIcon().setTint(grayColor);
+                    }
+                }
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.add_checklist_menu, menu);
+
+        if (menu instanceof MenuBuilder) {
+            ((MenuBuilder) menu).setOptionalIconsVisible(true);
+        }
 
         // Update pin icon
         MenuItem pinItem = menu.findItem(R.id.menu_pin);
@@ -307,64 +380,68 @@ public class AddCheckListActivity extends AppCompatActivity {
         if (id == R.id.menu_pin) {
             isPinned = !isPinned;
             item.setIcon(isPinned ? R.drawable.ic_pin_filled : R.drawable.ic_pin);
-            Toast.makeText(this, isPinned ? "Note Pinned" : "Note Unpinned", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, isPinned ? "Checklist Pinned" : "Checklist Unpinned", Toast.LENGTH_SHORT).show();
             return true;
-        }
-
-         else if (id == R.id.check_checkboxes){
-            Toast.makeText(this, "Checks", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.check_share){
-            Toast.makeText(this, "Share", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.check_pdf){
-            Toast.makeText(this, "PDF", Toast.LENGTH_SHORT).show();
-        }
-        else if (id == R.id.check_reminder){
+        } else if (id == R.id.check_share_top) {
+            showShareAsDialog();
+            return true;
+        } else if (id == R.id.check_checkboxes){
+            isCompleted = !isCompleted;
+            updateReminderUI();
+            saveChecklist(true);
+            Toast.makeText(this, isCompleted ? "Checklist Checked" : "Checklist Unchecked", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.check_archive) {
+            isArchived = true;
+            isDeleted = false;
+            saveChecklist(true);
+            Toast.makeText(this, "Checklist Archived", Toast.LENGTH_SHORT).show();
+            finish();
+            return true;
+        } else if (id == R.id.check_pdf){
+            shareNoteAsPDF();
+            return true;
+        } else if (id == R.id.check_widget) {
+            Toast.makeText(this, "Add widget", Toast.LENGTH_SHORT).show();
+            return true;
+        } else if (id == R.id.check_reminder){
             saveChecklist(true);
             Intent intent = new Intent(this, ReminderActivity.class);
             intent.putExtra("note_id", noteId);
             startActivity(intent);
+            return true;
+        } else if (id == R.id.check_delete) {
+            isDeleted = true;
+            isArchived = false;
+            saveChecklist(true);
+            Toast.makeText(this, "Moved to Recycle Bin", Toast.LENGTH_SHORT).show();
+            finish();
+            return true;
+        } else if (id == R.id.check_lock) {
+            handleLockUnlock();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateChecklist() {
-        String title = binding.edtTitle.getText().toString().trim();
-        List<ChecklistItem> items = checklistAdapter.getItems();
-
-        // Check if anything to save
-        boolean hasContent = false;
-        for (ChecklistItem item : items) {
-            if (!item.getText().trim().isEmpty()) {
-                hasContent = true;
-                break;
-            }
-        }
-
-        if (title.isEmpty() && !hasContent) {
+    private void handleLockUnlock() {
+        android.content.SharedPreferences prefs = getSharedPreferences("security_prefs", Context.MODE_PRIVATE);
+        if (!prefs.getBoolean("is_enabled", false)) {
+            Toast.makeText(this, R.string.set_password_first, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String finalTitle = title.isEmpty() ? "Untitled Checklist" : title;
-        String description = serializeChecklist(items);
-        long timestamp = System.currentTimeMillis();
-
-        Note note = new Note(
-                finalTitle,
-                description,
-                "CHECKLIST",
-                selectedCategory,
-                createdTime,
-                timestamp,
-                0,
-                selectedColor,
-                isPinned
-        );
-        note.setId(noteId);
-        note.setCompleted(isCompleted);
-        noteViewModel.update(note);
-        Toast.makeText(this, "Checklist Updated successfully", Toast.LENGTH_SHORT).show();
+        if (isLocked) {
+            isLocked = false;
+            saveChecklist(true);
+            invalidateOptionsMenu();
+            Toast.makeText(this, "Checklist Unlocked", Toast.LENGTH_SHORT).show();
+        } else {
+            isLocked = true;
+            saveChecklist(true);
+            invalidateOptionsMenu();
+            Toast.makeText(this, "Checklist Locked", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void saveChecklist(boolean isSilent) {
@@ -402,24 +479,28 @@ public class AddCheckListActivity extends AppCompatActivity {
                     isPinned
             );
             note.setCompleted(isCompleted);
+            note.setArchived(isArchived);
+            note.setDeleted(isDeleted);
+            note.setLocked(isLocked);
             noteId = (int) noteViewModel.insert(note);
             if (!isSilent) Toast.makeText(this, "Checklist Saved", Toast.LENGTH_SHORT).show();
         } else {
-            Note note = new Note(
-                    finalTitle,
-                    description,
-                    "CHECKLIST",
-                    selectedCategory,
-                    createdTime,
-                    timestamp,
-                    0,
-                    selectedColor,
-                    isPinned
-            );
-            note.setId(noteId);
-            note.setCompleted(isCompleted);
-            noteViewModel.update(note);
-            if (!isSilent) Toast.makeText(this, "Checklist Updated", Toast.LENGTH_SHORT).show();
+            Note note = noteViewModel.getNoteById(noteId);
+            if (note != null) {
+                note.setTitle(finalTitle);
+                note.setDescription(description);
+                note.setCategory(selectedCategory);
+                note.setModifiedTime(timestamp);
+                note.setNoteColor(selectedColor);
+                note.setPinned(isPinned);
+                note.setCompleted(isCompleted);
+                note.setArchived(isArchived);
+                note.setDeleted(isDeleted);
+                note.setLocked(isLocked);
+
+                noteViewModel.update(note);
+                if (!isSilent) Toast.makeText(this, "Checklist Updated", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -446,6 +527,128 @@ public class AddCheckListActivity extends AppCompatActivity {
             }
         }
         return items;
+    }
+
+    private void showShareAsDialog() {
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_share_as, null);
+        AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setView(dialogView)
+                .setBackground(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+                .create();
+
+        dialogView.findViewById(R.id.btnShareImage).setOnClickListener(v -> {
+            shareNoteAsImage();
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnSharePDF).setOnClickListener(v -> {
+            shareNoteAsPDF();
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnShareText).setOnClickListener(v -> {
+            shareNoteAsText();
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void shareNoteAsPDF() {
+        binding.toolbarAddChecklist.setVisibility(View.GONE);
+        binding.bottomToolbar.setVisibility(View.GONE);
+        binding.imgReminder.setVisibility(View.GONE);
+
+        View view = binding.main;
+        PdfDocument document = new PdfDocument();
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(view.getWidth(), view.getHeight(), 1).create();
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        Canvas canvas = page.getCanvas();
+        view.draw(canvas);
+
+        document.finishPage(page);
+
+        binding.toolbarAddChecklist.setVisibility(View.VISIBLE);
+        binding.bottomToolbar.setVisibility(View.VISIBLE);
+        binding.imgReminder.setVisibility(View.VISIBLE);
+
+        try {
+            File cachePath = new File(getCacheDir(), "shared_files");
+            cachePath.mkdirs();
+            File file = new File(cachePath, "checklist.pdf");
+            FileOutputStream stream = new FileOutputStream(file);
+            document.writeTo(stream);
+            stream.close();
+            document.close();
+
+            Uri contentUri = FileProvider.getUriForFile(this, "com.example.quicknotes.fileprovider", file);
+
+            if (contentUri != null) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("application/pdf");
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to share PDF", Toast.LENGTH_SHORT).show();
+            document.close();
+        }
+    }
+
+    private void shareNoteAsImage() {
+        binding.toolbarAddChecklist.setVisibility(View.GONE);
+        binding.bottomToolbar.setVisibility(View.GONE);
+        binding.imgReminder.setVisibility(View.GONE);
+
+        View view = binding.main;
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        view.draw(canvas);
+
+        binding.toolbarAddChecklist.setVisibility(View.VISIBLE);
+        binding.bottomToolbar.setVisibility(View.VISIBLE);
+        binding.imgReminder.setVisibility(View.VISIBLE);
+
+        try {
+            File cachePath = new File(getCacheDir(), "shared_images");
+            cachePath.mkdirs();
+            File file = new File(cachePath, "checklist_image.png");
+            FileOutputStream stream = new FileOutputStream(file);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.close();
+
+            Uri contentUri = FileProvider.getUriForFile(this, "com.example.quicknotes.fileprovider", file);
+
+            if (contentUri != null) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                startActivity(Intent.createChooser(shareIntent, getString(R.string.share)));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to share image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void shareNoteAsText() {
+        String title = binding.edtTitle.getText().toString();
+        StringBuilder sb = new StringBuilder(title).append("\n\n");
+        List<ChecklistItem> items = checklistAdapter.getItems();
+        for (ChecklistItem item : items) {
+            sb.append(item.isChecked() ? "☑ " : "☐ ").append(item.getText()).append("\n");
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, title);
+        intent.putExtra(Intent.EXTRA_TEXT, sb.toString());
+        startActivity(Intent.createChooser(intent, getString(R.string.share)));
     }
 
     @Override

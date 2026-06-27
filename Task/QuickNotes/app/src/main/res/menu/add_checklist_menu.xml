@@ -9,45 +9,52 @@
         app:showAsAction="always" />
 
     <item
+        android:id="@+id/check_share_top"
+        android:title="Share"
+        android:icon="@drawable/ic_share_menu"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/check_more"
         android:title="More"
         app:showAsAction="always"
-        android:icon="@drawable/ic_more"
-        >
+        android:icon="@drawable/ic_more">
 
         <menu>
             <item
                 android:id="@+id/check_checkboxes"
                 android:title="Check"
-                android:icon="@drawable/ic_check_menu"
-                app:showAsAction="always"
-                />
+                android:icon="@drawable/ic_check_menu" />
 
             <item
-                android:id="@+id/check_share"
-                android:title="Share"
-                android:icon="@drawable/ic_share_menu"
-                app:showAsAction="always"
-                />
+                android:id="@+id/check_archive"
+                android:title="Archive"
+                android:icon="@drawable/ic_archive_custom" />
 
             <item
                 android:id="@+id/check_pdf"
-                android:title="Export As PDF"
-                android:icon="@drawable/ic_pdf_menu"
-                app:showAsAction="always"
-                />
+                android:title="Export as PDF"
+                android:icon="@drawable/ic_pdf_menu" />
+
+            <item
+                android:id="@+id/check_widget"
+                android:title="Add widget"
+                android:icon="@drawable/ic_widget_custom" />
 
             <item
                 android:id="@+id/check_reminder"
                 android:title="Reminder"
-                android:icon="@drawable/ic_reminder_menu"
-                app:showAsAction="always"
-                />
+                android:icon="@drawable/ic_reminder_menu" />
 
+            <item
+                android:id="@+id/check_delete"
+                android:title="Delete"
+                android:icon="@drawable/ic_delete_custom" />
 
-
+            <item
+                android:id="@+id/check_lock"
+                android:title="Lock"
+                android:icon="@drawable/ic_lock_settings" />
         </menu>
     </item>
-
-
 </menu>

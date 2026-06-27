@@ -29,6 +29,10 @@
     <string name="change_password">पासवर्ड बदलें</string>
     <string name="others">अन्य</string>
     <string name="share">शेयर करें</string>
+    <string name="share_as">इस रूप में साझा करें</string>
+    <string name="image">छवि</string>
+    <string name="pdf">PDF</string>
+    <string name="text">टेक्स्ट</string>
     <string name="privacy_policy">गोપनीयता नीति</string>
     <string name="recycle_bin">रीसायकल बिन</string>
     <string name="archive">आर्काइव</string>
@@ -97,6 +101,13 @@
     <string name="empty_archive_msg">आपकी आर्काइव की गई नोट यहाँ दिखाई देंगी</string>
     <string name="note_unarchived">नोट अनआर्काइव किया गया</string>
     <string name="unarchive">अनआर्काइव</string>
+
+    <string name="check">चेक</string>
+    <string name="uncheck">अनचेक</string>
+    <string name="unlock">अनलॉक</string>
+    <string name="add_widget">विजेट जोड़ें</string>
+    <string name="notes_title">नोट्स</string>
+    <string name="done_title">पूर्ण</string>
 
     <!-- Language Names -->
     <string name="english">अंग्रेजी</string>

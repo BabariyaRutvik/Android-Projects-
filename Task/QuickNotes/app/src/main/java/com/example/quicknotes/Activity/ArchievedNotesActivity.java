@@ -51,6 +51,11 @@ public class ArchievedNotesActivity extends AppCompatActivity {
     private int currentSortId = R.id.radio_b_ModifiedNew;
     private LiveData<List<Note>> currentNotesLiveData;
     private ViewSelectionBottomSheet.ViewType currentViewType = ViewSelectionBottomSheet.ViewType.DETAILS;
+    private androidx.activity.result.ActivityResultLauncher<Intent> lockLauncher;
+    private Note noteToOpen;
+    private List<Note> pendingUnarchiveNotes;
+    private List<Note> pendingDeleteNotes;
+    private boolean isUnlockingSelection = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -79,6 +84,29 @@ public class ArchievedNotesActivity extends AppCompatActivity {
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
+        lockLauncher = registerForActivityResult(new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == android.app.Activity.RESULT_OK) {
+                if (noteToOpen != null) {
+                    openNoteActivity(noteToOpen);
+                    noteToOpen = null;
+                } else if (pendingUnarchiveNotes != null) {
+                    performUnarchive(pendingUnarchiveNotes);
+                    pendingUnarchiveNotes = null;
+                } else if (pendingDeleteNotes != null) {
+                    performMoveToRecycleBin(pendingDeleteNotes);
+                    pendingDeleteNotes = null;
+                } else if (isUnlockingSelection) {
+                    performLockUnlock(false);
+                    isUnlockingSelection = false;
+                }
+            } else {
+                noteToOpen = null;
+                pendingUnarchiveNotes = null;
+                pendingDeleteNotes = null;
+                isUnlockingSelection = false;
+            }
+        });
+
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
                 binding.fragmentContainer.setVisibility(View.GONE);
@@ -90,6 +118,17 @@ public class ArchievedNotesActivity extends AppCompatActivity {
         setupClickListeners();
 
         updateNotesList();
+
+        getOnBackPressedDispatcher().addCallback(this, new androidx.activity.OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (archivedNotesAdapter.isSelectionMode()) {
+                    setSelectionMode(false);
+                } else {
+                    finish();
+                }
+            }
+        });
     }
 
     private void setupNotesRecyclerView() {
@@ -97,14 +136,14 @@ public class ArchievedNotesActivity extends AppCompatActivity {
         archivedNotesAdapter = new ArchivedNotesAdapter(new ArchivedNotesAdapter.OnNoteClickListener() {
             @Override
             public void onNoteClick(Note note) {
-                Intent intent;
-                if ("CHECKLIST".equals(note.getNoteType())) {
-                    intent = new Intent(ArchievedNotesActivity.this, AddCheckListActivity.class);
+                if (note.isLocked()) {
+                    noteToOpen = note;
+                    Intent intent = new Intent(ArchievedNotesActivity.this, PatternLockActivity.class);
+                    intent.putExtra("extra_mode", "mode_verify");
+                    lockLauncher.launch(intent);
                 } else {
-                    intent = new Intent(ArchievedNotesActivity.this, AddNoteActivity.class);
+                    openNoteActivity(note);
                 }
-                intent.putExtra("note_id", note.getId());
-                startActivity(intent);
             }
 
             @Override
@@ -118,10 +157,22 @@ public class ArchievedNotesActivity extends AppCompatActivity {
                     setSelectionMode(false);
                 } else {
                     binding.txtSelectionCountArchive.setText(count + " Selected");
+                    updateLockIconInSelectionBar();
                 }
             }
         });
         binding.rvArchivedNotes.setAdapter(archivedNotesAdapter);
+    }
+
+    private void openNoteActivity(Note note) {
+        Intent intent;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            intent = new Intent(ArchievedNotesActivity.this, AddCheckListActivity.class);
+        } else {
+            intent = new Intent(ArchievedNotesActivity.this, AddNoteActivity.class);
+        }
+        intent.putExtra("note_id", note.getId());
+        startActivity(intent);
     }
 
     private void setupCategoryRecyclerView() {
@@ -136,13 +187,18 @@ public class ArchievedNotesActivity extends AppCompatActivity {
     }
 
     private void setupClickListeners() {
-        binding.toolbarArchive.setNavigationOnClickListener(v -> finish());
+        binding.toolbarArchive.setNavigationOnClickListener(v -> {
+            if (archivedNotesAdapter.isSelectionMode()) {
+                setSelectionMode(false);
+            } else {
+                finish();
+            }
+        });
         binding.txtEditCategoriesArchive.setOnClickListener(v -> showEditCategoriesBottomSheet());
         binding.imgCloseSelectionArchive.setOnClickListener(v -> setSelectionMode(false));
         binding.btnUnarchiveSelection.setOnClickListener(v -> unarchiveSelectedNotes());
         binding.btnDeleteSelectionArchive.setOnClickListener(v -> showDeleteConfirmDialog());
-        binding.btnFolderSelectionArchive.setOnClickListener(v -> Toast.makeText(this, "Folder clicked", Toast.LENGTH_SHORT).show());
-        binding.btnMoreSelectionArchive.setOnClickListener(this::showSelectionMorePopup);
+        binding.btnLockSelectionArchive.setOnClickListener(v -> toggleLockSelectedNotes());
         binding.imgPinSelectionArchive.setOnClickListener(v -> togglePinSelectedNotes());
         binding.imgReminderSelectionArchive.setOnClickListener(v -> Toast.makeText(this, "Reminder clicked", Toast.LENGTH_SHORT).show());
     }
@@ -202,6 +258,7 @@ public class ArchievedNotesActivity extends AppCompatActivity {
             archivedNotesAdapter.setSelectionMode(true);
             int count = archivedNotesAdapter.getSelectedNoteIds().size();
             binding.txtSelectionCountArchive.setText(count + " Selected");
+            updateLockIconInSelectionBar();
         } else {
             binding.toolbarArchive.setVisibility(View.VISIBLE);
             binding.layoutSelectionHeaderArchive.setVisibility(View.GONE);
@@ -221,6 +278,70 @@ public class ArchievedNotesActivity extends AppCompatActivity {
         }
         setSelectionMode(false);
         Toast.makeText(this, "Pin status updated", Toast.LENGTH_SHORT).show();
+    }
+
+    private void toggleLockSelectedNotes() {
+        android.content.SharedPreferences prefs = getSharedPreferences("security_prefs", Context.MODE_PRIVATE);
+        if (!prefs.getBoolean("is_enabled", false)) {
+            Toast.makeText(this, R.string.set_password_first, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<Integer> selectedIds = archivedNotesAdapter.getSelectedNoteIds();
+        if (selectedIds.isEmpty()) return;
+
+        // Determine if we should lock or unlock based on the first note
+        Note firstNote = noteViewModel.getNoteById(selectedIds.get(0));
+        if (firstNote == null) return;
+        
+        boolean shouldLock = !firstNote.isLocked();
+
+        if (!shouldLock) {
+            // Unlocking requires pattern
+            isUnlockingSelection = true;
+            Intent intent = new Intent(this, PatternLockActivity.class);
+            intent.putExtra("extra_mode", "mode_verify");
+            lockLauncher.launch(intent);
+        } else {
+            performLockUnlock(true);
+        }
+    }
+
+    private void performLockUnlock(boolean shouldLock) {
+        List<Integer> selectedIds = archivedNotesAdapter.getSelectedNoteIds();
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null) {
+                note.setLocked(shouldLock);
+                noteViewModel.update(note);
+            }
+        }
+        setSelectionMode(false);
+        String msg = shouldLock ? "Notes locked" : "Notes unlocked";
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void updateLockIconInSelectionBar() {
+        List<Integer> selectedIds = archivedNotesAdapter.getSelectedNoteIds();
+        if (selectedIds.isEmpty()) return;
+
+        // Check if all selected notes are locked
+        boolean allLocked = true;
+        for (int id : selectedIds) {
+            Note note = noteViewModel.getNoteById(id);
+            if (note != null && !note.isLocked()) {
+                allLocked = false;
+                break;
+            }
+        }
+
+        if (allLocked) {
+            // Show unlock icon
+            binding.imgLockSelectionArchive.setImageResource(R.drawable.ic_unlock_custom);
+        } else {
+            // Show lock icon
+            binding.imgLockSelectionArchive.setImageResource(R.drawable.ic_lock_settings);
+        }
     }
 
     private void showSelectionMorePopup(View view) {
@@ -243,16 +364,32 @@ public class ArchievedNotesActivity extends AppCompatActivity {
     private void unarchiveSelectedNotes() {
         List<Integer> selectedIds = archivedNotesAdapter.getSelectedNoteIds();
         List<Note> notesToUnarchive = new ArrayList<>();
+        boolean hasLocked = false;
         for (int id : selectedIds) {
             Note note = noteViewModel.getNoteById(id);
             if (note != null) {
                 notesToUnarchive.add(note);
-                note.setArchived(false);
-                noteViewModel.update(note);
+                if (note.isLocked()) hasLocked = true;
             }
         }
+
+        if (hasLocked) {
+            pendingUnarchiveNotes = notesToUnarchive;
+            Intent intent = new Intent(this, PatternLockActivity.class);
+            intent.putExtra("extra_mode", "mode_verify");
+            lockLauncher.launch(intent);
+        } else {
+            performUnarchive(notesToUnarchive);
+        }
+    }
+
+    private void performUnarchive(List<Note> notes) {
+        for (Note note : notes) {
+            note.setArchived(false);
+            noteViewModel.update(note);
+        }
         setSelectionMode(false);
-        showUndoSnackbar(notesToUnarchive, true);
+        showUndoSnackbar(notes, true);
     }
 
     private void showDeleteConfirmDialog() {
@@ -269,19 +406,35 @@ public class ArchievedNotesActivity extends AppCompatActivity {
         dialogView.findViewById(R.id.btnDelete).setOnClickListener(v -> {
             List<Integer> selectedIds = archivedNotesAdapter.getSelectedNoteIds();
             List<Note> notesToDelete = new ArrayList<>();
+            boolean hasLocked = false;
             for (int id : selectedIds) {
                 Note note = noteViewModel.getNoteById(id);
                 if (note != null) {
                     notesToDelete.add(note);
-                    noteViewModel.moveToRecycleBin(note);
+                    if (note.isLocked()) hasLocked = true;
                 }
             }
-            setSelectionMode(false);
+
+            if (hasLocked) {
+                pendingDeleteNotes = notesToDelete;
+                Intent intent = new Intent(this, PatternLockActivity.class);
+                intent.putExtra("extra_mode", "mode_verify");
+                lockLauncher.launch(intent);
+            } else {
+                performMoveToRecycleBin(notesToDelete);
+            }
             dialog.dismiss();
-            showUndoSnackbar(notesToDelete, false);
         });
 
         dialog.show();
+    }
+
+    private void performMoveToRecycleBin(List<Note> notes) {
+        for (Note note : notes) {
+            noteViewModel.moveToRecycleBin(note);
+        }
+        setSelectionMode(false);
+        showUndoSnackbar(notes, false);
     }
 
     private void showUndoSnackbar(List<Note> notes, boolean unarchived) {

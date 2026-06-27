@@ -73,6 +73,15 @@
                         android:src="@drawable/ic_calender_outline"
                         app:tint="@color/gray_text" />
 
+                    <ImageView
+                        android:id="@+id/imgLock"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="8dp"
+                        android:src="@drawable/ic_lock_settings"
+                        android:visibility="gone"
+                        app:tint="@color/gray_text" />
+
                     <TextView
                         android:id="@+id/txtTime"
                         android:layout_width="wrap_content"

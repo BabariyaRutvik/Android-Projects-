@@ -29,6 +29,10 @@
     <string name="change_password">Change password</string>
     <string name="others">Others</string>
     <string name="share">Share</string>
+    <string name="share_as">Share as</string>
+    <string name="image">Image</string>
+    <string name="pdf">PDF</string>
+    <string name="text">Text</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="recycle_bin">Recycle bin</string>
     <string name="archive">Archive</string>
@@ -122,6 +126,13 @@
     <string name="password_changed_success">Password changed successfully</string>
     <string name="password_removed_success">Password removed successfully</string>
     <string name="set_password_first">Please set a password first</string>
+
+    <string name="check">Check</string>
+    <string name="uncheck">Uncheck</string>
+    <string name="unlock">Unlock</string>
+    <string name="add_widget">Add widget</string>
+    <string name="notes_title">Notes</string>
+    <string name="done_title">Done</string>
 
     <!-- Font Size Screen -->
     <string name="heading_1">Heading 1</string>

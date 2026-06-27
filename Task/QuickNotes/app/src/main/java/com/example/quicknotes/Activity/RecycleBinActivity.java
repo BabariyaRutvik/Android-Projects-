@@ -1,6 +1,7 @@
 package com.example.quicknotes.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -34,6 +37,13 @@ public class RecycleBinActivity extends AppCompatActivity {
     private ActivityRecycleBinBinding binding;
     private NoteViewModel noteViewModel;
     private DeletedNotesAdapter adapter;
+    private ActivityResultLauncher<Intent> lockLauncher;
+    private Note pendingDeleteNote;
+    private List<Integer> pendingDeleteIds;
+    private Note pendingRestoreNote;
+    private List<Integer> pendingRestoreIds;
+    private Note pendingClickedNote;
+    private boolean isEmptyingBin = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -57,6 +67,54 @@ public class RecycleBinActivity extends AppCompatActivity {
         });
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
+
+        lockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == RESULT_OK) {
+                if (pendingDeleteNote != null) {
+                    noteViewModel.delete(pendingDeleteNote);
+                    Toast.makeText(this, "Note deleted permanently", Toast.LENGTH_SHORT).show();
+                    pendingDeleteNote = null;
+                } else if (pendingDeleteIds != null) {
+                    for (int id : pendingDeleteIds) {
+                        Note note = noteViewModel.getNoteById(id);
+                        if (note != null) noteViewModel.delete(note);
+                    }
+                    Toast.makeText(this, pendingDeleteIds.size() + " notes deleted", Toast.LENGTH_SHORT).show();
+                    pendingDeleteIds = null;
+                    setSelectionMode(false);
+                } else if (isEmptyingBin) {
+                    noteViewModel.emptyRecycleBin();
+                    Toast.makeText(this, "Recycle bin emptied", Toast.LENGTH_SHORT).show();
+                    isEmptyingBin = false;
+                } else if (pendingRestoreNote != null) {
+                    pendingRestoreNote.setDeleted(false);
+                    noteViewModel.update(pendingRestoreNote);
+                    Toast.makeText(this, "Note restored", Toast.LENGTH_SHORT).show();
+                    pendingRestoreNote = null;
+                } else if (pendingRestoreIds != null) {
+                    for (int id : pendingRestoreIds) {
+                        Note note = noteViewModel.getNoteById(id);
+                        if (note != null) {
+                            note.setDeleted(false);
+                            noteViewModel.update(note);
+                        }
+                    }
+                    Toast.makeText(this, pendingRestoreIds.size() + " notes restored", Toast.LENGTH_SHORT).show();
+                    pendingRestoreIds = null;
+                    setSelectionMode(false);
+                } else if (pendingClickedNote != null) {
+                    showRestoreDeleteDialog(pendingClickedNote, true);
+                    pendingClickedNote = null;
+                }
+            } else {
+                pendingDeleteNote = null;
+                pendingDeleteIds = null;
+                pendingRestoreNote = null;
+                pendingRestoreIds = null;
+                pendingClickedNote = null;
+                isEmptyingBin = false;
+            }
+        });
 
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
             if (getSupportFragmentManager().getBackStackEntryCount() == 0) {
@@ -92,7 +150,14 @@ public class RecycleBinActivity extends AppCompatActivity {
         adapter = new DeletedNotesAdapter(new DeletedNotesAdapter.OnNoteClickListener() {
             @Override
             public void onNoteClick(Note note) {
-                showRestoreDeleteDialog(note);
+                if (note.isLocked()) {
+                    pendingClickedNote = note;
+                    Intent intent = new Intent(RecycleBinActivity.this, PatternLockActivity.class);
+                    intent.putExtra("extra_mode", "mode_verify");
+                    lockLauncher.launch(intent);
+                } else {
+                    showRestoreDeleteDialog(note, false);
+                }
             }
 
             @Override
@@ -134,15 +199,31 @@ public class RecycleBinActivity extends AppCompatActivity {
     private void setupSelectionActions() {
         binding.btnRestoreBin.setOnClickListener(v -> {
             List<Integer> ids = adapter.getSelectedNoteIds();
+            boolean hasLocked = false;
             for (int id : ids) {
                 Note note = noteViewModel.getNoteById(id);
-                if (note != null) {
-                    note.setDeleted(false);
-                    noteViewModel.update(note);
+                if (note != null && note.isLocked()) {
+                    hasLocked = true;
+                    break;
                 }
             }
-            Toast.makeText(this, ids.size() + " notes restored", Toast.LENGTH_SHORT).show();
-            setSelectionMode(false);
+
+            if (hasLocked) {
+                pendingRestoreIds = ids;
+                Intent intent = new Intent(this, PatternLockActivity.class);
+                intent.putExtra("extra_mode", "mode_verify");
+                lockLauncher.launch(intent);
+            } else {
+                for (int id : ids) {
+                    Note note = noteViewModel.getNoteById(id);
+                    if (note != null) {
+                        note.setDeleted(false);
+                        noteViewModel.update(note);
+                    }
+                }
+                Toast.makeText(this, ids.size() + " notes restored", Toast.LENGTH_SHORT).show();
+                setSelectionMode(false);
+            }
         });
 
         binding.btnDeleteBin.setOnClickListener(v -> {
@@ -161,14 +242,28 @@ public class RecycleBinActivity extends AppCompatActivity {
             dialogView.findViewById(R.id.btnCancel).setOnClickListener(v1 -> dialog.dismiss());
             dialogView.findViewById(R.id.btnDelete).setOnClickListener(v1 -> {
                 List<Integer> ids = adapter.getSelectedNoteIds();
+                boolean hasLockedNote = false;
                 for (int id : ids) {
                     Note note = noteViewModel.getNoteById(id);
-                    if (note != null) {
-                        noteViewModel.delete(note);
+                    if (note != null && note.isLocked()) {
+                        hasLockedNote = true;
+                        break;
                     }
                 }
-                Toast.makeText(this, ids.size() + " notes deleted", Toast.LENGTH_SHORT).show();
-                setSelectionMode(false);
+
+                if (hasLockedNote) {
+                    pendingDeleteIds = ids;
+                    Intent intent = new Intent(this, PatternLockActivity.class);
+                    intent.putExtra("extra_mode", "mode_verify");
+                    lockLauncher.launch(intent);
+                } else {
+                    for (int id : ids) {
+                        Note note = noteViewModel.getNoteById(id);
+                        if (note != null) noteViewModel.delete(note);
+                    }
+                    Toast.makeText(this, ids.size() + " notes deleted", Toast.LENGTH_SHORT).show();
+                    setSelectionMode(false);
+                }
                 dialog.dismiss();
             });
 
@@ -212,7 +307,7 @@ public class RecycleBinActivity extends AppCompatActivity {
         });
     }
 
-    private void showRestoreDeleteDialog(Note note) {
+    private void showRestoreDeleteDialog(Note note, boolean isAlreadyVerified) {
         if (adapter.isSelectionMode()) return;
         
         String[] options = {"Restore", "Delete permanently"};
@@ -220,17 +315,24 @@ public class RecycleBinActivity extends AppCompatActivity {
                 .setTitle(note.getTitle())
                 .setItems(options, (dialog, which) -> {
                     if (which == 0) {
-                        note.setDeleted(false);
-                        noteViewModel.update(note);
-                        Toast.makeText(this, "Note restored", Toast.LENGTH_SHORT).show();
+                        if (note.isLocked() && !isAlreadyVerified) {
+                            pendingRestoreNote = note;
+                            Intent intent = new Intent(this, PatternLockActivity.class);
+                            intent.putExtra("extra_mode", "mode_verify");
+                            lockLauncher.launch(intent);
+                        } else {
+                            note.setDeleted(false);
+                            noteViewModel.update(note);
+                            Toast.makeText(this, "Note restored", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        showDeleteConfirmDialog(note);
+                        showDeleteConfirmDialog(note, isAlreadyVerified);
                     }
                 })
                 .show();
     }
 
-    private void showDeleteConfirmDialog(Note note) {
+    private void showDeleteConfirmDialog(Note note, boolean isAlreadyVerified) {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_delete_confirm, null);
         AlertDialog dialog = new AlertDialog.Builder(this, R.style.CustomDialog)
                 .setView(dialogView)
@@ -245,8 +347,15 @@ public class RecycleBinActivity extends AppCompatActivity {
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialogView.findViewById(R.id.btnDelete).setOnClickListener(v -> {
-            noteViewModel.delete(note);
-            Toast.makeText(this, "Note deleted permanently", Toast.LENGTH_SHORT).show();
+            if (note.isLocked() && !isAlreadyVerified) {
+                pendingDeleteNote = note;
+                Intent intent = new Intent(this, PatternLockActivity.class);
+                intent.putExtra("extra_mode", "mode_verify");
+                lockLauncher.launch(intent);
+            } else {
+                noteViewModel.delete(note);
+                Toast.makeText(this, "Note deleted permanently", Toast.LENGTH_SHORT).show();
+            }
             dialog.dismiss();
         });
 
@@ -258,8 +367,32 @@ public class RecycleBinActivity extends AppCompatActivity {
                 .setTitle("Empty Recycle bin?")
                 .setMessage("All notes in Recycle bin will be permanently deleted.")
                 .setPositiveButton("Empty", (dialog, which) -> {
-                    noteViewModel.emptyRecycleBin();
-                    Toast.makeText(this, "Recycle bin emptied", Toast.LENGTH_SHORT).show();
+                    // Check if any note is locked
+                    noteViewModel.getDeletedNotes().observe(this, new androidx.lifecycle.Observer<List<Note>>() {
+                        @Override
+                        public void onChanged(List<Note> notes) {
+                            noteViewModel.getDeletedNotes().removeObserver(this);
+                            boolean hasLocked = false;
+                            if (notes != null) {
+                                for (Note n : notes) {
+                                    if (n.isLocked()) {
+                                        hasLocked = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            
+                            if (hasLocked) {
+                                isEmptyingBin = true;
+                                Intent intent = new Intent(RecycleBinActivity.this, PatternLockActivity.class);
+                                intent.putExtra("extra_mode", "mode_verify");
+                                lockLauncher.launch(intent);
+                            } else {
+                                noteViewModel.emptyRecycleBin();
+                                Toast.makeText(RecycleBinActivity.this, "Recycle bin emptied", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
                 })
                 .setNegativeButton("Cancel", null)
                 .show();

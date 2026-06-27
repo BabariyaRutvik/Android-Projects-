@@ -9,7 +9,10 @@ import android.content.Intent;
 import android.os.Build;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
+import com.example.quicknotes.Activity.AddCheckListActivity;
+import com.example.quicknotes.Activity.AddNoteActivity;
 import com.example.quicknotes.Activity.ReminderActivity;
 import com.example.quicknotes.R;
 
@@ -22,15 +25,34 @@ public class ReminderReceiver extends BroadcastReceiver {
         int noteId = intent.getIntExtra("note_id", -1);
         String title = intent.getStringExtra("title");
         String content = intent.getStringExtra("content");
+        String noteType = intent.getStringExtra("note_type");
 
         if (noteId == -1) return;
 
         createNotificationChannel(context);
 
-        Intent snoozeIntent = new Intent(context, NotificationActionReceiver.class);
-        snoozeIntent.setAction("SNOOZE");
+        // Intent to open the correct activity when notification is clicked
+        Intent clickIntent;
+        if ("CHECKLIST".equals(noteType)) {
+            clickIntent = new Intent(context, AddCheckListActivity.class);
+        } else {
+            clickIntent = new Intent(context, AddNoteActivity.class);
+        }
+        clickIntent.putExtra("note_id", noteId);
+        clickIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        
+        PendingIntent clickPendingIntent = PendingIntent.getActivity(
+                context, 
+                noteId, 
+                clickIntent, 
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        Intent snoozeIntent = new Intent(context, ReminderActivity.class);
         snoozeIntent.putExtra("note_id", noteId);
-        PendingIntent snoozePendingIntent = PendingIntent.getBroadcast(context, noteId, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        snoozeIntent.putExtra("is_snooze", true);
+        snoozeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent snoozePendingIntent = PendingIntent.getActivity(context, noteId, snoozeIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Intent checkIntent = new Intent(context, NotificationActionReceiver.class);
         checkIntent.setAction("CHECK");
@@ -44,14 +66,16 @@ public class ReminderReceiver extends BroadcastReceiver {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_reminder_menu)
-                .setColor(context.getResources().getColor(R.color.sky_blue, null))
+                .setColor(ContextCompat.getColor(context, R.color.sky_blue))
                 .setContentTitle(title)
                 .setContentText(content)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setAutoCancel(true)
-                .addAction(0, "Ignore", ignorePendingIntent)
-                .addAction(0, "Snooze", snoozePendingIntent)
-                .addAction(0, "Check", checkPendingIntent);
+                .setContentIntent(clickPendingIntent);
+
+        builder.addAction(R.drawable.ic_close, "Ignore", ignorePendingIntent);
+        builder.addAction(R.drawable.ic_calender_outline, "Snooze", snoozePendingIntent);
+        builder.addAction(R.drawable.ic_done, "Check", checkPendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(noteId, builder.build());

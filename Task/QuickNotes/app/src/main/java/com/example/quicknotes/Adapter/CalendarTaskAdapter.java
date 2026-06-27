@@ -28,7 +28,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public interface OnTaskClickListener {
         void onTaskClick(Note note);
-        void onTaskLongClick(Note note);
+        void onTaskLongClick(Note note, View view);
         void onTaskStatusChanged(Note note, boolean isCompleted);
     }
 
@@ -85,15 +85,26 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             taskHolder.txtTitle.setText(note.getTitle());
             
-            if (note.getDescription() != null && !note.getDescription().isEmpty()) {
-                taskHolder.txtDesc.setVisibility(View.VISIBLE);
-                if ("CHECKLIST".equals(note.getNoteType())) {
-                    taskHolder.txtDesc.setText(formatChecklistSummary(note.getDescription()));
+            if (note.isLocked()) {
+                taskHolder.imgLock.setVisibility(View.VISIBLE);
+                if (note.getDescription() != null && !note.getDescription().isEmpty()) {
+                    taskHolder.txtDesc.setVisibility(View.VISIBLE);
+                    taskHolder.txtDesc.setText("****************");
                 } else {
-                    taskHolder.txtDesc.setText(note.getDescription());
+                    taskHolder.txtDesc.setVisibility(View.GONE);
                 }
             } else {
-                taskHolder.txtDesc.setVisibility(View.GONE);
+                taskHolder.imgLock.setVisibility(View.GONE);
+                if (note.getDescription() != null && !note.getDescription().isEmpty()) {
+                    taskHolder.txtDesc.setVisibility(View.VISIBLE);
+                    if ("CHECKLIST".equals(note.getNoteType())) {
+                        taskHolder.txtDesc.setText(formatChecklistSummary(note.getDescription()));
+                    } else {
+                        taskHolder.txtDesc.setText(note.getDescription());
+                    }
+                } else {
+                    taskHolder.txtDesc.setVisibility(View.GONE);
+                }
             }
 
             // Category Indicator
@@ -136,7 +147,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             taskHolder.itemView.setOnClickListener(v -> listener.onTaskClick(note));
             taskHolder.itemView.setOnLongClickListener(v -> {
-                listener.onTaskLongClick(note);
+                listener.onTaskLongClick(note, v);
                 return true;
             });
 
@@ -217,7 +228,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     static class TaskViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkbox;
         TextView txtTitle, txtDesc, txtTime;
-        ImageView imgRepeat;
+        ImageView imgRepeat, imgLock;
         View viewCategoryIndicator;
 
         public TaskViewHolder(@NonNull View itemView) {
@@ -227,6 +238,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             txtDesc = itemView.findViewById(R.id.txtTaskDesc);
             txtTime = itemView.findViewById(R.id.txtTaskTime);
             imgRepeat = itemView.findViewById(R.id.imgRepeat);
+            imgLock = itemView.findViewById(R.id.imgLock);
             viewCategoryIndicator = itemView.findViewById(R.id.viewCategoryIndicator);
         }
     }

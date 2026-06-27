@@ -2,6 +2,7 @@ package com.example.quicknotes.Adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,9 +27,13 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
-public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHolder> {
+public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Note> noteList = new ArrayList<>();
+    private static final int TYPE_HEADER = 0;
+    private static final int TYPE_ITEM = 1;
+
+    private List<Object> items = new ArrayList<>();
+    private List<Note> fullNoteList = new ArrayList<>();
     private Set<Integer> selectedNoteIds = new HashSet<>();
     private boolean isSelectionMode = false;
     private ViewSelectionBottomSheet.ViewType currentViewType = ViewSelectionBottomSheet.ViewType.DETAILS;
@@ -44,83 +49,116 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         this.listener = listener;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (items.get(position) instanceof String) {
+            return TYPE_HEADER;
+        }
+        return TYPE_ITEM;
+    }
+
     @NonNull
     @Override
-    public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.note_design, parent, false);
-        return new NoteViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_HEADER) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_note_header, parent, false);
+            return new HeaderViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.note_design, parent, false);
+            return new NoteViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        Note note = noteList.get(position);
-        Context context = holder.itemView.getContext();
-
-        // Title
-        holder.txtTitle.setText(note.getTitle());
-
-        // View Type adjustment
-        if (currentViewType == ViewSelectionBottomSheet.ViewType.LIST) {
-            holder.txtDescription.setVisibility(View.GONE);
-            holder.txtTime.setVisibility(View.GONE); // Or keep it small?
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (getItemViewType(position) == TYPE_HEADER) {
+            ((HeaderViewHolder) holder).txtHeaderTitle.setText((String) items.get(position));
         } else {
-            // Description
-            if (TextUtils.isEmpty(note.getDescription())) {
-                holder.txtDescription.setVisibility(View.GONE);
+            Note note = (Note) items.get(position);
+            NoteViewHolder noteHolder = (NoteViewHolder) holder;
+            Context context = holder.itemView.getContext();
+
+            // Title
+            noteHolder.txtTitle.setText(note.getTitle());
+            if (note.isCompleted()) {
+                noteHolder.txtTitle.setPaintFlags(noteHolder.txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                noteHolder.txtTitle.setTextColor(ContextCompat.getColor(context, R.color.gray_text));
             } else {
-                holder.txtDescription.setVisibility(View.VISIBLE);
-                if ("CHECKLIST".equals(note.getNoteType())) {
-                    holder.txtDescription.setText(formatChecklist(note.getDescription()));
+                noteHolder.txtTitle.setPaintFlags(noteHolder.txtTitle.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                noteHolder.txtTitle.setTextColor(ContextCompat.getColor(context, R.color.text_primary));
+            }
+
+            // View Type adjustment
+            if (currentViewType == ViewSelectionBottomSheet.ViewType.LIST) {
+                noteHolder.txtDescription.setVisibility(View.GONE);
+                noteHolder.txtTime.setVisibility(View.GONE);
+            } else {
+                // Description
+                if (TextUtils.isEmpty(note.getDescription())) {
+                    noteHolder.txtDescription.setVisibility(View.GONE);
                 } else {
-                    holder.txtDescription.setText(note.getDescription());
+                    noteHolder.txtDescription.setVisibility(View.VISIBLE);
+                    if ("CHECKLIST".equals(note.getNoteType())) {
+                        noteHolder.txtDescription.setText(formatChecklist(note.getDescription()));
+                    } else {
+                        noteHolder.txtDescription.setText(note.getDescription());
+                    }
                 }
+
+                // Date
+                noteHolder.txtTime.setVisibility(View.VISIBLE);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault());
+                noteHolder.txtTime.setText(sdf.format(new Date(note.getModifiedTime())));
             }
 
-            // Date
-            holder.txtTime.setVisibility(View.VISIBLE);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault());
-            holder.txtTime.setText(sdf.format(new Date(note.getModifiedTime())));
-        }
+            // Colors mapping
+            int[] colors = getNoteColors(context, note);
+            noteHolder.cardNote.setCardBackgroundColor(colors[0]);
+            noteHolder.viewColor.setBackgroundColor(colors[1]);
 
-        // Colors mapping: {background, strip}
-        int[] colors = getNoteColors(context, note);
-        holder.cardNote.setCardBackgroundColor(colors[0]);
-        holder.viewColor.setBackgroundColor(colors[1]);
-
-        // Selection Border
-        if (selectedNoteIds.contains(note.getId())) {
-            holder.cardNote.setStrokeColor(ContextCompat.getColor(context, R.color.primary_blue));
-            holder.cardNote.setStrokeWidth(4);
-        } else {
-            holder.cardNote.setStrokeWidth(0);
-        }
-
-        // Pin icon
-        if (note.isPinned()) {
-            holder.imgPin.setVisibility(View.VISIBLE);
-            holder.imgPin.setColorFilter(colors[1]); // Match the pin color with the strip color
-        } else {
-            holder.imgPin.setVisibility(View.GONE);
-        }
-
-        // Click
-        holder.itemView.setOnClickListener(v -> {
-            if (isSelectionMode) {
-                toggleSelection(note);
+            // Selection Border
+            if (selectedNoteIds.contains(note.getId())) {
+                noteHolder.cardNote.setStrokeColor(ContextCompat.getColor(context, R.color.primary_blue));
+                noteHolder.cardNote.setStrokeWidth(4);
             } else {
-                listener.onNoteClick(note);
+                noteHolder.cardNote.setStrokeWidth(0);
             }
-        });
 
-        holder.itemView.setOnLongClickListener(v -> {
-            if (!isSelectionMode) {
-                isSelectionMode = true;
-                toggleSelection(note);
-                listener.onNoteLongClick(note);
+            // Pin icon
+            if (note.isPinned()) {
+                noteHolder.imgPin.setVisibility(View.VISIBLE);
+                noteHolder.imgPin.setColorFilter(colors[1]);
+            } else {
+                noteHolder.imgPin.setVisibility(View.GONE);
             }
-            return true;
-        });
+
+            // Lock icon
+            if (note.isLocked()) {
+                noteHolder.imgLock.setVisibility(View.VISIBLE);
+            } else {
+                noteHolder.imgLock.setVisibility(View.GONE);
+            }
+
+            // Click
+            noteHolder.itemView.setOnClickListener(v -> {
+                if (isSelectionMode) {
+                    toggleSelection(note);
+                } else {
+                    listener.onNoteClick(note);
+                }
+            });
+
+            noteHolder.itemView.setOnLongClickListener(v -> {
+                if (!isSelectionMode) {
+                    isSelectionMode = true;
+                    toggleSelection(note);
+                    listener.onNoteLongClick(note);
+                }
+                return true;
+            });
+        }
     }
 
     private void toggleSelection(Note note) {
@@ -159,7 +197,7 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     public void selectAll() {
         selectedNoteIds.clear();
-        for (Note note : noteList) {
+        for (Note note : fullNoteList) {
             selectedNoteIds.add(note.getId());
         }
         isSelectionMode = true;
@@ -175,6 +213,12 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         int bgColor;
         int stripColor;
         String category = note.getCategory() != null ? note.getCategory() : "Untitled";
+
+        if (note.isCompleted()) {
+            bgColor = ContextCompat.getColor(context, R.color.light_red); // Example for completed
+            stripColor = ContextCompat.getColor(context, R.color.badge_untitled_red_text);
+            return new int[]{bgColor, stripColor};
+        }
 
         switch (category) {
             case "All":
@@ -218,10 +262,9 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
                 stripColor = ContextCompat.getColor(context, R.color.badge_untitled_gray_text);
                 break;
             default:
-                // Fallback to saved color if exists, else white
                 try {
                     bgColor = Color.parseColor(note.getNoteColor());
-                    stripColor = bgColor; // If we don't have a category match, we use the same color
+                    stripColor = bgColor;
                 } catch (Exception e) {
                     bgColor = ContextCompat.getColor(context, R.color.surface_bg);
                     stripColor = ContextCompat.getColor(context, R.color.gray_icon);
@@ -233,11 +276,37 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
 
     @Override
     public int getItemCount() {
-        return noteList.size();
+        return items.size();
     }
 
     public void setNotes(List<Note> notes) {
-        this.noteList = notes;
+        this.fullNoteList = notes;
+        updateItems(notes);
+    }
+
+    private void updateItems(List<Note> notes) {
+        items.clear();
+        List<Note> active = new ArrayList<>();
+        List<Note> completed = new ArrayList<>();
+        
+        for (Note note : notes) {
+            if (note.isCompleted()) {
+                completed.add(note);
+            } else {
+                active.add(note);
+            }
+        }
+        
+        if (!active.isEmpty()) {
+            items.add("Notes");
+            items.addAll(active);
+        }
+        
+        if (!completed.isEmpty()) {
+            items.add("Done");
+            items.addAll(completed);
+        }
+        
         notifyDataSetChanged();
     }
 
@@ -260,11 +329,19 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
         return sb.toString().trim();
     }
 
+    static class HeaderViewHolder extends RecyclerView.ViewHolder {
+        TextView txtHeaderTitle;
+        public HeaderViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtHeaderTitle = itemView.findViewById(R.id.txtHeaderTitle);
+        }
+    }
+
     static class NoteViewHolder extends RecyclerView.ViewHolder {
         MaterialCardView cardNote;
         View viewColor;
         TextView txtTitle, txtDescription, txtTime;
-        ImageView imgPin;
+        ImageView imgPin, imgLock;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -274,6 +351,8 @@ public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NoteViewHold
             txtDescription = itemView.findViewById(R.id.txtDescription);
             txtTime = itemView.findViewById(R.id.txtTime);
             imgPin = itemView.findViewById(R.id.imgPin);
+            imgLock = itemView.findViewById(R.id.imgLock);
         }
     }
 }
+

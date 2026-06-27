@@ -34,12 +34,6 @@ public class NotificationActionReceiver extends BroadcastReceiver {
                 }
             }).start();
             Toast.makeText(context, "Marked as completed", Toast.LENGTH_SHORT).show();
-        } else if ("SNOOZE".equals(action)) {
-            Intent reminderIntent = new Intent(context, ReminderActivity.class);
-            reminderIntent.putExtra("note_id", noteId);
-            reminderIntent.putExtra("is_snooze", true);
-            reminderIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(reminderIntent);
         } else if ("IGNORE".equals(action)) {
             // Just dismissed, notification already cancelled
         }

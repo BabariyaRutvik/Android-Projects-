@@ -27,6 +27,7 @@ public class ReminderManager {
         intent.putExtra("note_id", note.getId());
         intent.putExtra("title", note.getTitle());
         intent.putExtra("content", note.getDescription());
+        intent.putExtra("note_type", note.getNoteType());
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,

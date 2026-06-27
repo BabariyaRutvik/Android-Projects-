@@ -8,6 +8,11 @@
         android:title="Pin"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/note_share"
+        android:title="Share"
+        android:icon="@drawable/ic_share_menu"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/menu_more"
@@ -16,37 +21,59 @@
         app:showAsAction="always">
 
         <menu>
-
             <item
                 android:id="@+id/note_checks"
-                android:title="Checklist"
-                android:icon="@drawable/ic_check_menu"/>
+                android:title="Check"
+                android:icon="@drawable/ic_check_menu"
+                app:iconTint="@color/gray_icon"/>
 
             <item
-                android:id="@+id/note_share"
-                android:title="Share"
-                android:icon="@drawable/ic_share_menu"/>
+                android:id="@+id/note_archive"
+                android:title="Archive"
+                android:icon="@drawable/ic_archive_custom"
+                app:iconTint="@color/gray_icon"/>
 
             <item
                 android:id="@+id/note_pdf"
                 android:title="Export as PDF"
-                android:icon="@drawable/ic_pdf_menu"/>
+                android:icon="@drawable/ic_pdf_menu"
+                app:iconTint="@color/gray_icon"/>
+
+            <item
+                android:id="@+id/note_widget"
+                android:title="Add widget"
+                android:icon="@drawable/ic_widget_custom"
+                app:iconTint="@color/gray_icon"/>
 
             <item
                 android:id="@+id/note_reminder"
                 android:title="Reminder"
-                android:icon="@drawable/ic_reminder_menu"/>
+                android:icon="@drawable/ic_reminder_menu"
+                app:iconTint="@color/gray_icon"/>
+
+            <item
+                android:id="@+id/note_delete"
+                android:title="Delete"
+                android:icon="@drawable/ic_delete_custom"
+                app:iconTint="@color/gray_icon"/>
+
+            <item
+                android:id="@+id/note_lock"
+                android:title="Lock"
+                android:icon="@drawable/ic_lock_settings"
+                app:iconTint="@color/gray_icon"/>
+
+            <item
+                android:id="@+id/note_search"
+                android:title="Search"
+                android:icon="@drawable/ic_search"
+                app:iconTint="@color/gray_icon"/>
 
             <item
                 android:id="@+id/note_info"
-                android:title="Note Info"
-                android:icon="@drawable/ic_info_menu"/>
-
+                android:title="Note info"
+                android:icon="@drawable/ic_info_menu"
+                app:iconTint="@color/gray_icon"/>
         </menu>
-
     </item>
-
-
-
-
 </menu>

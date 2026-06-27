@@ -55,6 +55,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/imgLock"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_lock_settings"
+        app:tint="@color/gray_text"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/layoutReminderInfo"
         android:layout_width="wrap_content"

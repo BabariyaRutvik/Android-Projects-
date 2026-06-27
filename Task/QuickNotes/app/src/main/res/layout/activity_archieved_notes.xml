@@ -183,7 +183,7 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                app:tint="@color/gray_icon"
+                app:tint="@color/primary_blue"
                 android:src="@drawable/ic_archive_custom"
                 android:rotation="180"/>
         </LinearLayout>
@@ -200,12 +200,12 @@
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                app:tint="@color/gray_icon"
+                app:tint="@color/primary_blue"
                 android:src="@drawable/ic_delete_custom" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnFolderSelectionArchive"
+            android:id="@+id/btnLockSelectionArchive"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -214,26 +214,11 @@
             android:gravity="center"
             android:background="?attr/selectableItemBackground">
             <ImageView
+                android:id="@+id/imgLockSelectionArchive"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:src="@drawable/ic_folder"
-                app:tint="@color/primary_blue" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/btnMoreSelectionArchive"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:focusable="true"
-            android:gravity="center"
-            android:background="?attr/selectableItemBackground">
-            <ImageView
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                app:tint="@color/gray_icon"
-                android:src="@drawable/ic_more_custom" />
+                app:tint="@color/primary_blue"
+                android:src="@drawable/ic_lock_settings" />
         </LinearLayout>
     </LinearLayout>
 

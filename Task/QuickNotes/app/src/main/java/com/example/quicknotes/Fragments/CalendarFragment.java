@@ -18,6 +18,7 @@ import android.widget.Toast;
 import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -38,6 +39,8 @@ import com.kizitonwose.calendar.core.WeekDay;
 import com.kizitonwose.calendar.view.MonthDayBinder;
 import com.kizitonwose.calendar.view.ViewContainer;
 import com.kizitonwose.calendar.view.WeekDayBinder;
+
+import android.annotation.SuppressLint;
 import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.graphics.Color;
@@ -45,6 +48,11 @@ import static java.lang.Math.abs;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -69,7 +77,11 @@ public class CalendarFragment extends Fragment {
     private Note selectedNote = null;
     private java.time.DayOfWeek firstDayOfWeek = DayOfWeek.MONDAY;
 
-   
+    private ActivityResultLauncher<Intent> lockLauncher;
+    private Note noteToOpen;
+    private boolean isUnlockingSingle = false;
+    private Note pendingDeleteNote;
+
     private LocalDate selectedDate = LocalDate.now();
     private boolean isProgrammaticChange = false;
     private String selectedCategory = "All";
@@ -96,6 +108,27 @@ public class CalendarFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
+
+        lockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if (result.getResultCode() == android.app.Activity.RESULT_OK) {
+                if (noteToOpen != null) {
+                    openNoteActivity(noteToOpen);
+                    noteToOpen = null;
+                } else if (isUnlockingSingle && selectedNote != null) {
+                    performLockUnlock(selectedNote, false);
+                    isUnlockingSingle = false;
+                } else if (pendingDeleteNote != null) {
+                    noteViewModel.moveToRecycleBin(pendingDeleteNote);
+                    Toast.makeText(requireContext(), getString(R.string.moved_to_recycle), Toast.LENGTH_SHORT).show();
+                    pendingDeleteNote = null;
+                    clearSelection();
+                }
+            } else {
+                noteToOpen = null;
+                isUnlockingSingle = false;
+                pendingDeleteNote = null;
+            }
+        });
 
         SharedPreferences prefs = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
         String startDay = prefs.getString("start_of_week", "Sunday");
@@ -286,18 +319,19 @@ public class CalendarFragment extends Fragment {
                     }
                     return;
                 }
-                Intent intent;
-                if ("CHECKLIST".equals(note.getNoteType())) {
-                    intent = new Intent(requireContext(), AddCheckListActivity.class);
+                
+                if (note.isLocked()) {
+                    noteToOpen = note;
+                    Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+                    intent.putExtra("extra_mode", "mode_verify");
+                    lockLauncher.launch(intent);
                 } else {
-                    intent = new Intent(requireContext(), AddNoteActivity.class);
+                    openNoteActivity(note);
                 }
-                intent.putExtra("note_id", note.getId());
-                startActivity(intent);
             }
 
             @Override
-            public void onTaskLongClick(Note note) {
+            public void onTaskLongClick(Note note, View view) {
                 selectNoteForAction(note);
             }
 
@@ -311,11 +345,181 @@ public class CalendarFragment extends Fragment {
         binding.rvCalendarNotes.setAdapter(calendarTaskAdapter);
     }
 
+    private void openNoteActivity(Note note) {
+        Intent intent;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            intent = new Intent(requireContext(), AddCheckListActivity.class);
+        } else {
+            intent = new Intent(requireContext(), AddNoteActivity.class);
+        }
+        intent.putExtra("note_id", note.getId());
+        startActivity(intent);
+    }
+
     private void selectNoteForAction(Note note) {
         selectedNote = note;
         calendarTaskAdapter.setSelectedNoteId(note.getId());
         binding.layoutSelectionBar.setVisibility(View.VISIBLE);
         binding.fabAddCalendarNote.setVisibility(View.GONE);
+    }
+
+    @SuppressLint("RestrictedApi")
+    private void showSelectionMoreMenu(View view) {
+        if (selectedNote == null) return;
+        Note note = selectedNote;
+
+        androidx.appcompat.widget.PopupMenu popupMenu = new androidx.appcompat.widget.PopupMenu(requireContext(), view);
+        popupMenu.getMenuInflater().inflate(R.menu.selection_more_menu, popupMenu.getMenu());
+
+        MenuItem checkItem = popupMenu.getMenu().findItem(R.id.menu_check);
+        if (note.isCompleted()) {
+            checkItem.setTitle(R.string.uncheck);
+            checkItem.setIcon(R.drawable.ic_checkbox_blank);
+        } else {
+            checkItem.setTitle(R.string.check);
+            checkItem.setIcon(R.drawable.ic_check_menu);
+        }
+
+        MenuItem lockItem = popupMenu.getMenu().findItem(R.id.menu_lock);
+        if (note.isLocked()) {
+            lockItem.setTitle(R.string.unlock);
+        } else {
+            lockItem.setTitle(R.string.lock);
+        }
+        lockItem.setIcon(R.drawable.ic_lock_settings);
+
+        MenuItem shareItem = popupMenu.getMenu().findItem(R.id.menu_share);
+        if (note.isLocked()) {
+            shareItem.setEnabled(false);
+            if (shareItem.getIcon() != null) {
+                shareItem.getIcon().setAlpha(130);
+            }
+        }
+
+        MenuBuilder menuBuilder = (MenuBuilder) popupMenu.getMenu();
+        menuBuilder.setOptionalIconsVisible(true);
+
+        popupMenu.setOnMenuItemClickListener(item -> {
+            int itemId = item.getItemId();
+            if (itemId == R.id.menu_check) {
+                handleCheck(note, !note.isCompleted());
+                return true;
+            } else if (itemId == R.id.menu_lock) {
+                handleLock(note, !note.isLocked());
+                return true;
+            } else if (itemId == R.id.menu_add_widget) {
+                Toast.makeText(requireContext(), "Add widget clicked", Toast.LENGTH_SHORT).show();
+                return true;
+            } else if (itemId == R.id.menu_share) {
+                if (note.isLocked()) {
+                    Toast.makeText(requireContext(), "Locked notes cannot be shared", Toast.LENGTH_SHORT).show();
+                } else {
+                    showShareAsDialog(note);
+                }
+                return true;
+            }
+            return false;
+        });
+
+        MenuPopupHelper optionsMenu = new MenuPopupHelper(requireContext(), menuBuilder, view);
+        optionsMenu.setForceShowIcon(true);
+        optionsMenu.show();
+    }
+
+    private void handleCheck(Note note, boolean isChecking) {
+        note.setCompleted(isChecking);
+        noteViewModel.update(note);
+        clearSelection();
+        String message = isChecking ? getString(R.string.check) : getString(R.string.uncheck);
+        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+    private void handleLock(Note note, boolean isLocking) {
+        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("security_prefs", android.content.Context.MODE_PRIVATE);
+        if (!prefs.getBoolean("is_enabled", false)) {
+            Toast.makeText(requireContext(), R.string.set_password_first, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (isLocking) {
+            performLockUnlock(note, true);
+        } else {
+            isUnlockingSingle = true;
+            selectedNote = note;
+            Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+            intent.putExtra("extra_mode", "mode_verify");
+            lockLauncher.launch(intent);
+        }
+    }
+
+    private void performLockUnlock(Note note, boolean isLocking) {
+        note.setLocked(isLocking);
+        noteViewModel.update(note);
+        clearSelection();
+        String msg = isLocking ? "Locked" : "Unlocked";
+        Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showShareAsDialog(Note note) {
+        View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_share_as, null);
+        AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                .setView(dialogView)
+                .setBackground(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+                .create();
+
+        dialogView.findViewById(R.id.btnShareImage).setOnClickListener(v -> {
+            openNoteActivityForShare(note, "IMAGE");
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnSharePDF).setOnClickListener(v -> {
+            openNoteActivityForShare(note, "PDF");
+            dialog.dismiss();
+        });
+
+        dialogView.findViewById(R.id.btnShareText).setOnClickListener(v -> {
+            shareNoteAsText(note);
+            dialog.dismiss();
+            clearSelection();
+        });
+
+        dialog.show();
+    }
+
+    private void shareNoteAsText(Note note) {
+        String shareBody;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            StringBuilder sb = new StringBuilder(note.getTitle()).append("\n\n");
+            String[] lines = note.getDescription().split("\n");
+            for (String line : lines) {
+                String[] parts = line.split("\\|", 2);
+                if (parts.length == 2) {
+                    sb.append(parts[0].equals("1") ? "☑ " : "☐ ").append(parts[1]).append("\n");
+                }
+            }
+            shareBody = sb.toString();
+        } else {
+            shareBody = note.getTitle() + "\n\n" + note.getDescription();
+        }
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, note.getTitle());
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(intent, getString(R.string.share)));
+    }
+
+    private void openNoteActivityForShare(Note note, String type) {
+        Intent intent;
+        if ("CHECKLIST".equals(note.getNoteType())) {
+            intent = new Intent(requireContext(), com.example.quicknotes.Activity.AddCheckListActivity.class);
+        } else {
+            intent = new Intent(requireContext(), com.example.quicknotes.Activity.AddNoteActivity.class);
+        }
+        intent.putExtra("note_id", note.getId());
+        intent.putExtra("extra_share_type", type);
+        startActivity(intent);
+        clearSelection();
     }
 
     private void setupSelectionBarActions() {
@@ -344,6 +548,8 @@ public class CalendarFragment extends Fragment {
                clearSelection(); // Hide selection bar after clicking
            }
         });
+
+        binding.btnMoreSelection.setOnClickListener(this::showSelectionMoreMenu);
     }
 
     private void showDeleteConfirmDialog(Note note) {
@@ -358,10 +564,17 @@ public class CalendarFragment extends Fragment {
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialogView.findViewById(R.id.btnDelete).setOnClickListener(v -> {
-            noteViewModel.moveToRecycleBin(note);
-            Toast.makeText(requireContext(), getString(R.string.moved_to_recycle), Toast.LENGTH_SHORT).show();
+            if (note.isLocked()) {
+                pendingDeleteNote = note;
+                Intent intent = new Intent(requireContext(), com.example.quicknotes.Activity.PatternLockActivity.class);
+                intent.putExtra("extra_mode", "mode_verify");
+                lockLauncher.launch(intent);
+            } else {
+                noteViewModel.moveToRecycleBin(note);
+                Toast.makeText(requireContext(), getString(R.string.moved_to_recycle), Toast.LENGTH_SHORT).show();
+                clearSelection();
+            }
             dialog.dismiss();
-            clearSelection();
         });
 
         dialog.show();

@@ -66,6 +66,9 @@ public class Note {
     @ColumnInfo(name = "isReminderEnabled")
     private boolean isReminderEnabled;
 
+    @ColumnInfo(name = "isLocked")
+    private boolean isLocked;
+
     public Note(String title,
                       String description,
                       String noteType,
@@ -93,6 +96,7 @@ public class Note {
         this.repeatUnit = "Day";
         this.repeatDays = "";
         this.isReminderEnabled = false;
+        this.isLocked = false;
     }
 
     public int getId() {
@@ -237,5 +241,13 @@ public class Note {
 
     public void setReminderEnabled(boolean reminderEnabled) {
         isReminderEnabled = reminderEnabled;
+    }
+
+    public boolean isLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(boolean locked) {
+        isLocked = locked;
     }
 }
