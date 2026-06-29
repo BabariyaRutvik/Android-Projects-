@@ -81,9 +81,18 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
                 }
             }
             holder.textTime.setVisibility(View.VISIBLE);
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd MMM, hh:mm a", Locale.getDefault());
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
             holder.textTime.setText(simpleDateFormat.format(new Date(note.getModifiedTime())));
         }
+
+        // Image Thumbnail
+        if (note.getImagePath() != null && !note.getImagePath().isEmpty()) {
+            holder.cardThumb.setVisibility(View.VISIBLE);
+            holder.imgThumb.setImageURI(android.net.Uri.fromFile(new java.io.File(note.getImagePath())));
+        } else {
+            holder.cardThumb.setVisibility(View.GONE);
+        }
+
         int[] color = getNotesColor(context,note);
         holder.cardNote.setCardBackgroundColor(color[0]);
         holder.viewColor.setBackgroundColor(color[1]);
@@ -288,10 +297,10 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
 
 
     static class ArchivedNotesViewHolder extends RecyclerView.ViewHolder {
-        MaterialCardView cardNote;
+        MaterialCardView cardNote, cardThumb;
         View viewColor;
         TextView textTitle, textDescription, textTime;
-        ImageView imgPin, imgLock;
+        ImageView imgPin, imgLock, imgThumb;
 
         public ArchivedNotesViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -303,6 +312,8 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
             textTime = itemView.findViewById(R.id.txtTime);
             imgPin = itemView.findViewById(R.id.imgPin);
             imgLock = itemView.findViewById(R.id.imgLock);
+            cardThumb = itemView.findViewById(R.id.cardThumb);
+            imgThumb = itemView.findViewById(R.id.imgThumb);
         }
     }
 

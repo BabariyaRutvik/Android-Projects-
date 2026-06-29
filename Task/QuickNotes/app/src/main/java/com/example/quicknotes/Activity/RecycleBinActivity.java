@@ -72,24 +72,24 @@ public class RecycleBinActivity extends AppCompatActivity {
             if (result.getResultCode() == RESULT_OK) {
                 if (pendingDeleteNote != null) {
                     noteViewModel.delete(pendingDeleteNote);
-                    Toast.makeText(this, "Note deleted permanently", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.note_deleted_perm_msg, Toast.LENGTH_SHORT).show();
                     pendingDeleteNote = null;
                 } else if (pendingDeleteIds != null) {
                     for (int id : pendingDeleteIds) {
                         Note note = noteViewModel.getNoteById(id);
                         if (note != null) noteViewModel.delete(note);
                     }
-                    Toast.makeText(this, pendingDeleteIds.size() + " notes deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.notes_deleted_msg, pendingDeleteIds.size()), Toast.LENGTH_SHORT).show();
                     pendingDeleteIds = null;
                     setSelectionMode(false);
                 } else if (isEmptyingBin) {
                     noteViewModel.emptyRecycleBin();
-                    Toast.makeText(this, "Recycle bin emptied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.bin_emptied_msg, Toast.LENGTH_SHORT).show();
                     isEmptyingBin = false;
                 } else if (pendingRestoreNote != null) {
                     pendingRestoreNote.setDeleted(false);
                     noteViewModel.update(pendingRestoreNote);
-                    Toast.makeText(this, "Note restored", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.note_restored_msg, Toast.LENGTH_SHORT).show();
                     pendingRestoreNote = null;
                 } else if (pendingRestoreIds != null) {
                     for (int id : pendingRestoreIds) {
@@ -99,7 +99,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                             noteViewModel.update(note);
                         }
                     }
-                    Toast.makeText(this, pendingRestoreIds.size() + " notes restored", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.notes_restored_msg, pendingRestoreIds.size()), Toast.LENGTH_SHORT).show();
                     pendingRestoreIds = null;
                     setSelectionMode(false);
                 } else if (pendingClickedNote != null) {
@@ -170,7 +170,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                 if (count == 0) {
                     setSelectionMode(false);
                 } else {
-                    binding.txtSelectionCount.setText(count + " Selected");
+                    binding.txtSelectionCount.setText(getString(R.string.selected_count, count));
                     binding.cbSelectAll.setChecked(count == adapter.getItemCount());
                 }
             }
@@ -221,7 +221,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                         noteViewModel.update(note);
                     }
                 }
-                Toast.makeText(this, ids.size() + " notes restored", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.notes_restored_msg, ids.size()), Toast.LENGTH_SHORT).show();
                 setSelectionMode(false);
             }
         });
@@ -237,7 +237,7 @@ public class RecycleBinActivity extends AppCompatActivity {
             }
 
             TextView txtMessage = dialogView.findViewById(R.id.txtMessage);
-            txtMessage.setText("Are you sure you want to delete the note(s) permanently?");
+            txtMessage.setText(R.string.delete_perm_multiple_msg);
 
             dialogView.findViewById(R.id.btnCancel).setOnClickListener(v1 -> dialog.dismiss());
             dialogView.findViewById(R.id.btnDelete).setOnClickListener(v1 -> {
@@ -261,7 +261,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                         Note note = noteViewModel.getNoteById(id);
                         if (note != null) noteViewModel.delete(note);
                     }
-                    Toast.makeText(this, ids.size() + " notes deleted", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.notes_deleted_msg, ids.size()), Toast.LENGTH_SHORT).show();
                     setSelectionMode(false);
                 }
                 dialog.dismiss();
@@ -310,7 +310,7 @@ public class RecycleBinActivity extends AppCompatActivity {
     private void showRestoreDeleteDialog(Note note, boolean isAlreadyVerified) {
         if (adapter.isSelectionMode()) return;
         
-        String[] options = {"Restore", "Delete permanently"};
+        String[] options = {getString(R.string.restore), getString(R.string.delete_permanently)};
         new AlertDialog.Builder(this)
                 .setTitle(note.getTitle())
                 .setItems(options, (dialog, which) -> {
@@ -323,7 +323,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                         } else {
                             note.setDeleted(false);
                             noteViewModel.update(note);
-                            Toast.makeText(this, "Note restored", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(this, R.string.note_restored_msg, Toast.LENGTH_SHORT).show();
                         }
                     } else {
                         showDeleteConfirmDialog(note, isAlreadyVerified);
@@ -343,7 +343,7 @@ public class RecycleBinActivity extends AppCompatActivity {
         }
 
         TextView txtMessage = dialogView.findViewById(R.id.txtMessage);
-        txtMessage.setText("Are you sure you want to delete this note permanently?");
+        txtMessage.setText(R.string.delete_perm_confirm_msg);
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
         dialogView.findViewById(R.id.btnDelete).setOnClickListener(v -> {
@@ -354,7 +354,7 @@ public class RecycleBinActivity extends AppCompatActivity {
                 lockLauncher.launch(intent);
             } else {
                 noteViewModel.delete(note);
-                Toast.makeText(this, "Note deleted permanently", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.note_deleted_perm_msg, Toast.LENGTH_SHORT).show();
             }
             dialog.dismiss();
         });
@@ -364,9 +364,9 @@ public class RecycleBinActivity extends AppCompatActivity {
 
     private void showEmptyBinDialog() {
         new AlertDialog.Builder(this)
-                .setTitle("Empty Recycle bin?")
-                .setMessage("All notes in Recycle bin will be permanently deleted.")
-                .setPositiveButton("Empty", (dialog, which) -> {
+                .setTitle(R.string.empty_bin_confirm_title)
+                .setMessage(R.string.empty_bin_confirm_msg)
+                .setPositiveButton(R.string.empty_action, (dialog, which) -> {
                     // Check if any note is locked
                     noteViewModel.getDeletedNotes().observe(this, new androidx.lifecycle.Observer<List<Note>>() {
                         @Override
@@ -389,12 +389,12 @@ public class RecycleBinActivity extends AppCompatActivity {
                                 lockLauncher.launch(intent);
                             } else {
                                 noteViewModel.emptyRecycleBin();
-                                Toast.makeText(RecycleBinActivity.this, "Recycle bin emptied", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RecycleBinActivity.this, R.string.bin_emptied_msg, Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 })
-                .setNegativeButton("Cancel", null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 }

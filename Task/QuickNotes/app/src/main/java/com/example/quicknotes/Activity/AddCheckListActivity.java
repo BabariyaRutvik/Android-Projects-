@@ -3,6 +3,7 @@ package com.example.quicknotes.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -12,7 +13,6 @@ import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.pdf.PdfDocument;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.annotation.SuppressLint;
 import androidx.appcompat.app.AlertDialog;
@@ -21,7 +21,10 @@ import androidx.core.content.FileProvider;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 
 import androidx.activity.EdgeToEdge;
@@ -33,6 +36,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.quicknotes.Adapter.CategorySpinnerAdapter;
 import com.example.quicknotes.Adapter.ChecklistAdapter;
@@ -47,6 +51,7 @@ import com.example.quicknotes.databinding.ActivityAddCheckListBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -73,11 +78,17 @@ public class AddCheckListActivity extends AppCompatActivity {
     private boolean isLocked = false;
     private int noteId = -1;
     private long createdTime = -1;
+    private String imagePath = null;
     private final List<String> categories = Arrays.asList(
             "All", "Personal", "Work", "Others",
             "Untitled_Red", "Untitled_Orange", "Untitled_Pink",
             "Untitled_Purple", "Untitled_DarkGray", "Untitled_Gray"
     );
+
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    private ActivityResultLauncher<Uri> cameraLauncher;
+    private ActivityResultLauncher<String> galleryLauncher;
+    private Uri tempImageUri;
 
 
     @Override
@@ -96,6 +107,8 @@ public class AddCheckListActivity extends AppCompatActivity {
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
+        initLaunchers();
+
         binding.toolbarAddChecklist.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_more));
 
         setSupportActionBar(binding.toolbarAddChecklist);
@@ -107,24 +120,23 @@ public class AddCheckListActivity extends AppCompatActivity {
 
         initViews();
         setClickListeners();
-        updateDateTime();
+
+        if (getIntent().hasExtra("note_id")) {
+            noteId = getIntent().getIntExtra("note_id", -1);
+            loadChecklistData(noteId);
+        } else {
+            updateDateTime();
+            // New checklist starts with one empty item
+            List<ChecklistItem> items = new ArrayList<>();
+            items.add(new ChecklistItem("", false));
+            setupRecyclerView(items);
+        }
 
         if (getIntent().hasExtra("category")) {
             selectedCategory = getIntent().getStringExtra("category");
             updateCategoryUI(selectedCategory);
             int index = categories.indexOf(selectedCategory);
             if (index != -1) binding.spinnerCategory.setSelection(index);
-        }
-
-        // Check for existing note
-        if (getIntent().hasExtra("note_id")) {
-            noteId = getIntent().getIntExtra("note_id", -1);
-            loadChecklistData(noteId);
-        } else {
-            // New checklist starts with one empty item
-            List<ChecklistItem> items = new ArrayList<>();
-            items.add(new ChecklistItem("", false));
-            setupRecyclerView(items);
         }
 
         String shareType = getIntent().getStringExtra("extra_share_type");
@@ -145,6 +157,74 @@ public class AddCheckListActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+
+    private void initLaunchers() {
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicture(), isSuccess -> {
+            if (isSuccess && tempImageUri != null) {
+                saveImageToInternalStorage(tempImageUri);
+            }
+        });
+
+        galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) {
+                saveImageToInternalStorage(uri);
+            }
+        });
+    }
+
+    private void openCamera() {
+        try {
+            File imageFile = new File(getExternalFilesDir(null), "temp_image_" + System.currentTimeMillis() + ".jpg");
+            tempImageUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
+            cameraLauncher.launch(tempImageUri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error opening camera", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveImageToInternalStorage(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            File imageDir = new File(getFilesDir(), "note_images");
+            if (!imageDir.exists()) imageDir.mkdirs();
+
+            String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+            File destFile = new File(imageDir, fileName);
+
+            FileOutputStream outputStream = new FileOutputStream(destFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            outputStream.close();
+            inputStream.close();
+
+            imagePath = destFile.getAbsolutePath();
+            displayImage(imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void displayImage(String path) {
+        if (path != null && !path.isEmpty()) {
+            binding.cardNoteImage.setVisibility(View.VISIBLE);
+            binding.imgNote.setImageURI(Uri.fromFile(new File(path)));
+        } else {
+            binding.cardNoteImage.setVisibility(View.GONE);
+        }
     }
 
     private void initViews() {
@@ -187,6 +267,12 @@ public class AddCheckListActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        binding.imgAdd.setOnClickListener(v -> showAddImageDialog());
+        binding.btnRemoveImage.setOnClickListener(v -> {
+            imagePath = null;
+            displayImage(null);
+        });
+
         binding.imgCheckReminder.setOnClickListener(v -> {
             isCompleted = !isCompleted;
             updateReminderUI();
@@ -202,7 +288,7 @@ public class AddCheckListActivity extends AppCompatActivity {
             binding.cardReminderInfo.setVisibility(View.VISIBLE);
             binding.layoutRemindedBar.setVisibility(View.VISIBLE);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
             String dateTimeStr = sdf.format(new Date(note.getReminderTime()));
 
             binding.txtReminderDateTime.setText(dateTimeStr);
@@ -234,8 +320,16 @@ public class AddCheckListActivity extends AppCompatActivity {
     }
 
     private void updateDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a", Locale.getDefault());
-        String currentTime = "Edited : " + sdf.format(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+        long timeToDisplay = System.currentTimeMillis();
+        String label = "Date : ";
+
+        if (getIntent().hasExtra("extra_selected_date")) {
+            timeToDisplay = getIntent().getLongExtra("extra_selected_date", System.currentTimeMillis());
+            createdTime = timeToDisplay;
+        }
+
+        String currentTime = label + sdf.format(new Date(timeToDisplay));
         binding.textEditedCheck.setText(currentTime);
     }
 
@@ -255,6 +349,7 @@ public class AddCheckListActivity extends AppCompatActivity {
             isDeleted = note.isDeleted();
             isLocked = note.isLocked();
             createdTime = note.getCreatedTime();
+            imagePath = note.getImagePath();
 
             if (selectedColor != null && !selectedColor.isEmpty()) {
                 binding.main.setBackgroundColor(Color.parseColor(selectedColor));
@@ -263,6 +358,12 @@ public class AddCheckListActivity extends AppCompatActivity {
             invalidateOptionsMenu(); // Refresh pin icon
             updateCategoryUI(selectedCategory);
             updateReminderUI();
+            displayImage(imagePath);
+
+            // Update time label for existing checklist
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+            String timeStr = "Edited : " + sdf.format(new Date(note.getModifiedTime()));
+            binding.textEditedCheck.setText(timeStr);
 
             // Deserialize checklist items
             List<ChecklistItem> items = deserializeChecklist(note.getDescription());
@@ -444,6 +545,24 @@ public class AddCheckListActivity extends AppCompatActivity {
         }
     }
 
+    private void showAddImageDialog() {
+        String[] options = {"Camera", "Gallery"};
+        new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle("Add Image")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                            openCamera();
+                        } else {
+                            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA);
+                        }
+                    } else {
+                        galleryLauncher.launch("image/*");
+                    }
+                })
+                .show();
+    }
+
     private void saveChecklist(boolean isSilent) {
         String title = binding.edtTitle.getText().toString().trim();
         List<ChecklistItem> items = checklistAdapter.getItems();
@@ -466,7 +585,9 @@ public class AddCheckListActivity extends AppCompatActivity {
         long timestamp = System.currentTimeMillis();
 
         if (noteId == -1) {
-            createdTime = timestamp;
+            if (createdTime == -1) {
+                createdTime = timestamp;
+            }
             Note note = new Note(
                     finalTitle,
                     description,
@@ -482,6 +603,7 @@ public class AddCheckListActivity extends AppCompatActivity {
             note.setArchived(isArchived);
             note.setDeleted(isDeleted);
             note.setLocked(isLocked);
+            note.setImagePath(imagePath);
             noteId = (int) noteViewModel.insert(note);
             if (!isSilent) Toast.makeText(this, "Checklist Saved", Toast.LENGTH_SHORT).show();
         } else {
@@ -497,6 +619,7 @@ public class AddCheckListActivity extends AppCompatActivity {
                 note.setArchived(isArchived);
                 note.setDeleted(isDeleted);
                 note.setLocked(isLocked);
+                note.setImagePath(imagePath);
 
                 noteViewModel.update(note);
                 if (!isSilent) Toast.makeText(this, "Checklist Updated", Toast.LENGTH_SHORT).show();

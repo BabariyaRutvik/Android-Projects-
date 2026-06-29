@@ -24,12 +24,10 @@ public class LanguageHelper {
     }
 
     public static String getLanguage(Context context) {
-        // Try getting from AppCompatDelegate first
         LocaleListCompat locales = AppCompatDelegate.getApplicationLocales();
         if (!locales.isEmpty()) {
             return locales.get(0).getLanguage();
         }
-        // Fallback to SharedPreferences
         SharedPreferences preferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         return preferences.getString(KEY_LANGUAGE, Locale.getDefault().getLanguage());
     }
@@ -37,7 +35,6 @@ public class LanguageHelper {
     public static void setLocale(Context context, String language) {
         persist(context, language);
         
-        // Use AppCompatDelegate for modern, reliable language switching
         LocaleListCompat appLocales = LocaleListCompat.forLanguageTags(language);
         AppCompatDelegate.setApplicationLocales(appLocales);
     }
@@ -62,7 +59,6 @@ public class LanguageHelper {
         
         config.setLayoutDirection(locale);
 
-        // This ensures the current context picked up the new config
         return context.createConfigurationContext(config);
     }
 }

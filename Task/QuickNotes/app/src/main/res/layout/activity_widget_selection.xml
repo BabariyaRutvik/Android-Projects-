@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="Select a widget and add it to the home screen"
+            android:text="@string/widget_selection_info"
             android:textColor="@color/gray_text"
             android:textSize="13sp" />
     </LinearLayout>
@@ -82,10 +82,12 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="16dp"
-        android:text="Add to home Screen"
+        android:text="@string/add_to_home_screen"
         android:textAllCaps="true"
         android:textSize="16sp"
         android:textStyle="bold"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/sky_blue"
         app:cornerRadius="8dp"
         app:layout_constraintBottom_toBottomOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

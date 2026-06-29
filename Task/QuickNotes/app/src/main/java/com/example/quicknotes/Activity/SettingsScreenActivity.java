@@ -268,9 +268,8 @@ public class SettingsScreenActivity extends AppCompatActivity {
             layoutParams.width = android.view.WindowManager.LayoutParams.WRAP_CONTENT;
             layoutParams.height = android.view.WindowManager.LayoutParams.WRAP_CONTENT;
             
-            // Positioning it to the right
             layoutParams.gravity = android.view.Gravity.END | android.view.Gravity.CENTER_VERTICAL;
-            layoutParams.x = (int) (16 * getResources().getDisplayMetrics().density); // 16dp margin from right
+            layoutParams.x = (int) (16 * getResources().getDisplayMetrics().density);
 
             dialog.getWindow().setAttributes(layoutParams);
         }
@@ -318,7 +317,6 @@ public class SettingsScreenActivity extends AppCompatActivity {
         dialogView.findViewById(R.id.btnSave).setOnClickListener(v -> {
             if (!tempSelectedLang.equals(currentLang)) {
                 LanguageHelper.setLocale(this, tempSelectedLang);
-                // AppCompatDelegate.setApplicationLocales will automatically trigger recreation
             }
             dialog.dismiss();
         });
@@ -401,7 +399,6 @@ public class SettingsScreenActivity extends AppCompatActivity {
             if (result.getResultCode() == RESULT_OK) {
                 initSecuritySwitch();
             } else {
-                // If cancelled, reset switch to its previous state
                 initSecuritySwitch();
             }
         });

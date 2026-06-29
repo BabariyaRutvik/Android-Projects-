@@ -164,6 +164,43 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardNoteImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:layout_constraintTop_toBottomOf="@id/cardReminderInfo">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="400dp"
+                android:scaleType="centerCrop" />
+
+            <ImageView
+                android:id="@+id/btnRemoveImage"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="end|top"
+                android:layout_margin="8dp"
+                android:background="@drawable/bg_circle_white"
+                android:padding="6dp"
+                android:src="@drawable/ic_close"
+                app:tint="@color/black" />
+        </FrameLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
     <!-- Checklist RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvChecklist"
@@ -172,7 +209,7 @@
         android:layout_marginTop="8dp"
         android:clipToPadding="false"
         android:paddingBottom="70dp"
-        app:layout_constraintTop_toBottomOf="@id/cardReminderInfo"
+        app:layout_constraintTop_toBottomOf="@id/cardNoteImage"
         app:layout_constraintBottom_toTopOf="@id/bottomToolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

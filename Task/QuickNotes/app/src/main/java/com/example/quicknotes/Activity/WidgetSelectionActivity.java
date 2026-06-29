@@ -18,7 +18,10 @@ import com.example.quicknotes.R;
 import com.example.quicknotes.Receiver.PinnedNotesWidgetProvider;
 import com.example.quicknotes.Receiver.ShortcutWidgetProvider;
 import com.example.quicknotes.Receiver.SingleNoteWidgetProvider;
+import com.example.quicknotes.Utils.FontSizeHelper;
+import com.example.quicknotes.Utils.LanguageHelper;
 import com.example.quicknotes.databinding.ActivityWidgetSelectionBinding;
+import android.content.Context;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +30,13 @@ public class WidgetSelectionActivity extends AppCompatActivity {
     private ActivityWidgetSelectionBinding binding;
     private WidgetAdapter widgetAdapter;
     private ActivityResultLauncher<Intent> tutorialLauncher;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Context langContext = LanguageHelper.onAttach(newBase);
+        Context finalContext = FontSizeHelper.onAttach(langContext);
+        super.attachBaseContext(finalContext);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +63,9 @@ public class WidgetSelectionActivity extends AppCompatActivity {
         widgetList.add(new WidgetModel("1 X 1", R.drawable.preview_widget_1x1));
 
         widgetAdapter = new WidgetAdapter(widgetList);
+        widgetAdapter.setOnWidgetSelectedListener(widget -> {
+            binding.btnAddWidget.setText(R.string.confirm);
+        });
         binding.rvWidgets.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvWidgets.setAdapter(widgetAdapter);
     }
@@ -72,7 +85,7 @@ public class WidgetSelectionActivity extends AppCompatActivity {
                 intent.putExtra("widget_size", selectedWidget.getSize());
                 tutorialLauncher.launch(intent);
             } else {
-                Toast.makeText(this, "Please select a widget", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.please_select_widget, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -108,10 +121,10 @@ public class WidgetSelectionActivity extends AppCompatActivity {
 
                 appWidgetManager.requestPinAppWidget(myProvider, null, successCallback);
             } else {
-                Toast.makeText(this, "Pinned Widgets not supported", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.pinned_widgets_not_supported, Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(this, "Pinned Widgets is only supported on Android 8.0+", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.pinned_widgets_android_version_error, Toast.LENGTH_SHORT).show();
         }
     }
 }

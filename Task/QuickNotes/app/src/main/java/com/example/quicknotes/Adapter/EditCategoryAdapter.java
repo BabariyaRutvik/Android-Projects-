@@ -21,18 +21,16 @@ import java.util.ArrayList;
 
 public class EditCategoryAdapter extends RecyclerView.Adapter<EditCategoryAdapter.ViewHolder> {
 
-    private final Context context;
     private final ArrayList<CategoryModel> categoryList;
 
     public EditCategoryAdapter(Context context, ArrayList<CategoryModel> categoryList) {
-        this.context = context;
         this.categoryList = categoryList;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_edit_category, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_edit_category, parent, false);
         return new ViewHolder(view);
     }
 

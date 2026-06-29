@@ -14,8 +14,11 @@ import com.example.quicknotes.Database.Note;
 import com.example.quicknotes.Database.NoteViewModel;
 import com.example.quicknotes.Receiver.PinnedNotesWidgetProvider;
 import com.example.quicknotes.Receiver.SingleNoteWidgetProvider;
+import com.example.quicknotes.Utils.FontSizeHelper;
+import com.example.quicknotes.Utils.LanguageHelper;
 import com.example.quicknotes.databinding.ActivitySelectNoteBinding;
 import java.util.stream.Collectors;
+import com.example.quicknotes.R;
 
 public class ActivitySelectNote extends AppCompatActivity {
 
@@ -26,6 +29,13 @@ public class ActivitySelectNote extends AppCompatActivity {
 
     private static final String PREFS_NAME = "com.example.quicknotes.Receiver.WidgetPrefs";
     private static final String PREF_PREFIX_KEY = "appwidget_";
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        Context langContext = LanguageHelper.onAttach(newBase);
+        Context finalContext = FontSizeHelper.onAttach(langContext);
+        super.attachBaseContext(finalContext);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,13 +75,13 @@ public class ActivitySelectNote extends AppCompatActivity {
         
         noteViewModel.getAllNotes().observe(this, notes -> {
             if (providerClassName.contains("PinnedNotesWidgetProvider")) {
-                binding.txtConfigTitle.setText("Select Pinned Note");
+                binding.txtConfigTitle.setText(R.string.select_pinned_note);
                 noteSelectionAdapter.setNotes(notes.stream()
                         .filter(Note::isPinned)
                         .filter(n -> !n.isDeleted() && !n.isArchived())
                         .collect(Collectors.toList()));
             } else {
-                binding.txtConfigTitle.setText("Select Note");
+                binding.txtConfigTitle.setText(R.string.select_note);
                 noteSelectionAdapter.setNotes(notes.stream()
                         .filter(n -> !n.isDeleted() && !n.isArchived())
                         .collect(Collectors.toList()));

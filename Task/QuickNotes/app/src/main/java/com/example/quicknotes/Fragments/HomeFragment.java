@@ -164,7 +164,7 @@ public class HomeFragment extends Fragment {
                 }
             }
             setSelectionMode(false);
-            Toast.makeText(requireContext(), "Updated Pin status", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.updated_pin_status, Toast.LENGTH_SHORT).show();
         });
 
        
@@ -320,7 +320,7 @@ public class HomeFragment extends Fragment {
                 handleLockSelection(isLocking);
                 return true;
             } else if (itemId == R.id.menu_add_widget) {
-                Toast.makeText(requireContext(), "Add widget clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.add_widget, Toast.LENGTH_SHORT).show();
                 return true;
             } else if (itemId == R.id.menu_share) {
                 if (!selectedIds.isEmpty()) {
@@ -442,7 +442,7 @@ public class HomeFragment extends Fragment {
             }
         }
         setSelectionMode(false);
-        String msg = isLocking ? "Locked" : "Unlocked";
+        String msg = isLocking ? getString(R.string.lock) : getString(R.string.unlock);
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -593,7 +593,7 @@ public class HomeFragment extends Fragment {
                 }
             }
             setSelectionMode(false);
-            Toast.makeText(requireContext(), "Moved to " + category.getCategoryName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), getString(R.string.moved_to_folder, category.getCategoryName()), Toast.LENGTH_SHORT).show();
         });
         bottomSheet.show(getChildFragmentManager(), "MoveToFolderBottomSheet");
     }
@@ -640,7 +640,7 @@ public class HomeFragment extends Fragment {
             showViewSelectionBottomSheet();
             return true;
         } else if (id == R.id.menu_feedback) {
-            Toast.makeText(requireContext(), "Feedback clicked", Toast.LENGTH_SHORT).show();
+            Toast.makeText(requireContext(), R.string.feedback_suggestion, Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

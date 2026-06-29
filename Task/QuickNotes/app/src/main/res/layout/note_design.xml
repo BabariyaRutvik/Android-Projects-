@@ -28,8 +28,9 @@
                 android:background="#FFC107" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="vertical"
                 android:padding="16dp">
 
@@ -37,7 +38,6 @@
                     android:id="@+id/txtTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="40dp"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:text="Title"
@@ -94,6 +94,23 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardThumb"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/imgThumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop" />
+            </com.google.android.material.card.MaterialCardView>
 
         </LinearLayout>
 

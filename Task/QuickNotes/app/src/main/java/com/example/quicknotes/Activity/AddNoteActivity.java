@@ -24,9 +24,17 @@ import androidx.core.content.FileProvider;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -64,6 +72,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private boolean isDeleted = false;
     private int noteId = -1;
     private long createdTime = -1;
+    private String imagePath = null;
     private int currentSearchIndex = -1;
     private List<Integer> searchMatches = new java.util.ArrayList<>();
     private final List<String> categories = Arrays.asList(
@@ -71,6 +80,11 @@ public class AddNoteActivity extends AppCompatActivity {
             "Untitled_Red", "Untitled_Orange", "Untitled_Pink",
             "Untitled_Purple", "Untitled_DarkGray", "Untitled_Gray"
     );
+
+    private ActivityResultLauncher<String> requestPermissionLauncher;
+    private ActivityResultLauncher<Uri> cameraLauncher;
+    private ActivityResultLauncher<String> galleryLauncher;
+    private Uri tempImageUri;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -96,6 +110,8 @@ public class AddNoteActivity extends AppCompatActivity {
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
+        initLaunchers();
+
         binding.toolbarAddNote.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_more));
         setSupportActionBar(binding.toolbarAddNote);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -107,18 +123,19 @@ public class AddNoteActivity extends AppCompatActivity {
         initViews();
         setClickListeners();
         setSearchListeners();
-        updateDateTime();
+        
+        if (getIntent().hasExtra("note_id")) {
+            noteId = getIntent().getIntExtra("note_id", -1);
+            loadNoteData(noteId);
+        } else {
+            updateDateTime();
+        }
 
         if (getIntent().hasExtra("category")) {
             selectedCategory = getIntent().getStringExtra("category");
             updateCategoryUI(selectedCategory);
             int index = categories.indexOf(selectedCategory);
             if (index != -1) binding.categorySpinner.setSelection(index);
-        }
-
-        if (getIntent().hasExtra("note_id")) {
-            noteId = getIntent().getIntExtra("note_id", -1);
-            loadNoteData(noteId);
         }
 
         String shareType = getIntent().getStringExtra("extra_share_type");
@@ -141,6 +158,74 @@ public class AddNoteActivity extends AppCompatActivity {
         });
     }
 
+    private void initLaunchers() {
+        requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+            if (isGranted) {
+                openCamera();
+            } else {
+                Toast.makeText(this, "Camera permission denied", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        cameraLauncher = registerForActivityResult(new ActivityResultContracts.TakePicture(), isSuccess -> {
+            if (isSuccess && tempImageUri != null) {
+                saveImageToInternalStorage(tempImageUri);
+            }
+        });
+
+        galleryLauncher = registerForActivityResult(new ActivityResultContracts.GetContent(), uri -> {
+            if (uri != null) {
+                saveImageToInternalStorage(uri);
+            }
+        });
+    }
+
+    private void openCamera() {
+        try {
+            File imageFile = new File(getExternalFilesDir(null), "temp_image_" + System.currentTimeMillis() + ".jpg");
+            tempImageUri = FileProvider.getUriForFile(this, getPackageName() + ".fileprovider", imageFile);
+            cameraLauncher.launch(tempImageUri);
+        } catch (Exception e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error opening camera", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveImageToInternalStorage(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            File imageDir = new File(getFilesDir(), "note_images");
+            if (!imageDir.exists()) imageDir.mkdirs();
+
+            String fileName = "IMG_" + System.currentTimeMillis() + ".jpg";
+            File destFile = new File(imageDir, fileName);
+
+            FileOutputStream outputStream = new FileOutputStream(destFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            outputStream.close();
+            inputStream.close();
+
+            imagePath = destFile.getAbsolutePath();
+            displayImage(imagePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void displayImage(String path) {
+        if (path != null && !path.isEmpty()) {
+            binding.cardNoteImage.setVisibility(View.VISIBLE);
+            binding.imgNote.setImageURI(Uri.fromFile(new File(path)));
+        } else {
+            binding.cardNoteImage.setVisibility(View.GONE);
+        }
+    }
+
     private void loadNoteData(int id) {
         Note note = noteViewModel.getNoteById(id);
         if (note != null) {
@@ -158,6 +243,7 @@ public class AddNoteActivity extends AppCompatActivity {
             isArchived = note.isArchived();
             isDeleted = note.isDeleted();
             createdTime = note.getCreatedTime();
+            imagePath = note.getImagePath();
 
             if (selectedColor != null && !selectedColor.isEmpty()) {
                 binding.main.setBackgroundColor(Color.parseColor(selectedColor));
@@ -166,6 +252,12 @@ public class AddNoteActivity extends AppCompatActivity {
             invalidateOptionsMenu(); // Refresh pin icon
             updateCategoryUI(selectedCategory);
             updateReminderUI();
+            displayImage(imagePath);
+            
+            // Update time label for existing note
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+            String timeStr = "Edited : " + sdf.format(new Date(note.getModifiedTime()));
+            binding.textEsitedTime.setText(timeStr);
         }
     }
 
@@ -249,7 +341,11 @@ public class AddNoteActivity extends AppCompatActivity {
         });
         binding.imgPalette.setOnClickListener(v -> Toast.makeText(this, "Change Background", Toast.LENGTH_SHORT).show());
 
-        binding.imgAdd.setOnClickListener(v -> Toast.makeText(this, "Add Media", Toast.LENGTH_SHORT).show());
+        binding.imgAdd.setOnClickListener(v -> showAddImageDialog());
+        binding.btnRemoveImage.setOnClickListener(v -> {
+            imagePath = null;
+            displayImage(null);
+        });
         binding.imgFont.setOnClickListener(v -> {
             showFormatDialog();
             // Ensure keyboard stays/opens
@@ -277,7 +373,7 @@ public class AddNoteActivity extends AppCompatActivity {
             binding.cardReminderInfo.setVisibility(View.VISIBLE);
             binding.layoutRemindedBar.setVisibility(View.VISIBLE);
             
-            SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a", Locale.getDefault());
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
             String dateTimeStr = sdf.format(new Date(note.getReminderTime()));
             
             binding.txtReminderDateTime.setText(dateTimeStr);
@@ -311,8 +407,16 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void updateDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-dd hh:mm a", Locale.getDefault());
-        String currentTime = "Edited : " + sdf.format(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
+        long timeToDisplay = System.currentTimeMillis();
+        String label = "Date : ";
+
+        if (getIntent().hasExtra("extra_selected_date")) {
+            timeToDisplay = getIntent().getLongExtra("extra_selected_date", System.currentTimeMillis());
+            createdTime = timeToDisplay;
+        }
+
+        String currentTime = label + sdf.format(new Date(timeToDisplay));
         binding.textEsitedTime.setText(currentTime);
     }
 
@@ -456,6 +560,24 @@ else if (id == R.id.note_lock) {
         saveNote(false);
     }
 
+    private void showAddImageDialog() {
+        String[] options = {"Camera", "Gallery"};
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("Add Image")
+                .setItems(options, (dialog, which) -> {
+                    if (which == 0) {
+                        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) == android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                            openCamera();
+                        } else {
+                            requestPermissionLauncher.launch(android.Manifest.permission.CAMERA);
+                        }
+                    } else {
+                        galleryLauncher.launch("image/*");
+                    }
+                })
+                .show();
+    }
+
     private void saveNote(boolean isSilent) {
         String title = binding.edtTitle.getText().toString().trim();
         String description = binding.edtContent.getText().toString().trim();
@@ -468,7 +590,9 @@ else if (id == R.id.note_lock) {
         long timestamp = System.currentTimeMillis();
 
         if (noteId == -1) {
-            createdTime = timestamp;
+            if (createdTime == -1) {
+                createdTime = timestamp;
+            }
             Note note = new Note(
                     finalTitle,
                     description,
@@ -484,6 +608,7 @@ else if (id == R.id.note_lock) {
             note.setLocked(isLocked);
             note.setArchived(isArchived);
             note.setDeleted(isDeleted);
+            note.setImagePath(imagePath);
             noteId = (int) noteViewModel.insert(note);
             if (!isSilent) {
                 Toast.makeText(this, "Note Saved", Toast.LENGTH_SHORT).show();
@@ -501,6 +626,7 @@ else if (id == R.id.note_lock) {
                 note.setLocked(isLocked);
                 note.setArchived(isArchived);
                 note.setDeleted(isDeleted);
+                note.setImagePath(imagePath);
 
                 noteViewModel.update(note);
                 if (!isSilent) {

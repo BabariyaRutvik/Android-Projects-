@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="Reminder"
+        app:title="@string/reminder"
         app:titleTextColor="@color/black"
         app:elevation="0dp"/>
 
@@ -55,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Date"
+                    android:text="@string/date"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Reminder Time"
+                    android:text="@string/reminder_time"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -155,7 +155,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_weight="1"
-                    android:text="Repeat"
+                    android:text="@string/repeat"
                     android:textColor="@color/text_primary"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -203,7 +203,7 @@
             android:layout_height="56dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
-            android:text="CANCEL"
+            android:text="@string/cancel"
             android:textColor="@color/text_secondary"
             app:backgroundTint="@color/search_bar_bg"
             app:cornerRadius="12dp" />
@@ -215,7 +215,7 @@
             android:layout_height="56dp"
             android:layout_marginStart="8dp"
             android:layout_weight="1"
-            android:text="SAVE"
+            android:text="@string/save"
             android:textColor="@color/white"
             app:backgroundTint="@color/sky_blue"
             app:cornerRadius="12dp" />

@@ -61,18 +61,29 @@ public class ChecklistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             ChecklistItem item = items.get(position);
 
             itemHolder.edtItem.setText(item.getText());
-            itemHolder.checkbox.setImageResource(item.isChecked() ? R.drawable.ic_checkbox_rounded : R.drawable.ic_checkbox_blank);
-            itemHolder.checkbox.setAlpha(item.isChecked() ? 1.0f : 0.6f);
+            itemHolder.checkbox.setImageResource(item.isChecked() ? R.drawable.ic_checkbox_checked_circle : R.drawable.ic_checkbox_unchecked_circle);
+            itemHolder.checkbox.setAlpha(1.0f);
+
+            if (item.isChecked()) {
+                itemHolder.edtItem.setPaintFlags(itemHolder.edtItem.getPaintFlags() | android.graphics.Paint.STRIKE_THRU_TEXT_FLAG);
+                itemHolder.edtItem.setAlpha(0.6f);
+            } else {
+                itemHolder.edtItem.setPaintFlags(itemHolder.edtItem.getPaintFlags() & (~android.graphics.Paint.STRIKE_THRU_TEXT_FLAG));
+                itemHolder.edtItem.setAlpha(1.0f);
+            }
 
             itemHolder.checkbox.setOnClickListener(v -> {
                 item.setChecked(!item.isChecked());
-                notifyItemChanged(position);
+                notifyItemChanged(holder.getBindingAdapterPosition());
             });
 
             itemHolder.imgDelete.setOnClickListener(v -> {
-                items.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, items.size());
+                int currentPos = holder.getBindingAdapterPosition();
+                if (currentPos != RecyclerView.NO_POSITION) {
+                    items.remove(currentPos);
+                    notifyItemRemoved(currentPos);
+                    notifyItemRangeChanged(currentPos, items.size());
+                }
             });
 
             // Use TextWatcher to update item text
@@ -120,7 +131,7 @@ public class ChecklistAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-    static class AddViewHolder extends RecyclerView.ViewHolder {
+    public static class AddViewHolder extends RecyclerView.ViewHolder {
         public AddViewHolder(@NonNull View itemView) {
             super(itemView);
         }

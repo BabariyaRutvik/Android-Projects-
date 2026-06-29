@@ -102,10 +102,45 @@
     <string name="note_unarchived">नोट अनआर्काइव किया गया</string>
     <string name="unarchive">अनआर्काइव</string>
 
+    <string name="reminder">रिमाइंडर</string>
+    <string name="clear">साफ़ करें</string>
+    <string name="date">दिनांक</string>
+    <string name="repeat">दोहराएं</string>
+    <string name="none">कोई नहीं</string>
+    <string name="daily">दैनिक</string>
+    <string name="weekly">साप्ताहिक</string>
+    <string name="monthly">मासिक</string>
+    <string name="every">प्रत्येक</string>
+    <string name="days_label">दिन</string>
+    <string name="weeks_label">सप्ताह</string>
+    <string name="months_label">महीने</string>
+    <string name="on_label">को</string>
+    <string name="future_time_msg">कृपया भविष्य का समय चुनें</string>
+    <string name="reminder_saved">रिमाइंडर सफलतापूर्वक सहेजा गया</string>
+    <string name="reminder_cleared">रिमाइंडर साफ़ किया गया</string>
+    <string name="note_not_found">त्रुटि: नोट नहीं मिला</string>
+    <string name="snooze_date_title">स्नूज़: तिथि चुनें</string>
+    <string name="snooze_time_title">स्नूज़: समय चुनें</string>
+    <string name="snooze_confirm_msg">नया समय सेट हो गया है। पुष्टि करने के लिए सहेजें पर क्लिक करें।</string>
+    <string name="reminded_label">याद दिलाया: %1$s</string>
+    <string name="custom">कस्टम</string>
+    <string name="repeat_daily">दैनिक दोहराएं</string>
+    <string name="repeat_weekly">साप्ताहिक दोहराएं</string>
+    <string name="repeat_monthly">मासिक दोहराएं</string>
     <string name="check">चेक</string>
     <string name="uncheck">अनचेक</string>
     <string name="unlock">अनलॉक</string>
     <string name="add_widget">विजेट जोड़ें</string>
+    <string name="widget_selection_info">एक विजेट चुनें और इसे होम स्क्रीन पर जोड़ें</string>
+    <string name="add_to_home_screen">होम स्क्रीन पर जोड़ें</string>
+    <string name="confirm">पुष्टि करें</string>
+    <string name="please_select_widget">कृपया एक विजेट चुनें</string>
+    <string name="pinned_widgets_not_supported">पिन किए गए विजेट समर्थित नहीं हैं</string>
+    <string name="pinned_widgets_android_version_error">पिन किए गए विजेट केवल Android 8.0+ पर समर्थित हैं</string>
+    <string name="updated_pin_status">पिन स्थिति अपडेट की गई</string>
+    <string name="moved_to_folder">%1$s में ले जाया गया</string>
+    <string name="select_pinned_note">पिन किया गया नोट चुनें</string>
+    <string name="select_note">नोट चुनें</string>
     <string name="notes_title">नोट्स</string>
     <string name="done_title">पूर्ण</string>
 
@@ -137,5 +172,13 @@
     <!-- Font Size Screen -->
     <string name="heading_1">शीर्षक 1</string>
     <string name="heading_2">शीर्षक 2</string>
+    <string name="heading_3">शीर्षक 3</string>
+    <string name="format">प्रारूप</string>
+    <string name="folder_label">फ़ोल्डर:</string>
+    <string name="created_time_label">बनाने का समय:</string>
+    <string name="last_modified_label">अंतिम संशोधन:</string>
+    <string name="words_label">शब्द:</string>
+    <string name="characters_label">अक्षर:</string>
+    <string name="note_info">नोट की जानकारी</string>
     <string name="font_sample_text">नोटपैड एंड्रॉइड के लिए एक शानदार नोट ऐप है। यह आपकी आवश्यकताओं को पूरी तरह से पूरा करने के लिए दो नोट-लेकिंग मोड, टेक्स्ट मोड और चेकलिस्ट मोड प्रदान करता है। स्टिकी नोट विजेट, नोट रिमाइंडर और नोट लॉक जैसी सुविधाएं नोट लेने को सरल, त्वरित और सुरक्षित बनाती हैं। आपके टाइप करते ही नोट्स अपने आप सेव हो जाते हैं, जिससे आप पेन और पेपर की तरह ही नोट्स ले सकते हैं।</string>
 </resources>

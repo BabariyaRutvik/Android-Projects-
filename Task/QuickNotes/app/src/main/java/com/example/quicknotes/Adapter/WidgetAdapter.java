@@ -15,6 +15,16 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.WidgetView
     private List<WidgetModel> widgetList;
     private int selectedPosition = -1;
 
+    private OnWidgetSelectedListener onWidgetSelectedListener;
+
+    public interface OnWidgetSelectedListener {
+        void onWidgetSelected(WidgetModel widget);
+    }
+
+    public void setOnWidgetSelectedListener(OnWidgetSelectedListener listener) {
+        this.onWidgetSelectedListener = listener;
+    }
+
     public WidgetAdapter(List<WidgetModel> widgetList) {
         this.widgetList = widgetList;
     }
@@ -44,6 +54,10 @@ public class WidgetAdapter extends RecyclerView.Adapter<WidgetAdapter.WidgetView
             selectedPosition = holder.getAdapterPosition();
             notifyItemChanged(previousSelected);
             notifyItemChanged(selectedPosition);
+
+            if (onWidgetSelectedListener != null) {
+                onWidgetSelectedListener.onWidgetSelected(widget);
+            }
         });
     }
 

@@ -16,9 +16,11 @@ import com.example.quicknotes.Adapter.SelectionCategoryAdapter;
 import com.example.quicknotes.Model.CategoryModel;
 import com.example.quicknotes.R;
 import com.example.quicknotes.Utils.CategoryPrefs;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class EditCategoriesBottomSheet extends BottomSheetDialogFragment {
 
@@ -58,6 +60,11 @@ public class EditCategoriesBottomSheet extends BottomSheetDialogFragment {
         }
     }
 
+    @Override
+    public int getTheme() {
+        return R.style.RoundedBottomSheetDialog;
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -65,9 +72,9 @@ public class EditCategoriesBottomSheet extends BottomSheetDialogFragment {
 
         TextView txtTitle = view.findViewById(R.id.txtTitle);
         if (mode == Mode.MOVE) {
-            txtTitle.setText("Move to");
+            txtTitle.setText(R.string.move_to);
         } else {
-            txtTitle.setText("Edit");
+            txtTitle.setText(R.string.edit);
         }
 
         RecyclerView rvEditCategories = view.findViewById(R.id.rvEditCategories);
@@ -101,5 +108,28 @@ public class EditCategoriesBottomSheet extends BottomSheetDialogFragment {
         });
 
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (getDialog() != null) {
+            View bottomSheet = getDialog().findViewById(com.google.android.material.R.id.design_bottom_sheet);
+            if (bottomSheet != null) {
+                BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(bottomSheet);
+                behavior.setDraggable(false);
+
+                // Set a fixed height (e.g., 70% of screen) to match the screenshot look
+                int screenHeight = getResources().getDisplayMetrics().heightPixels;
+                int desiredHeight = (int) (screenHeight * 0.70); 
+                
+                ViewGroup.LayoutParams layoutParams = bottomSheet.getLayoutParams();
+                layoutParams.height = desiredHeight;
+                bottomSheet.setLayoutParams(layoutParams);
+
+                behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                behavior.setSkipCollapsed(true);
+            }
+        }
     }
 }

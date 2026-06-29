@@ -156,7 +156,7 @@ public class ArchievedNotesActivity extends AppCompatActivity {
                 if (count == 0) {
                     setSelectionMode(false);
                 } else {
-                    binding.txtSelectionCountArchive.setText(count + " Selected");
+                    binding.txtSelectionCountArchive.setText(getString(R.string.selected_count, count));
                     updateLockIconInSelectionBar();
                 }
             }
@@ -200,7 +200,7 @@ public class ArchievedNotesActivity extends AppCompatActivity {
         binding.btnDeleteSelectionArchive.setOnClickListener(v -> showDeleteConfirmDialog());
         binding.btnLockSelectionArchive.setOnClickListener(v -> toggleLockSelectedNotes());
         binding.imgPinSelectionArchive.setOnClickListener(v -> togglePinSelectedNotes());
-        binding.imgReminderSelectionArchive.setOnClickListener(v -> Toast.makeText(this, "Reminder clicked", Toast.LENGTH_SHORT).show());
+        binding.imgReminderSelectionArchive.setOnClickListener(v -> Toast.makeText(this, R.string.reminder, Toast.LENGTH_SHORT).show());
     }
 
     private void updateNotesList() {
@@ -277,7 +277,7 @@ public class ArchievedNotesActivity extends AppCompatActivity {
             }
         }
         setSelectionMode(false);
-        Toast.makeText(this, "Pin status updated", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, R.string.updated_pin_status, Toast.LENGTH_SHORT).show();
     }
 
     private void toggleLockSelectedNotes() {
@@ -317,7 +317,7 @@ public class ArchievedNotesActivity extends AppCompatActivity {
             }
         }
         setSelectionMode(false);
-        String msg = shouldLock ? "Notes locked" : "Notes unlocked";
+        String msg = shouldLock ? getString(R.string.lock) : getString(R.string.unlock);
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -346,15 +346,15 @@ public class ArchievedNotesActivity extends AppCompatActivity {
 
     private void showSelectionMorePopup(View view) {
         PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.getMenu().add("Select All");
-        popupMenu.getMenu().add("Lock");
+        popupMenu.getMenu().add(getString(R.string.select_all));
+        popupMenu.getMenu().add(getString(R.string.lock));
 
         popupMenu.setOnMenuItemClickListener(item -> {
             String title = item.getTitle() != null ? item.getTitle().toString() : "";
-            if ("Select All".equals(title)) {
+            if (getString(R.string.select_all).equals(title)) {
                 archivedNotesAdapter.selectAll();
-            } else if ("Lock".equals(title)) {
-                Toast.makeText(this, "Lock clicked", Toast.LENGTH_SHORT).show();
+            } else if (getString(R.string.lock).equals(title)) {
+                toggleLockSelectedNotes();
             }
             return true;
         });
@@ -438,9 +438,9 @@ public class ArchievedNotesActivity extends AppCompatActivity {
     }
 
     private void showUndoSnackbar(List<Note> notes, boolean unarchived) {
-        String message = unarchived ? "Note unarchived" : "Moved to Recycle bin";
+        String message = unarchived ? getString(R.string.note_unarchived) : getString(R.string.moved_to_recycle);
         Snackbar snackbar = Snackbar.make(binding.main, message, Snackbar.LENGTH_LONG);
-        snackbar.setAction("UNDO", v -> {
+        snackbar.setAction(R.string.undo, v -> {
             for (Note note : notes) {
                 if (unarchived) {
                     note.setArchived(true);

@@ -145,6 +145,14 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 taskHolder.imgRepeat.setVisibility(View.GONE);
             }
 
+            // Image Thumbnail
+            if (note.getImagePath() != null && !note.getImagePath().isEmpty()) {
+                taskHolder.cardThumb.setVisibility(View.VISIBLE);
+                taskHolder.imgThumb.setImageURI(android.net.Uri.fromFile(new java.io.File(note.getImagePath())));
+            } else {
+                taskHolder.cardThumb.setVisibility(View.GONE);
+            }
+
             taskHolder.itemView.setOnClickListener(v -> listener.onTaskClick(note));
             taskHolder.itemView.setOnLongClickListener(v -> {
                 listener.onTaskLongClick(note, v);
@@ -228,8 +236,9 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     static class TaskViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkbox;
         TextView txtTitle, txtDesc, txtTime;
-        ImageView imgRepeat, imgLock;
+        ImageView imgRepeat, imgLock, imgThumb;
         View viewCategoryIndicator;
+        com.google.android.material.card.MaterialCardView cardThumb;
 
         public TaskViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -240,6 +249,8 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             imgRepeat = itemView.findViewById(R.id.imgRepeat);
             imgLock = itemView.findViewById(R.id.imgLock);
             viewCategoryIndicator = itemView.findViewById(R.id.viewCategoryIndicator);
+            cardThumb = itemView.findViewById(R.id.cardThumb);
+            imgThumb = itemView.findViewById(R.id.imgThumb);
         }
     }
 

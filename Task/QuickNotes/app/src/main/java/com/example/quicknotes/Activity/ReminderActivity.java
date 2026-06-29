@@ -62,7 +62,6 @@ public class ReminderActivity extends AppCompatActivity {
 
         noteViewModel = new ViewModelProvider(this).get(NoteViewModel.class);
 
-        // Clear seconds and milliseconds for consistent comparison
         calendar.set(Calendar.SECOND, 0);
         calendar.set(Calendar.MILLISECOND, 0);
 
@@ -70,7 +69,6 @@ public class ReminderActivity extends AppCompatActivity {
             noteId = getIntent().getIntExtra("note_id", -1);
             loadNoteData();
             
-            // Check if opened via Snooze
             if (getIntent().getBooleanExtra("is_snooze", false)) {
                 openSnoozeDialogs();
             }
@@ -131,6 +129,7 @@ public class ReminderActivity extends AppCompatActivity {
         binding.layoutRepeat.setOnClickListener(v -> {
             PopupMenu popupMenu = new PopupMenu(ReminderActivity.this, binding.layoutRepeat, Gravity.END);
             popupMenu.inflate(R.menu.reminder_menu);
+            
             popupMenu.setOnMenuItemClickListener(item -> {
                 int itemId = item.getItemId();
                 String oldRepeat = repeatType;
@@ -149,7 +148,7 @@ public class ReminderActivity extends AppCompatActivity {
                 if (!repeatType.equals(oldRepeat)) {
                     isChanged = true;
                 }
-                binding.tvRepeat.setText(repeatType);
+                updateRepeatDisplay();
                 return true;
             });
             popupMenu.show();
@@ -196,7 +195,6 @@ public class ReminderActivity extends AppCompatActivity {
     }
 
     private void openSnoozeDialogs() {
-        // First show DatePicker
         int year = calendar.get(Calendar.YEAR);
         int month = calendar.get(Calendar.MONTH);
         int day = calendar.get(Calendar.DAY_OF_MONTH);
@@ -208,10 +206,9 @@ public class ReminderActivity extends AppCompatActivity {
                     calendar.set(Calendar.DAY_OF_MONTH, selectedDay);
                     updateDateTimeLabels();
                     
-                    // Immediately show TimePicker after DatePicker
                     openSnoozeTimePicker();
                 }, year, month, day);
-        datePickerDialog.setTitle("Snooze: Select Date");
+        datePickerDialog.setTitle(getString(R.string.snooze_date_title));
         datePickerDialog.show();
     }
 
@@ -228,9 +225,9 @@ public class ReminderActivity extends AppCompatActivity {
                     updateDateTimeLabels();
                     selectedTimeMillis = calendar.getTimeInMillis();
                     isChanged = true;
-                    Toast.makeText(this, "New time set. Click SAVE to confirm.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, getString(R.string.snooze_confirm_msg), Toast.LENGTH_SHORT).show();
                 }, hour, minute, false);
-        timePickerDialog.setTitle("Snooze: Select Time");
+        timePickerDialog.setTitle(getString(R.string.snooze_time_title));
         timePickerDialog.show();
     }
 
@@ -259,7 +256,7 @@ public class ReminderActivity extends AppCompatActivity {
                     }
 
                     updateRepeatDisplay();
-                    isChanged = false; // Initial data loaded, no changes yet
+                    isChanged = false;
                 });
             }
         }).start();
@@ -267,21 +264,21 @@ public class ReminderActivity extends AppCompatActivity {
 
     private void updateRepeatDisplay() {
         if (repeatType == null || repeatType.equals("None")) {
-            binding.tvRepeat.setText("None");
+            binding.tvRepeat.setText(R.string.none);
             return;
         }
 
         if (repeatType.contains("Daily")) {
-            if (repeatInterval <= 1) binding.tvRepeat.setText("Daily");
-            else binding.tvRepeat.setText("Every " + repeatInterval + " day(s)");
+            if (repeatInterval <= 1) binding.tvRepeat.setText(R.string.daily);
+            else binding.tvRepeat.setText(getString(R.string.every) + " " + repeatInterval + " " + getString(R.string.days_label));
         } 
         else if (repeatType.contains("Weekly")) {
             StringBuilder sb = new StringBuilder();
-            if (repeatInterval <= 1) sb.append("Weekly");
-            else sb.append("Every ").append(repeatInterval).append(" week(s)");
+            if (repeatInterval <= 1) sb.append(getString(R.string.weekly));
+            else sb.append(getString(R.string.every)).append(" ").append(repeatInterval).append(" ").append(getString(R.string.weeks_label));
 
             if (!selectedWeekDays.isEmpty()) {
-                sb.append(" on ");
+                sb.append(" ").append(getString(R.string.on_label)).append(" ");
                 // Sort and join short day names
                 String[] allDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
                 int added = 0;
@@ -301,8 +298,8 @@ public class ReminderActivity extends AppCompatActivity {
             }
         } 
         else if (repeatType.contains("Monthly")) {
-            if (repeatInterval <= 1) binding.tvRepeat.setText("Monthly");
-            else binding.tvRepeat.setText("Every " + repeatInterval + " month(s)");
+            if (repeatInterval <= 1) binding.tvRepeat.setText(R.string.monthly);
+            else binding.tvRepeat.setText(getString(R.string.every) + " " + repeatInterval + " " + getString(R.string.months_label));
         } 
         else {
             binding.tvRepeat.setText(repeatType);
@@ -315,7 +312,7 @@ public class ReminderActivity extends AppCompatActivity {
         }
 
         if (selectedTimeMillis <= System.currentTimeMillis()) {
-            Toast.makeText(this, "Please select a future time", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.future_time_msg), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -340,11 +337,11 @@ public class ReminderActivity extends AppCompatActivity {
                 
                 runOnUiThread(() -> {
                     isChanged = false;
-                    Toast.makeText(ReminderActivity.this, "Reminder Saved Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReminderActivity.this, getString(R.string.reminder_saved), Toast.LENGTH_SHORT).show();
                     finish();
                 });
             } else {
-                runOnUiThread(() -> Toast.makeText(ReminderActivity.this, "Error: Could not find note", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(ReminderActivity.this, getString(R.string.note_not_found), Toast.LENGTH_SHORT).show());
             }
         }).start();
     }
@@ -383,7 +380,7 @@ public class ReminderActivity extends AppCompatActivity {
                 
                 runOnUiThread(() -> {
                     isChanged = false;
-                    Toast.makeText(ReminderActivity.this, "Reminder Cleared", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ReminderActivity.this, getString(R.string.reminder_cleared), Toast.LENGTH_SHORT).show();
                     finish();
                 });
             }
@@ -397,24 +394,22 @@ public class ReminderActivity extends AppCompatActivity {
         DialogCustomRepeatBinding repeatBinding = DialogCustomRepeatBinding.inflate(getLayoutInflater());
         AlertDialog dialog = new AlertDialog.Builder(this).setView(repeatBinding.getRoot()).create();
         
-        // Set initial unit and visibility based on current repeat type if it's "Repeat ..."
         if (repeatType.startsWith("Repeat")) {
             repeatBinding.txtRepeatType.setText(repeatType);
             if (repeatType.contains("Weekly")) {
-                repeatBinding.txtUnit.setText("week(s)");
+                repeatBinding.txtUnit.setText(getString(R.string.weeks_label));
                 repeatBinding.layoutWeekDays.setVisibility(View.VISIBLE);
             } else if (repeatType.contains("Monthly")) {
-                repeatBinding.txtUnit.setText("month(s)");
+                repeatBinding.txtUnit.setText(getString(R.string.months_label));
                 repeatBinding.layoutWeekDays.setVisibility(View.GONE);
             } else {
-                repeatBinding.txtUnit.setText("day(s)");
+                repeatBinding.txtUnit.setText(getString(R.string.days_label));
                 repeatBinding.layoutWeekDays.setVisibility(View.GONE);
             }
             repeatBinding.edtInterval.setText(String.valueOf(repeatInterval));
         } else {
-            // Default to Daily if not currently custom
-            repeatBinding.txtRepeatType.setText("Repeat Daily");
-            repeatBinding.txtUnit.setText("day(s)");
+            repeatBinding.txtRepeatType.setText(getString(R.string.repeat_daily));
+            repeatBinding.txtUnit.setText(getString(R.string.days_label));
             repeatBinding.layoutWeekDays.setVisibility(View.GONE);
             repeatBinding.edtInterval.setText("1");
         }
@@ -429,16 +424,16 @@ public class ReminderActivity extends AppCompatActivity {
             popupMenu.inflate(R.menu.custom_repeat_type);
             popupMenu.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == R.id.action_daily) {
-                    repeatBinding.txtRepeatType.setText("Repeat Daily");
-                    repeatBinding.txtUnit.setText("day(s)");
+                    repeatBinding.txtRepeatType.setText(getString(R.string.repeat_daily));
+                    repeatBinding.txtUnit.setText(getString(R.string.days_label));
                     repeatBinding.layoutWeekDays.setVisibility(View.GONE);
                 } else if (item.getItemId() == R.id.action_weekly) {
-                    repeatBinding.txtRepeatType.setText("Repeat Weekly");
-                    repeatBinding.txtUnit.setText("week(s)");
+                    repeatBinding.txtRepeatType.setText(getString(R.string.repeat_weekly));
+                    repeatBinding.txtUnit.setText(getString(R.string.weeks_label));
                     repeatBinding.layoutWeekDays.setVisibility(View.VISIBLE);
                 } else if (item.getItemId() == R.id.action_monthly) {
-                    repeatBinding.txtRepeatType.setText("Repeat Monthly");
-                    repeatBinding.txtUnit.setText("month(s)");
+                    repeatBinding.txtRepeatType.setText(getString(R.string.repeat_monthly));
+                    repeatBinding.txtUnit.setText(getString(R.string.months_label));
                     repeatBinding.layoutWeekDays.setVisibility(View.GONE);
                 }
                 return true;

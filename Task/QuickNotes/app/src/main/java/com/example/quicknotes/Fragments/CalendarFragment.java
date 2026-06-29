@@ -195,7 +195,8 @@ public class CalendarFragment extends Fragment {
         binding.fabAddCalendarNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddNoteBottomSheet addNoteBottomSheet = new AddNoteBottomSheet(selectedCategory);
+                long dateMillis = selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+                AddNoteBottomSheet addNoteBottomSheet = new AddNoteBottomSheet(selectedCategory, dateMillis);
                 addNoteBottomSheet.show(getChildFragmentManager(), "AddNoteBottomSheet");
             }
         });

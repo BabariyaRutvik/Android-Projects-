@@ -102,10 +102,45 @@
     <string name="note_unarchived">નોંધ અનઆર્કાઇવ કરવામાં આવી</string>
     <string name="unarchive">અનઆર્કાઇવ</string>
 
+    <string name="reminder">રીમાઇન્ડર</string>
+    <string name="clear">સાફ કરો</string>
+    <string name="date">તારીખ</string>
+    <string name="repeat">પુનરાવર્તન</string>
+    <string name="none">કોઈ નહીં</string>
+    <string name="daily">દૈનિક</string>
+    <string name="weekly">સાપ્તાહિક</string>
+    <string name="monthly">માસિક</string>
+    <string name="every">દરેક</string>
+    <string name="days_label">દિવસ</string>
+    <string name="weeks_label">અઠવાડિયા</string>
+    <string name="months_label">મહિના</string>
+    <string name="on_label">પર</string>
+    <string name="future_time_msg">કૃપા કરીને ભવિષ્યનો સમય પસંદ કરો</string>
+    <string name="reminder_saved">રીમાઇન્ડર સફળતાપૂર્વક સાચવવામાં આવ્યું</string>
+    <string name="reminder_cleared">રીમાઇન્ડર સાફ કરવામાં આવ્યું</string>
+    <string name="note_not_found">ભૂલ: નોંધ મળી નથી</string>
+    <string name="snooze_date_title">સ્નૂઝ: તારીખ પસંદ કરો</string>
+    <string name="snooze_time_title">સ્નૂઝ: સમય પસંદ કરો</string>
+    <string name="snooze_confirm_msg">નવો સમય સેટ થયો. ખાતરી કરવા માટે સાચવો પર ક્લિક કરો.</string>
+    <string name="reminded_label">યાદ અપાવ્યું: %1$s</string>
+    <string name="custom">કસ્ટમ</string>
+    <string name="repeat_daily">દૈનિક પુનરાવર્તન</string>
+    <string name="repeat_weekly">સાપ્તાહિક પુનરાવર્તન</string>
+    <string name="repeat_monthly">માસિક પુનરાવર્તન</string>
     <string name="check">ચેક</string>
     <string name="uncheck">અનચેક</string>
     <string name="unlock">અનલોક</string>
     <string name="add_widget">વિજેટ ઉમેરો</string>
+    <string name="widget_selection_info">એક વિજેટ પસંદ કરો અને તેને હોમ સ્ક્રીન પર ઉમેરો</string>
+    <string name="add_to_home_screen">હોમ સ્ક્રીન પર ઉમેરો</string>
+    <string name="confirm">પુષ્ટિ કરો</string>
+    <string name="please_select_widget">કૃપા કરીને વિજેટ પસંદ કરો</string>
+    <string name="pinned_widgets_not_supported">પિન કરેલા વિજેટ્સ સમર્થિત નથી</string>
+    <string name="pinned_widgets_android_version_error">પિન કરેલા વિજેટ્સ ફક્ત Android 8.0+ પર સમર્થિત છે</string>
+    <string name="updated_pin_status">પિન સ્થિતિ અપડેટ કરી</string>
+    <string name="moved_to_folder">%1$s માં ખસેડવામાં આવ્યું</string>
+    <string name="select_pinned_note">પિન કરેલી નોંધ પસંદ કરો</string>
+    <string name="select_note">નોંધ પસંદ કરો</string>
     <string name="notes_title">નોંધો</string>
     <string name="done_title">પૂર્ણ</string>
 
@@ -137,5 +172,13 @@
     <!-- Font Size Screen -->
     <string name="heading_1">હેડિંગ 1</string>
     <string name="heading_2">હેડિંગ 2</string>
+    <string name="heading_3">હેડિંગ 3</string>
+    <string name="format">ફોર્મેટ</string>
+    <string name="folder_label">ફોલ્ડર:</string>
+    <string name="created_time_label">બનાવવાનો સમય:</string>
+    <string name="last_modified_label">છેલ્લે ફેરફાર કરેલ:</string>
+    <string name="words_label">શબ્દો:</string>
+    <string name="characters_label">અક્ષરો:</string>
+    <string name="note_info">નોંધની માહિતી</string>
     <string name="font_sample_text">નોટપેડ એ એન્ડ્રોઇડ માટે એક અદ્ભુત નોટ એપ્લિકેશન છે. તે તમારી જરૂરિયાતોને પૂર્ણ કરવા માટે બે નોટ-લેકિંગ મોડ્સ, ટેક્સ્ટ મોડ અને ચેકલિસ્ટ મોડ પ્રદાન કરે છે. સ્ટીકી નોટ વિજેટ્સ, નોટ રિમાઇન્ડર્સ અને નોટ લોક જેવી સુવિધાઓ નોંધ લેવાનું સરળ, ઝડપી અને સુરક્ષિત બનાવે છે. તમે ટાઇપ કરો છો તેમ નોંધો આપમેળે સાચવવામાં આવે છે, જેથી તમે પેન અને કાગળનો ઉપયોગ કરવાની જેમ જ નોંધ લઈ શકો.</string>
 </resources>

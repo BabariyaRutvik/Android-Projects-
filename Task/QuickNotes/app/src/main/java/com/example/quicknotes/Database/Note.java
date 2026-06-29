@@ -69,6 +69,9 @@ public class Note {
     @ColumnInfo(name = "isLocked")
     private boolean isLocked;
 
+    @ColumnInfo(name = "imagePath")
+    private String imagePath;
+
     public Note(String title,
                       String description,
                       String noteType,
@@ -97,6 +100,7 @@ public class Note {
         this.repeatDays = "";
         this.isReminderEnabled = false;
         this.isLocked = false;
+        this.imagePath = null;
     }
 
     public int getId() {
@@ -249,5 +253,13 @@ public class Note {
 
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

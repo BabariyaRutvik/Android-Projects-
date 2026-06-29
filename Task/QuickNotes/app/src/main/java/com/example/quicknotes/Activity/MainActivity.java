@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // Apply theme before inflating layout
         SharedPreferences sharedPreferences = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
         int themeMode = sharedPreferences.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         AppCompatDelegate.setDefaultNightMode(themeMode);
@@ -83,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
                 setSelectedIcon(-1);
             }
         } else {
-            // Load HomeFragment by default if no target
             loadFragment(new HomeFragment());
             setSelectedIcon(R.id.nav_home);
         }
