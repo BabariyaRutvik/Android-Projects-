@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Card Background -->
+    <path
+        android:fillColor="#F1F8FF"
+        android:pathData="M15,15 L85,15 A8,8 0 0 1 93,23 L93,77 A8,8 0 0 1 85,85 L15,85 A8,8 0 0 1 7,77 L7,23 A8,8 0 0 1 15,15 Z" />
+
+    <!-- Left Accent Bar -->
+    <path
+        android:fillColor="@color/primary_blue"
+        android:pathData="M7,25 L10,25 L10,75 L7,75 Z" />
+
+    <!-- Title Mock -->
+    <path
+        android:fillColor="#1A237E"
+        android:pathData="M20,30 L60,30 L60,38 L20,38 Z" />
+
+    <!-- Content Mock -->
+    <path
+        android:fillColor="#757575"
+        android:pathData="M20,45 L80,45 L80,48 L20,48 Z" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M20,55 L70,55 L70,58 L20,58 Z" />
+
+</vector>

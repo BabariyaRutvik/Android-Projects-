@@ -26,6 +26,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:minHeight="60dp"
+        android:elevation="12dp"
         android:background="@drawable/bottom_navigation_bg"
         app:menu="@menu/bottom_nav_menu"
         app:labelVisibilityMode="unlabeled"

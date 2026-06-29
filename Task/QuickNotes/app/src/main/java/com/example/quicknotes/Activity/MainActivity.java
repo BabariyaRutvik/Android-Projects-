@@ -1,6 +1,7 @@
 package com.example.quicknotes.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.example.quicknotes.Fragments.CalendarFragment;
 import com.example.quicknotes.Fragments.HomeFragment;
+import com.example.quicknotes.Fragments.SearchFragment;
 import com.example.quicknotes.Fragments.SettingsFragment;
 import com.example.quicknotes.R;
 import com.example.quicknotes.Utils.FontSizeHelper;
@@ -39,17 +41,9 @@ public class MainActivity extends AppCompatActivity {
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            // Status bar padding on the root so content starts below the status bar
-            v.setPadding(0, systemBars.top, 0, 0);
-            // System nav bar padding inside bottomNavigation so icons aren't hidden
-            binding.bottomNavigation.setPadding(0, 0, 0, systemBars.bottom);
+            v.setPadding(0, systemBars.top, 0, systemBars.bottom);
             return insets;
         });
-
-
-        // Load HomeFragment by default
-        loadFragment(new HomeFragment());
-        setSelectedIcon(R.id.nav_home);
 
         binding.bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -68,6 +62,31 @@ public class MainActivity extends AppCompatActivity {
             }
             return false;
         });
+
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent != null && intent.hasExtra("target_fragment")) {
+            String target = intent.getStringExtra("target_fragment");
+            if ("home".equals(target)) {
+                loadFragment(new HomeFragment());
+                setSelectedIcon(R.id.nav_home);
+            } else if ("search".equals(target)) {
+                loadFragment(new SearchFragment());
+                setSelectedIcon(-1);
+            }
+        } else {
+            // Load HomeFragment by default if no target
+            loadFragment(new HomeFragment());
+            setSelectedIcon(R.id.nav_home);
+        }
     }
 
     @Override
@@ -78,36 +97,21 @@ public class MainActivity extends AppCompatActivity {
         super.attachBaseContext(finalContext);
     }
 
-    // change the icon when user will click on that particular fragment
     private void setSelectedIcon(int selectedItem){
         // home
         binding.bottomNavigation.getMenu().findItem(R.id.nav_home).setIcon(R.drawable.ic_home_outline);
-
         // calender
         binding.bottomNavigation.getMenu().findItem(R.id.nav_calender).setIcon(R.drawable.ic_calender_outline);
-
         // settings
         binding.bottomNavigation.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.ic_menu_outline);
 
-
-        // selected items
-
-        // home
-        if (selectedItem == R.id
-                .nav_home){
-
+        if (selectedItem == R.id.nav_home){
             binding.bottomNavigation.getMenu().findItem(R.id.nav_home).setIcon(R.drawable.ic_home_filled);
-
-        }
-        // calender
-        else if (selectedItem == R.id.nav_calender) {
+        } else if (selectedItem == R.id.nav_calender) {
             binding.bottomNavigation.getMenu().findItem(R.id.nav_calender).setIcon(R.drawable.ic_caldender_fill);
-        }
-        else if (selectedItem == R.id.nav_settings){
+        } else if (selectedItem == R.id.nav_settings){
             binding.bottomNavigation.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.ic_menu_filled);
         }
-
-
     }
 
     private void loadFragment(Fragment fragment) {

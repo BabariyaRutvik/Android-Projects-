@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="150dp"
+    android:viewportWidth="100"
+    android:viewportHeight="150">
+
+    <!-- Card Background (Yellowish) -->
+    <path
+        android:fillColor="#FFFDE7"
+        android:pathData="M8,8 L92,8 A4,4 0 0 1 96,12 L96,138 A4,4 0 0 1 92,142 L8,142 A4,4 0 0 1 4,138 L4,12 A4,4 0 0 1 8,8 Z" />
+
+    <!-- Left Accent Bar (Yellow) -->
+    <path
+        android:fillColor="#FBC02D"
+        android:pathData="M4,15 L7,15 L7,135 L4,135 Z" />
+
+    <!-- Title: Shopping list -->
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M15,20 L50,20 L50,26 L15,26 Z" />
+
+    <!-- Time text -->
+    <path
+        android:fillColor="#8D6E63"
+        android:pathData="M15,30 L25,30 L25,33 L15,33 Z" />
+
+    <!-- Checklist items -->
+    <!-- Item 1 -->
+    <path
+        android:fillColor="#A1887F"
+        android:pathData="M15,50 L20,50 L20,55 L15,55 L15,50 Z M17,50 L17,55 M15,52 L20,52"
+        android:strokeColor="#A1887F"
+        android:strokeWidth="0.5" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M25,51 L70,51 L70,53 L25,53 Z" />
+
+    <!-- Item 2 -->
+    <path
+        android:fillColor="#A1887F"
+        android:pathData="M15,65 L20,65 L20,70 L15,70 L15,65 Z"
+        android:strokeColor="#A1887F"
+        android:strokeWidth="0.5" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M25,66 L75,66 L75,68 L25,68 Z" />
+
+    <!-- Item 3 (Checked) -->
+    <path
+        android:fillColor="#A1887F"
+        android:pathData="M15,80 L20,80 L20,85 L15,85 L15,80 Z"
+        android:strokeColor="#A1887F"
+        android:strokeWidth="0.5" />
+    <path
+        android:fillColor="#757575"
+        android:pathData="M25,81 L65,81 L65,83 L25,83 Z" />
+    <path
+        android:fillColor="#5D4037"
+        android:pathData="M16,82 L18,84 L22,79"
+        android:strokeColor="#5D4037"
+        android:strokeWidth="1" />
+
+</vector>

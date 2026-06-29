@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.example.quicknotes.Activity.ArchievedNotesActivity;
 import com.example.quicknotes.Activity.RecycleBinActivity;
 import com.example.quicknotes.Activity.SettingsScreenActivity;
+import com.example.quicknotes.Activity.WidgetSelectionActivity;
 import com.example.quicknotes.Database.NoteViewModel;
 import com.example.quicknotes.databinding.FragmentSettingsBinding;
 
@@ -70,8 +71,12 @@ public class SettingsFragment extends Fragment {
 
 
             
-        binding.layoutWidget.setOnClickListener(v -> 
-            Toast.makeText(requireContext(), "Widget clicked", Toast.LENGTH_SHORT).show());
+
+
+        binding.layoutWidget.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), WidgetSelectionActivity.class);
+            startActivity(intent);
+        });
     }
 
     private void observeCounts() {

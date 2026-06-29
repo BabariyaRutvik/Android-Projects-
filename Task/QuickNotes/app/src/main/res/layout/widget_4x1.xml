@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_widget_blue"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:padding="8dp">
+
+    <ImageView
+        android:id="@+id/btnWidgetHome"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_home_outline"
+        android:contentDescription="Home"
+        android:tint="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/btnWidgetAddNote"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_edit"
+        android:contentDescription="Add Note"
+        android:tint="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/btnWidgetAddChecklist"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_check_menu"
+        android:contentDescription="Add Checklist"
+        android:tint="@android:color/white"/>
+
+    <ImageView
+        android:id="@+id/btnWidgetSearch"
+        android:layout_width="0dp"
+        android:layout_height="32dp"
+        android:layout_weight="1"
+        android:src="@drawable/ic_search"
+        android:contentDescription="Search"
+        android:tint="@android:color/white"/>
+
+</LinearLayout>

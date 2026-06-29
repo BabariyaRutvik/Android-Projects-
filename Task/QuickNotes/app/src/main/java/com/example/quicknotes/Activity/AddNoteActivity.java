@@ -3,7 +3,9 @@ package com.example.quicknotes.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.style.StyleSpan;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -509,7 +511,7 @@ else if (id == R.id.note_lock) {
     }
     private void showShareAsDialog() {
         View dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_share_as, null);
-        AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+        AlertDialog dialog = new MaterialAlertDialogBuilder(this)
                 .setView(dialogView)
                 .setBackground(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
                 .create();
@@ -780,8 +782,8 @@ else if (id == R.id.note_lock) {
         dialogView.findViewById(R.id.btnHeading3).setOnClickListener(v -> applyHeadingStyle(3));
         dialogView.findViewById(R.id.btnNormalText).setOnClickListener(v -> applyHeadingStyle(0));
 
-        dialogView.findViewById(R.id.btnBold).setOnClickListener(v -> toggleStyle(android.graphics.Typeface.BOLD));
-        dialogView.findViewById(R.id.btnItalic).setOnClickListener(v -> toggleStyle(android.graphics.Typeface.ITALIC));
+        dialogView.findViewById(R.id.btnBold).setOnClickListener(v -> toggleStyle(Typeface.BOLD));
+        dialogView.findViewById(R.id.btnItalic).setOnClickListener(v -> toggleStyle(Typeface.ITALIC));
         dialogView.findViewById(R.id.btnUnderline).setOnClickListener(v -> toggleUnderline());
 
         dialogView.findViewById(R.id.btnBulletList).setOnClickListener(v -> applyListStyle("bullet"));
@@ -807,9 +809,9 @@ else if (id == R.id.note_lock) {
         android.text.style.RelativeSizeSpan[] sizeSpans = spannable.getSpans(lineStart, lineEnd, android.text.style.RelativeSizeSpan.class);
         for (android.text.style.RelativeSizeSpan span : sizeSpans) spannable.removeSpan(span);
         
-        android.text.style.StyleSpan[] styleSpans = spannable.getSpans(lineStart, lineEnd, android.text.style.StyleSpan.class);
-        for (android.text.style.StyleSpan span : styleSpans) {
-            if (span.getStyle() == android.graphics.Typeface.BOLD) spannable.removeSpan(span);
+        StyleSpan[] styleSpans = spannable.getSpans(lineStart, lineEnd, android.text.style.StyleSpan.class);
+        for (StyleSpan span : styleSpans) {
+            if (span.getStyle() ==Typeface.BOLD) spannable.removeSpan(span);
         }
 
         float size;
@@ -832,10 +834,10 @@ else if (id == R.id.note_lock) {
         if (start == -1 || end == -1 || start == end) return;
 
         android.text.Editable spannable = binding.edtContent.getText();
-        android.text.style.StyleSpan[] spans = spannable.getSpans(start, end, android.text.style.StyleSpan.class);
+        StyleSpan[] spans = spannable.getSpans(start, end, StyleSpan.class);
         
         boolean exists = false;
-        for (android.text.style.StyleSpan span : spans) {
+        for (StyleSpan span : spans) {
             if (span.getStyle() == typeface) {
                 spannable.removeSpan(span);
                 exists = true;
@@ -854,7 +856,7 @@ else if (id == R.id.note_lock) {
 
         android.text.Editable spannable = binding.edtContent.getText();
         android.text.style.UnderlineSpan[] spans = spannable.getSpans(start, end, android.text.style.UnderlineSpan.class);
-        
+
         if (spans.length > 0) {
             for (android.text.style.UnderlineSpan span : spans) spannable.removeSpan(span);
         } else {

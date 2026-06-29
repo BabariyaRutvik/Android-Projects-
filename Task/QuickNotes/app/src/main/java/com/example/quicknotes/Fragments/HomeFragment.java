@@ -1,6 +1,7 @@
 package com.example.quicknotes.Fragments;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -94,7 +95,7 @@ public class HomeFragment extends Fragment {
         noteViewModel = new ViewModelProvider(requireActivity()).get(NoteViewModel.class);
 
         lockLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == android.app.Activity.RESULT_OK) {
+            if (result.getResultCode() == Activity.RESULT_OK) {
                 if (noteToOpen != null) {
                     openNoteActivity(noteToOpen);
                     noteToOpen = null;

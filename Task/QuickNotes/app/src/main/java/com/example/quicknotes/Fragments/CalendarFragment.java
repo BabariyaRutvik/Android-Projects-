@@ -185,6 +185,8 @@ public class CalendarFragment extends Fragment {
         });
 
         // Initialize component configurations
+        binding.calendarView.setVisibility(View.VISIBLE);
+        binding.weekCalenderView.setVisibility(View.GONE);
         SetUpMonthNavigation();
         SetUpCollapsingBehaviour();
         setupViewSelector();
@@ -756,15 +758,10 @@ public class CalendarFragment extends Fragment {
 
                 if (position == 0) { // Month Expanded
                     binding.appBarCalendar.setExpanded(true, true);
-                    binding.calendarView.setVisibility(View.VISIBLE);
-                    binding.weekCalenderView.setVisibility(View.INVISIBLE);
                 } else { // Week Collapsed
                     binding.appBarCalendar.setExpanded(false, true);
-                    binding.calendarView.setVisibility(View.INVISIBLE);
-                    binding.weekCalenderView.setVisibility(View.VISIBLE);
-                    binding.weekCalenderView.scrollToWeek(selectedDate);
+                    binding.weekCalenderView.post(() -> binding.weekCalenderView.scrollToWeek(selectedDate));
                 }
-                updateNotesForSelectedDate();
             }
             @Override public void onNothingSelected(AdapterView<?> parent) {}
         });
@@ -777,21 +774,19 @@ public class CalendarFragment extends Fragment {
 
             float percentage = (float) Math.abs(verticalOffset) / scrollRange;
 
-            // Swiping Up -> Transition to Week View smoothly
-            if (percentage > 0.55) {
+            // Transition between Month and Week View
+            if (percentage > 0.5f) {
                 if (binding.weekCalenderView.getVisibility() != View.VISIBLE) {
                     binding.weekCalenderView.setVisibility(View.VISIBLE);
                     binding.calendarView.setVisibility(View.INVISIBLE);
                     setSpinnerSelectionProgrammatically(1);
-                    binding.weekCalenderView.scrollToWeek(selectedDate);
+                    binding.weekCalenderView.post(() -> binding.weekCalenderView.scrollToWeek(selectedDate));
                     updateNotesForSelectedDate();
                 }
-            }
-            // Swiping Down -> Return to Expanded Month View
-            else {
+            } else {
                 if (binding.calendarView.getVisibility() != View.VISIBLE) {
                     binding.calendarView.setVisibility(View.VISIBLE);
-                    binding.weekCalenderView.setVisibility(View.INVISIBLE);
+                    binding.weekCalenderView.setVisibility(View.GONE);
                     setSpinnerSelectionProgrammatically(0);
                     updateNotesForSelectedDate();
                 }

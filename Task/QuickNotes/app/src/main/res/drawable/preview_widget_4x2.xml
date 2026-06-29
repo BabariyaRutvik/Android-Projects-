@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="200dp"
+    android:height="100dp"
+    android:viewportWidth="200"
+    android:viewportHeight="100">
+
+    <!-- Card Background (Greenish) -->
+    <path
+        android:fillColor="#F1F8E9"
+        android:pathData="M8,8 L192,8 A4,4 0 0 1 196,12 L196,88 A4,4 0 0 1 192,92 L8,92 A4,4 0 0 1 4,88 L4,12 A4,4 0 0 1 8,8 Z" />
+
+    <!-- Left Accent Bar (Green) -->
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M4,15 L7,15 L7,85 L4,85 Z" />
+
+    <!-- Title with Emoji -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M15,20 L20,20 L20,25 L15,25 Z" /> <!-- Red heart mock -->
+    <path
+        android:fillColor="#1B5E20"
+        android:pathData="M25,20 L80,20 L80,26 L25,26 Z" />
+
+    <!-- Time text -->
+    <path
+        android:fillColor="#689F38"
+        android:pathData="M25,30 L35,30 L35,33 L25,33 Z" />
+
+    <!-- Content Lines -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M15,45 L180,45 L180,47 L15,47 Z" />
+    <path
+        android:fillColor="#424242"
+        android:pathData="M15,55 L160,55 L160,57 L15,57 Z" />
+
+    <!-- Footer Category -->
+    <path
+        android:fillColor="#424242"
+        android:pathData="M15,75 L45,75 L45,78 L15,78 Z" />
+    <path
+        android:fillColor="#4CAF50"
+        android:pathData="M50,75 L80,75 L80,78 L50,78 Z" />
+
+</vector>
