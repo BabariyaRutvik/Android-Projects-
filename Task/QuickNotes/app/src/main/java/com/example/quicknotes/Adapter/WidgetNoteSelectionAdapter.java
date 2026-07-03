@@ -39,8 +39,20 @@ public class WidgetNoteSelectionAdapter extends RecyclerView.Adapter<WidgetNoteS
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Note note = notes.get(position);
-        holder.txtTitle.setText(note.getTitle());
-        holder.txtDescription.setText(note.getDescription());
+        
+        String title = note.getTitle();
+        if (title == null || title.isEmpty()) {
+            holder.txtTitle.setText("Untitled");
+        } else {
+            holder.txtTitle.setText(title.replace("\n", " ").replace("\r", " "));
+        }
+        
+        String desc = note.getDescription();
+        if (desc != null) {
+            desc = desc.replace("\n", " ").replace("\r", " ");
+        }
+        holder.txtDescription.setText(desc);
+
         holder.itemView.setOnClickListener(v -> listener.onNoteSelected(note));
     }
 

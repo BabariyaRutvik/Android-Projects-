@@ -36,8 +36,10 @@
 
         <TextView
             android:id="@+id/txtTaskTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Rutvik"
             android:textColor="@color/text_primary"
             android:textSize="22sp"
@@ -45,9 +47,11 @@
 
         <TextView
             android:id="@+id/txtTaskDesc"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="Making notes app"
             android:textColor="@color/gray_text"
             android:textSize="16sp"

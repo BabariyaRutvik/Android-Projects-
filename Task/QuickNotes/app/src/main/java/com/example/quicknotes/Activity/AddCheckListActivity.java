@@ -1,5 +1,6 @@
 package com.example.quicknotes.Activity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -51,6 +53,7 @@ import com.example.quicknotes.databinding.ActivityAddCheckListBinding;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -69,7 +72,7 @@ public class AddCheckListActivity extends AppCompatActivity {
     private ActivityAddCheckListBinding binding;
     private NoteViewModel noteViewModel;
     private ChecklistAdapter checklistAdapter;
-    private String selectedCategory = "Untitled_Purple";
+    private String selectedCategory = "All";
     private String selectedColor = "#FFFFFF";
     private boolean isPinned = false;
     private boolean isCompleted = false;
@@ -77,7 +80,7 @@ public class AddCheckListActivity extends AppCompatActivity {
     private boolean isDeleted = false;
     private boolean isLocked = false;
     private int noteId = -1;
-    private long createdTime = -1;
+    private long calendarDate = -1;
     private String imagePath = null;
     private final List<String> categories = Arrays.asList(
             "All", "Personal", "Work", "Others",
@@ -134,10 +137,18 @@ public class AddCheckListActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("category")) {
             selectedCategory = getIntent().getStringExtra("category");
-            updateCategoryUI(selectedCategory);
-            int index = categories.indexOf(selectedCategory);
-            if (index != -1) binding.spinnerCategory.setSelection(index);
+            if ("All".equals(selectedCategory) && noteId == -1) {
+                android.content.SharedPreferences prefs = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+                selectedCategory = prefs.getString("default_folder", "All");
+            }
+        } else if (noteId == -1) {
+            android.content.SharedPreferences prefs = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+            selectedCategory = prefs.getString("default_folder", "All");
         }
+
+        updateCategoryUI(selectedCategory);
+        int index = categories.indexOf(selectedCategory);
+        if (index != -1) binding.spinnerCategory.setSelection(index);
 
         String shareType = getIntent().getStringExtra("extra_share_type");
         if (shareType != null) {
@@ -320,17 +331,31 @@ public class AddCheckListActivity extends AppCompatActivity {
     }
 
     private void updateDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-        long timeToDisplay = System.currentTimeMillis();
-        String label = "Date : ";
+        long now = System.currentTimeMillis();
+        long selectedMillis = getIntent().getLongExtra("extra_selected_date", -1);
 
-        if (getIntent().hasExtra("extra_selected_date")) {
-            timeToDisplay = getIntent().getLongExtra("extra_selected_date", System.currentTimeMillis());
-            createdTime = timeToDisplay;
+        if (selectedMillis == -1) {
+            calendarDate = now;
+        } else {
+            // Keep the selected calendar date for database association
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(java.util.Calendar.MINUTE);
+            int second = calendar.get(java.util.Calendar.SECOND);
+            int ms = calendar.get(java.util.Calendar.MILLISECOND);
+
+            calendar.setTimeInMillis(selectedMillis);
+            calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+            calendar.set(java.util.Calendar.MINUTE, minute);
+            calendar.set(java.util.Calendar.SECOND, second);
+            calendar.set(java.util.Calendar.MILLISECOND, ms);
+
+            calendarDate = calendar.getTimeInMillis();
         }
 
-        String currentTime = label + sdf.format(new Date(timeToDisplay));
-        binding.textEditedCheck.setText(currentTime);
+        // Always show today's date and current time in the UI
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd MMM", Locale.getDefault());
+        binding.textEditedCheck.setText(sdf.format(new Date(now)));
     }
 
     private void loadChecklistData(int id) {
@@ -348,7 +373,7 @@ public class AddCheckListActivity extends AppCompatActivity {
             isArchived = note.isArchived();
             isDeleted = note.isDeleted();
             isLocked = note.isLocked();
-            createdTime = note.getCreatedTime();
+            calendarDate = note.getCalendarDate();
             imagePath = note.getImagePath();
 
             if (selectedColor != null && !selectedColor.isEmpty()) {
@@ -361,8 +386,8 @@ public class AddCheckListActivity extends AppCompatActivity {
             displayImage(imagePath);
 
             // Update time label for existing checklist
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-            String timeStr = "Edited : " + sdf.format(new Date(note.getModifiedTime()));
+            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd MMM", Locale.getDefault());
+            String timeStr = sdf.format(new Date(note.getModifiedTime()));
             binding.textEditedCheck.setText(timeStr);
 
             // Deserialize checklist items
@@ -585,16 +610,17 @@ public class AddCheckListActivity extends AppCompatActivity {
         long timestamp = System.currentTimeMillis();
 
         if (noteId == -1) {
-            if (createdTime == -1) {
-                createdTime = timestamp;
+            if (calendarDate == -1) {
+                calendarDate = timestamp;
             }
             Note note = new Note(
                     finalTitle,
                     description,
                     "CHECKLIST",
                     selectedCategory,
-                    createdTime,
-                    timestamp,
+                    timestamp, // createdTime
+                    timestamp, // modifiedTime
+                    calendarDate,
                     0,
                     selectedColor,
                     isPinned
@@ -613,6 +639,7 @@ public class AddCheckListActivity extends AppCompatActivity {
                 note.setDescription(description);
                 note.setCategory(selectedCategory);
                 note.setModifiedTime(timestamp);
+                note.setCalendarDate(calendarDate);
                 note.setNoteColor(selectedColor);
                 note.setPinned(isPinned);
                 note.setCompleted(isCompleted);

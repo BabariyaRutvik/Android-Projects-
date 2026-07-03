@@ -8,4 +8,5 @@
     <color name="dark_gray">#333333</color>
     <color name="input_text_color">#292929</color>
     <color name="operation_button_color">#EDEDED</color>
+    <color name="screen_background">#F4F5F7</color>
 </resources>

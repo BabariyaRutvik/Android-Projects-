@@ -1,5 +1,6 @@
 package com.example.quicknotes.Activity;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.DatePicker;
 import android.widget.Toast;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -27,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -71,7 +74,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private boolean isArchived = false;
     private boolean isDeleted = false;
     private int noteId = -1;
-    private long createdTime = -1;
+    private long calendarDate = -1;
     private String imagePath = null;
     private int currentSearchIndex = -1;
     private List<Integer> searchMatches = new java.util.ArrayList<>();
@@ -133,10 +136,18 @@ public class AddNoteActivity extends AppCompatActivity {
 
         if (getIntent().hasExtra("category")) {
             selectedCategory = getIntent().getStringExtra("category");
-            updateCategoryUI(selectedCategory);
-            int index = categories.indexOf(selectedCategory);
-            if (index != -1) binding.categorySpinner.setSelection(index);
+            if ("All".equals(selectedCategory) && noteId == -1) {
+                android.content.SharedPreferences prefs = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+                selectedCategory = prefs.getString("default_folder", "All");
+            }
+        } else if (noteId == -1) {
+            android.content.SharedPreferences prefs = getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
+            selectedCategory = prefs.getString("default_folder", "All");
         }
+        
+        updateCategoryUI(selectedCategory);
+        int index = categories.indexOf(selectedCategory);
+        if (index != -1) binding.categorySpinner.setSelection(index);
 
         String shareType = getIntent().getStringExtra("extra_share_type");
         if (shareType != null) {
@@ -242,7 +253,7 @@ public class AddNoteActivity extends AppCompatActivity {
             isLocked = note.isLocked();
             isArchived = note.isArchived();
             isDeleted = note.isDeleted();
-            createdTime = note.getCreatedTime();
+            calendarDate = note.getCalendarDate();
             imagePath = note.getImagePath();
 
             if (selectedColor != null && !selectedColor.isEmpty()) {
@@ -255,8 +266,8 @@ public class AddNoteActivity extends AppCompatActivity {
             displayImage(imagePath);
             
             // Update time label for existing note
-            SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-            String timeStr = "Edited : " + sdf.format(new Date(note.getModifiedTime()));
+            SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd MMM", Locale.getDefault());
+            String timeStr = sdf.format(new Date(note.getModifiedTime()));
             binding.textEsitedTime.setText(timeStr);
         }
     }
@@ -407,17 +418,31 @@ public class AddNoteActivity extends AppCompatActivity {
     }
 
     private void updateDateTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM", Locale.getDefault());
-        long timeToDisplay = System.currentTimeMillis();
-        String label = "Date : ";
+        long now = System.currentTimeMillis();
+        long selectedMillis = getIntent().getLongExtra("extra_selected_date", -1);
 
-        if (getIntent().hasExtra("extra_selected_date")) {
-            timeToDisplay = getIntent().getLongExtra("extra_selected_date", System.currentTimeMillis());
-            createdTime = timeToDisplay;
+        if (selectedMillis == -1) {
+            calendarDate = now;
+        } else {
+            // Keep the selected calendar date for database association
+            java.util.Calendar calendar = java.util.Calendar.getInstance();
+            int hour = calendar.get(java.util.Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(java.util.Calendar.MINUTE);
+            int second = calendar.get(java.util.Calendar.SECOND);
+            int ms = calendar.get(java.util.Calendar.MILLISECOND);
+
+            calendar.setTimeInMillis(selectedMillis);
+            calendar.set(java.util.Calendar.HOUR_OF_DAY, hour);
+            calendar.set(java.util.Calendar.MINUTE, minute);
+            calendar.set(java.util.Calendar.SECOND, second);
+            calendar.set(java.util.Calendar.MILLISECOND, ms);
+
+            calendarDate = calendar.getTimeInMillis();
         }
 
-        String currentTime = label + sdf.format(new Date(timeToDisplay));
-        binding.textEsitedTime.setText(currentTime);
+        // Always show today's date and current time in the UI
+        SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd MMM", Locale.getDefault());
+        binding.textEsitedTime.setText(sdf.format(new Date(now)));
     }
 
     @Override
@@ -590,16 +615,17 @@ else if (id == R.id.note_lock) {
         long timestamp = System.currentTimeMillis();
 
         if (noteId == -1) {
-            if (createdTime == -1) {
-                createdTime = timestamp;
+            if (calendarDate == -1) {
+                calendarDate = timestamp;
             }
             Note note = new Note(
                     finalTitle,
                     description,
                     "TEXT",
                     selectedCategory,
-                    createdTime,
-                    timestamp,
+                    timestamp, // createdTime
+                    timestamp, // modifiedTime
+                    calendarDate,
                     0,
                     selectedColor,
                     isPinned
@@ -620,6 +646,7 @@ else if (id == R.id.note_lock) {
                 note.setDescription(description);
                 note.setCategory(selectedCategory);
                 note.setModifiedTime(timestamp);
+                note.setCalendarDate(calendarDate);
                 note.setNoteColor(selectedColor);
                 note.setPinned(isPinned);
                 note.setCompleted(isCompleted);
@@ -775,9 +802,11 @@ else if (id == R.id.note_lock) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd h:mm:ss a", Locale.getDefault());
         
         txtCategory.setText(selectedCategory);
-        txtCreated.setText(createdTime == -1 ? "Just now" : sdf.format(new Date(createdTime)));
         
         Note note = noteViewModel.getNoteById(noteId);
+        long createdTime = (note != null) ? note.getCreatedTime() : System.currentTimeMillis();
+        txtCreated.setText(sdf.format(new Date(createdTime)));
+
         long modTime = (note != null) ? note.getModifiedTime() : System.currentTimeMillis();
         txtModified.setText(sdf.format(new Date(modTime)));
         

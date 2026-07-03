@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -88,6 +89,28 @@ public class EditCategoriesBottomSheet extends BottomSheetDialogFragment {
         } else {
             EditCategoryAdapter adapter = new EditCategoryAdapter(requireContext(), categoryList);
             rvEditCategories.setAdapter(adapter);
+
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+                @Override
+                public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                    int fromPosition = viewHolder.getBindingAdapterPosition();
+                    int toPosition = target.getBindingAdapterPosition();
+                    adapter.onItemMove(fromPosition, toPosition);
+                    return true;
+                }
+
+                @Override
+                public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                }
+
+                @Override
+                public boolean isLongPressDragEnabled() {
+                    return false; // Disable long press drag to use handle instead
+                }
+            });
+
+            adapter.setOnStartDragListener(itemTouchHelper::startDrag);
+            itemTouchHelper.attachToRecyclerView(rvEditCategories);
         }
 
         view.findViewById(R.id.btnDone).setOnClickListener(v -> {

@@ -20,6 +20,7 @@ import com.example.quicknotes.BottomSheet.ViewSelectionBottomSheet;
 import com.google.android.material.card.MaterialCardView;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -81,7 +82,12 @@ public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             Context context = holder.itemView.getContext();
 
             // Title
-            noteHolder.txtTitle.setText(note.getTitle());
+            String title = note.getTitle();
+            if (TextUtils.isEmpty(title)) {
+                noteHolder.txtTitle.setText("Untitled");
+            } else {
+                noteHolder.txtTitle.setText(title.replace("\n", " ").replace("\r", " "));
+            }
             if (note.isCompleted()) {
                 noteHolder.txtTitle.setPaintFlags(noteHolder.txtTitle.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 noteHolder.txtTitle.setTextColor(ContextCompat.getColor(context, R.color.gray_text));
@@ -96,20 +102,28 @@ public class NotesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 noteHolder.txtTime.setVisibility(View.GONE);
             } else {
                 // Description
-                if (TextUtils.isEmpty(note.getDescription())) {
+                if (note.isLocked()) {
+                    noteHolder.txtDescription.setVisibility(View.VISIBLE);
+                    noteHolder.txtDescription.setText("****************");
+                } else if (TextUtils.isEmpty(note.getDescription())) {
                     noteHolder.txtDescription.setVisibility(View.GONE);
                 } else {
                     noteHolder.txtDescription.setVisibility(View.VISIBLE);
+                    String desc;
                     if ("CHECKLIST".equals(note.getNoteType())) {
-                        noteHolder.txtDescription.setText(formatChecklist(note.getDescription()));
+                        desc = formatChecklist(note.getDescription());
                     } else {
-                        noteHolder.txtDescription.setText(note.getDescription());
+                        desc = note.getDescription();
                     }
+                    if (desc != null) {
+                        desc = desc.replace("\n", " ").replace("\r", " ");
+                    }
+                    noteHolder.txtDescription.setText(desc);
                 }
 
                 // Date
                 noteHolder.txtTime.setVisibility(View.VISIBLE);
-                SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                SimpleDateFormat sdf = new SimpleDateFormat("h:mm a, dd MMM", Locale.getDefault());
                 noteHolder.txtTime.setText(sdf.format(new Date(note.getModifiedTime())));
             }
 

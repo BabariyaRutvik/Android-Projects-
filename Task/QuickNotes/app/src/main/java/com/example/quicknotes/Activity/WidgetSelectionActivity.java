@@ -8,9 +8,13 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import com.example.quicknotes.Adapter.WidgetAdapter;
 import com.example.quicknotes.Model.WidgetModel;
@@ -40,9 +44,16 @@ public class WidgetSelectionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        EdgeToEdge.enable(this);
         super.onCreate(savedInstanceState);
         binding = ActivityWidgetSelectionBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
 
         tutorialLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),

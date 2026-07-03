@@ -193,7 +193,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="80dp"
-                android:visibility="invisible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/imgEmptyCalendar"

@@ -58,7 +58,12 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
         Note note = noteList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.textTitle.setText(note.getTitle());
+        String title = note.getTitle();
+        if (TextUtils.isEmpty(title)) {
+            holder.textTitle.setText("Untitled");
+        } else {
+            holder.textTitle.setText(title.replace("\n", " ").replace("\r", " "));
+        }
 
         if (viewType == ViewSelectionBottomSheet.ViewType.LIST){
             holder.textDescription.setVisibility(View.GONE);
@@ -71,14 +76,17 @@ public class ArchivedNotesAdapter extends RecyclerView.Adapter<ArchivedNotesAdap
             }
             else {
                 holder.textDescription.setVisibility(View.VISIBLE);
+                String desc;
                 if ("CHECKLIST".equals(note.getNoteType())){
-                    holder.textDescription.setText(formatCheckList(note.getDescription()));
-
+                    desc = formatCheckList(note.getDescription());
                 }
                 else {
-                    holder.textDescription.setText(note.getDescription());
-
+                    desc = note.getDescription();
                 }
+                if (desc != null) {
+                    desc = desc.replace("\n", " ").replace("\r", " ");
+                }
+                holder.textDescription.setText(desc);
             }
             holder.textTime.setVisibility(View.VISIBLE);
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());

@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingStart="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="4dp">
+
+    <!-- Vertical Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_v2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_v3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <!-- Horizontal Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.333" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_h2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.666" />
+
+    <!-- Row 1 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_inv"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="!~!!"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h1"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_e"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="e"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h1"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v2"
+        app:layout_constraintStart_toEndOf="@+id/gl_v1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_power"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="^"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h1"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v3"
+        app:layout_constraintStart_toEndOf="@+id/gl_v2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_deg"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/medium"
+        android:text="deg"
+        android:textAllCaps="true"
+        android:textColor="@color/orange"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gl_v3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Row 2 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_log"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="log"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h2"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_pi"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        app:icon="@drawable/ic_pie_"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="26dp" app:iconTint="@color/input_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h2"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v2"
+        app:layout_constraintStart_toEndOf="@+id/gl_v1"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_brackets"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="( )"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h2"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v3"
+        app:layout_constraintStart_toEndOf="@+id/gl_v2"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_swap"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        app:icon="@drawable/ic_horizontal"
+        app:iconGravity="textStart"
+        app:iconPadding="0dp"
+        app:iconSize="30dp"
+        app:iconTint="@color/input_text_color"
+        app:layout_constraintBottom_toTopOf="@+id/gl_h2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gl_v3"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h1" />
+
+    <!-- Row 3 -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_sin"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="sin"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cos"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="cos"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v2"
+        app:layout_constraintStart_toEndOf="@+id/gl_v1"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_tan"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="tan"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/gl_v3"
+        app:layout_constraintStart_toEndOf="@+id/gl_v2"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h2" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_cot"
+        style="@style/CalculatorButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="6dp"
+        android:background="@drawable/btn_bg_white"
+        android:fontFamily="@font/regular"
+        android:text="cot"
+        android:textAllCaps="false"
+        android:textColor="@color/input_text_color"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/gl_v3"
+        app:layout_constraintTop_toBottomOf="@+id/gl_h2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

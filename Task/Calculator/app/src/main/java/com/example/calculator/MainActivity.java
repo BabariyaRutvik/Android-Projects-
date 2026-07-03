@@ -7,17 +7,19 @@ import android.transition.TransitionManager;
 import android.transition.TransitionSet;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.AccelerateDecelerateInterpolator;
+
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
+
 import com.example.calculator.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
 
-    ActivityMainBinding binding;
+    private ActivityMainBinding binding;
     private boolean scientificMode = false;
 
     @Override
@@ -33,27 +35,54 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        binding.tvResult.setShowSoftInputOnFocus(false);
+        // Prevent system keyboard
+        binding.textResult.setShowSoftInputOnFocus(false);
 
-        binding.btnMode.setOnClickListener(v -> {
+        binding.imageSwitch.setOnClickListener(v -> {
             scientificMode = !scientificMode;
 
-            TransitionSet transitionSet = new TransitionSet()
+            // Transition duration
+            long duration = 600L;
+            AccelerateDecelerateInterpolator interpolator = new AccelerateDecelerateInterpolator();
+
+            //  Define the Transition
+            TransitionSet set = new TransitionSet()
                     .setOrdering(TransitionSet.ORDERING_TOGETHER)
-                    .setDuration(400L)
-                    .setInterpolator(new FastOutSlowInInterpolator())
                     .addTransition(new ChangeBounds())
-                    .addTransition(new Slide(Gravity.TOP).addTarget(binding.layoutScientific));
+                    .addTransition(new Slide(Gravity.TOP).addTarget(binding.layoutScientific.getRoot())) 
+                    .setDuration(duration)
+                    .setInterpolator(interpolator);
 
-            TransitionManager.beginDelayedTransition(binding.keyPadContainer, transitionSet);
+            //  Begin transition on the keypad container
+            TransitionManager.beginDelayedTransition(binding.keypadContainer, set);
 
-            if (scientificMode) {
-                binding.layoutScientific.setVisibility(View.VISIBLE);
-                binding.btnMode.setImageResource(R.drawable.ic_standard);
-            } else {
-                binding.layoutScientific.setVisibility(View.GONE);
-                binding.btnMode.setImageResource(R.drawable.ic_scientific);
-            }
+            //  Update UI visibility
+            binding.layoutScientific.getRoot().setVisibility(scientificMode ? View.VISIBLE : View.GONE);
+            
+            // Hide History icon in scientific mode as requested
+            binding.imageHistory.setVisibility(scientificMode ? View.GONE : View.VISIBLE);
+            
+            // Keep Title and Category Add icon visible (removed visibility changes for them)
+
+            // 4. Update icon
+            binding.imageSwitch.setImageResource(scientificMode ? R.drawable.ic_standard : R.drawable.ic_scientific);
+            
+            updateResultFieldForMode();
         });
+    }
+
+    private void updateResultFieldForMode() {
+        binding.textResult.requestFocus();
+        
+        if (scientificMode) {
+
+            binding.textResult.setText("");
+        } else {
+            String currentText = binding.textResult.getText().toString();
+            if (currentText.isEmpty()) {
+                binding.textResult.setText("0");
+            }
+        }
+        binding.textResult.setSelection(binding.textResult.getText().length());
     }
 }

@@ -1,58 +1,53 @@
 package com.example.quicknotes.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import android.widget.Toast;
-import android.graphics.drawable.ColorDrawable;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.quicknotes.Activity.AddCheckListActivity;
 import com.example.quicknotes.Activity.AddNoteActivity;
 import com.example.quicknotes.Activity.ReminderActivity;
 import com.example.quicknotes.Adapter.CalendarTaskAdapter;
 import com.example.quicknotes.BottomSheet.AddNoteBottomSheet;
-import com.example.quicknotes.BottomSheet.ReminderBottomSheet;
 import com.example.quicknotes.Database.Note;
 import com.example.quicknotes.Database.NoteViewModel;
 import com.example.quicknotes.R;
-import com.example.quicknotes.databinding.FragmentCalendarBinding;
 import com.example.quicknotes.databinding.CalenderDayBinding;
+import com.example.quicknotes.databinding.FragmentCalendarBinding;
 import com.kizitonwose.calendar.core.CalendarDay;
 import com.kizitonwose.calendar.core.DayPosition;
 import com.kizitonwose.calendar.core.WeekDay;
 import com.kizitonwose.calendar.view.MonthDayBinder;
 import com.kizitonwose.calendar.view.ViewContainer;
 import com.kizitonwose.calendar.view.WeekDayBinder;
-
-import android.annotation.SuppressLint;
-import android.view.Gravity;
-import android.widget.ArrayAdapter;
-import android.graphics.Color;
-import static java.lang.Math.abs;
-import android.widget.AdapterView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -75,7 +70,7 @@ public class CalendarFragment extends Fragment {
     private CalendarTaskAdapter calendarTaskAdapter;
     private YearMonth visibleMonth = YearMonth.now();
     private Note selectedNote = null;
-    private java.time.DayOfWeek firstDayOfWeek = DayOfWeek.MONDAY;
+    private DayOfWeek firstDayOfWeek = DayOfWeek.MONDAY;
 
     private ActivityResultLauncher<Intent> lockLauncher;
     private Note noteToOpen;
@@ -84,16 +79,12 @@ public class CalendarFragment extends Fragment {
 
     private LocalDate selectedDate = LocalDate.now();
     private boolean isProgrammaticChange = false;
-    private String selectedCategory = "All";
+    private final String selectedCategory = "All";
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM yyyy", Locale.getDefault());
 
-    // Cache for notes by date to show indicators
-    private Map<LocalDate, List<Note>> notesByDate = new HashMap<>();
-    // Cache for active reminder firing dates to show thick colored bars
-    private Map<LocalDate, Integer> reminderOccurrences = new HashMap<>();
+    private final Map<LocalDate, List<Note>> notesByDate = new HashMap<>();
 
     public CalendarFragment() {
-        // Required empty public constructor
     }
 
     @Override
@@ -132,7 +123,7 @@ public class CalendarFragment extends Fragment {
 
         SharedPreferences prefs = requireContext().getSharedPreferences("theme_prefs", Context.MODE_PRIVATE);
         String startDay = prefs.getString("start_of_week", "Sunday");
-        firstDayOfWeek = startDay.equals("Monday") ? java.time.DayOfWeek.MONDAY : java.time.DayOfWeek.SUNDAY;
+        firstDayOfWeek = "Monday".equals(startDay) ? DayOfWeek.MONDAY : DayOfWeek.SUNDAY;
 
         setupRecyclerView();
         observeAllNotes();
@@ -141,22 +132,18 @@ public class CalendarFragment extends Fragment {
 
         YearMonth currentMonth = YearMonth.now();
 
-        // Setup Month Calendar View
         binding.calendarView.setup(currentMonth.minusMonths(120),
                 currentMonth.plusMonths(120),
                 firstDayOfWeek);
         binding.calendarView.scrollToMonth(currentMonth);
 
-        // Set up the persistent current date dynamic indicator label context
         binding.textTodayDate.setText(String.valueOf(LocalDate.now().getDayOfMonth()));
 
-        // Setup Week Calendar View
         binding.weekCalenderView.setup(currentMonth.minusMonths(120).atDay(1),
                 currentMonth.plusMonths(120).atDay(currentMonth.plusMonths(120).lengthOfMonth()),
                 firstDayOfWeek);
         binding.weekCalenderView.scrollToWeek(LocalDate.now());
 
-        //  Setup Month Binder
         binding.calendarView.setDayBinder(new MonthDayBinder<DayViewContainer>() {
             @NonNull
             @Override
@@ -170,7 +157,6 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        //  Setup Week Binder
         binding.weekCalenderView.setDayBinder(new WeekDayBinder<DayViewContainer>() {
             @NonNull
             @Override
@@ -184,23 +170,17 @@ public class CalendarFragment extends Fragment {
             }
         });
 
-        // Initialize component configurations
         binding.calendarView.setVisibility(View.VISIBLE);
         binding.weekCalenderView.setVisibility(View.GONE);
-        SetUpMonthNavigation();
-        SetUpCollapsingBehaviour();
+        setUpMonthNavigation();
+        setUpCollapsingBehaviour();
         setupViewSelector();
 
-        // add notes
-        binding.fabAddCalendarNote.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                long dateMillis = selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
-                AddNoteBottomSheet addNoteBottomSheet = new AddNoteBottomSheet(selectedCategory, dateMillis);
-                addNoteBottomSheet.show(getChildFragmentManager(), "AddNoteBottomSheet");
-            }
+        binding.fabAddCalendarNote.setOnClickListener(v -> {
+            long selectedMillis = selectedDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+            AddNoteBottomSheet addNoteBottomSheet = new AddNoteBottomSheet(selectedCategory, selectedMillis);
+            addNoteBottomSheet.show(getChildFragmentManager(), "AddNoteBottomSheet");
         });
-
 
         binding.calendarView.notifyDateChanged(selectedDate);
         binding.weekCalenderView.notifyDateChanged(selectedDate);
@@ -210,22 +190,11 @@ public class CalendarFragment extends Fragment {
     private void bindDay(DayViewContainer container, LocalDate date, boolean isCurrentMonth) {
         container.binding.txtDay.setText(String.valueOf(date.getDayOfMonth()));
 
-        if (!isCurrentMonth) {
-            container.binding.viewReminderBar.setVisibility(View.GONE);
-            container.binding.layoutIndicators.removeAllViews();
-            container.binding.txtDay.setBackground(null);
-            container.binding.txtDay.setTextColor(getResources().getColor(R.color.badge_untitled_dark_gray_text, null));
-            container.binding.getRoot().setOnClickListener(v -> selectDate(date));
-            return;
-        }
-
-        // Hide the reminder bar divider as requested to avoid the "two dividers" look.
-        // The notes are already shown as chips (indicators), so the bar is redundant.
+        // Always reset these to avoid state issues during recycling
         container.binding.viewReminderBar.setVisibility(View.GONE);
-
-        // Handle Indicators (Chips)
-        List<Note> notesOnThisDay = notesByDate.get(date);
         container.binding.layoutIndicators.removeAllViews();
+
+        List<Note> notesOnThisDay = notesByDate.get(date);
         if (notesOnThisDay != null && !notesOnThisDay.isEmpty()) {
             for (Note note : notesOnThisDay) {
                 TextView indicator = new TextView(requireContext());
@@ -235,11 +204,11 @@ public class CalendarFragment extends Fragment {
                 indicator.setGravity(Gravity.CENTER);
                 indicator.setSingleLine(true);
                 indicator.setPadding(12, 0, 12, 0);
-                
+
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.WRAP_CONTENT,
                         (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 14, getResources().getDisplayMetrics()));
-                
+
                 int margin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getResources().getDisplayMetrics());
                 params.setMargins(0, margin, 0, margin);
                 indicator.setLayoutParams(params);
@@ -249,41 +218,44 @@ public class CalendarFragment extends Fragment {
                 shape.setShape(GradientDrawable.RECTANGLE);
                 shape.setCornerRadius(12f);
                 shape.setColor(color);
-                
+
                 if (note.isCompleted()) {
-                    shape.setAlpha(80); // Light color for completed tasks
+                    shape.setAlpha(80);
                     indicator.setTextColor(Color.argb(120, 255, 255, 255));
                 } else {
                     shape.setAlpha(255);
                     indicator.setTextColor(Color.WHITE);
                 }
-                
-                indicator.setBackground(shape);
 
+                indicator.setBackground(shape);
                 container.binding.layoutIndicators.addView(indicator);
             }
         }
 
         if (date.equals(selectedDate)) {
-            // today date
             container.binding.txtDay.setBackgroundResource(R.drawable.bg_circle_primary);
-            container.binding.txtDay.setTextColor(getResources().getColor(R.color.white, null));
+            container.binding.txtDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.white));
         } else if (date.equals(LocalDate.now())) {
-
             container.binding.txtDay.setBackground(null);
-            container.binding.txtDay.setTextColor(getResources().getColor(R.color.primary_blue, null));
+            container.binding.txtDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.primary_blue));
         } else {
-            // Normal unselected calendar cells
             container.binding.txtDay.setBackground(null);
-            container.binding.txtDay.setTextColor(getResources().getColor(R.color.black, null));
+            if (isCurrentMonth) {
+                container.binding.txtDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.black));
+            } else {
+                container.binding.txtDay.setTextColor(ContextCompat.getColor(requireContext(), R.color.badge_untitled_dark_gray_text));
+            }
         }
+
+        // Dividers (viewReminderBar) are hidden by default at the start of this method
+        // as per user request to remove extra dividers.
+        container.binding.viewReminderBar.setVisibility(View.GONE);
 
         container.binding.getRoot().setOnClickListener(v -> selectDate(date));
     }
 
     private void selectDate(LocalDate date) {
         if (selectedDate.equals(date)) {
-            // Even if same date, update the notes list (in case of new/deleted notes)
             updateNotesForSelectedDate();
             return;
         }
@@ -295,7 +267,6 @@ public class CalendarFragment extends Fragment {
         binding.weekCalenderView.notifyDateChanged(oldDate);
         binding.weekCalenderView.notifyDateChanged(date);
 
-        // Keep header titles systematically synchronized across navigation operations
         visibleMonth = YearMonth.from(date);
         binding.textCurrentMonth.setText(visibleMonth.format(formatter));
 
@@ -307,7 +278,6 @@ public class CalendarFragment extends Fragment {
         } else {
             binding.calendarView.scrollToMonth(visibleMonth);
         }
-
     }
 
     private void setupRecyclerView() {
@@ -384,11 +354,7 @@ public class CalendarFragment extends Fragment {
         }
 
         MenuItem lockItem = popupMenu.getMenu().findItem(R.id.menu_lock);
-        if (note.isLocked()) {
-            lockItem.setTitle(R.string.unlock);
-        } else {
-            lockItem.setTitle(R.string.lock);
-        }
+        lockItem.setTitle(note.isLocked() ? R.string.unlock : R.string.lock);
         lockItem.setIcon(R.drawable.ic_lock_settings);
 
         MenuItem shareItem = popupMenu.getMenu().findItem(R.id.menu_share);
@@ -411,7 +377,7 @@ public class CalendarFragment extends Fragment {
                 handleLock(note, !note.isLocked());
                 return true;
             } else if (itemId == R.id.menu_add_widget) {
-                Toast.makeText(requireContext(), "Add widget clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(requireContext(), R.string.add_widget, Toast.LENGTH_SHORT).show();
                 return true;
             } else if (itemId == R.id.menu_share) {
                 if (note.isLocked()) {
@@ -438,7 +404,7 @@ public class CalendarFragment extends Fragment {
     }
 
     private void handleLock(Note note, boolean isLocking) {
-        android.content.SharedPreferences prefs = requireContext().getSharedPreferences("security_prefs", android.content.Context.MODE_PRIVATE);
+        SharedPreferences prefs = requireContext().getSharedPreferences("security_prefs", Context.MODE_PRIVATE);
         if (!prefs.getBoolean("is_enabled", false)) {
             Toast.makeText(requireContext(), R.string.set_password_first, Toast.LENGTH_SHORT).show();
             return;
@@ -459,7 +425,7 @@ public class CalendarFragment extends Fragment {
         note.setLocked(isLocking);
         noteViewModel.update(note);
         clearSelection();
-        String msg = isLocking ? "Locked" : "Unlocked";
+        String msg = isLocking ? getString(R.string.lock) : getString(R.string.unlock);
         Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
@@ -467,7 +433,7 @@ public class CalendarFragment extends Fragment {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_share_as, null);
         AlertDialog dialog = new com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
                 .setView(dialogView)
-                .setBackground(new android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+                .setBackground(new ColorDrawable(Color.TRANSPARENT))
                 .create();
 
         dialogView.findViewById(R.id.btnShareImage).setOnClickListener(v -> {
@@ -497,7 +463,7 @@ public class CalendarFragment extends Fragment {
             for (String line : lines) {
                 String[] parts = line.split("\\|", 2);
                 if (parts.length == 2) {
-                    sb.append(parts[0].equals("1") ? "☑ " : "☐ ").append(parts[1]).append("\n");
+                    sb.append("1".equals(parts[0]) ? "☑ " : "☐ ").append(parts[1]).append("\n");
                 }
             }
             shareBody = sb.toString();
@@ -543,12 +509,11 @@ public class CalendarFragment extends Fragment {
         binding.btnReminderSelection.setOnClickListener(v -> {
            if (selectedNote == null) {
                Toast.makeText(requireContext(), "Please First Enter Note", Toast.LENGTH_SHORT).show();
-           }
-           else {
+           } else {
                Intent intent = new Intent(getContext(), ReminderActivity.class);
                intent.putExtra("note_id", selectedNote.getId());
                startActivity(intent);
-               clearSelection(); // Hide selection bar after clicking
+               clearSelection();
            }
         });
 
@@ -562,7 +527,7 @@ public class CalendarFragment extends Fragment {
                 .create();
 
         if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
 
         dialogView.findViewById(R.id.btnCancel).setOnClickListener(v -> dialog.dismiss());
@@ -593,35 +558,28 @@ public class CalendarFragment extends Fragment {
     private void observeAllNotes() {
         noteViewModel.getAllNotes().observe(getViewLifecycleOwner(), notes -> {
             notesByDate.clear();
-            reminderOccurrences.clear();
             if (notes != null) {
-                LocalDate today = LocalDate.now();
                 for (Note note : notes) {
-                    // 1. Always show note chip on its creation date
-                    LocalDate createdDate = new Date(note.getCreatedTime()).toInstant()
+                    long dateToUse = note.getCalendarDate();
+                    if (dateToUse == 0) dateToUse = note.getCreatedTime();
+
+                    LocalDate calendarDate = new Date(dateToUse).toInstant()
                             .atZone(ZoneId.systemDefault())
                             .toLocalDate();
-                    addNoteToDate(createdDate, note);
+                    addNoteToDate(calendarDate, note);
 
-                    // 2. Handle reminders
                     if (note.getReminderTime() > 0 && note.isReminderEnabled()) {
                         LocalDate startDate = new Date(note.getReminderTime()).toInstant()
                                 .atZone(ZoneId.systemDefault())
                                 .toLocalDate();
                         
                         String repeatType = note.getRepeatType();
-                        if (repeatType == null || repeatType.equals("None")) {
-                            // Single reminder: show chip and divider
+                        if (repeatType == null || "None".equals(repeatType)) {
                             addNoteToDate(startDate, note);
-                            if (!startDate.isBefore(today)) {
-                                addReminderOccurrence(startDate, note);
-                            }
                         } else {
-                            // Repeating reminders: populate range for 2 years (e.g., June 2026 to 2028)
                             LocalDate endDate = startDate.plusYears(2);
                             LocalDate current = startDate;
 
-                            // For Weekly repeat, identify target days
                             Set<DayOfWeek> targetDays = new HashSet<>();
                             if (repeatType.contains("Weekly")) {
                                 if (note.getRepeatDays() != null && !note.getRepeatDays().isEmpty()) {
@@ -641,10 +599,6 @@ public class CalendarFragment extends Fragment {
 
                                 if (isReminderDay) {
                                     addNoteToDate(current, note);
-                                    // Only show divider bar for today onwards
-                                    if (!current.isBefore(today)) {
-                                        addReminderOccurrence(current, note);
-                                    }
                                 }
 
                                 if (repeatType.contains("Daily")) current = current.plusDays(note.getRepeatInterval() > 0 ? note.getRepeatInterval() : 1);
@@ -662,17 +616,10 @@ public class CalendarFragment extends Fragment {
         });
     }
 
-    private void addReminderOccurrence(LocalDate date, Note note) {
-        if (!reminderOccurrences.containsKey(date)) {
-            reminderOccurrences.put(date, getCategoryColor(note.getCategory()));
-        }
-    }
-
     private void addNoteToDate(LocalDate date, Note note) {
         if (!notesByDate.containsKey(date)) {
             notesByDate.put(date, new ArrayList<>());
         }
-        // Avoid duplicates if same note added twice for same day
         List<Note> list = notesByDate.get(date);
         boolean exists = false;
         for (Note n : list) {
@@ -687,27 +634,12 @@ public class CalendarFragment extends Fragment {
     }
 
     private void updateNotesForSelectedDate() {
-        String dateLabel;
-        if (selectedDate.equals(LocalDate.now())) {
-            dateLabel = getString(R.string.today);
-        } else {
-            DateTimeFormatter labelFormatter = DateTimeFormatter.ofPattern("dd MMMM", Locale.getDefault());
-            dateLabel = selectedDate.format(labelFormatter);
-        }
-
         List<Note> notes = notesByDate.get(selectedDate);
-        boolean isWeekView = binding.weekCalenderView.getVisibility() == View.VISIBLE;
 
-        if (notes == null || notes.isEmpty()) {
-            binding.rvCalendarNotes.setVisibility(View.GONE);
-            // Only show empty state in Week View, hide it in Month View
-            binding.layoutEmptyCalendar.setVisibility(isWeekView ? View.VISIBLE : View.GONE);
-        } else {
-            binding.rvCalendarNotes.setVisibility(View.VISIBLE);
-            binding.layoutEmptyCalendar.setVisibility(View.GONE);
+        List<Note> activeTasks = new ArrayList<>();
+        List<Note> doneTasks = new ArrayList<>();
 
-            List<Note> activeTasks = new ArrayList<>();
-            List<Note> doneTasks = new ArrayList<>();
+        if (notes != null) {
             for (Note note : notes) {
                 if (note.isCompleted()) {
                     doneTasks.add(note);
@@ -715,7 +647,21 @@ public class CalendarFragment extends Fragment {
                     activeTasks.add(note);
                 }
             }
-            calendarTaskAdapter.setTasks(activeTasks, doneTasks, dateLabel);
+        }
+
+        DateTimeFormatter headerFormatter = DateTimeFormatter.ofPattern("d MMM", Locale.getDefault());
+        String headerLabel = selectedDate.format(headerFormatter);
+
+        calendarTaskAdapter.setTasks(activeTasks, doneTasks, headerLabel);
+
+        // Always show the RecyclerView so the date header is visible
+        binding.rvCalendarNotes.setVisibility(View.VISIBLE);
+
+        if (activeTasks.isEmpty() && doneTasks.isEmpty()) {
+            binding.layoutEmptyCalendar.setVisibility(View.VISIBLE);
+            // Optional: Adjust padding or height of empty state when header is present
+        } else {
+            binding.layoutEmptyCalendar.setVisibility(View.GONE);
         }
     }
 
@@ -736,9 +682,6 @@ public class CalendarFragment extends Fragment {
         }
     }
 
-
-
-
     private void setSpinnerSelectionProgrammatically(int position) {
         if (binding.calendarViewSpinner.getSelectedItemPosition() == position) return;
         isProgrammaticChange = true;
@@ -757,9 +700,9 @@ public class CalendarFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (isProgrammaticChange) return;
 
-                if (position == 0) { // Month Expanded
+                if (position == 0) {
                     binding.appBarCalendar.setExpanded(true, true);
-                } else { // Week Collapsed
+                } else {
                     binding.appBarCalendar.setExpanded(false, true);
                     binding.weekCalenderView.post(() -> binding.weekCalenderView.scrollToWeek(selectedDate));
                 }
@@ -768,14 +711,13 @@ public class CalendarFragment extends Fragment {
         });
     }
 
-    private void SetUpCollapsingBehaviour() {
+    private void setUpCollapsingBehaviour() {
         binding.appBarCalendar.addOnOffsetChangedListener((appBarLayout, verticalOffset) -> {
             int scrollRange = appBarLayout.getTotalScrollRange();
             if (scrollRange == 0) return;
 
             float percentage = (float) Math.abs(verticalOffset) / scrollRange;
 
-            // Transition between Month and Week View
             if (percentage > 0.5f) {
                 if (binding.weekCalenderView.getVisibility() != View.VISIBLE) {
                     binding.weekCalenderView.setVisibility(View.VISIBLE);
@@ -795,7 +737,7 @@ public class CalendarFragment extends Fragment {
         });
     }
 
-    private void SetUpMonthNavigation() {
+    private void setUpMonthNavigation() {
         binding.calendarView.setMonthScrollListener(calendarMonth -> {
             visibleMonth = calendarMonth.getYearMonth();
             binding.textCurrentMonth.setText(visibleMonth.format(formatter));
@@ -849,12 +791,9 @@ public class CalendarFragment extends Fragment {
                 binding.calendarHeader.tvSun
         };
 
-        String[] dayLabels;
-        if (firstDayOfWeek == java.time.DayOfWeek.MONDAY) {
-            dayLabels = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
-        } else {
-            dayLabels = new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-        }
+        String[] dayLabels = firstDayOfWeek == DayOfWeek.MONDAY
+                ? new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}
+                : new String[]{"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
         for (int i = 0; i < 7; i++) {
             days[i].setText(dayLabels[i]);
@@ -862,7 +801,7 @@ public class CalendarFragment extends Fragment {
     }
 
     private void updateHeaderColors(LocalDate date) {
-        int selectedColor = getResources().getColor(R.color.primary_blue, null);
+        int selectedColor = ContextCompat.getColor(requireContext(), R.color.primary_blue);
         int defaultColor = Color.parseColor("#9E9E9E");
 
         TextView[] days = {
@@ -876,19 +815,16 @@ public class CalendarFragment extends Fragment {
             tv.setTextColor(defaultColor);
         }
 
-        int dayIndex;
-        if (firstDayOfWeek == java.time.DayOfWeek.MONDAY) {
-            dayIndex = date.getDayOfWeek().getValue() - 1;
-        } else {
-            dayIndex = date.getDayOfWeek().getValue() % 7;
-        }
+        int dayIndex = firstDayOfWeek == DayOfWeek.MONDAY
+                ? date.getDayOfWeek().getValue() - 1
+                : date.getDayOfWeek().getValue() % 7;
 
         if (dayIndex >= 0 && dayIndex < 7) {
             days[dayIndex].setTextColor(selectedColor);
         }
     }
 
-    public class DayViewContainer extends ViewContainer {
+    public static class DayViewContainer extends ViewContainer {
         public final CalenderDayBinding binding;
         public DayViewContainer(@NonNull View view) {
             super(view);

@@ -52,8 +52,28 @@ public class DeletedNotesAdapter extends RecyclerView.Adapter<DeletedNotesAdapte
         Note note = noteList.get(position);
         Context context = holder.itemView.getContext();
 
-        holder.txtTitle.setText(note.getTitle());
-        holder.txtDescription.setVisibility(View.GONE);
+        String title = note.getTitle();
+        if (title == null || title.isEmpty()) {
+            holder.txtTitle.setText("Untitled");
+        } else {
+            holder.txtTitle.setText(title.replace("\n", " ").replace("\r", " "));
+        }
+        
+        if (note.getDescription() == null || note.getDescription().isEmpty()) {
+            holder.txtDescription.setVisibility(View.GONE);
+        } else {
+            holder.txtDescription.setVisibility(View.VISIBLE);
+            String desc;
+            if ("CHECKLIST".equals(note.getNoteType())) {
+                desc = formatChecklist(note.getDescription());
+            } else {
+                desc = note.getDescription();
+            }
+            if (desc != null) {
+                desc = desc.replace("\n", " ").replace("\r", " ");
+            }
+            holder.txtDescription.setText(desc);
+        }
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd", Locale.getDefault());
         holder.txtTime.setText(sdf.format(new Date(note.getModifiedTime())));
@@ -201,6 +221,20 @@ public class DeletedNotesAdapter extends RecyclerView.Adapter<DeletedNotesAdapte
     @Override
     public int getItemCount() {
         return noteList.size();
+    }
+
+    private String formatChecklist(String data) {
+        if (data == null || data.isEmpty()) return "";
+        StringBuilder sb = new StringBuilder();
+        String[] lines = data.split("\n");
+        for (int i = 0; i < Math.min(lines.length, 3); i++) {
+            String[] parts = lines[i].split("\\|", 2);
+            if (parts.length == 2) {
+                sb.append(parts[0].equals("1") ? "☑ " : "☐ ").append(parts[1]).append("\n");
+            }
+        }
+        if (lines.length > 3) sb.append("...");
+        return sb.toString().trim();
     }
 
     public static class DeletedNoteViewHolder extends RecyclerView.ViewHolder {

@@ -83,7 +83,12 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             Note note = (Note) items.get(position);
             TaskViewHolder taskHolder = (TaskViewHolder) holder;
 
-            taskHolder.txtTitle.setText(note.getTitle());
+            String title = note.getTitle();
+            if (title == null || title.isEmpty()) {
+                taskHolder.txtTitle.setText("Untitled");
+            } else {
+                taskHolder.txtTitle.setText(title.replace("\n", " ").replace("\r", " "));
+            }
             
             if (note.isLocked()) {
                 taskHolder.imgLock.setVisibility(View.VISIBLE);
@@ -97,11 +102,16 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 taskHolder.imgLock.setVisibility(View.GONE);
                 if (note.getDescription() != null && !note.getDescription().isEmpty()) {
                     taskHolder.txtDesc.setVisibility(View.VISIBLE);
+                    String desc;
                     if ("CHECKLIST".equals(note.getNoteType())) {
-                        taskHolder.txtDesc.setText(formatChecklistSummary(note.getDescription()));
+                        desc = formatChecklistSummary(note.getDescription());
                     } else {
-                        taskHolder.txtDesc.setText(note.getDescription());
+                        desc = note.getDescription();
                     }
+                    if (desc != null) {
+                        desc = desc.replace("\n", " ").replace("\r", " ");
+                    }
+                    taskHolder.txtDesc.setText(desc);
                 } else {
                     taskHolder.txtDesc.setVisibility(View.GONE);
                 }
@@ -110,11 +120,7 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             // Category Indicator
             int stripColor = getCategoryStripColor(taskHolder.itemView.getContext(), note.getCategory());
             taskHolder.viewCategoryIndicator.setBackgroundColor(stripColor);
-            if (note.getReminderTime() > 0) {
-                taskHolder.viewCategoryIndicator.setVisibility(View.VISIBLE);
-            } else {
-                taskHolder.viewCategoryIndicator.setVisibility(View.INVISIBLE);
-            }
+            taskHolder.viewCategoryIndicator.setVisibility(View.VISIBLE);
 
             // Apply visual style for completed status
             if (note.isCompleted()) {
@@ -222,10 +228,14 @@ public class CalendarTaskAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public void setTasks(List<Note> activeTasks, List<Note> doneTasks, String dateLabel) {
         items.clear();
+        
+        // Always add the date header first
+        items.add(dateLabel);
+        
         if (!activeTasks.isEmpty()) {
-            items.add(dateLabel);
             items.addAll(activeTasks);
         }
+
         if (!doneTasks.isEmpty()) {
             items.add("Done");
             items.addAll(doneTasks);

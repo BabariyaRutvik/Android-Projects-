@@ -3,7 +3,24 @@
     <style name="Base.Theme.Calculator" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="materialButtonStyle">@style/CalculatorButtonStyle</item>
+        <item name="colorControlActivated">@color/orange</item>
     </style>
+
+    <style name="CalculatorButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="backgroundTint">@null</item>
+        <item name="android:backgroundTint">@null</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+
+    </style>
+
+
 
     <style name="Theme.Calculator" parent="Base.Theme.Calculator" />
 </resources>

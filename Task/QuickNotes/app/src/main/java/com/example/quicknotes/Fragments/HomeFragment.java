@@ -48,11 +48,16 @@ import com.example.quicknotes.R;
 import com.example.quicknotes.Utils.CategoryPrefs;
 import com.example.quicknotes.databinding.FragmentHomeBinding;
 
-import androidx.core.content.FileProvider;
+import com.example.quicknotes.databinding.FragmentHomeBinding;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

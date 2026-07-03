@@ -22,9 +22,18 @@ import java.util.ArrayList;
 public class EditCategoryAdapter extends RecyclerView.Adapter<EditCategoryAdapter.ViewHolder> {
 
     private final ArrayList<CategoryModel> categoryList;
+    private OnStartDragListener mDragStartListener;
+
+    public interface OnStartDragListener {
+        void onStartDrag(RecyclerView.ViewHolder viewHolder);
+    }
 
     public EditCategoryAdapter(Context context, ArrayList<CategoryModel> categoryList) {
         this.categoryList = categoryList;
+    }
+
+    public void setOnStartDragListener(OnStartDragListener listener) {
+        this.mDragStartListener = listener;
     }
 
     @NonNull
@@ -67,11 +76,33 @@ public class EditCategoryAdapter extends RecyclerView.Adapter<EditCategoryAdapte
             public void afterTextChanged(Editable s) {}
         };
         holder.etCategoryName.addTextChangedListener(holder.textWatcher);
+
+        holder.imgDragHandle.setOnTouchListener((v, event) -> {
+            if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN) {
+                if (mDragStartListener != null) {
+                    mDragStartListener.onStartDrag(holder);
+                }
+            }
+            return false;
+        });
     }
 
     @Override
     public int getItemCount() {
         return categoryList.size();
+    }
+
+    public void onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                java.util.Collections.swap(categoryList, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                java.util.Collections.swap(categoryList, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

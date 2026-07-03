@@ -31,7 +31,7 @@
             android:layout_marginTop="4dp"
             android:textColor="@color/gray_text"
             android:textSize="14sp"
-            android:maxLines="2"
+            android:maxLines="1"
             android:ellipsize="end" />
 
     </LinearLayout>

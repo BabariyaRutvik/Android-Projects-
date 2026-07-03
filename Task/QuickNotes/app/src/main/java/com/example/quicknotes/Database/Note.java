@@ -32,6 +32,10 @@ public class Note {
     @ColumnInfo(name = "modifiedTime")
     private long modifiedTime;
 
+    // Calendar Date (to show on calendar)
+    @ColumnInfo(name = "calendarDate")
+    private long calendarDate;
+
     // Reminder Time
     @ColumnInfo(name = "reminderTime")
     private long reminderTime;
@@ -78,6 +82,7 @@ public class Note {
                       String category,
                       long createdTime,
                       long modifiedTime,
+                      long calendarDate,
                       long reminderTime,
                       String noteColor,
                       boolean isPinned) {
@@ -88,6 +93,7 @@ public class Note {
         this.category = category;
         this.createdTime = createdTime;
         this.modifiedTime = modifiedTime;
+        this.calendarDate = calendarDate;
         this.reminderTime = reminderTime;
         this.noteColor = noteColor;
         this.isPinned = isPinned;
@@ -157,6 +163,14 @@ public class Note {
 
     public void setModifiedTime(long modifiedTime) {
         this.modifiedTime = modifiedTime;
+    }
+
+    public long getCalendarDate() {
+        return calendarDate;
+    }
+
+    public void setCalendarDate(long calendarDate) {
+        this.calendarDate = calendarDate;
     }
 
     public long getReminderTime() {

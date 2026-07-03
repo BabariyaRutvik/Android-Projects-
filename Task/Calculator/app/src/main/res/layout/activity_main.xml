@@ -5,159 +5,153 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/screen_background"
+    android:fitsSystemWindows="true"
     tools:context=".MainActivity">
 
-    <!-- toolbar -->
-    <androidx.appcompat.widget.Toolbar
+    <!-- Toolbar -->
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@android:color/transparent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageButton
-            android:id="@+id/btn_menu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Menu"
-            android:src="@drawable/ic_category_add" />
-
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-medium"
-            android:text="Calculator"
-            android:textColor="@color/black"
-            android:textSize="20sp" />
-
-        <ImageButton
-            android:id="@+id/btn_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Settings"
-            android:src="@drawable/ic_settings" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <!-- result display -->
-    <EditText
-        android:id="@+id/tv_result"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:cursorVisible="true"
-        android:focusable="true"
-        android:gravity="bottom|end"
-        android:inputType="none"
-        android:paddingBottom="16dp"
-        android:paddingEnd="24dp"
-        android:text="0"
-        android:textColor="@color/black"
-        android:textSize="60sp"
-        app:layout_constraintBottom_toTopOf="@+id/mode_layout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_weight="1" />
-
-    <!-- Mode toggle and Backspace row -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mode_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingHorizontal="16dp"
-        android:paddingVertical="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/keyPad_Container"
-        app:layout_constraintTop_toBottomOf="@id/tv_result">
-
         <ImageView
-            android:id="@+id/btn_mode"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/ic_scientific"
+            android:id="@+id/image_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_category_add"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:fontFamily="@font/medium"
+            android:text="Calculator"
+            android:textColor="@color/input_text_color"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_layout"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
-            android:id="@+id/btn_backspace"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/backspace"
+            android:id="@+id/image_history"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:src="@drawable/iconamoon_history_bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/image_settings"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_settings"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- keyboard container -->
-    <LinearLayout
-        android:id="@+id/keyPad_Container"
-        android:layout_width="match_parent"
+    <!-- Result Display -->
+    <EditText
+        android:id="@+id/text_result"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/banner_ad_container"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/regular"
+        android:gravity="bottom|end"
+        android:inputType="none"
+        android:paddingEnd="24dp"
+        android:paddingBottom="16dp"
+        android:text="0"
+        android:textColor="@color/input_text_color"
+        android:textCursorDrawable="@drawable/orange_cursor"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toTopOf="@id/interactive_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mode_layout"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintVertical_weight="1.0" />
+
+    <!-- Interaction Bar (Mode Switch & Backspace) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/interactive_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        app:layout_constraintBottom_toTopOf="@id/keypad_container"
+        app:layout_constraintTop_toBottomOf="@id/text_result">
+
+        <ImageView
+            android:id="@+id/image_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:padding="8dp"
+            android:src="@drawable/ic_scientific"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/image_backspace"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="18dp"
+            android:padding="8dp"
+            android:src="@drawable/backspace"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Keypad Container (Responsive Height) -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keypad_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clipChildren="true"
+        android:clipToPadding="true"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/interactive_bar"
         app:layout_constraintVertical_weight="3.2">
 
         <!-- Scientific Layout -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutScientific"
+            layout="@layout/layout_scientific_buttons"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
-            android:orientation="vertical"
-            android:visibility="gone">
-            <include layout="@layout/layout_scientific_calculator" />
-        </LinearLayout>
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/layoutStandard"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="3" />
 
         <!-- Standard Layout -->
-        <LinearLayout
+        <include
             android:id="@+id/layoutStandard"
+            layout="@layout/layout_standard_buttons"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="5"
-            android:orientation="vertical">
-            <include layout="@layout/layout_standard_calc" />
-        </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutScientific"
+            app:layout_constraintVertical_weight="5" />
 
-    </LinearLayout>
-
-    <!-- Ad Container -->
-    <LinearLayout
-        android:id="@+id/banner_ad_container"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/keyPad_Container">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#EEEEEE" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="AdMob Adaptive Banner"
-            android:textColor="#888888"
-            android:textSize="12sp" />
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
