@@ -31,13 +31,13 @@
             android:id="@+id/text_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:fontFamily="@font/medium"
             android:text="Calculator"
             android:textColor="@color/input_text_color"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
@@ -64,27 +64,48 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Result Display -->
-    <EditText
-        android:id="@+id/text_result"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/display_layout"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/regular"
         android:gravity="bottom|end"
-        android:inputType="none"
+        android:orientation="vertical"
         android:paddingEnd="24dp"
         android:paddingBottom="16dp"
-        android:text="0"
-        android:textColor="@color/input_text_color"
-        android:textCursorDrawable="@drawable/orange_cursor"
-        android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@id/interactive_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintVertical_weight="1.0" />
+        app:layout_constraintVertical_weight="1.0">
+
+        <EditText
+            android:id="@+id/text_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:clickable="true"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="true"
+            android:fontFamily="@font/regular"
+            android:gravity="end"
+            android:inputType="none"
+            android:text="0"
+            android:textColor="@color/input_text_color"
+            android:textCursorDrawable="@drawable/orange_cursor"
+            android:textSize="35sp" />
+
+        <TextView
+            android:id="@+id/text_final_result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/regular"
+            android:gravity="end"
+            android:text=""
+            android:textColor="@color/result_text_color"
+            android:textSize="26sp" />
+    </LinearLayout>
+
 
     <!-- Interaction Bar (Mode Switch & Backspace) -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -92,7 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:layout_constraintBottom_toTopOf="@id/keypad_container"
-        app:layout_constraintTop_toBottomOf="@id/text_result">
+        app:layout_constraintTop_toBottomOf="@id/display_layout">
 
         <ImageView
             android:id="@+id/image_switch"
@@ -122,8 +143,8 @@
         android:id="@+id/keypad_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:clipChildren="true"
-        android:clipToPadding="true"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

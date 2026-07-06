@@ -9,4 +9,5 @@
     <color name="input_text_color">#292929</color>
     <color name="operation_button_color">#EDEDED</color>
     <color name="screen_background">#F4F5F7</color>
+    <color name="result_text_color">#9E9E9E</color>
 </resources>
