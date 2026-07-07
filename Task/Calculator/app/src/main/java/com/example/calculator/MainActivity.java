@@ -3,11 +3,17 @@ package com.example.calculator;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.os.VibratorManager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,15 +25,20 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.calculator.databinding.ActivityMainBinding;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     private boolean scientificMode = false;
+    private boolean isDegreeMode = true;
+    private boolean isInverseMode = false;
     private String expression = "";
     private boolean resultShown = false;
 
     private MaterialButton[] numberButtons;
     private MaterialButton[] iconsButtons;
+    private MaterialButton[] scientificButtons;
     private MaterialButton btnAc;
 
     @Override
@@ -53,6 +64,33 @@ public class MainActivity extends AppCompatActivity {
         binding.textResult.setSelection(binding.textResult.getText().length());
 
         binding.imageSwitch.setOnClickListener(v -> toggleScientificMode());
+
+        binding.imageLayout.setOnClickListener(null);
+        binding.imageHistory.setOnClickListener(null);
+        binding.imageSettings.setOnClickListener(null);
+    }
+
+   private void triggerVibration(){
+        Vibrator vibrator;
+
+        // android 12 or above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            VibratorManager vibratorManager = (VibratorManager) getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
+            vibrator = vibratorManager.getDefaultVibrator();
+        }
+        else {
+            vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        }
+        // android oreo or above version
+        if (vibrator != null && vibrator.hasVibrator()){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                vibrator.vibrate(VibrationEffect.createOneShot(60, VibrationEffect.DEFAULT_AMPLITUDE));
+
+            }
+            else {
+                vibrator.vibrate(60);
+            }
+        }
     }
 
     private void toggleScientificMode() {
@@ -156,6 +194,15 @@ public class MainActivity extends AppCompatActivity {
                 binding.layoutStandard.btnMinus, binding.layoutStandard.btnPlus,
                 binding.layoutStandard.idEquals
         };
+
+        scientificButtons = new MaterialButton[]{
+                binding.layoutScientific.btnFactorial, binding.layoutScientific.btnE,
+                binding.layoutScientific.btnPower, binding.layoutScientific.btnDeg,
+                binding.layoutScientific.btnLog, binding.layoutScientific.btnPi,
+                binding.layoutScientific.btnBrackets, binding.layoutScientific.btnSwap,
+                binding.layoutScientific.btnSin, binding.layoutScientific.btnCos,
+                binding.layoutScientific.btnTan, binding.layoutScientific.btnCot
+        };
     }
 
     private int dpToPx(int dp) {
@@ -186,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
         // AC
         binding.layoutStandard.btnAc.setOnClickListener(v->{
+            triggerVibration();
             expression = "";
             binding.textResult.setText("0");
             binding.textFinalResult.setText("");
@@ -193,15 +241,17 @@ public class MainActivity extends AppCompatActivity {
         });
         // backspace
         binding.imageBackspace.setOnClickListener(v->{
-
+               triggerVibration();
             if (!expression.isEmpty()){
+                // Remove grouping separators if any before backspacing
+                expression = expression.replace(",", "");
                 expression = expression.substring(0, expression.length()-1);
 
                 if (expression.isEmpty()){
                     binding.textResult.setText("0");
                     binding.textFinalResult.setText("");
                 }else {
-                    binding.textResult.setText(expression);
+                    refreshDisplay();
                     CalculateLive();
                 }
                 binding.textResult.setSelection(binding.textResult.getText().length());
@@ -209,71 +259,249 @@ public class MainActivity extends AppCompatActivity {
         });
         // percentage
         binding.layoutStandard.btnPercent.setOnClickListener(v->{
-            if (! expression.isEmpty()){
+            triggerVibration();
+            if (!expression.isEmpty()){
                 try {
-                    double value = Double.parseDouble(expression);
-
-                    value = value / 100;
-
-                    expression = format(value);
-                    binding.textResult.setText(expression);
-                    binding.textResult.setSelection(binding.textResult.getText().length());
-
-                }catch (Exception ignored){
-
-                }
+                    // Clean expression for processing
+                    String cleanExp = expression.replace(",", "");
+                    int i = cleanExp.length() - 1;
+                    while (i >= 0 && (Character.isDigit(cleanExp.charAt(i)) || cleanExp.charAt(i) == '.')) {
+                        i--;
+                    }
+                    
+                    String lastNumber = cleanExp.substring(i + 1);
+                    if (!lastNumber.isEmpty()) {
+                        double value = Double.parseDouble(lastNumber);
+                        value = value / 100.0;
+                        expression = cleanExp.substring(0, i + 1) + format(value);
+                        refreshDisplay();
+                        CalculateLive();
+                    }
+                } catch (Exception ignored) {}
             }
         });
         // plus minus
         binding.layoutStandard.btnPlusMinus.setOnClickListener(v -> {
-            if (!expression.isEmpty()){
-                if (expression.startsWith("-")){
-                    expression = expression.substring(1);
-
-                }
-                else {
-                    expression = "-" + expression;
-                }
-                binding.textResult.setText(expression);
-                binding.textResult.setSelection(binding.textResult.getText().length());
+            triggerVibration();
+            expression = expression.replace(",", "");
+            if (expression.endsWith("(-")) {
+                expression = expression.substring(0, expression.length() - 2);
+            } else {
+                if (expression.equals("0")) expression = "";
+                expression += "(-";
             }
+            refreshDisplay();
+            CalculateLive();
         });
         // Equal button
         binding.layoutStandard.idEquals.setOnClickListener(v -> {
+            triggerVibration();
             String answer = CalculateExpression();
 
-            if (!answer.isEmpty()){
-                binding.textResult.setText(answer);
-                binding.textFinalResult.setText("");
+            if (answer.equals("Infinity")) {
+                Toast.makeText(this, "Value too Large", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            
+            if (answer.equals("Error")) {
+                Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
+            if (!answer.isEmpty()){
                 expression = answer;
+                refreshDisplay();
+                binding.textFinalResult.setText("");
                 resultShown = true;
-                binding.textResult.setSelection(binding.textResult.getText().length());
             }
         });
+
+        for (MaterialButton btn : scientificButtons) {
+            btn.setOnClickListener(v -> {
+                triggerVibration();
+                if (btn.getId() == R.id.btn_factorial) {
+                    appendOperator("!");
+                } else if (btn.getId() == R.id.btn_e) {
+                    appendOperator(isInverseMode ? "exp(" : "e");
+                } else if (btn.getId() == R.id.btn_pi) {
+                    appendOperator("π");
+                } else if (btn.getId() == R.id.btn_power) {
+                    appendOperator("^");
+                } else if (btn.getId() == R.id.btn_deg) {
+                    isDegreeMode = !isDegreeMode;
+                    btn.setText(isDegreeMode ? "DEG" : "RAD");
+                    CalculateLive();
+                } else if (btn.getId() == R.id.btn_sin) {
+                    appendOperator(isInverseMode ? "asin(" : "sin(");
+                } else if (btn.getId() == R.id.btn_cos) {
+                    appendOperator(isInverseMode ? "acos(" : "cos(");
+                } else if (btn.getId() == R.id.btn_tan) {
+                    appendOperator(isInverseMode ? "atan(" : "tan(");
+                } else if (btn.getId() == R.id.btn_cot) {
+                    appendOperator(isInverseMode ? "acot(" : "cot(");
+                } else if (btn.getId() == R.id.btn_log) {
+                    appendOperator(isInverseMode ? "ln(" : "log(");
+                } else if (btn.getId() == R.id.btn_swap) {
+                    toggleInverseMode();
+                } else if (btn.getId() == R.id.btn_brackets) {
+                    handleBrackets();
+                }
+            });
+        }
+    }
+    private void toggleInverseMode() {
+        isInverseMode = !isInverseMode;
+        binding.layoutScientific.btnE.setText(isInverseMode ? "exp" : "e");
+        binding.layoutScientific.btnLog.setText(isInverseMode ? "ln" : "log");
+        binding.layoutScientific.btnSin.setText(isInverseMode ? "sin⁻¹" : "sin");
+        binding.layoutScientific.btnCos.setText(isInverseMode ? "cos⁻¹" : "cos");
+        binding.layoutScientific.btnTan.setText(isInverseMode ? "tan⁻¹" : "tan");
+        binding.layoutScientific.btnCot.setText(isInverseMode ? "cot⁻¹" : "cot");
+        CalculateLive();
+    }
+
+    private void handleBrackets() {
+        int openCount = 0;
+        for (char c : expression.toCharArray()) {
+            if (c == '(') openCount++;
+            else if (c == ')') openCount--;
+        }
+
+        if (openCount > 0) {
+            char last = expression.isEmpty() ? ' ' : expression.charAt(expression.length() - 1);
+            if (Character.isDigit(last) || last == ')' || last == 'e' || last == 'π' || last == '!') {
+                appendOperator(")");
+            } else {
+                appendOperator("(");
+            }
+        } else {
+            appendOperator("(");
+        }
+    }
+
+    private String getLastNumber(String exp) {
+        if (exp.isEmpty()) return "";
+        int i = exp.length() - 1;
+        while (i >= 0 && (Character.isDigit(exp.charAt(i)) || exp.charAt(i) == '.')) {
+            i--;
+        }
+        return exp.substring(i + 1);
     }
     private void appendNumber(String value){
+        triggerVibration();
         if (resultShown){
             expression = "";
             resultShown = false;
-
         }
-        if (expression.equals("0")){
-            expression = value;
+        
+        String cleanExp = expression.replace(",", "");
+        String lastNum = getLastNumber(cleanExp);
 
+        int currentDigits = 0;
+        for (char c : lastNum.toCharArray()) {
+            if (Character.isDigit(c)) currentDigits++;
+        }
+
+        int digitsToAdd = 0;
+        for (char c : value.toCharArray()) {
+            if (Character.isDigit(c)) digitsToAdd++;
+        }
+
+        if (currentDigits + digitsToAdd > 15) {
+            Toast.makeText(this, "Cannot enter more than 15 digits", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        expression = cleanExp;
+        
+        if (expression.equals("0") && !value.equals(".")){
+            expression = value;
         }
         else {
             expression += value;
         }
-        binding.textResult.setText(expression);
-        binding.textResult.setSelection(binding.textResult.getText().length());
+        refreshDisplay();
         CalculateLive();
-
     }
+    
+    private void refreshDisplay() {
+        binding.textResult.setText(getFormattedExpression(expression));
+        binding.textResult.setSelection(binding.textResult.getText().length());
+    }
+
+    private String getFormattedExpression(String exp) {
+        if (exp.isEmpty()) return "0";
+        if (exp.equals("-")) return "-";
+        
+        // Strip existing commas first to avoid splitting numbers incorrectly
+        String cleanExp = exp.replace(",", "");
+        
+        // Handle inverse trig formatting for display
+        cleanExp = cleanExp.replace("asin", "sin⁻¹")
+                          .replace("acos", "cos⁻¹")
+                          .replace("atan", "tan⁻¹")
+                          .replace("acot", "cot⁻¹");
+        
+        StringBuilder formatted = new StringBuilder();
+        StringBuilder currentNumber = new StringBuilder();
+        
+        for (int i = 0; i < cleanExp.length(); i++) {
+            char c = cleanExp.charAt(i);
+            if (Character.isDigit(c) || c == '.') {
+                currentNumber.append(c);
+            } else {
+                if (currentNumber.length() > 0) {
+                    formatted.append(formatNumberString(currentNumber.toString()));
+                    currentNumber.setLength(0);
+                }
+                formatted.append(c);
+            }
+        }
+        
+        if (currentNumber.length() > 0) {
+            formatted.append(formatNumberString(currentNumber.toString()));
+        }
+        
+        return formatted.toString();
+    }
+
+    private String formatNumberString(String numStr) {
+        if (numStr.isEmpty()) return "";
+        try {
+            if (numStr.equals(".")) return ".";
+            boolean hasDot = numStr.contains(".");
+            String beforeDot = hasDot ? numStr.substring(0, numStr.indexOf(".")) : numStr;
+            String afterDot = hasDot ? numStr.substring(numStr.indexOf(".")) : "";
+            
+            if (beforeDot.isEmpty() && hasDot) beforeDot = "0";
+            
+            if (!beforeDot.isEmpty() && !beforeDot.equals("-")) {
+                double val = Double.parseDouble(beforeDot);
+                DecimalFormat df = new DecimalFormat("#,###");
+                beforeDot = df.format(val);
+            }
+            
+            return beforeDot + afterDot;
+        } catch (Exception e) {
+            return numStr;
+        }
+    }
+
     // operator
     private void appendOperator(String op){
-
+        triggerVibration();
+        expression = expression.replace(",", "");
+        
         if (expression.isEmpty()){
+            // Allow starting expression with constants, brackets, or functions
+            if (op.equals("e") || op.equals("π") || op.equals("(") || 
+                op.contains("sin") || op.contains("cos") || op.contains("tan") || 
+                op.contains("cot") || op.contains("log") || op.contains("ln") || 
+                op.contains("exp")) {
+                expression = op;
+                refreshDisplay();
+                CalculateLive();
+            }
             return;
         }
 
@@ -285,25 +513,54 @@ public class MainActivity extends AppCompatActivity {
         else {
             expression += op;
         }
-        binding.textResult.setText(expression);
-        binding.textResult.setSelection(binding.textResult.getText().length());
+        refreshDisplay();
+        CalculateLive();
     }
     // calculate live result
     private void CalculateLive(){
-        String result = CalculateExpression();
+        if (expression.isEmpty()) {
+            binding.textFinalResult.setText("");
+            return;
+        }
 
-        if (!result .isEmpty() && !result.equals(expression)){
+        // Only show live result if there's an operator/bracket and it doesn't end with a starting one
+        boolean hasOperator = expression.contains("+") || expression.contains("-") || 
+                              expression.contains("×") || expression.contains("÷") || 
+                              expression.contains("^") || expression.contains("sin") ||
+                              expression.contains("cos") || expression.contains("tan") ||
+                              expression.contains("cot") || expression.contains("log") || 
+                              expression.contains("ln") || expression.contains("!") ||
+                              expression.contains("e") || expression.contains("π") ||
+                              expression.contains("exp") || expression.contains("(") ||
+                              expression.contains(")");
+        
+        char last = expression.charAt(expression.length() - 1);
+        boolean endsWithStartOperator = last == '+' || last == '-' || last == '×' || last == '÷' || last == '(';
+
+        if (!hasOperator || endsWithStartOperator) {
+            binding.textFinalResult.setText("");
+            return;
+        }
+
+        String result = CalculateExpression();
+        
+        // Remove commas for comparison to avoid showing result for a single large number
+        String cleanResult = result.replace(",", "");
+        String cleanExpression = expression.replace(",", "").replace("e", String.valueOf(Math.E)).replace("π", String.valueOf(Math.PI));
+
+        if (!result.isEmpty() && !cleanResult.equals(cleanExpression)){
             binding.textFinalResult.setText(result);
         }
         else {
             binding.textFinalResult.setText("");
-
         }
     }
     // calculate the expression
     private String CalculateExpression(){
         try {
-            String exp = expression.replace("×","*").replace("÷","/");
+            String exp = expression.replace("×","*").replace("÷","/")
+                                   .replace("π", "pi")
+                                   .replace(",", ""); // Remove grouping separators
 
             double answer = new Object(){
                 int pos = -1,ch;
@@ -342,16 +599,25 @@ public class MainActivity extends AppCompatActivity {
 
                 }
                 double parseTerm(){
-                    double x = parseFactor();
+                    double x = parsePower();
                     while (true){
                         if (eat('*'))
-                            x *= parseFactor();
+                            x *= parsePower();
                         else if (eat('/'))
-                            x /= parseFactor();
+                            x /= parsePower();
+                        else if (ch == '(' || ch == 'e' || ch == 'p' || 
+                                 (ch >= 'a' && ch <= 'z'))
+                            x *= parsePower();
                         else
                             return x;
                     }
 
+                }
+
+                double parsePower() {
+                    double x = parseFactor();
+                    if (eat('^')) x = Math.pow(x, parsePower());
+                    return x;
                 }
 
                 double parseFactor(){
@@ -363,13 +629,61 @@ public class MainActivity extends AppCompatActivity {
                     double x;
 
                     int start = pos;
+                    if (eat('(')) {
+                        x = parseExpression();
+                        eat(')');
+                    } else if ((ch >= '0' && ch <= '9') || ch == '.') {
+                        while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+                        x = Double.parseDouble(exp.substring(start, pos));
+                    } else if (ch >= 'a' && ch <= 'z') {
+                        x = parseFunctionsAndConstants();
+                    } else {
+                        return 0;
+                    }
 
-                    while((ch>='0' && ch<='9') || ch=='.')
-                        nextChar();
-
-                    x = Double.parseDouble(exp.substring(start,pos));
+                    if (eat('!')) x = factorial(x);
 
                     return  x;
+                }
+
+                double parseFunctionsAndConstants() {
+                    int start = pos;
+                    while (ch >= 'a' && ch <= 'z') nextChar();
+                    String func = exp.substring(start, pos);
+
+                    if (func.equals("pi")) return Math.PI;
+                    if (func.equals("e")) return Math.E;
+
+                    double x;
+                    if (eat('(')) {
+                        x = parseExpression();
+                        eat(')');
+                    } else {
+                        x = parseFactor();
+                    }
+
+                    switch (func) {
+                        case "sin": return Math.sin(isDegreeMode ? Math.toRadians(x) : x);
+                        case "cos": return Math.cos(isDegreeMode ? Math.toRadians(x) : x);
+                        case "tan": return Math.tan(isDegreeMode ? Math.toRadians(x) : x);
+                        case "cot": return 1.0 / Math.tan(isDegreeMode ? Math.toRadians(x) : x);
+                        case "asin":
+                            double asinVal = Math.asin(x);
+                            return isDegreeMode ? Math.toDegrees(asinVal) : asinVal;
+                        case "acos":
+                            double acosVal = Math.acos(x);
+                            return isDegreeMode ? Math.toDegrees(acosVal) : acosVal;
+                        case "atan":
+                            double atanVal = Math.atan(x);
+                            return isDegreeMode ? Math.toDegrees(atanVal) : atanVal;
+                        case "acot":
+                            double acotVal = Math.atan(1.0 / x);
+                            return isDegreeMode ? Math.toDegrees(acotVal) : acotVal;
+                        case "log": return Math.log10(x);
+                        case "ln": return Math.log(x);
+                        case "exp": return Math.exp(x);
+                        default: return 0;
+                    }
                 }
             }.parse();
 
@@ -378,16 +692,27 @@ public class MainActivity extends AppCompatActivity {
             return "";
         }
     }
+
+    private double factorial(double n) {
+        if (n < 0) return 0;
+        if (n == 0 || n == 1) return 1;
+        double result = 1;
+        for (int i = 2; i <= (int)n; i++) {
+            result *= i;
+        }
+        return result;
+    }
     private String format(double value){
-
-        if(value == (long)value)
-
-            return String.valueOf((long)value);
+        if (Double.isInfinite(value)) return "Infinity";
+        if (Double.isNaN(value)) return "Error";
 
 
-        else
+        if (Math.abs(value) >= 1e15 || (Math.abs(value) > 0 && Math.abs(value) < 1e-10)) {
+            return new DecimalFormat("0.########E0").format(value);
+        }
 
-            return String.valueOf(value);
-
+      
+        DecimalFormat df = new DecimalFormat("#,###.###############");
+        return df.format(value);
     }
 }

@@ -46,7 +46,7 @@
 
     <!-- Row 1 -->
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_inv"
+        android:id="@+id/btn_factorial"
         style="@style/CalculatorButtonStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
