@@ -9,7 +9,7 @@
     android:fitsSystemWindows="true"
     android:focusableInTouchMode="true"
     android:descendantFocusability="beforeDescendants"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
     <!-- Toolbar -->
     <androidx.constraintlayout.widget.ConstraintLayout
