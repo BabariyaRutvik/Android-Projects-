@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="24dp"
+    android:paddingEnd="24dp"
+    android:paddingTop="32dp"
+    android:paddingBottom="16dp"
+    android:background="@drawable/bg_dialog_rounded">
+
+    <TextView
+        android:id="@+id/text_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Investment Period"
+        android:textSize="20sp"
+        android:fontFamily="@font/regular"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Labels -->
+    <TextView
+        android:id="@+id/label_years"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="Years"
+        android:textSize="18sp"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toBottomOf="@id/text_dialog_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/label_months"
+        app:layout_constraintHorizontal_chainStyle="packed"/>
+
+    <TextView
+        android:id="@+id/label_months"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:gravity="center"
+        android:text="Months"
+        android:textSize="18sp"
+        android:textColor="@color/text_primary"
+        app:layout_constraintTop_toTopOf="@id/label_years"
+        app:layout_constraintStart_toEndOf="@id/label_years"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Pickers -->
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/picker_years"
+        android:layout_width="90dp"
+        android:layout_height="167dp"
+        android:layout_marginTop="8dp"
+        app:np_wheelItemCount="3"
+        app:np_dividerColor="@color/divider_silver"
+        app:np_dividerThickness="1dp"
+        app:np_dividerDistance="56dp"
+        app:np_selectedTextColor="@color/orange"
+        app:np_selectedTextSize="22sp"
+        app:np_textColor="@color/text_secondary"
+        app:np_textSize="22sp"
+        app:layout_constraintTop_toBottomOf="@id/label_years"
+        app:layout_constraintStart_toStartOf="@id/label_years"
+        app:layout_constraintEnd_toEndOf="@id/label_years"/>
+
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/picker_months"
+        android:layout_width="90dp"
+        android:layout_height="167dp"
+        app:np_wheelItemCount="3"
+        app:np_dividerColor="@color/divider_silver"
+        app:np_dividerThickness="1dp"
+        app:np_dividerDistance="56dp"
+        app:np_selectedTextColor="@color/orange"
+        app:np_selectedTextSize="22sp"
+        app:np_textColor="@color/text_secondary"
+        app:np_textSize="22sp"
+        app:layout_constraintTop_toTopOf="@id/picker_years"
+        app:layout_constraintStart_toStartOf="@id/label_months"
+        app:layout_constraintEnd_toEndOf="@id/label_months"/>
+
+    <!-- Buttons -->
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
+        android:text="Cancel"
+        android:textSize="18sp"
+        android:fontFamily="@font/medium"
+        android:textColor="@color/text_tertiary"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/picker_years"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/btn_done"/>
+
+    <TextView
+        android:id="@+id/btn_done"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:text="Done"
+        android:textSize="18sp"
+        android:fontFamily="@font/medium"
+        android:textColor="@color/orange"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="@id/btn_cancel"
+        app:layout_constraintStart_toEndOf="@id/btn_cancel"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

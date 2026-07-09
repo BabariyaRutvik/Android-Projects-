@@ -10,6 +10,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 
+import android.widget.Toast;
+
 import com.example.calculator.Adapter.OtherCalculatorAdapter;
 import com.example.calculator.Model.CalculatorItem;
 import com.example.calculator.R;
@@ -63,7 +65,11 @@ public class OtherCalculatorActivity extends AppCompatActivity {
 
     private void setupRecyclerView() {
         adapter = new OtherCalculatorAdapter(calculatorList, item -> {
-            // Handle clicks if needed
+            if (item.getName().equalsIgnoreCase("SIP Calculator")) {
+                startActivity(new Intent(this, SIPCalculatorActivity.class));
+            } else {
+                Toast.makeText(this, item.getName() + " Coming Soon!", Toast.LENGTH_SHORT).show();
+            }
         });
         binding.rvOtherCalculators.setLayoutManager(new GridLayoutManager(this, 2));
         binding.rvOtherCalculators.setAdapter(adapter);

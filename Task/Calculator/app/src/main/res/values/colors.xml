@@ -10,4 +10,9 @@
     <color name="operation_button_color">#EDEDED</color>
     <color name="screen_background">#F4F5F7</color>
     <color name="result_text_color">#9E9E9E</color>
+    <color name="result_bg_color">#f7f2ee</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#9E9E9E</color>
+    <color name="text_tertiary">#8E8E8E</color>
+    <color name="divider_silver">#DDDDDD</color>
 </resources>

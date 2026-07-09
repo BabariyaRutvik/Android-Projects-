@@ -26,4 +26,10 @@
 
 
     <style name="Theme.Calculator" parent="Base.Theme.Calculator" />
+
+    <style name="NumberPickerStyle">
+        <item name="android:textColorPrimary">@color/orange</item>
+        <item name="android:editTextColor">@color/orange</item>
+        <item name="android:textSize">22sp</item>
+    </style>
 </resources>
