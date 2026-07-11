@@ -41,13 +41,6 @@ public class OtherCalculatorAdapter extends RecyclerView.Adapter<OtherCalculator
         holder.textName.setText(item.getName());
         holder.imgIcon.setImageResource(item.getIconResId());
 
-        // Apply specific dimensions from Figma
-        float density = holder.itemView.getContext().getResources().getDisplayMetrics().density;
-        ViewGroup.LayoutParams params = holder.textName.getLayoutParams();
-        params.width = (int) (item.getTextWidth() * density);
-        params.height = (int) (16 * density);
-        holder.textName.setLayoutParams(params);
-
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(item);

@@ -28,6 +28,7 @@ import com.example.calculator.R;
 import com.example.calculator.Database.HistoryViewModel;
 import com.example.calculator.databinding.ActivityMainBinding;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.text.DecimalFormat;
 
@@ -40,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean isInverseMode = false;
     private String expression = "";
     private boolean resultShown = false;
+    private String lastOperator = "";
+    private String lastOperand = "";
 
     private MaterialButton[] numberButtons;
     private MaterialButton[] iconsButtons;
@@ -52,6 +55,14 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        // Ensure Status Bar icons are dark on light background
+        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
+                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController != null) {
+            windowInsetsController.setAppearanceLightStatusBars(true);
+            windowInsetsController.setAppearanceLightNavigationBars(true);
+        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -75,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
 
         binding.textResult.setShowSoftInputOnFocus(false);
         binding.textResult.requestFocus();
-        binding.textResult.setSelection(binding.textResult.getText().length());
 
         binding.imageSwitch.setOnClickListener(v -> toggleScientificMode());
 
@@ -88,9 +98,31 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         binding.imageSettings.setOnClickListener(null);
+
+        expression = "0";
+        refreshDisplay();
+        handleIntent(getIntent());
     }
 
-   private void triggerVibration(){
+    private void handleIntent(Intent intent) {
+        if (intent != null && intent.hasExtra("expression")) {
+            expression = intent.getStringExtra("expression");
+            refreshDisplay();
+            CalculateLive();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null && intent.hasExtra("expression")) {
+            expression = intent.getStringExtra("expression");
+            refreshDisplay();
+            CalculateLive();
+        }
+    }
+
+    private void triggerVibration(){
         Vibrator vibrator;
 
         // android 12 or above
@@ -162,10 +194,16 @@ public class MainActivity extends AppCompatActivity {
         float acSize = 26f + (24f - 26f) * fraction;
         int iconSizePx = dpToPx((int) (34f + (26f - 34f) * fraction));
 
+        // Calculate heights and shapes for standard buttons
+        int currentHeightPx = dpToPx((int) (78f + (46f - 78f) * fraction));
+        ShapeAppearanceModel currentShape = ShapeAppearanceModel.builder(this, fraction > 0.5f ? R.style.ScientificButtonShape : R.style.CircleButtonShape, 0).build();
+
         if (btnAc != null) {
             btnAc.setTextSize(TypedValue.COMPLEX_UNIT_SP, acSize);
             btnAc.setGravity(Gravity.CENTER);
             btnAc.setPadding(0, 0, 0, 0);
+            btnAc.getLayoutParams().height = currentHeightPx;
+            btnAc.setShapeAppearanceModel(currentShape);
         }
 
         for (MaterialButton btn : numberButtons) {
@@ -173,6 +211,8 @@ public class MainActivity extends AppCompatActivity {
                 btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, numSize);
                 btn.setGravity(Gravity.CENTER);
                 btn.setPadding(0, 0, 0, 0);
+                btn.getLayoutParams().height = currentHeightPx;
+                btn.setShapeAppearanceModel(currentShape);
             }
         }
 
@@ -182,17 +222,36 @@ public class MainActivity extends AppCompatActivity {
                 btn.setGravity(Gravity.CENTER);
                 btn.setIconPadding(0);
                 btn.setPadding(0, 0, 0, 0);
+                btn.getLayoutParams().height = currentHeightPx;
+                btn.setShapeAppearanceModel(currentShape);
+            }
+        }
+
+        // Animate scientific buttons text size and icon size
+        float sciSize = 22f * fraction;
+        int sciIconSizePi = dpToPx((int) (26f * fraction));
+        int sciIconSizeSwap = dpToPx((int) (30f * fraction));
+
+        if (scientificButtons != null) {
+            for (MaterialButton btn : scientificButtons) {
+                if (btn != null) {
+                    if (btn.getText() != null && !btn.getText().toString().isEmpty()) {
+                        btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, sciSize);
+                    }
+                    if (btn.getId() == R.id.btn_pi) {
+                        btn.setIconSize(sciIconSizePi);
+                    } else if (btn.getId() == R.id.btn_swap) {
+                        btn.setIconSize(sciIconSizeSwap);
+                    }
+                    btn.setGravity(Gravity.CENTER);
+                    btn.setPadding(0, 0, 0, 0);
+                }
             }
         }
     }
 
     private void updateResultFieldForMode() {
         binding.textResult.requestFocus();
-        if (!scientificMode) {
-            if (binding.textResult.getText().toString().isEmpty()) {
-                binding.textResult.setText("0");
-            }
-        }
         binding.textResult.setSelection(binding.textResult.getText().length());
     }
 
@@ -253,19 +312,22 @@ public class MainActivity extends AppCompatActivity {
         binding.layoutStandard.btnAc.setOnClickListener(v->{
             triggerVibration();
             expression = "";
-            binding.textResult.setText("0");
+            lastOperator = "";
+            lastOperand = "";
+            binding.textResult.setText("");
             binding.textFinalResult.setText("");
-            binding.textResult.setSelection(binding.textResult.getText().length());
+            binding.textResult.requestFocus();
         });
         // backspace
         binding.imageBackspace.setOnClickListener(v->{
                triggerVibration();
-            if (!expression.isEmpty()){
+            if (!expression.isEmpty() && !expression.equals("0")){
                 // Remove grouping separators if any before backspacing
                 expression = expression.replace(",", "");
                 expression = expression.substring(0, expression.length()-1);
 
                 if (expression.isEmpty()){
+                    expression = "0";
                     binding.textResult.setText("0");
                     binding.textFinalResult.setText("");
                 }else {
@@ -314,6 +376,13 @@ public class MainActivity extends AppCompatActivity {
         // Equal button
         binding.layoutStandard.idEquals.setOnClickListener(v -> {
             triggerVibration();
+            
+            if (resultShown && !lastOperator.isEmpty() && !lastOperand.isEmpty()) {
+                expression = expression + lastOperator + lastOperand;
+            } else {
+                extractLastOperation();
+            }
+
             String currentExpression = expression;
             String answer = CalculateExpression();
 
@@ -328,8 +397,11 @@ public class MainActivity extends AppCompatActivity {
             }
 
             if (!answer.isEmpty()){
-                // Save to History
-                historyViewModel.insert(new HistoryItem(currentExpression, answer, System.currentTimeMillis()));
+                // Save to History only if it's an actual calculation (expression differs from answer)
+                String formattedExp = getFormattedExpression(currentExpression);
+                if (!formattedExp.equals(answer) && !currentExpression.isEmpty()) {
+                    historyViewModel.insert(new HistoryItem(formattedExp, answer, System.currentTimeMillis()));
+                }
 
                 expression = answer;
                 refreshDisplay();
@@ -371,6 +443,26 @@ public class MainActivity extends AppCompatActivity {
             });
         }
     }
+    private void extractLastOperation() {
+        if (expression.isEmpty()) return;
+        
+        String cleanExp = expression.replace(",", "");
+        int i = cleanExp.length() - 1;
+        
+        // Find the last number
+        while (i >= 0 && (Character.isDigit(cleanExp.charAt(i)) || cleanExp.charAt(i) == '.')) {
+            i--;
+        }
+        
+        if (i >= 0) {
+            lastOperand = cleanExp.substring(i + 1);
+            lastOperator = String.valueOf(cleanExp.charAt(i));
+        } else {
+            lastOperator = "";
+            lastOperand = "";
+        }
+    }
+
     private void toggleInverseMode() {
         isInverseMode = !isInverseMode;
         binding.layoutScientific.btnE.setText(isInverseMode ? "exp" : "e");
@@ -429,15 +521,20 @@ public class MainActivity extends AppCompatActivity {
             if (Character.isDigit(c)) digitsToAdd++;
         }
 
-        if (currentDigits + digitsToAdd > 15) {
-            Toast.makeText(this, "Cannot enter more than 15 digits", Toast.LENGTH_SHORT).show();
+        if (currentDigits + digitsToAdd > 20) {
+            Toast.makeText(this, "Cannot enter more than 20 digits", Toast.LENGTH_SHORT).show();
             return;
         }
 
         expression = cleanExp;
         
+        if (expression.equals("0") && value.equals("00")) return;
+        
         if (expression.equals("0") && !value.equals(".")){
             expression = value;
+        }
+        else if (expression.isEmpty() && value.equals("00")) {
+            expression = "0";
         }
         else {
             expression += value;
@@ -452,7 +549,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String getFormattedExpression(String exp) {
-        if (exp.isEmpty()) return "0";
+        if (exp.isEmpty()) return "";
         if (exp.equals("-")) return "-";
         
         // Strip existing commas first to avoid splitting numbers incorrectly
@@ -509,12 +606,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // operator
     private void appendOperator(String op){
         triggerVibration();
         expression = expression.replace(",", "");
         
-        if (expression.isEmpty()){
+        if (expression.isEmpty() || expression.equals("0")){
             // Allow starting expression with constants, brackets, or functions
             if (op.equals("e") || op.equals("π") || op.equals("(") || 
                 op.contains("sin") || op.contains("cos") || op.contains("tan") || 
@@ -523,14 +619,24 @@ public class MainActivity extends AppCompatActivity {
                 expression = op;
                 refreshDisplay();
                 CalculateLive();
+                return;
             }
-            return;
+            if (expression.equals("0") && op.equals("-")) {
+                expression = "-";
+                refreshDisplay();
+                return;
+            }
         }
 
         char last = expression.charAt(expression.length()-1);
 
         if (last == '+' || last == '-' || last == '×' || last == '÷'){
-            expression = expression.substring(0, expression.length()-1)+op;
+            // Replace operator only if both are basic arithmetic operators
+            if (op.equals("+") || op.equals("-") || op.equals("×") || op.equals("÷")) {
+                expression = expression.substring(0, expression.length()-1) + op;
+            } else {
+                expression += op;
+            }
         }
         else {
             expression += op;
@@ -570,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
         String cleanResult = result.replace(",", "");
         String cleanExpression = expression.replace(",", "").replace("e", String.valueOf(Math.E)).replace("π", String.valueOf(Math.PI));
 
-        if (!result.isEmpty() && !cleanResult.equals(cleanExpression)){
+        if (!result.isEmpty() && !cleanResult.equals(cleanExpression) && !cleanResult.equals("0") && !cleanResult.equals("0.0")){
             binding.textFinalResult.setText(result);
         }
         else {
@@ -655,7 +761,13 @@ public class MainActivity extends AppCompatActivity {
                         x = parseExpression();
                         eat(')');
                     } else if ((ch >= '0' && ch <= '9') || ch == '.') {
-                        while ((ch >= '0' && ch <= '9') || ch == '.') nextChar();
+                        while ((ch >= '0' && ch <= '9') || ch == '.' || ch == 'E' || ch == 'e') {
+                            nextChar();
+                            // Handle negative exponent e.g. 1.2E-5
+                            if (ch == '-' && (exp.charAt(pos - 1) == 'E' || exp.charAt(pos - 1) == 'e')) {
+                                nextChar();
+                            }
+                        }
                         x = Double.parseDouble(exp.substring(start, pos));
                     } else if (ch >= 'a' && ch <= 'z') {
                         x = parseFunctionsAndConstants();
@@ -728,12 +840,12 @@ public class MainActivity extends AppCompatActivity {
         if (Double.isInfinite(value)) return "Infinity";
         if (Double.isNaN(value)) return "Error";
 
-
-        if (Math.abs(value) >= 1e15 || (Math.abs(value) > 0 && Math.abs(value) < 1e-10)) {
+        // Show E notation only for numbers with 15 or more digits
+        if (Math.abs(value) >= 1e14) {
             return new DecimalFormat("0.########E0").format(value);
         }
 
-
+        // For smaller numbers, show the long format with commas
         DecimalFormat df = new DecimalFormat("#,###.###############");
         return df.format(value);
     }

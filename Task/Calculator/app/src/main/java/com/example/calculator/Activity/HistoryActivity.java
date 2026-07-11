@@ -1,10 +1,13 @@
 package com.example.calculator.Activity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +44,13 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         binding = ActivityHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Ensure Status Bar icons are dark
+        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
+                androidx.core.view.ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController != null) {
+            windowInsetsController.setAppearanceLightStatusBars(true);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -53,7 +63,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         observeHistory();
 
 
-        binding.btnBack.setOnClickListener(v->{
+        binding.toolbar.setNavigationOnClickListener(v->{
             if (adapter.isSelectionMode()){
                 exitSelectionMode();
             }
@@ -66,6 +76,16 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                 Toast.makeText(this, "History is empty", Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            if (adapter.getSelectedIds().isEmpty()) {
+                Toast.makeText(this, "Please select items to delete", Toast.LENGTH_SHORT).show();
+                if (!adapter.isSelectionMode()) {
+                    adapter.setSelectionMode(true);
+                    onSelectionChanged(0);
+                }
+                return;
+            }
+
             showDeleteDialog();
         });
 
@@ -85,7 +105,23 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     }
 
     private void initRecycerview() {
-        adapter = new HistoryAdapter(historyItems, this);
+        adapter = new HistoryAdapter(historyItems, this, item -> {
+            Intent intent;
+            String expression = item.getExpression();
+            
+            if (expression.startsWith("SIP: ")) {
+                intent = new Intent(this, SIPCalculatorActivity.class);
+            } else if (expression.startsWith("Loan: ")) {
+                intent = new Intent(this, LoanCalculatorActivity.class);
+            } else {
+                intent = new Intent(this, MainActivity.class);
+            }
+            
+            intent.putExtra("expression", expression);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intent);
+            finish();
+        });
         binding.rvHistory.setLayoutManager(new LinearLayoutManager(this));
         binding.rvHistory.setAdapter(adapter);
     }
@@ -114,14 +150,19 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            
+            // Set width to 336dp as per Figma, or 90% of screen if 336dp is too large
+            int widthPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 336, getResources().getDisplayMetrics());
+            int maxWidth = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
+            
+            dialog.getWindow().setLayout(Math.min(widthPx, maxWidth), WindowManager.LayoutParams.WRAP_CONTENT);
         }
 
+        TextView textTitle = view.findViewById(R.id.text_dialog_title);
         TextView textMessage = view.findViewById(R.id.text_dialog_message);
-        if (adapter.isSelectionMode()) {
-            textMessage.setText("Do you want to delete selected calculation?");
-        } else {
-            textMessage.setText("Do you want to delete calculation?");
-        }
+        
+        textTitle.setText("Delete History");
+        textMessage.setText("Do you want to delete calculation?");
 
         view.findViewById(R.id.btn_no).setOnClickListener(v -> dialog.dismiss());
 

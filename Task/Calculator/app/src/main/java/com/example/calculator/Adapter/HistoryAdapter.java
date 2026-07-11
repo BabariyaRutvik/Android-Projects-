@@ -24,14 +24,21 @@ public  class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.History
     private  boolean isSelectionMode = false;
     private Set<Integer> selectedIds = new HashSet<>();
     private OnSelectionChangeListener selectionChangeListener;
+    private OnItemClickListener itemClickListener;
 
     public interface  OnSelectionChangeListener{
         void onSelectionChanged(int selectedCount);
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(HistoryItem item);
+    }
+
     // constructor
-    public HistoryAdapter(List<HistoryItem>historyItemList, OnSelectionChangeListener listener){
+    public HistoryAdapter(List<HistoryItem>historyItemList, OnSelectionChangeListener listener, OnItemClickListener itemClickListener){
         this.historyItemList = historyItemList;
         this.selectionChangeListener = listener;
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -54,6 +61,10 @@ public  class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.History
          holder.itemView.setOnClickListener(v->{
              if (isSelectionMode){
                  toggleSelection(item.getId());
+             } else {
+                 if (itemClickListener != null) {
+                     itemClickListener.onItemClick(item);
+                 }
              }
          });
          // selecting long click event item

@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    tools:context=".Activity.LoanCalculatorActivity">
+
+    <!-- Custom Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/loan_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/screen_background"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="Loan Calculator"
+        app:titleTextAppearance="@style/ToolbarTitleStyle"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <!-- main loan content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/loan_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/keypad_loan"
+        app:layout_constraintTop_toBottomOf="@id/loan_toolbar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="24dp">
+
+            <!-- input section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/loan_input_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
+
+                <!-- Loan Amount -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_loan_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/label_loan_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="Loan Amount"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_loan_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:hint="Add amount"
+                        android:inputType="numberDecimal"
+                        android:digits="0123456789."
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_loan_amount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- rate -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_rate_loan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_loan_amount">
+
+                    <TextView
+                        android:id="@+id/label_rate_loan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="Rate(%)"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_rate_loan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:hint="Add rate"
+                        android:inputType="numberDecimal"
+                        android:digits="0123456789."
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_rate_loan" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- loan tenure -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_period_loan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:padding="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_rate_loan">
+
+                    <TextView
+                        android:id="@+id/label_loan_tenure"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="Loan Tenure"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_period_loan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/regular"
+                        android:text="01year &amp; 00months"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="18sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_loan_tenure" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- result section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/result_container_loan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="12dp"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/divider_left_loan"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#D0D0D0"
+                    app:layout_constraintBottom_toBottomOf="@id/text_result_label_loan"
+                    app:layout_constraintEnd_toStartOf="@id/text_result_label_loan"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_result_label_loan" />
+
+                <TextView
+                    android:id="@+id/text_result_label_loan"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:fontFamily="@font/regular"
+                    android:text="Result"
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider_right_loan"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="#D0D0D0"
+                    app:layout_constraintBottom_toBottomOf="@id/text_result_label_loan"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_result_label_loan"
+                    app:layout_constraintTop_toTopOf="@id/text_result_label_loan" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_result"
+                    android:minHeight="217dp"
+                    android:paddingStart="15dp"
+                    android:paddingEnd="15dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"
+                    app:layout_constraintTop_toBottomOf="@id/text_result_label_loan">
+
+                    <!-- total payable -->
+                    <TextView
+                        android:id="@+id/label_total_payable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="Total Payable"
+                        android:textColor="#555555"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_total_payable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/medium"
+                        android:text="₹ 0.00"
+                        android:textColor="@color/orange"
+                        android:textSize="30sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_total_payable" />
+
+                    <View
+                        android:id="@+id/divider_res_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="#D0D0D0"
+                        app:layout_constraintTop_toBottomOf="@id/text_total_payable" />
+
+                    <!-- Monthly Payment -->
+                    <TextView
+                        android:id="@+id/label_monthly_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="Monthly Payment"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_1" />
+
+                    <TextView
+                        android:id="@+id/text_monthly_payment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="₹ 0.00"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/label_monthly_payment"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_monthly_payment" />
+
+                    <View
+                        android:id="@+id/divider_res_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:background="#D0D0D0"
+                        app:layout_constraintTop_toBottomOf="@id/label_monthly_payment" />
+
+                    <!-- Loan Amount -->
+                    <TextView
+                        android:id="@+id/label_res_loan_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="Loan Amount"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_2" />
+
+                    <TextView
+                        android:id="@+id/text_res_loan_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="₹ 0.00"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/label_res_loan_amount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_res_loan_amount" />
+
+                    <View
+                        android:id="@+id/divider_res_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:background="#D0D0D0"
+                        app:layout_constraintTop_toBottomOf="@id/label_res_loan_amount" />
+
+                    <!-- Interest Amount -->
+                    <TextView
+                        android:id="@+id/label_interest_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="Interest Amount"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_3" />
+
+                    <TextView
+                        android:id="@+id/text_interest_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="₹ 0.00"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="@id/label_interest_amount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_interest_amount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- keypad Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keypad_loan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guide_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <!-- row 1 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_7"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="7"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_8"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="8"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_2"
+            app:layout_constraintStart_toEndOf="@+id/guide_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_9"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="9"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_3"
+            app:layout_constraintStart_toEndOf="@+id/guide_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_ac"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_light_red"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="AC"
+            android:textColor="@color/red_dark"
+            android:textSize="26sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guide_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- row 2 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_4"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="4"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_5"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="5"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_2"
+            app:layout_constraintStart_toEndOf="@+id/guide_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_6"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="6"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_3"
+            app:layout_constraintStart_toEndOf="@+id/guide_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_9" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_backspace"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_gray"
+            app:backgroundTint="@null"
+            app:icon="@drawable/backspace_calculator_mode"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="@color/input_text_color"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guide_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_ac" />
+
+        <!-- row 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_1"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="1"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_2"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="2"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_2"
+            app:layout_constraintStart_toEndOf="@+id/guide_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_3"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="3"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_3"
+            app:layout_constraintStart_toEndOf="@+id/guide_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_6" />
+
+        <!-- row 4 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_00"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="00"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_0"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="0"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_2"
+            app:layout_constraintStart_toEndOf="@+id/guide_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_dot"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            android:fontFamily="@font/regular"
+            android:text="."
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintEnd_toStartOf="@+id/guide_3"
+            app:layout_constraintStart_toEndOf="@+id/guide_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_loan_3" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_loan_equals"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_margin="6dp"
+            android:background="@drawable/btn_bg_orange"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_equal_to"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/btn_loan_dot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/guide_3"
+            app:layout_constraintTop_toTopOf="@id/btn_loan_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

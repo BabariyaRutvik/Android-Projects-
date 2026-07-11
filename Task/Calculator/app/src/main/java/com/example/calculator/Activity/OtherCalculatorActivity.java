@@ -33,6 +33,14 @@ public class OtherCalculatorActivity extends AppCompatActivity {
         binding = ActivityOtherCalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Ensure Status Bar icons are dark
+        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
+                androidx.core.view.ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController != null) {
+            windowInsetsController.setAppearanceLightStatusBars(true);
+            windowInsetsController.setAppearanceLightNavigationBars(true);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -42,9 +50,8 @@ public class OtherCalculatorActivity extends AppCompatActivity {
         initData();
         setupRecyclerView();
 
-        binding.btnBack.setOnClickListener(v -> {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            finish();
         });
     }
 
@@ -67,6 +74,10 @@ public class OtherCalculatorActivity extends AppCompatActivity {
         adapter = new OtherCalculatorAdapter(calculatorList, item -> {
             if (item.getName().equalsIgnoreCase("SIP Calculator")) {
                 startActivity(new Intent(this, SIPCalculatorActivity.class));
+            } else if (item.getName().equalsIgnoreCase("Loan Calculator")) {
+                startActivity(new Intent(this, LoanCalculatorActivity.class));
+            } else if (item.getName().equalsIgnoreCase("GST Calculator")) {
+                startActivity(new Intent(this, GSTCalculatorActivity.class));
             } else {
                 Toast.makeText(this, item.getName() + " Coming Soon!", Toast.LENGTH_SHORT).show();
             }

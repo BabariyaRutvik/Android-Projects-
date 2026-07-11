@@ -1,8 +1,8 @@
 package com.example.calculator.Activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -10,40 +10,29 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
-import com.shawnlin.numberpicker.NumberPicker;
-
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.example.calculator.Database.HistoryItem;
-import com.example.calculator.Database.HistoryViewModel;
 import com.example.calculator.R;
 import com.example.calculator.databinding.ActivitySipcalculatorBinding;
+import com.shawnlin.numberpicker.NumberPicker;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.Locale;
 
 public class SIPCalculatorActivity extends AppCompatActivity {
 
     private ActivitySipcalculatorBinding binding;
-    private HistoryViewModel historyViewModel;
     private int selectedField = 0; // 0: Amount, 1: Rate, 2: Period
     private String sipAmount = "";
     private String interestRate = "";
@@ -57,6 +46,17 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         binding = ActivitySipcalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Handle Status Bar appearance (dark icons for light background)
+        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
+                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
+        if (windowInsetsController != null) {
+            windowInsetsController.setAppearanceLightStatusBars(true);
+        }
+
+        if (getWindow() != null) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        }
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -66,32 +66,84 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         initUI();
         setupKeypad();
 
-        historyViewModel = new ViewModelProvider(this).get(HistoryViewModel.class);
+        binding.resultContainer.setVisibility(View.GONE);
+
+        handleIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(@NonNull Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
+    }
+
+    private void handleIntent(Intent intent) {
+        if (intent != null && intent.hasExtra("expression")) {
+            String exp = intent.getStringExtra("expression");
+            parseExpression(exp);
+        }
+    }
+
+    private void parseExpression(String exp) {
+        try {
+            if (exp != null && exp.startsWith("SIP: ")) {
+                String data = exp.substring(5);
+                String[] parts = data.split(" @ ");
+                sipAmount = parts[0].replace(",", "");
+                
+                String[] rateParts = parts[1].split("% for ");
+                interestRate = rateParts[0];
+                
+                String periodPart = rateParts[1];
+                String[] yParts = periodPart.split("y ");
+                selectedYears = Integer.parseInt(yParts[0]);
+                selectedMonths = Integer.parseInt(yParts[1].replace("m", ""));
+                
+                binding.textSipAmount.setText(formatCurrencyNoSymbol(sipAmount));
+                binding.textRate.setText(interestRate);
+                updatePeriodText();
+                calculateSIP();
+                updateSelectionUI();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initUI() {
-        binding.btnBack.setOnClickListener(v -> finish());
+        binding.toolbar.setNavigationOnClickListener(v -> finish());
 
-        binding.layoutSipAmount.setOnClickListener(v -> {
-            selectedField = 0;
+        View.OnClickListener fieldClickListener = v -> {
+            if (v.getId() == R.id.layout_sip_amount || v.getId() == R.id.text_sip_amount) selectedField = 0;
+            else if (v.getId() == R.id.layout_rate || v.getId() == R.id.text_rate) selectedField = 1;
+            else if (v.getId() == R.id.layout_period) {
+                selectedField = 2;
+                showPeriodDialog();
+            }
+            
             binding.resultContainer.setVisibility(View.GONE);
             binding.keypad.setVisibility(View.VISIBLE);
             updateSelectionUI();
+        };
+
+        binding.layoutSipAmount.setOnClickListener(fieldClickListener);
+        binding.textSipAmount.setOnClickListener(fieldClickListener);
+        binding.layoutRate.setOnClickListener(fieldClickListener);
+        binding.textRate.setOnClickListener(fieldClickListener);
+        binding.layoutPeriod.setOnClickListener(fieldClickListener);
+
+        binding.textSipAmount.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                selectedField = 0;
+                updateSelectionUI();
+            }
         });
 
-        binding.layoutRate.setOnClickListener(v -> {
-            selectedField = 1;
-            binding.resultContainer.setVisibility(View.GONE);
-            binding.keypad.setVisibility(View.VISIBLE);
-            updateSelectionUI();
-        });
-
-        binding.layoutPeriod.setOnClickListener(v -> {
-            selectedField = 2;
-            binding.resultContainer.setVisibility(View.GONE);
-            binding.keypad.setVisibility(View.VISIBLE);
-            updateSelectionUI();
-            showPeriodDialog();
+        binding.textRate.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                selectedField = 1;
+                updateSelectionUI();
+            }
         });
 
         binding.textSipAmount.setShowSoftInputOnFocus(false);
@@ -109,9 +161,25 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         if (selectedField == 0) {
             binding.textSipAmount.requestFocus();
             binding.textSipAmount.setSelection(binding.textSipAmount.getText().length());
+            binding.textSipAmount.setCursorVisible(true);
+            binding.textRate.setCursorVisible(false);
         } else if (selectedField == 1) {
             binding.textRate.requestFocus();
             binding.textRate.setSelection(binding.textRate.getText().length());
+            binding.textRate.setCursorVisible(true);
+            binding.textSipAmount.setCursorVisible(false);
+        } else {
+            binding.textSipAmount.clearFocus();
+            binding.textRate.clearFocus();
+            binding.textSipAmount.setCursorVisible(false);
+            binding.textRate.setCursorVisible(false);
+        }
+
+        android.view.inputmethod.InputMethodManager imm = (android.view.inputmethod.InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        View focusedView = getCurrentFocus();
+        if (focusedView == null) focusedView = binding.getRoot();
+        if (imm != null) {
+            imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
         }
     }
 
@@ -170,7 +238,10 @@ public class SIPCalculatorActivity extends AppCompatActivity {
 
     private void handleInput(String val) {
         if (selectedField == 0) {
-            if (sipAmount.length() >= 12) return;
+            if (sipAmount.length() + val.length() > 6) {
+                Toast.makeText(this, "Maximum 6 digits are allowed", Toast.LENGTH_SHORT).show();
+                return;
+            }
             if (val.equals(".") && sipAmount.contains(".")) return;
             sipAmount += val;
             binding.textSipAmount.setText(formatCurrencyNoSymbol(sipAmount));
@@ -180,10 +251,10 @@ public class SIPCalculatorActivity extends AppCompatActivity {
                 double rate = Double.parseDouble(tempRate);
                 if (rate > 99.99) {
                     Toast.makeText(this, "Rate cannot exceed 99.99%", Toast.LENGTH_SHORT).show();
-                    return; // Prevent exceeding 99.99%
+                    return;
                 }
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
-                    return; // Prevent more than 2 decimal places
+                    return;
                 }
             } catch (Exception e) {
                 if (!tempRate.equals(".")) return;
@@ -201,10 +272,9 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         Window window = dialog.getWindow();
         if (window != null) {
             window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            window.setLayout(
-                    (int) (getResources().getDisplayMetrics().widthPixels * 0.90),
-                    WindowManager.LayoutParams.WRAP_CONTENT
-            );
+            int widthPx = (int) android.util.TypedValue.applyDimension(android.util.TypedValue.COMPLEX_UNIT_DIP, 336, getResources().getDisplayMetrics());
+            int maxWidth = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
+            window.setLayout(Math.min(widthPx, maxWidth), WindowManager.LayoutParams.WRAP_CONTENT);
         }
 
         NumberPicker yearPicker = dialog.findViewById(R.id.picker_years);
@@ -234,7 +304,6 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         dialog.findViewById(R.id.btn_done).setOnClickListener(v -> {
             selectedYears = yearPicker.getValue();
             selectedMonths = selectedYears == 40 ? 0 : monthPicker.getValue();
-
             updatePeriodText();
             dialog.dismiss();
             updateSelectionUI();
@@ -255,30 +324,22 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         }
 
         try {
-            // Remove commas if they were accidentally included in the raw string
             String cleanAmount = sipAmount.replace(",", "");
             double monthlySip = Double.parseDouble(cleanAmount);
             double annualRate = Double.parseDouble(interestRate);
 
-            if (monthlySip <= 0) {
-                Toast.makeText(this, "Invalid Amount", Toast.LENGTH_SHORT).show();
+            if (monthlySip < 100) {
+                Toast.makeText(this, "Maximum amount is 100", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Total months
             int months = (selectedYears * 12) + selectedMonths;
             double totalInvestment = monthlySip * months;
             double futureValue;
 
             if (annualRate > 0) {
-                // Effective monthly interest rate
                 double monthlyRate = Math.pow(1 + (annualRate / 100.0), 1.0 / 12.0) - 1;
-
-                // SIP Future Value Formula (Annuity Due)
-                // FV = P × ((1 + i)^n - 1) / i × (1 + i)
-                futureValue = monthlySip *
-                        ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate)
-                        * (1 + monthlyRate);
+                futureValue = monthlySip * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
             } else {
                 futureValue = totalInvestment;
             }
@@ -292,11 +353,6 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.textInvestmentGrowth.setText(String.format(Locale.getDefault(), "%.2f Times", growth));
             binding.textInvestmentGrowth.setTextColor(getColor(R.color.orange));
 
-            // Save to History
-            String expression = "SIP: " + formatCurrencyNoSymbol(sipAmount) + " @ " + interestRate + "% for " + selectedYears + "y " + selectedMonths + "m";
-            String result = formatCurrency(futureValue);
-            historyViewModel.insert(new HistoryItem(expression, result, System.currentTimeMillis()));
-
             binding.resultContainer.setVisibility(View.VISIBLE);
             binding.keypad.setVisibility(View.GONE);
             binding.layoutSipAmount.setSelected(false);
@@ -308,17 +364,15 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         }
     }
 
-
     private String formatCurrency(double amount) {
-        // Indian numbering system format: ₹ 20,89,621.33
-        DecimalFormat df = new DecimalFormat("₹ #,##,##,##0.00");
-        return df.format(amount);
+        DecimalFormat df = new DecimalFormat("₹#,##,##,###");
+        return df.format(Math.round(amount));
     }
 
     private String formatCurrencyNoSymbol(String val) {
         if (val.isEmpty()) return "";
         try {
-            double amount = Double.parseDouble(val);
+            double amount = Double.parseDouble(val.replace(",", ""));
             DecimalFormat df = new DecimalFormat("#,##,##,###");
             return df.format(Math.round(amount));
         } catch (Exception e) {
@@ -330,7 +384,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         Vibrator vibrator;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             VibratorManager vibratorManager = (VibratorManager) getSystemService(Context.VIBRATOR_MANAGER_SERVICE);
-            vibrator = vibratorManager.getDefaultVibrator();
+            vibrator = (vibratorManager != null) ? vibratorManager.getDefaultVibrator() : null;
         } else {
             vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         }

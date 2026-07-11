@@ -8,39 +8,17 @@
     android:background="@color/screen_background"
     tools:context=".Activity.SIPCalculatorActivity">
 
-    <!-- custom toolbar -->
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Custom Toolbar -->
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/screen_background"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="SIP Calculator"
+        app:titleTextAppearance="@style/ToolbarTitleStyle"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:contentDescription="Back"
-            android:padding="8dp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:fontFamily="@font/medium"
-            android:text="SIP Calculator"
-            android:textColor="@color/input_text_color"
-            android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/btn_back"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <!-- Main Scrollable Content -->
     <androidx.core.widget.NestedScrollView
@@ -91,12 +69,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:background="@android:color/transparent"
-                        android:clickable="false"
                         android:cursorVisible="true"
-                        android:focusable="false"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
                         android:hint="Add amount"
-                        android:inputType="none"
+                        android:inputType="numberDecimal"
+                        android:digits="0123456789."
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -133,12 +112,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:background="@android:color/transparent"
-                        android:clickable="false"
                         android:cursorVisible="true"
-                        android:focusable="false"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
                         android:hint="Add rate"
-                        android:inputType="none"
+                        android:inputType="numberDecimal"
+                        android:digits="0123456789."
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -192,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:paddingHorizontal="12dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <View
                     android:id="@+id/divider_left"
@@ -256,9 +236,9 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:fontFamily="@font/medium"
-                        android:text="₹ 20,89,621.33"
+                        android:text="₹ 0.00"
                         android:textColor="@color/orange"
-                        android:textSize="32sp"
+                        android:textSize="30sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/lbl_expected_amount" />
 
@@ -267,7 +247,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="16dp"
-                        android:background="#F0F0F0"
+                        android:background="#D0D0D0"
                         app:layout_constraintTop_toBottomOf="@id/text_expected_amount" />
 
                     <TextView
@@ -277,7 +257,7 @@
                         android:layout_marginTop="14dp"
                         android:fontFamily="@font/regular"
                         android:text="Amount Invested"
-                        android:textColor="#212121"
+                        android:textColor="@color/input_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider_res_1" />
@@ -287,7 +267,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/medium"
-                        android:text="₹ 20,89,621.33"
+                        android:text="₹ 0.00"
                         android:textColor="@color/orange"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="@id/lbl_amount_invested"
@@ -299,7 +279,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="14dp"
-                        android:background="#F0F0F0"
+                        android:background="#D0D0D0"
                         app:layout_constraintTop_toBottomOf="@id/lbl_amount_invested" />
 
                     <TextView
@@ -309,7 +289,7 @@
                         android:layout_marginTop="14dp"
                         android:fontFamily="@font/regular"
                         android:text="Wealth Gain"
-                        android:textColor="#212121"
+                        android:textColor="@color/input_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider_res_2" />
@@ -319,7 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/medium"
-                        android:text="₹ 20,89,621.33"
+                        android:text="₹ 0.00"
                         android:textColor="@color/orange"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="@id/lbl_wealth_gain"
@@ -331,7 +311,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_marginTop="14dp"
-                        android:background="#F0F0F0"
+                        android:background="#D0D0D0"
                         app:layout_constraintTop_toBottomOf="@id/lbl_wealth_gain" />
 
                     <TextView
@@ -341,7 +321,7 @@
                         android:layout_marginTop="14dp"
                         android:fontFamily="@font/regular"
                         android:text="Investment Growth"
-                        android:textColor="#212121"
+                        android:textColor="@color/input_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/divider_res_3" />
@@ -351,7 +331,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/medium"
-                        android:text="1.77 Times"
+                        android:text="1.00 Times"
                         android:textColor="@color/orange"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="@id/lbl_investment_growth"
@@ -403,6 +383,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="7"
             android:textColor="@color/input_text_color"
@@ -419,6 +400,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="8"
             android:textColor="@color/input_text_color"
@@ -435,6 +417,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="9"
             android:textColor="@color/input_text_color"
@@ -451,6 +434,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_light_red"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="AC"
             android:textColor="@color/red_dark"
@@ -468,6 +452,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="4"
             android:textColor="@color/input_text_color"
@@ -484,6 +469,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="5"
             android:textColor="@color/input_text_color"
@@ -500,6 +486,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="6"
             android:textColor="@color/input_text_color"
@@ -516,6 +503,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_gray"
+            app:backgroundTint="@null"
             app:icon="@drawable/backspace_calculator_mode"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
@@ -534,6 +522,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="1"
             android:textColor="@color/input_text_color"
@@ -550,6 +539,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="2"
             android:textColor="@color/input_text_color"
@@ -566,6 +556,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="3"
             android:textColor="@color/input_text_color"
@@ -583,6 +574,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="00"
             android:textColor="@color/input_text_color"
@@ -599,6 +591,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="0"
             android:textColor="@color/input_text_color"
@@ -615,6 +608,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
             android:fontFamily="@font/regular"
             android:text="."
             android:textColor="@color/input_text_color"
@@ -632,6 +626,7 @@
             android:layout_height="0dp"
             android:layout_margin="6dp"
             android:background="@drawable/btn_bg_orange"
+            app:backgroundTint="@null"
             app:icon="@drawable/ic_equal_to"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
