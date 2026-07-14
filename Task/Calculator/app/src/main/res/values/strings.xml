@@ -1,3 +1,90 @@
 <resources>
+    <!-- Common -->
     <string name="app_name">Calculator</string>
+    <string name="desc_back">Back</string>
+    <string name="result">Result</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">Equals</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP Calculator</string>
+    <string name="monthly_sip_amount">Monthly SIP Amount</string>
+    <string name="add_amount">Add amount</string>
+    <string name="rate_percentage">Rate(%)</string>
+    <string name="add_rate">Add rate</string>
+    <string name="investment_period">Investment Period</string>
+    <string name="default_period">01year &amp; 00months</string>
+    <string name="expected_amount">Expected Amount</string>
+    <string name="amount_invested">Amount Invested</string>
+    <string name="wealth_gain">Wealth Gain</string>
+    <string name="investment_growth">Investment Growth</string>
+    <string name="times_growth">1.00 Times</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Loan Calculator</string>
+    <string name="loan_amount">Loan Amount</string>
+    <string name="loan_tenure">Loan Tenure</string>
+    <string name="total_payable">Total Payable</string>
+    <string name="monthly_payment">Monthly Payment</string>
+    <string name="interest_amount">Interest Amount</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST Calculator</string>
+    <string name="original_price">Original Price</string>
+    <string name="gst_rate_percentage">GST Rate(%)</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string name="supply_type">Supply Type</string>
+    <string name="intra_state">Intra State</string>
+    <string name="inter_state">Inter State</string>
+    <string name="total_amount">Total Amount</string>
+    <string name="gst_amount">GST Amount</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Investment Calculator</string>
+    <string name="total_investment">Total Investment</string>
+    <string name="saving_period">Saving Period</string>
+    <string name="total_value">Total Value</string>
+    <string name="total_interest">Total Interest</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Currency Converter</string>
+    <string name="exchange_rate_info">Using exchange rate data from the European Central Bank The data was updated on: %s</string>
+    <string name="currencies">Currencies</string>
+    <string name="search_here">Search here</string>
+    <string name="offline_title">You\'re Offline</string>
+    <string name="offline_message">Currency data needs internet. We\'ll refresh once you\'re online.</string>
+    <string name="no_data_title">No Currency Data</string>
+    <string name="no_data_message">Please refresh to load updated currency rates.</string>
+    <string name="cancel">Cancel</string>
+    <string name="connect_wifi">Connect to Wi-Fi</string>
+    <string name="refresh">Refresh</string>
+    <string name="done">Done</string>
+    <string name="years">Years</string>
+    <string name="months">Months</string>
+    <string name="desc_swap">Swap Currencies</string>
+    <string name="default_currency_from_name">Indian Rupee</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Australian Dollar</string>
+    <string name="default_currency_to_code">AUD</string>
+    <string name="zero">0</string>
 </resources>

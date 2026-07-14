@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_currency_item"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_marginBottom="12dp"
+    android:background="@drawable/sl_input_bg"
+    android:paddingHorizontal="12dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/img_flag"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/CircleButtonShape"
+        tools:src="@drawable/ic_standard" />
+
+    <TextView
+        android:id="@+id/text_currency_code_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:fontFamily="@font/medium"
+        android:textColor="@color/input_text_color"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/text_country_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/img_flag"
+        app:layout_constraintTop_toTopOf="@id/img_flag"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="AUD - Australian Dollar" />
+
+    <TextView
+        android:id="@+id/text_country_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/regular"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/img_flag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/text_currency_code_name"
+        app:layout_constraintTop_toBottomOf="@id/text_currency_code_name"
+        tools:text="Australia" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

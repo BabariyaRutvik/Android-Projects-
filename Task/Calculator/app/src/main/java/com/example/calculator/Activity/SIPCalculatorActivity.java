@@ -207,10 +207,14 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             triggerVibration();
             sipAmount = "";
             interestRate = "";
+            selectedYears = 1;
+            selectedMonths = 0;
             binding.textSipAmount.setText("");
             binding.textRate.setText("");
+            updatePeriodText();
             binding.resultContainer.setVisibility(View.GONE);
             binding.keypad.setVisibility(View.VISIBLE);
+            selectedField = 0;
             updateSelectionUI();
         });
 

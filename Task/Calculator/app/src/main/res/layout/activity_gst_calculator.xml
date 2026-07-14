@@ -8,16 +8,716 @@
     android:background="@color/screen_background"
     tools:context=".Activity.GSTCalculatorActivity">
 
-    <!-- toolbar -->
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/gst_toolbar"
+    <!-- custom toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/screen_background"
-        app:navigationIcon="@drawable/ic_back"
-        app:title="GST Calculator"
-        app:titleTextAppearance="@style/ToolbarTitleStyle"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/gst_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/screen_background"
+            app:navigationContentDescription="@string/desc_back"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/gst_calculator"
+            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- main Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/gst_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/keypad_gst"
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+        <LinearLayout
+            android:id="@+id/gst_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="12dp">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/input_container_gst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp">
+
+                <!-- gst Original Price -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_original_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/label_original_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/original_price"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_gst_amount"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:digits="0123456789."
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/add_amount"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_original_price" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- gst rate -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_gst_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_original_price">
+
+                    <TextView
+                        android:id="@+id/label_gst_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/gst_rate_percentage"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_gst_rate"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:digits="0123456789."
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/add_rate"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/toggleGroupGST"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_gst_rate" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggleGroupGST"
+                        android:layout_width="140dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_toggle_track"
+                        android:padding="2dp"
+                        app:checkedButton="@+id/btnGstAdd"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnGstAdd"
+                            style="@style/GstToggleButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            android:padding="0dp"
+                            android:text="@string/add" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnGstRemove"
+                            style="@style/GstToggleButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            android:padding="0dp"
+                            android:text="@string/remove" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Supply Type -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_supply_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_gst_rate">
+
+                    <TextView
+                        android:id="@+id/label_supply_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/supply_type"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <com.google.android.material.button.MaterialButtonToggleGroup
+                        android:id="@+id/toggleGroupSupplyType"
+                        android:layout_width="180dp"
+                        android:layout_height="28dp"
+                        android:background="@drawable/bg_toggle_track"
+                        android:padding="2dp"
+                        app:checkedButton="@+id/btnIntraState"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:selectionRequired="true"
+                        app:singleSelection="true">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnIntraState"
+                            style="@style/GstToggleButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            android:padding="0dp"
+                            android:text="@string/intra_state" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnInterState"
+                            style="@style/GstToggleButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:insetLeft="0dp"
+                            android:insetRight="0dp"
+                            android:padding="0dp"
+                            android:text="@string/inter_state" />
+
+                    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Result Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/result_container_gst"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/divider_left_gst"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/text_result_label_gst"
+                    app:layout_constraintEnd_toStartOf="@id/text_result_label_gst"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_result_label_gst" />
+
+                <TextView
+                    android:id="@+id/text_result_label_gst"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/result"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider_right_gst"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/text_result_label_gst"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_result_label_gst"
+                    app:layout_constraintTop_toTopOf="@id/text_result_label_gst" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_result"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintTop_toBottomOf="@id/text_result_label_gst">
+
+                    <!-- total amount -->
+                    <TextView
+                        android:id="@+id/label_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/total_amount"
+                        android:textColor="@color/text_label_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/medium"
+                        android:text="@string/currency_zero"
+                        android:textColor="@color/orange"
+                        android:textSize="35sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_total_amount" />
+
+                    <View
+                        android:id="@+id/divider_res_gst_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintTop_toBottomOf="@id/text_total_amount" />
+
+                    <!-- GST Amount (Common) -->
+                    <TextView
+                        android:id="@+id/label_res_gst_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/gst_amount"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_gst_1" />
+
+                    <TextView
+                        android:id="@+id/text_res_gst_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="@string/currency_zero"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/label_res_gst_amount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/label_res_gst_amount" />
+
+                    <View
+                        android:id="@+id/divider_res_gst_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintTop_toBottomOf="@id/label_res_gst_amount" />
+
+                    <!-- CGST Section -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_cgst_sgst"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_gst_2">
+
+                        <TextView
+                            android:id="@+id/label_cgst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/cgst"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_cgst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/medium"
+                            android:text="@string/currency_zero"
+                            android:textColor="@color/orange"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@id/label_cgst"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/label_cgst" />
+
+                        <View
+                            android:id="@+id/divider_res_gst_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="14dp"
+                            android:background="@color/divider_silver"
+                            app:layout_constraintTop_toBottomOf="@id/label_cgst" />
+
+                        <TextView
+                            android:id="@+id/label_sgst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/sgst"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/divider_res_gst_3" />
+
+                        <TextView
+                            android:id="@+id/text_sgst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/medium"
+                            android:text="@string/currency_zero"
+                            android:textColor="@color/orange"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@id/label_sgst"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/label_sgst" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- IGST Section -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_igst"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@id/divider_res_gst_2">
+
+                        <TextView
+                            android:id="@+id/label_igst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="14dp"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/igst"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/text_igst"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/medium"
+                            android:text="@string/currency_zero"
+                            android:textColor="@color/orange"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="@id/label_igst"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/label_igst" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- keypad Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keypad_gst"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingHorizontal="6dp"
+        android:paddingVertical="4dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <!-- Row 1 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_7"
+            style="@style/CalculatorButtonStyle"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_7"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_8"
+            style="@style/CalculatorButtonStyle"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_8"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_9"
+            style="@style/CalculatorButtonStyle"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_9"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_ac"
+            style="@style/CalculatorButtonStyle"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_ac"
+            android:textColor="@color/red_dark"
+            android:textSize="26sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_light_red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Row 2 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_4"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_4"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_5"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_5"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_6"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_6"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_9" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_backspace"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:contentDescription="@string/desc_backspace"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_gray"
+            app:icon="@drawable/backspace_calculator_mode"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="@color/input_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_ac" />
+
+        <!-- Row 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_1"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_1"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_2"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_2"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_3"
+            style="@style/CalculatorButtonStyle"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_3"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_6"
+            android:layout_marginTop="9dp" />
+
+        <!-- Row 4 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_00"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_00"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_0"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_0"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_dot"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_dot"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_white"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_gst_3" />
+
+        <!-- Equals button spanning 2 rows -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_gst_equals"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="85dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="9dp"
+            android:contentDescription="@string/desc_equals"
+            app:backgroundTint="@null"
+            android:background="@drawable/btn_bg_orange"
+            app:icon="@drawable/ic_equal_to"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/btn_gst_dot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toTopOf="@id/btn_gst_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

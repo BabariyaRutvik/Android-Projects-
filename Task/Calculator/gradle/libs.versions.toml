@@ -10,6 +10,8 @@ constraintlayout = "2.2.1"
 transition = "1.7.0"
 room = "2.6.1"
 numberpicker = "2.4.13"
+glide = "4.16.0"
+retrofit = "2.11.0"
 
 [libraries]
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -23,6 +25,9 @@ transition = { group = "androidx.transition", name = "transition", version.ref =
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 numberpicker = { group = "io.github.ShawnLin013", name = "number-picker", version.ref = "numberpicker" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

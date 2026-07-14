@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         setUpCalculatorButtons();
 
         historyViewModel = new androidx.lifecycle.ViewModelProvider(this).get(HistoryViewModel.class);
-        
+
         historyViewModel.getAllHistory().observe(this, items -> {
             if (items != null && !items.isEmpty()) {
                 binding.imageHistory.setVisibility(View.VISIBLE);
@@ -202,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
             btnAc.setTextSize(TypedValue.COMPLEX_UNIT_SP, acSize);
             btnAc.setGravity(Gravity.CENTER);
             btnAc.setPadding(0, 0, 0, 0);
+            btnAc.getLayoutParams().width = dpToPx(78);
             btnAc.getLayoutParams().height = currentHeightPx;
             btnAc.setShapeAppearanceModel(currentShape);
         }
@@ -211,6 +212,7 @@ public class MainActivity extends AppCompatActivity {
                 btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, numSize);
                 btn.setGravity(Gravity.CENTER);
                 btn.setPadding(0, 0, 0, 0);
+                btn.getLayoutParams().width = dpToPx(78);
                 btn.getLayoutParams().height = currentHeightPx;
                 btn.setShapeAppearanceModel(currentShape);
             }
@@ -222,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 btn.setGravity(Gravity.CENTER);
                 btn.setIconPadding(0);
                 btn.setPadding(0, 0, 0, 0);
+                btn.getLayoutParams().width = dpToPx(78);
                 btn.getLayoutParams().height = currentHeightPx;
                 btn.setShapeAppearanceModel(currentShape);
             }
@@ -245,6 +248,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                     btn.setGravity(Gravity.CENTER);
                     btn.setPadding(0, 0, 0, 0);
+                    btn.getLayoutParams().width = dpToPx(78);
+                    btn.getLayoutParams().height = currentHeightPx;
+                    btn.setShapeAppearanceModel(currentShape);
                 }
             }
         }
@@ -320,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
         });
         // backspace
         binding.imageBackspace.setOnClickListener(v->{
-               triggerVibration();
+            triggerVibration();
             if (!expression.isEmpty() && !expression.equals("0")){
                 // Remove grouping separators if any before backspacing
                 expression = expression.replace(",", "");
@@ -348,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
                     while (i >= 0 && (Character.isDigit(cleanExp.charAt(i)) || cleanExp.charAt(i) == '.')) {
                         i--;
                     }
-                    
+
                     String lastNumber = cleanExp.substring(i + 1);
                     if (!lastNumber.isEmpty()) {
                         double value = Double.parseDouble(lastNumber);
@@ -376,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
         // Equal button
         binding.layoutStandard.idEquals.setOnClickListener(v -> {
             triggerVibration();
-            
+
             if (resultShown && !lastOperator.isEmpty() && !lastOperand.isEmpty()) {
                 expression = expression + lastOperator + lastOperand;
             } else {
@@ -390,7 +396,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this, "Value too Large", Toast.LENGTH_SHORT).show();
                 return;
             }
-            
+
             if (answer.equals("Error")) {
                 Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
                 return;
@@ -445,15 +451,15 @@ public class MainActivity extends AppCompatActivity {
     }
     private void extractLastOperation() {
         if (expression.isEmpty()) return;
-        
+
         String cleanExp = expression.replace(",", "");
         int i = cleanExp.length() - 1;
-        
+
         // Find the last number
         while (i >= 0 && (Character.isDigit(cleanExp.charAt(i)) || cleanExp.charAt(i) == '.')) {
             i--;
         }
-        
+
         if (i >= 0) {
             lastOperand = cleanExp.substring(i + 1);
             lastOperator = String.valueOf(cleanExp.charAt(i));
@@ -507,7 +513,7 @@ public class MainActivity extends AppCompatActivity {
             expression = "";
             resultShown = false;
         }
-        
+
         String cleanExp = expression.replace(",", "");
         String lastNum = getLastNumber(cleanExp);
 
@@ -527,9 +533,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         expression = cleanExp;
-        
+
         if (expression.equals("0") && value.equals("00")) return;
-        
+
         if (expression.equals("0") && !value.equals(".")){
             expression = value;
         }
@@ -542,7 +548,7 @@ public class MainActivity extends AppCompatActivity {
         refreshDisplay();
         CalculateLive();
     }
-    
+
     private void refreshDisplay() {
         binding.textResult.setText(getFormattedExpression(expression));
         binding.textResult.setSelection(binding.textResult.getText().length());
@@ -551,19 +557,19 @@ public class MainActivity extends AppCompatActivity {
     private String getFormattedExpression(String exp) {
         if (exp.isEmpty()) return "";
         if (exp.equals("-")) return "-";
-        
+
         // Strip existing commas first to avoid splitting numbers incorrectly
         String cleanExp = exp.replace(",", "");
-        
+
         // Handle inverse trig formatting for display
         cleanExp = cleanExp.replace("asin", "sin⁻¹")
-                          .replace("acos", "cos⁻¹")
-                          .replace("atan", "tan⁻¹")
-                          .replace("acot", "cot⁻¹");
-        
+                .replace("acos", "cos⁻¹")
+                .replace("atan", "tan⁻¹")
+                .replace("acot", "cot⁻¹");
+
         StringBuilder formatted = new StringBuilder();
         StringBuilder currentNumber = new StringBuilder();
-        
+
         for (int i = 0; i < cleanExp.length(); i++) {
             char c = cleanExp.charAt(i);
             if (Character.isDigit(c) || c == '.') {
@@ -576,11 +582,11 @@ public class MainActivity extends AppCompatActivity {
                 formatted.append(c);
             }
         }
-        
+
         if (currentNumber.length() > 0) {
             formatted.append(formatNumberString(currentNumber.toString()));
         }
-        
+
         return formatted.toString();
     }
 
@@ -591,15 +597,15 @@ public class MainActivity extends AppCompatActivity {
             boolean hasDot = numStr.contains(".");
             String beforeDot = hasDot ? numStr.substring(0, numStr.indexOf(".")) : numStr;
             String afterDot = hasDot ? numStr.substring(numStr.indexOf(".")) : "";
-            
+
             if (beforeDot.isEmpty() && hasDot) beforeDot = "0";
-            
+
             if (!beforeDot.isEmpty() && !beforeDot.equals("-")) {
                 double val = Double.parseDouble(beforeDot);
                 DecimalFormat df = new DecimalFormat("#,###");
                 beforeDot = df.format(val);
             }
-            
+
             return beforeDot + afterDot;
         } catch (Exception e) {
             return numStr;
@@ -609,13 +615,13 @@ public class MainActivity extends AppCompatActivity {
     private void appendOperator(String op){
         triggerVibration();
         expression = expression.replace(",", "");
-        
+
         if (expression.isEmpty() || expression.equals("0")){
             // Allow starting expression with constants, brackets, or functions
-            if (op.equals("e") || op.equals("π") || op.equals("(") || 
-                op.contains("sin") || op.contains("cos") || op.contains("tan") || 
-                op.contains("cot") || op.contains("log") || op.contains("ln") || 
-                op.contains("exp")) {
+            if (op.equals("e") || op.equals("π") || op.equals("(") ||
+                    op.contains("sin") || op.contains("cos") || op.contains("tan") ||
+                    op.contains("cot") || op.contains("log") || op.contains("ln") ||
+                    op.contains("exp")) {
                 expression = op;
                 refreshDisplay();
                 CalculateLive();
@@ -652,16 +658,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Only show live result if there's an operator/bracket and it doesn't end with a starting one
-        boolean hasOperator = expression.contains("+") || expression.contains("-") || 
-                              expression.contains("×") || expression.contains("÷") || 
-                              expression.contains("^") || expression.contains("sin") ||
-                              expression.contains("cos") || expression.contains("tan") ||
-                              expression.contains("cot") || expression.contains("log") || 
-                              expression.contains("ln") || expression.contains("!") ||
-                              expression.contains("e") || expression.contains("π") ||
-                              expression.contains("exp") || expression.contains("(") ||
-                              expression.contains(")");
-        
+        boolean hasOperator = expression.contains("+") || expression.contains("-") ||
+                expression.contains("×") || expression.contains("÷") ||
+                expression.contains("^") || expression.contains("sin") ||
+                expression.contains("cos") || expression.contains("tan") ||
+                expression.contains("cot") || expression.contains("log") ||
+                expression.contains("ln") || expression.contains("!") ||
+                expression.contains("e") || expression.contains("π") ||
+                expression.contains("exp") || expression.contains("(") ||
+                expression.contains(")");
+
         char last = expression.charAt(expression.length() - 1);
         boolean endsWithStartOperator = last == '+' || last == '-' || last == '×' || last == '÷' || last == '(';
 
@@ -671,7 +677,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String result = CalculateExpression();
-        
+
         // Remove commas for comparison to avoid showing result for a single large number
         String cleanResult = result.replace(",", "");
         String cleanExpression = expression.replace(",", "").replace("e", String.valueOf(Math.E)).replace("π", String.valueOf(Math.PI));
@@ -687,8 +693,8 @@ public class MainActivity extends AppCompatActivity {
     private String CalculateExpression(){
         try {
             String exp = expression.replace("×","*").replace("÷","/")
-                                   .replace("π", "pi")
-                                   .replace(",", ""); // Remove grouping separators
+                    .replace("π", "pi")
+                    .replace(",", ""); // Remove grouping separators
 
             double answer = new Object(){
                 int pos = -1,ch;
@@ -733,8 +739,8 @@ public class MainActivity extends AppCompatActivity {
                             x *= parsePower();
                         else if (eat('/'))
                             x /= parsePower();
-                        else if (ch == '(' || ch == 'e' || ch == 'p' || 
-                                 (ch >= 'a' && ch <= 'z'))
+                        else if (ch == '(' || ch == 'e' || ch == 'p' ||
+                                (ch >= 'a' && ch <= 'z'))
                             x *= parsePower();
                         else
                             return x;

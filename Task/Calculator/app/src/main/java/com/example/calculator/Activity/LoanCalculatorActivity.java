@@ -69,47 +69,10 @@ public class LoanCalculatorActivity extends AppCompatActivity {
 
         binding.resultContainerLoan.setVisibility(View.GONE);
 
-        handleIntent(getIntent());
+
     }
 
-    @Override
-    protected void onNewIntent(@NonNull Intent intent) {
-        super.onNewIntent(intent);
-        handleIntent(intent);
-    }
 
-    private void handleIntent(Intent intent) {
-        if (intent != null && intent.hasExtra("expression")) {
-            String exp = intent.getStringExtra("expression");
-            parseExpression(exp);
-        }
-    }
-
-    private void parseExpression(String exp) {
-        try {
-            if (exp != null && exp.startsWith("Loan: ")) {
-                String data = exp.substring(6);
-                String[] parts = data.split(" @ ");
-                loanAmountStr = parts[0].replace(",", "");
-
-                String[] rateParts = parts[1].split("% for ");
-                interestRateStr = rateParts[0];
-
-                String periodPart = rateParts[1];
-                String[] yParts = periodPart.split("y ");
-                selectedYears = Integer.parseInt(yParts[0]);
-                selectedMonths = Integer.parseInt(yParts[1].replace("m", ""));
-
-                binding.textLoanAmount.setText(formatCurrencyNoSymbol(loanAmountStr));
-                binding.textRateLoan.setText(interestRateStr);
-                updatePeriodText();
-                calculateLoan();
-                updateLoanSelectionUI();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     private void initLoanUI() {
         binding.loanToolbar.setNavigationOnClickListener(v -> finish());
@@ -208,10 +171,14 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             triggerVibration();
             loanAmountStr = "";
             interestRateStr = "";
+            selectedYears = 1;
+            selectedMonths = 0;
             binding.textLoanAmount.setText("");
             binding.textRateLoan.setText("");
+            updatePeriodText();
             binding.resultContainerLoan.setVisibility(View.GONE);
             binding.keypadLoan.setVisibility(View.VISIBLE);
+            selectedField = 0;
             updateLoanSelectionUI();
         });
 

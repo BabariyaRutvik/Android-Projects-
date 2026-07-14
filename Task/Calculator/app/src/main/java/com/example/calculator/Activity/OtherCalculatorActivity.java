@@ -78,8 +78,15 @@ public class OtherCalculatorActivity extends AppCompatActivity {
                 startActivity(new Intent(this, LoanCalculatorActivity.class));
             } else if (item.getName().equalsIgnoreCase("GST Calculator")) {
                 startActivity(new Intent(this, GSTCalculatorActivity.class));
-            } else {
-                Toast.makeText(this, item.getName() + " Coming Soon!", Toast.LENGTH_SHORT).show();
+            } else if (item.getName().equalsIgnoreCase("Investment Calculator")) {
+                startActivity(new Intent(this, InvestmentCalculatorActivity.class));
+            }
+            else if (item.getName().equalsIgnoreCase("Currency Converter")) {
+                startActivity(new Intent(this, CurrencyConvertorCalculator.class));
+
+            }
+            else {
+                Toast.makeText(this, item.getName()+ "Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
         binding.rvOtherCalculators.setLayoutManager(new GridLayoutManager(this, 2));

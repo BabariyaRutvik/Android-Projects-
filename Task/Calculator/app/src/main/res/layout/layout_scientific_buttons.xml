@@ -47,10 +47,7 @@
     <!-- Row 1 -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_factorial"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -65,10 +62,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_e"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -83,10 +77,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_power"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -101,10 +92,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_deg"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/medium"
@@ -120,10 +108,7 @@
     <!-- Row 2 -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_log"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -138,10 +123,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_pi"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -157,10 +139,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_brackets"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -175,10 +154,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_swap"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         app:icon="@drawable/ic_horizontal"
@@ -194,10 +170,7 @@
     <!-- Row 3 -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_sin"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -212,10 +185,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cos"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -230,10 +200,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_tan"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"
@@ -248,10 +215,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_cot"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintDimensionRatio="H,78:46"
-        app:layout_constrainedHeight="true"
+        style="@style/ScientificButtonStyle"
         android:layout_margin="5dp"
         app:backgroundTint="@color/white"
         android:fontFamily="@font/regular"

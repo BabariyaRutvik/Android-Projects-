@@ -1,0 +1,590 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/screen_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".Activity.InvestmentCalculatorActivity">
+
+    <!-- Custom Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/screen_background"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/screen_background"
+            app:navigationContentDescription="@string/desc_back"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/investment_calculator"
+            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+    <!-- Main Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/invest_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/keypad_investment"
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="12dp">
+
+            <!-- Input Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/invest_input_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="4dp">
+
+                <!-- Total Investment -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_total_invest_amount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="80dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/label_invest_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/total_investment"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_invest_amount"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/add_amount"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_invest_amount" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Rate -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_invest_rate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="80dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_total_invest_amount">
+
+                    <TextView
+                        android:id="@+id/label_invest_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/rate_percentage"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/text_invest_rate"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:background="@android:color/transparent"
+                        android:cursorVisible="true"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:fontFamily="@font/regular"
+                        android:gravity="center_vertical"
+                        android:hint="@string/add_rate"
+                        android:importantForAutofill="no"
+                        android:inputType="numberDecimal"
+                        android:minHeight="48dp"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/input_text_color"
+                        android:textColorHint="@color/result_text_color"
+                        android:textCursorDrawable="@drawable/orange_cursor"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_invest_rate" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Saving Period -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_invest_saving_period"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="80dp"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/sl_input_bg"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="8dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_invest_rate">
+
+                    <TextView
+                        android:id="@+id/label_invest_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/saving_period"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_invest_period"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/default_period"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/label_invest_period" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Result Section -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/invest_result_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:paddingHorizontal="8dp"
+                android:visibility="gone">
+
+                <View
+                    android:id="@+id/divider_left_invest"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/text_invest_result_label"
+                    app:layout_constraintEnd_toStartOf="@id/text_invest_result_label"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/text_invest_result_label" />
+
+                <TextView
+                    android:id="@+id/text_invest_result_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="12dp"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/result"
+                    android:textColor="@color/text_primary"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/divider_right_invest"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/divider_gray"
+                    app:layout_constraintBottom_toBottomOf="@id/text_invest_result_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/text_invest_result_label"
+                    app:layout_constraintTop_toTopOf="@id/text_invest_result_label" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/bg_result"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="18dp"
+                    app:layout_constraintTop_toBottomOf="@id/text_invest_result_label">
+
+                    <TextView
+                        android:id="@+id/lbl_invest_total_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/total_value"
+                        android:textColor="@color/text_label_gray"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_invest_total_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/medium"
+                        android:text="@string/currency_zero"
+                        android:textColor="@color/orange"
+                        android:textSize="35sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_invest_total_value" />
+
+                    <View
+                        android:id="@+id/divider_invest_res_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="16dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintTop_toBottomOf="@id/text_invest_total_value" />
+
+                    <TextView
+                        android:id="@+id/lbl_invest_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/total_amount"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_invest_res_1" />
+
+                    <TextView
+                        android:id="@+id/text_invest_total_amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="@string/currency_zero"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/lbl_invest_total_amount"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/lbl_invest_total_amount" />
+
+                    <View
+                        android:id="@+id/divider_invest_res_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintTop_toBottomOf="@id/lbl_invest_total_amount" />
+
+                    <TextView
+                        android:id="@+id/lbl_invest_total_interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/total_interest"
+                        android:textColor="@color/input_text_color"
+                        android:textSize="15sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/divider_invest_res_2" />
+
+                    <TextView
+                        android:id="@+id/text_invest_total_interest"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/medium"
+                        android:text="@string/currency_zero"
+                        android:textColor="@color/orange"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@id/lbl_invest_total_interest"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/lbl_invest_total_interest" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Keypad Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keypad_investment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="6dp"
+        android:paddingBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <!-- Row 1 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_7"
+            style="@style/CalculatorButtonStyle"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_7"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_8"
+            style="@style/CalculatorButtonStyle"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_8"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_9"
+            style="@style/CalculatorButtonStyle"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_9"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_ac"
+            style="@style/CalculatorButtonStyle"
+            android:background="@drawable/btn_bg_light_red"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_ac"
+            android:textColor="@color/red_dark"
+            android:textSize="26sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Row 2 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_4"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_4"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_5"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_5"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_8" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_6"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_6"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_9" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_backspace"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_gray"
+            android:contentDescription="@string/desc_backspace"
+            app:backgroundTint="@null"
+            app:icon="@drawable/backspace_calculator_mode"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="@color/input_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_ac" />
+
+        <!-- Row 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_1"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_1"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_2"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_2"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_5" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_3"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_3"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_6" />
+
+        <!-- Row 4 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_00"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_00"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_0"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_0"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_2" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_dot"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_white"
+            android:fontFamily="@font/regular"
+            android:text="@string/btn_dot"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            app:backgroundTint="@null"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_invest_3" />
+
+        <!-- Equals button spanning 2 rows -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_invest_equals"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="85dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_orange"
+            android:contentDescription="@string/desc_equals"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_equal_to"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:iconTint="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="@id/btn_invest_dot"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintTop_toTopOf="@id/btn_invest_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
