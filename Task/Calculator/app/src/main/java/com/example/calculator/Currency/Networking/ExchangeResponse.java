@@ -12,7 +12,18 @@ public class ExchangeResponse
     @SerializedName("rates")
     private Map<String,Double> rates;
 
+    @SerializedName("date")
+    private String date;
+
     // getter and setter
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getBaseCurrency() {
         return baseCurrency;

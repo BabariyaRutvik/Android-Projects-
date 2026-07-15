@@ -85,6 +85,12 @@ public class OtherCalculatorActivity extends AppCompatActivity {
                 startActivity(new Intent(this, CurrencyConvertorCalculator.class));
 
             }
+            else if (item.getName().equalsIgnoreCase("Saving Calculator")){
+                startActivity(new Intent(this, SavingCalculatorActivity.class));
+            }
+            else if (item.getName().equalsIgnoreCase("Age Calculator")){
+                startActivity(new Intent(this, AgeCalculatorActivity.class));
+            }
             else {
                 Toast.makeText(this, item.getName()+ "Coming Soon", Toast.LENGTH_SHORT).show();
             }

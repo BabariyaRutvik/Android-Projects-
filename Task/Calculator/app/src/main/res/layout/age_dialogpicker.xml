@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_rounded"
+    android:paddingTop="24dp">
+
+    <!-- Month Picker -->
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/picker_month"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/picker_day"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="@color/sky_blue"
+        app:np_dividerDistance="50dp"
+        app:np_dividerThickness="1.5dp"
+        app:np_selectedTextColor="@color/input_text_color"
+        app:np_selectedTextSize="20sp"
+        app:np_textColor="@color/text_secondary"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="3" />
+
+    <!-- Day Picker (Margins added to separate the divider lines) -->
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/picker_day"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toStartOf="@+id/picker_year"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/picker_month"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="@color/sky_blue"
+        app:np_dividerDistance="50dp"
+        app:np_dividerThickness="1.5dp"
+        app:np_selectedTextColor="@color/input_text_color"
+        app:np_selectedTextSize="20sp"
+        app:np_textColor="@color/text_secondary"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="3" />
+
+    <!-- Year Picker -->
+    <com.shawnlin.numberpicker.NumberPicker
+        android:id="@+id/picker_year"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@+id/picker_day"
+        app:layout_constraintTop_toTopOf="parent"
+        app:np_dividerColor="@color/sky_blue"
+        app:np_dividerDistance="50dp"
+        app:np_dividerThickness="1.5dp"
+        app:np_selectedTextColor="@color/input_text_color"
+        app:np_selectedTextSize="20sp"
+        app:np_textColor="@color/text_secondary"
+        app:np_textSize="18sp"
+        app:np_wheelItemCount="3" />
+
+    <!-- Horizontal Divider above buttons -->
+    <View
+        android:id="@+id/divider_buttons_top"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/border_color"
+        app:layout_constraintTop_toBottomOf="@+id/picker_day" />
+
+    <!-- Cancel Button -->
+    <TextView
+        android:id="@+id/btn_cancel"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="@string/cancel"
+        android:textColor="@color/input_text_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/divider_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_buttons_top" />
+
+    <!-- Vertical Divider between buttons -->
+    <View
+        android:id="@+id/divider_vertical"
+        android:layout_width="1dp"
+        android:layout_height="52dp"
+        android:background="@color/border_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider_buttons_top" />
+
+    <!-- OK Button -->
+    <TextView
+        android:id="@+id/btn_ok"
+        android:layout_width="0dp"
+        android:layout_height="52dp"
+        android:background="?attr/selectableItemBackground"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="@string/ok"
+        android:textColor="@color/input_text_color"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/divider_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/divider_buttons_top" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

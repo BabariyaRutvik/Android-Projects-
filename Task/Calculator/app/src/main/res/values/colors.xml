@@ -22,4 +22,6 @@
     <color name="ripple_color">#1F000000</color>
     <color name="ripple_red">#1FFF0000</color>
     <color name="ripple_white">#1FFFFFFF</color>
+    <color name="teal">#009688</color>
+    <color name="sky_blue">#87CEEB</color>
 </resources>
