@@ -94,8 +94,16 @@ public class OtherCalculatorActivity extends AppCompatActivity {
             else if (item.getName().equalsIgnoreCase("BMI Calculator")){
                 startActivity(new Intent(this, BmiCalculatorActivity.class));
             }
+            else if (item.getName().equalsIgnoreCase("Date Calculator")){
+                startActivity(new Intent(this, DateCalculatorActivity.class));
+
+
+            }
+            else if (item.getName().equalsIgnoreCase("Discount Calculator")){
+                startActivity(new Intent(this, DiscountCalculatorActivity.class));
+            }
             else {
-                Toast.makeText(this, item.getName()+ "Coming Soon", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, item.getName() +" Coming Soon", Toast.LENGTH_SHORT).show();
             }
         });
         binding.rvOtherCalculators.setLayoutManager(new GridLayoutManager(this, 2));

@@ -13,11 +13,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -101,31 +103,39 @@ public class BmiCalculatorActivity extends AppCompatActivity {
 
         // Toggles
         binding.btnBmiKg.setOnClickListener(v -> {
+            if (isKg) return;
             isKg = true;
             binding.btnBmiKg.setChecked(true);
             binding.btnBmiLbs.setChecked(false);
-            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+            binding.resultContainer.setVisibility(View.GONE);
+            updateBMIUI();
         });
 
         binding.btnBmiLbs.setOnClickListener(v -> {
+            if (!isKg) return;
             isKg = false;
             binding.btnBmiKg.setChecked(false);
             binding.btnBmiLbs.setChecked(true);
-            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+            binding.resultContainer.setVisibility(View.GONE);
+            updateBMIUI();
         });
 
         binding.btnBmiCm.setOnClickListener(v -> {
+            if (isCm) return;
             isCm = true;
             binding.btnBmiCm.setChecked(true);
             binding.btnBmiIn.setChecked(false);
-            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+            binding.resultContainer.setVisibility(View.GONE);
+            updateBMIUI();
         });
 
         binding.btnBmiIn.setOnClickListener(v -> {
+            if (!isCm) return;
             isCm = false;
             binding.btnBmiCm.setChecked(false);
             binding.btnBmiIn.setChecked(true);
-            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+            binding.resultContainer.setVisibility(View.GONE);
+            updateBMIUI();
         });
 
         updateBMIUI();
@@ -152,15 +162,32 @@ public class BmiCalculatorActivity extends AppCompatActivity {
         binding.layoutBmiWeight.setSelected(selectedField == 0);
         binding.layoutBmiHeight.setSelected(selectedField == 1);
 
+        // Show keypad when focus is back to inputs
+        binding.keypadContainer.setVisibility(View.VISIBLE);
+
         if (selectedField == 0) {
             binding.textBmiWeight.requestFocus();
+            binding.textBmiWeight.setSelection(binding.textBmiWeight.getText().length());
             binding.textBmiWeight.setCursorVisible(true);
             binding.textBmiHeight.setCursorVisible(false);
+            setSelectionToEnd(binding.textBmiWeight);
         } else {
             binding.textBmiHeight.requestFocus();
+            binding.textBmiHeight.setSelection(binding.textBmiHeight.getText().length());
             binding.textBmiHeight.setCursorVisible(true);
             binding.textBmiWeight.setCursorVisible(false);
+            setSelectionToEnd(binding.textBmiHeight);
         }
+    }
+
+    private void setSelectionToEnd(TextView textView) {
+        if (!(textView instanceof EditText)) return;
+        EditText editText = (EditText) textView;
+        editText.post(() -> {
+            if (editText.getText() != null) {
+                editText.setSelection(editText.getText().length());
+            }
+        });
     }
 
     private void setupBMIKeypad() {
@@ -200,37 +227,46 @@ public class BmiCalculatorActivity extends AppCompatActivity {
                 if (!weightInput.isEmpty()) {
                     weightInput = weightInput.substring(0, weightInput.length() - 1);
                     binding.textBmiWeight.setText(weightInput);
+                    setSelectionToEnd(binding.textBmiWeight);
                 }
             } else {
                 if (!heightInput.isEmpty()) {
                     heightInput = heightInput.substring(0, heightInput.length() - 1);
                     binding.textBmiHeight.setText(heightInput);
+                    setSelectionToEnd(binding.textBmiHeight);
                 }
             }
-            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+            if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI(false);
         });
 
         binding.btnKeyEquals.setOnClickListener(v -> {
             triggerVibration();
-            calculateBMI();
+            calculateBMI(true);
         });
     }
 
     private void handleInput(String val) {
+        String currentInput = (selectedField == 0) ? weightInput : heightInput;
+        if (val.equals(".") && currentInput.contains(".")) return;
+
+        String digitsOnly = currentInput.replace(".", "");
+        int increment = val.equals("00") ? 2 : (val.equals(".") ? 0 : 1);
+
+        if (digitsOnly.length() + increment > 3) {
+            Toast.makeText(this, "Maximum 3 digits are allowed", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (selectedField == 0) {
-            if (val.equals(".") && weightInput.contains(".")) return;
-            String digits = weightInput.replace(".", "");
-            if (digits.length() >= 3 && !val.equals(".")) return;
             weightInput += val;
             binding.textBmiWeight.setText(weightInput);
+            setSelectionToEnd(binding.textBmiWeight);
         } else {
-            if (val.equals(".") && heightInput.contains(".")) return;
-            String digits = heightInput.replace(".", "");
-            if (digits.length() >= 3 && !val.equals(".")) return;
             heightInput += val;
             binding.textBmiHeight.setText(heightInput);
+            setSelectionToEnd(binding.textBmiHeight);
         }
-        if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI();
+        if (binding.resultContainer.getVisibility() == View.VISIBLE) calculateBMI(false);
     }
 
     private void showLimitsDialog() {
@@ -253,9 +289,11 @@ public class BmiCalculatorActivity extends AppCompatActivity {
         }
     }
 
-    private void calculateBMI() {
+    private void calculateBMI(boolean hideKeypad) {
         if (weightInput.isEmpty() || heightInput.isEmpty()) {
-            Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
+            if (hideKeypad) {
+                Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
+            }
             return;
         }
 
@@ -295,25 +333,33 @@ public class BmiCalculatorActivity extends AppCompatActivity {
             binding.textBmiValue.setText(String.format(Locale.US, "%.2f", bmi));
 
             String status;
+            int color;
             if (bmi < 18.5) {
                 status = getString(R.string.underweight);
+                color = ContextCompat.getColor(this, R.color.bmi_blue);
             } else if (bmi < 25.0) {
                 status = getString(R.string.normal);
+                color = ContextCompat.getColor(this, R.color.bmi_green);
             } else if (bmi < 30.0) {
                 status = getString(R.string.overweight);
+                color = ContextCompat.getColor(this, R.color.bmi_orange);
             } else {
                 status = getString(R.string.obese);
+                color = ContextCompat.getColor(this, R.color.bmi_red);
             }
 
+            binding.textBmiValue.setTextColor(color);
             binding.textBmiStatus.setText(String.format("Your BMI is %s", status));
             binding.resultContainer.setVisibility(View.VISIBLE);
 
-            binding.keypadContainer.setVisibility(View.GONE);
-            // Clear focus and visual selection on result
-            binding.layoutBmiWeight.setSelected(false);
-            binding.layoutBmiHeight.setSelected(false);
-            binding.textBmiWeight.clearFocus();
-            binding.textBmiHeight.clearFocus();
+            if (hideKeypad) {
+                binding.keypadContainer.setVisibility(View.GONE);
+                // Clear focus and visual selection on result
+                binding.layoutBmiWeight.setSelected(false);
+                binding.layoutBmiHeight.setSelected(false);
+                binding.textBmiWeight.clearFocus();
+                binding.textBmiHeight.clearFocus();
+            }
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, "Invalid Calculation Data", Toast.LENGTH_SHORT).show();

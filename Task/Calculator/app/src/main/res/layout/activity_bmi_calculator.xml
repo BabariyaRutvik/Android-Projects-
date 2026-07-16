@@ -264,7 +264,7 @@
                     <View
                         android:id="@+id/divider_left"
                         android:layout_width="0dp"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.8dp"
                         android:background="@color/divider_silver"
                         app:layout_constraintBottom_toBottomOf="@id/text_result_label"
                         app:layout_constraintEnd_toStartOf="@id/text_result_label"
@@ -279,7 +279,7 @@
                         android:fontFamily="@font/regular"
                         android:text="@string/result"
                         android:textColor="@color/text_label_gray"
-                        android:textSize="17sp"
+                        android:textSize="15sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -287,7 +287,7 @@
                     <View
                         android:id="@+id/divider_right"
                         android:layout_width="0dp"
-                        android:layout_height="0.5dp"
+                        android:layout_height="0.8dp"
                         android:background="@color/divider_silver"
                         app:layout_constraintBottom_toBottomOf="@id/text_result_label"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -302,7 +302,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_result"
-                    android:paddingHorizontal="18dp"
                     android:paddingVertical="20dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_result_divider">
 
@@ -310,10 +309,11 @@
                         android:id="@+id/text_bmi_status"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
                         android:fontFamily="@font/regular"
                         android:text="Your BMI is Normal"
                         android:textColor="@color/text_label_gray"
-                        android:textSize="16sp"
+                        android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -321,6 +321,7 @@
                         android:id="@+id/text_bmi_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
                         android:layout_marginTop="4dp"
                         android:fontFamily="@font/medium"
                         android:text="22.5"
@@ -342,6 +343,7 @@
                             android:id="@+id/lbl_underweight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
                             android:fontFamily="@font/regular"
                             android:paddingVertical="12dp"
                             android:text="@string/underweight"
@@ -354,6 +356,7 @@
                             android:id="@+id/val_underweight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
                             android:fontFamily="@font/regular"
                             android:text="@string/range_underweight"
                             android:textColor="@color/bmi_blue"
@@ -365,7 +368,7 @@
                         <View
                             android:id="@+id/div_category_1"
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.8dp"
                             android:background="@color/divider_silver"
                             app:layout_constraintTop_toBottomOf="@id/lbl_underweight" />
 
@@ -374,6 +377,7 @@
                             android:id="@+id/lbl_normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
                             android:fontFamily="@font/regular"
                             android:paddingVertical="12dp"
                             android:text="@string/normal"
@@ -386,6 +390,7 @@
                             android:id="@+id/val_normal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
                             android:fontFamily="@font/regular"
                             android:text="@string/range_normal"
                             android:textColor="@color/bmi_green"
@@ -397,7 +402,7 @@
                         <View
                             android:id="@+id/div_category_2"
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.8dp"
                             android:background="@color/divider_silver"
                             app:layout_constraintTop_toBottomOf="@id/lbl_normal" />
 
@@ -406,6 +411,7 @@
                             android:id="@+id/lbl_overweight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
                             android:fontFamily="@font/regular"
                             android:paddingVertical="12dp"
                             android:text="@string/overweight"
@@ -418,6 +424,7 @@
                             android:id="@+id/val_overweight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
                             android:fontFamily="@font/regular"
                             android:text="@string/range_overweight"
                             android:textColor="@color/bmi_orange"
@@ -429,7 +436,7 @@
                         <View
                             android:id="@+id/div_category_3"
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.8dp"
                             android:background="@color/divider_silver"
                             app:layout_constraintTop_toBottomOf="@id/lbl_overweight" />
 
@@ -438,6 +445,7 @@
                             android:id="@+id/lbl_obese"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="18dp"
                             android:fontFamily="@font/regular"
                             android:paddingVertical="12dp"
                             android:text="@string/obese"
@@ -450,6 +458,7 @@
                             android:id="@+id/val_obese"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="18dp"
                             android:fontFamily="@font/regular"
                             android:text="@string/range_obese"
                             android:textColor="@color/bmi_red"

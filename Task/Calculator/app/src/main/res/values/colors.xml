@@ -10,7 +10,7 @@
     <color name="operation_button_color">#EDEDED</color>
     <color name="screen_background">#F4F5F7</color>
     <color name="result_text_color">#757575</color>
-    <color name="result_bg_color">#F9F4F0</color>
+    <color name="result_bg_color">#FDF9F6</color>
     <color name="text_primary">#212121</color>
     <color name="text_secondary">#9E9E9E</color>
     <color name="text_tertiary">#8E8E8E</color>
@@ -22,6 +22,7 @@
     <color name="ripple_color">#1F000000</color>
     <color name="ripple_red">#1FFF0000</color>
     <color name="ripple_white">#1FFFFFFF</color>
+    <color name="result_card_color">#FAF6F0</color>
     <color name="teal">#009688</color>
     <color name="sky_blue">#87CEEB</color>
     <color name="bmi_color_toggle">#F7F2EE</color>

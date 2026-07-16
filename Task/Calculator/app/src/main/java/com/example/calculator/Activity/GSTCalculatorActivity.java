@@ -32,6 +32,8 @@ public class GSTCalculatorActivity extends AppCompatActivity {
     private int selectedField = 0; // 0: Amount, 1: Rate
     private String rawAmountStr = "";
     private String rawRateStr = "";
+    private boolean isAddGST = true;
+    private boolean isIntraState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,6 +98,43 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             }
         });
 
+        // Toggles
+        binding.btnGstAdd.setOnClickListener(v -> {
+            if (isAddGST) return;
+            isAddGST = true;
+            binding.btnGstAdd.setChecked(true);
+            binding.btnGstRemove.setChecked(false);
+            updateSelectionUI();
+            if (binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
+        });
+
+        binding.btnGstRemove.setOnClickListener(v -> {
+            if (!isAddGST) return;
+            isAddGST = false;
+            binding.btnGstAdd.setChecked(false);
+            binding.btnGstRemove.setChecked(true);
+            updateSelectionUI();
+            if (binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
+        });
+
+        binding.btnIntraState.setOnClickListener(v -> {
+            if (isIntraState) return;
+            isIntraState = true;
+            binding.btnIntraState.setChecked(true);
+            binding.btnInterState.setChecked(false);
+            updateSelectionUI();
+            if (binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
+        });
+
+        binding.btnInterState.setOnClickListener(v -> {
+            if (!isIntraState) return;
+            isIntraState = false;
+            binding.btnIntraState.setChecked(false);
+            binding.btnInterState.setChecked(true);
+            updateSelectionUI();
+            if (binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
+        });
+
         updateSelectionUI();
     }
 
@@ -107,19 +146,37 @@ public class GSTCalculatorActivity extends AppCompatActivity {
     }
 
     private void updateSelectionUI() {
-        binding.layoutOriginalPrice.setSelected(selectedField == 0);
-        binding.layoutGstRate.setSelected(selectedField == 1);
+        boolean resultsVisible = binding.resultContainerGst.getVisibility() == View.VISIBLE;
 
-        EditText target = (selectedField == 0) ? binding.textGstAmount : binding.textGstRate;
-        EditText other = (selectedField == 0) ? binding.textGstRate : binding.textGstAmount;
+        binding.layoutOriginalPrice.setSelected(!resultsVisible && selectedField == 0);
+        binding.layoutGstRate.setSelected(!resultsVisible && selectedField == 1);
 
-        target.requestFocus();
-        target.setCursorVisible(true);
-        // Direct selection for smoothness
-        int length = target.getText().length();
-        target.setSelection(length);
-        
-        other.setCursorVisible(false);
+        if (resultsVisible) {
+            binding.keypadGst.setVisibility(View.GONE);
+            binding.textGstAmount.setCursorVisible(false);
+            binding.textGstRate.setCursorVisible(false);
+            binding.textGstAmount.clearFocus();
+            binding.textGstRate.clearFocus();
+            return;
+        }
+
+        binding.keypadGst.setVisibility(View.VISIBLE);
+
+        if (selectedField == 0) {
+            binding.textGstAmount.requestFocus();
+            if (binding.textGstAmount.getText() != null) {
+                binding.textGstAmount.setSelection(binding.textGstAmount.getText().length());
+            }
+            binding.textGstAmount.setCursorVisible(true);
+            binding.textGstRate.setCursorVisible(false);
+        } else if (selectedField == 1) {
+            binding.textGstRate.requestFocus();
+            if (binding.textGstRate.getText() != null) {
+                binding.textGstRate.setSelection(binding.textGstRate.getText().length());
+            }
+            binding.textGstRate.setCursorVisible(true);
+            binding.textGstAmount.setCursorVisible(false);
+        }
 
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         View focusedView = getCurrentFocus();
@@ -128,6 +185,8 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(focusedView.getWindowToken(), 0);
         }
     }
+
+
 
     private void setupKeypad() {
         View.OnClickListener listener = v -> {
@@ -154,8 +213,15 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             rawAmountStr = ""; rawRateStr = "";
             binding.textGstAmount.setText("");
             binding.textGstRate.setText("");
-            binding.toggleGroupGST.check(R.id.btnGstAdd);
-            binding.toggleGroupSupplyType.check(R.id.btnIntraState);
+            
+            isAddGST = true;
+            binding.btnGstAdd.setChecked(true);
+            binding.btnGstRemove.setChecked(false);
+            
+            isIntraState = true;
+            binding.btnIntraState.setChecked(true);
+            binding.btnInterState.setChecked(false);
+            
             binding.resultContainerGst.setVisibility(View.GONE);
             binding.keypadGst.setVisibility(View.VISIBLE);
             selectedField = 0;
@@ -182,14 +248,6 @@ public class GSTCalculatorActivity extends AppCompatActivity {
         binding.btnGstEquals.setOnClickListener(v -> {
             triggerVibration();
             calculateGST();
-        });
-
-        binding.toggleGroupGST.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked && binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
-        });
-
-        binding.toggleGroupSupplyType.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (isChecked && binding.resultContainerGst.getVisibility() == View.VISIBLE) updateCalculations();
         });
     }
 
@@ -241,8 +299,8 @@ public class GSTCalculatorActivity extends AppCompatActivity {
 
         updateCalculations();
         binding.resultContainerGst.setVisibility(View.VISIBLE);
-        binding.keypadGst.setVisibility(View.GONE);
         binding.main.requestFocus();
+        updateSelectionUI();
     }
 
     private void updateCalculations() {
@@ -251,8 +309,8 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             double rate = Double.parseDouble(rawRateStr);
             if (amount < 100) return;
 
-            boolean isAdd = binding.toggleGroupGST.getCheckedButtonId() == R.id.btnGstAdd;
-            boolean isIntra = binding.toggleGroupSupplyType.getCheckedButtonId() == R.id.btnIntraState;
+            boolean isAdd = isAddGST;
+            boolean isIntra = isIntraState;
 
             double base, tax, total;
             if (isAdd) { base = amount; tax = base * (rate / 100.0); total = base + tax; }

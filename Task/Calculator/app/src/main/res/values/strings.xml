@@ -20,7 +20,7 @@
     <string name="btn_0">0</string>
     <string name="btn_dot">.</string>
     <string name="desc_backspace">Backspace</string>
-    <string name="desc_equals">Equals</string>
+    <string name="desc_equals">Calculate</string>
 
     <!-- SIP Calculator -->
     <string name="sip_calculator">SIP Calculator</string>
@@ -92,6 +92,16 @@
     <string name="desc_current_age">Current Age Icon</string>
     <string name="desc_next_birthday">Next Birthday Icon</string>
 
+    <!-- Date Calculator -->
+    <string name="date_calculator">Date Calculator</string>
+    <string name="from">From</string>
+    <string name="to">To</string>
+    <string name="placeholder_date">DD-MM-YYYY</string>
+    <string name="total_difference">Total Difference</string>
+    <string name="years_date">Years</string>
+    <string name="months_date">Months</string>
+    <string name="days">Days</string>
+    <string name="default_zero">0</string>
     <!-- BMI Calculator -->
     <string name="bmi_calculator">BMI Calculator</string>
     <string name="weight">Weight</string>
@@ -110,7 +120,7 @@
     <string name="range_underweight">Below 18.5</string>
     <string name="range_normal">18.5 – 24.9</string>
     <string name="range_overweight">25.0 – 29.9</string>
-    <string name="range_obese">High 30</string>
+    <string name="range_obese">High 30.0</string>
 
     <!-- BMI Invalid Input Dialog -->
     <string name="bmi_invalid_input_title">Invalid Input Data</string>
@@ -144,4 +154,18 @@
     <string name="zero">0</string>
     <string name="search_currencies">Search currencies</string>
     <string name="please_wait_fetching_data">Please wait, Fetching Data&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Discount Calculator</string>
+    <string name="discount_percent">Discount (%)</string>
+    <string name="placeholder_add_amount">Add amount</string>
+    <string name="placeholder_add_rate">Add rate</string>
+    <string name="final_amount">Final Amount</string>
+    <string name="original_amount">Original Amount</string>
+    <string name="discount_amount">Discount Amount</string>
+    <string name="error_fill_all_fields">Please fill all fields</string>
+    <string name="error_min_amount">Amount must be at least 1</string>
+    <string name="error_max_discount">Discount must be less than 100%</string>
+    <string name="error_max_amount">Amount cannot exceed 99,99,99,999</string>
+    <string name="desc_clear_all">Clear all</string>
 </resources>
