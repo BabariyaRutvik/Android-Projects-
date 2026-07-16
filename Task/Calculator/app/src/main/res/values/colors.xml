@@ -24,4 +24,9 @@
     <color name="ripple_white">#1FFFFFFF</color>
     <color name="teal">#009688</color>
     <color name="sky_blue">#87CEEB</color>
+    <color name="bmi_color_toggle">#F7F2EE</color>
+    <color name="bmi_blue">#2196F3</color>
+    <color name="bmi_green">#4CAF50</color>
+    <color name="bmi_orange">#FF9800</color>
+    <color name="bmi_red">#F44336</color>
 </resources>

@@ -1,5 +1,0 @@
-- [x] Implement Saving Calculator Screen
-    - [x] Add strings to `strings.xml`
-    - [x] Create `activity_saving_calculator.xml` layout
-    - [x] Update `SavingCalculatorActivity.java` logic initialization
-    - [x] Implement full calculation logic and UI state management

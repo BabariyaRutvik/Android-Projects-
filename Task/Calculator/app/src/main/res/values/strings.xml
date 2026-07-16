@@ -112,6 +112,14 @@
     <string name="range_overweight">25.0 – 29.9</string>
     <string name="range_obese">High 30</string>
 
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Invalid Input Data</string>
+    <string name="bmi_data_limitations">Data Limitations</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 to 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 to 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 to 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Inch - 20.0 to 98.0 inch</string>
+
     <!-- Currency Converter -->
     <string name="currency_converter">Currency Converter</string>
     <string name="exchange_rate_info">Using exchange rate data from the European Central Bank The data was updated on: %s</string>

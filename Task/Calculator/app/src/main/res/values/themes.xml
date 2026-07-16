@@ -82,6 +82,10 @@
         <item name="rippleColor">@color/ripple_color</item>
     </style>
 
+
+
+
+
     <style name="ScientificButtonShape" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">23dp</item>

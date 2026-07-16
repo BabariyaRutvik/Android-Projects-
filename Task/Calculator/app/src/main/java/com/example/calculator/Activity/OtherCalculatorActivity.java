@@ -91,6 +91,9 @@ public class OtherCalculatorActivity extends AppCompatActivity {
             else if (item.getName().equalsIgnoreCase("Age Calculator")){
                 startActivity(new Intent(this, AgeCalculatorActivity.class));
             }
+            else if (item.getName().equalsIgnoreCase("BMI Calculator")){
+                startActivity(new Intent(this, BmiCalculatorActivity.class));
+            }
             else {
                 Toast.makeText(this, item.getName()+ "Coming Soon", Toast.LENGTH_SHORT).show();
             }

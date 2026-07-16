@@ -5,9 +5,718 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/screen_background"
     tools:context=".Activity.BmiCalculatorActivity">
 
+    <!-- Custom Toolbar -->
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/screen_background"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/bmi_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/screen_background"
+            app:navigationContentDescription="@string/desc_back"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/bmi_calculator"
+            app:titleTextAppearance="@style/ToolbarTitleStyle" />
 
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Main Scrollable Content -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bmi_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@id/keypad_container"
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp"
+            android:paddingBottom="24dp">
+
+            <!-- Weight Input -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bmi_weight"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/sl_input_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/label_bmi_weight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/weight"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/text_bmi_weight"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/enter_weight"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    android:paddingTop="4dp"
+                    android:textColor="@color/input_text_color"
+                    android:textColorHint="@color/result_text_color"
+                    android:textCursorDrawable="@drawable/orange_cursor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/toggle_container_weight"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_bmi_weight" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/toggle_container_weight"
+                    android:layout_width="70dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_bmi_toggle_group"
+                    android:padding="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_bmi_weight">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_bmi_kg"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checkable="true"
+                        android:checked="true"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        android:text="@string/kg"
+                        android:textColor="@color/bmi_toggle_text_selected"
+                        android:textSize="13sp"
+                        app:backgroundTint="@color/bmi_toggle_bg_selected"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_bmi_lbs"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:shapeAppearanceOverlay="@style/PerfectPillShape" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_bmi_lbs"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checkable="true"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        android:text="@string/lbs"
+                        android:textColor="@color/bmi_toggle_text_selected"
+                        android:textSize="13sp"
+                        app:backgroundTint="@color/bmi_toggle_bg_selected"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/btn_bmi_kg"
+                        app:shapeAppearanceOverlay="@style/PerfectPillShape" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Height Input -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_bmi_height"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/sl_input_bg"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                app:layout_constraintTop_toBottomOf="@id/layout_bmi_weight">
+
+                <TextView
+                    android:id="@+id/label_bmi_height"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/regular"
+                    android:text="@string/height"
+                    android:textColor="@color/input_text_color"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/text_bmi_height"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:cursorVisible="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:fontFamily="@font/regular"
+                    android:hint="@string/enter_height"
+                    android:inputType="numberDecimal"
+                    android:digits="0123456789."
+                    android:paddingTop="4dp"
+                    android:textColor="@color/input_text_color"
+                    android:textColorHint="@color/result_text_color"
+                    android:textCursorDrawable="@drawable/orange_cursor"
+                    android:textSize="20sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/toggle_container_height"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_bmi_height" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/toggle_container_height"
+                    android:layout_width="70dp"
+                    android:layout_height="26dp"
+                    android:background="@drawable/bg_bmi_toggle_group"
+                    android:padding="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/label_bmi_height">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_bmi_cm"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checkable="true"
+                        android:checked="true"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        android:text="@string/cm"
+                        android:textColor="@color/bmi_toggle_text_selected"
+                        android:textSize="13sp"
+                        app:backgroundTint="@color/bmi_toggle_bg_selected"
+                        app:layout_constraintEnd_toStartOf="@+id/btn_bmi_in"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:shapeAppearanceOverlay="@style/PerfectPillShape" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_bmi_in"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:checkable="true"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        android:minHeight="0dp"
+                        android:minWidth="0dp"
+                        android:padding="0dp"
+                        android:text="@string/in"
+                        android:textColor="@color/bmi_toggle_text_selected"
+                        android:textSize="13sp"
+                        app:backgroundTint="@color/bmi_toggle_bg_selected"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_weight="1"
+                        app:layout_constraintStart_toEndOf="@+id/btn_bmi_cm"
+                        app:shapeAppearanceOverlay="@style/PerfectPillShape" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Result Section Container -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/result_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/layout_bmi_height">
+
+                <!-- Result Divider -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_result_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <View
+                        android:id="@+id/divider_left"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintBottom_toBottomOf="@id/text_result_label"
+                        app:layout_constraintEnd_toStartOf="@id/text_result_label"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/text_result_label" />
+
+                    <TextView
+                        android:id="@+id/text_result_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="12dp"
+                        android:fontFamily="@font/regular"
+                        android:text="@string/result"
+                        android:textColor="@color/text_label_gray"
+                        android:textSize="17sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/divider_right"
+                        android:layout_width="0dp"
+                        android:layout_height="0.5dp"
+                        android:background="@color/divider_silver"
+                        app:layout_constraintBottom_toBottomOf="@id/text_result_label"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/text_result_label"
+                        app:layout_constraintTop_toTopOf="@id/text_result_label" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- Result Card -->
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_result_card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_result"
+                    android:paddingHorizontal="18dp"
+                    android:paddingVertical="20dp"
+                    app:layout_constraintTop_toBottomOf="@id/layout_result_divider">
+
+                    <TextView
+                        android:id="@+id/text_bmi_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/regular"
+                        android:text="Your BMI is Normal"
+                        android:textColor="@color/text_label_gray"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/text_bmi_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/medium"
+                        android:text="22.5"
+                        android:textColor="@color/orange"
+                        android:textSize="42sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/text_bmi_status" />
+
+                    <!-- Category Table refactored to ConstraintLayout -->
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/layout_category_table"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        app:layout_constraintTop_toBottomOf="@id/text_bmi_value">
+
+                        <!-- Underweight -->
+                        <TextView
+                            android:id="@+id/lbl_underweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:paddingVertical="12dp"
+                            android:text="@string/underweight"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/val_underweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/range_underweight"
+                            android:textColor="@color/bmi_blue"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="@id/lbl_underweight"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lbl_underweight" />
+
+                        <View
+                            android:id="@+id/div_category_1"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/divider_silver"
+                            app:layout_constraintTop_toBottomOf="@id/lbl_underweight" />
+
+                        <!-- Normal -->
+                        <TextView
+                            android:id="@+id/lbl_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:paddingVertical="12dp"
+                            android:text="@string/normal"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/div_category_1" />
+
+                        <TextView
+                            android:id="@+id/val_normal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/range_normal"
+                            android:textColor="@color/bmi_green"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="@id/lbl_normal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lbl_normal" />
+
+                        <View
+                            android:id="@+id/div_category_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/divider_silver"
+                            app:layout_constraintTop_toBottomOf="@id/lbl_normal" />
+
+                        <!-- Overweight -->
+                        <TextView
+                            android:id="@+id/lbl_overweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:paddingVertical="12dp"
+                            android:text="@string/overweight"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/div_category_2" />
+
+                        <TextView
+                            android:id="@+id/val_overweight"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/range_overweight"
+                            android:textColor="@color/bmi_orange"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="@id/lbl_overweight"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lbl_overweight" />
+
+                        <View
+                            android:id="@+id/div_category_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/divider_silver"
+                            app:layout_constraintTop_toBottomOf="@id/lbl_overweight" />
+
+                        <!-- Obese -->
+                        <TextView
+                            android:id="@+id/lbl_obese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:paddingVertical="12dp"
+                            android:text="@string/obese"
+                            android:textColor="@color/input_text_color"
+                            android:textSize="15sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/div_category_3" />
+
+                        <TextView
+                            android:id="@+id/val_obese"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/regular"
+                            android:text="@string/range_obese"
+                            android:textColor="@color/bmi_red"
+                            android:textSize="15sp"
+                            app:layout_constraintBottom_toBottomOf="@id/lbl_obese"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lbl_obese" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- keypad Section -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/keypad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:paddingTop="4dp"
+        android:paddingStart="6dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="6dp"
+        android:background="@color/screen_background"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/gl_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
+
+        <!-- Row 1 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_7"
+            style="@style/CalculatorButtonStyle"
+            android:text="@string/btn_7"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_8"
+            style="@style/CalculatorButtonStyle"
+            android:text="@string/btn_8"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_9"
+            style="@style/CalculatorButtonStyle"
+            android:text="@string/btn_9"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_ac"
+            style="@style/CalculatorButtonStyle"
+            android:text="@string/btn_ac"
+            android:textColor="@color/red_dark"
+            android:textSize="26sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_light_red"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Row 2 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_4"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_4"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_5"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_5"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_6"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_6"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_7" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_backspace"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_gray"
+            app:backgroundTint="@null"
+            app:icon="@drawable/backspace_calculator_mode"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="35dp"
+            app:iconTint="@color/input_text_color"
+            android:contentDescription="@string/desc_backspace"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_ac" />
+
+        <!-- Row 3 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_1"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_1"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_2"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_2"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_3"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_3"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_4" />
+
+        <!-- Row 4 -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_00"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_00"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/gl_1"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_0"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_0"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintEnd_toStartOf="@id/gl_2"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_1" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_dot"
+            style="@style/CalculatorButtonStyle"
+            android:layout_marginTop="9dp"
+            android:text="@string/btn_dot"
+            android:textColor="@color/input_text_color"
+            android:textSize="32sp"
+            android:fontFamily="@font/regular"
+            android:background="@drawable/btn_bg_white"
+            app:backgroundTint="@null"
+            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintEnd_toStartOf="@id/gl_3"
+            app:layout_constraintTop_toBottomOf="@id/btn_key_1" />
+
+        <!-- Equals button spanning 2 rows -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_key_equals"
+            style="@style/CalculatorButtonStyle"
+            android:layout_width="85dp"
+            android:layout_height="165dp"
+            android:layout_marginTop="9dp"
+            android:background="@drawable/btn_bg_orange"
+            app:backgroundTint="@null"
+            app:icon="@drawable/ic_equal_to"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconSize="34dp"
+            app:iconTint="@android:color/white"
+            android:contentDescription="@string/desc_equals"
+            app:layout_constraintBottom_toBottomOf="@id/btn_key_dot"
+            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btn_key_3" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
