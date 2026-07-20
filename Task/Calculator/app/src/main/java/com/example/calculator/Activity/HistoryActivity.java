@@ -2,6 +2,7 @@ package com.example.calculator.Activity;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -35,7 +36,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     HistoryAdapter adapter;
     HistoryViewModel viewModel;
     List<HistoryItem> historyItems = new ArrayList<>();
-
+    private int allowedCapacity = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,13 +44,6 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         EdgeToEdge.enable(this);
         binding = ActivityHistoryBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Ensure Status Bar icons are dark
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                androidx.core.view.ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -62,30 +56,28 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         initRecycerview();
         observeHistory();
 
-
-        binding.toolbar.setNavigationOnClickListener(v->{
-            if (adapter.isSelectionMode()){
+        binding.toolbar.setNavigationOnClickListener(v -> {
+            if (adapter.isSelectionMode()) {
                 exitSelectionMode();
-            }
-            else {
+            } else {
                 finish();
             }
         });
+
         binding.btnDeleteHistory.setOnClickListener(v -> {
-            if (historyItems.isEmpty()){
-                Toast.makeText(this, "History is empty", Toast.LENGTH_SHORT).show();
+            if (historyItems.isEmpty()) {
+                Toast.makeText(this, R.string.err_history_empty, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (adapter.getSelectedIds().isEmpty()) {
-                Toast.makeText(this, "Please select items to delete", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_select_items_delete, Toast.LENGTH_SHORT).show();
                 if (!adapter.isSelectionMode()) {
                     adapter.setSelectionMode(true);
                     onSelectionChanged(0);
                 }
                 return;
             }
-
             showDeleteDialog();
         });
 
@@ -101,14 +93,19 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
                 }
             }
         });
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshHistoryLimit();
     }
 
     private void initRecycerview() {
         adapter = new HistoryAdapter(historyItems, this, item -> {
             Intent intent;
             String expression = item.getExpression();
-            
+
             if (expression.startsWith("SIP: ")) {
                 intent = new Intent(this, SIPCalculatorActivity.class);
             } else if (expression.startsWith("Loan: ")) {
@@ -116,7 +113,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
             } else {
                 intent = new Intent(this, MainActivity.class);
             }
-            
+
             intent.putExtra("expression", expression);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent);
@@ -127,19 +124,46 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
     }
 
     private void observeHistory() {
-        viewModel.getAllHistory().observe(this, items -> {
-            historyItems = items;
-            adapter.updateList(items);
+        SharedPreferences sharedPrefs = getSharedPreferences("history_prefs", MODE_PRIVATE);
+        allowedCapacity = sharedPrefs.getInt("history_capacity", -1);
 
-            if (items.isEmpty()) {
-                binding.emptyStateLayout.setVisibility(View.VISIBLE);
-                binding.rvHistory.setVisibility(View.GONE);
-                binding.selectAllLayout.setVisibility(View.GONE);
-            } else {
-                binding.emptyStateLayout.setVisibility(View.GONE);
-                binding.rvHistory.setVisibility(View.VISIBLE);
-            }
+        viewModel.getAllHistory().observe(this, items -> {
+            processAndDisplayHistory(items);
         });
+    }
+
+    // Changed to public so the BottomSheet layout can access it safely
+    public void refreshHistoryLimit() {
+        SharedPreferences sharedPrefs = getSharedPreferences("history_prefs", MODE_PRIVATE);
+        allowedCapacity = sharedPrefs.getInt("history_capacity", -1);
+
+        if (allowedCapacity >= 0) {
+            viewModel.prune(allowedCapacity);
+        }
+
+        if (viewModel.getAllHistory().getValue() != null) {
+            processAndDisplayHistory(viewModel.getAllHistory().getValue());
+        }
+    }
+
+    private void processAndDisplayHistory(List<HistoryItem> items) {
+        List<HistoryItem> displayList = items;
+
+        if (allowedCapacity >= 0 && items.size() > allowedCapacity) {
+            displayList = items.subList(0, allowedCapacity);
+        }
+
+        historyItems = displayList;
+        adapter.updateList(displayList);
+
+        if (displayList.isEmpty()) {
+            binding.emptyStateLayout.setVisibility(View.VISIBLE);
+            binding.rvHistory.setVisibility(View.GONE);
+            binding.selectAllLayout.setVisibility(View.GONE);
+        } else {
+            binding.emptyStateLayout.setVisibility(View.GONE);
+            binding.rvHistory.setVisibility(View.VISIBLE);
+        }
     }
 
     private void showDeleteDialog() {
@@ -150,19 +174,16 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
 
         if (dialog.getWindow() != null) {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-            
-            // Set width to 336dp as per Figma, or 90% of screen if 336dp is too large
             int widthPx = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 336, getResources().getDisplayMetrics());
             int maxWidth = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
-            
             dialog.getWindow().setLayout(Math.min(widthPx, maxWidth), WindowManager.LayoutParams.WRAP_CONTENT);
         }
 
         TextView textTitle = view.findViewById(R.id.text_dialog_title);
         TextView textMessage = view.findViewById(R.id.text_dialog_message);
-        
-        textTitle.setText("Delete History");
-        textMessage.setText("Do you want to delete calculation?");
+
+        textTitle.setText(R.string.delete_history);
+        textMessage.setText(R.string.delete_history_message);
 
         view.findViewById(R.id.btn_no).setOnClickListener(v -> dialog.dismiss());
 
@@ -173,7 +194,7 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
             } else {
                 viewModel.deleteAll();
             }
-            Toast.makeText(this, "History deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.msg_history_deleted, Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
 
@@ -193,7 +214,6 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
         } else {
             binding.selectAllLayout.setVisibility(View.GONE);
         }
-
         binding.cbSelectAll.setChecked(selectedCount == historyItems.size() && !historyItems.isEmpty());
     }
 }

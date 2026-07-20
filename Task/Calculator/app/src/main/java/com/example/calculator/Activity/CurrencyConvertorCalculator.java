@@ -49,8 +49,8 @@ public class CurrencyConvertorCalculator extends AppCompatActivity {
     // state flags for input
     private String sourceCurrency = "INR";
     private String targetCurrency = "USD";
-    private String sourceCurrencyName = "Indian Rupee";
-    private String targetCurrencyName = "Dollar";
+    private String sourceCurrencyName = "";
+    private String targetCurrencyName = "";
     private String enteredAmount = "";
     private Map<String, Double> exchangeRates = new HashMap<>();
     private ApiService apiService;
@@ -62,6 +62,8 @@ public class CurrencyConvertorCalculator extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sourceCurrencyName = getString(R.string.default_currency_from_name);
+        targetCurrencyName = getString(R.string.default_currency_to_name);
         EdgeToEdge.enable(this);
         binding = ActivityCurrencyConvertorCalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -72,7 +74,6 @@ public class CurrencyConvertorCalculator extends AppCompatActivity {
         WindowInsetsControllerCompat windowInsetsController =
                 WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
         if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
             windowInsetsController.hide(WindowInsetsCompat.Type.ime());
         }
 
@@ -222,7 +223,7 @@ public class CurrencyConvertorCalculator extends AppCompatActivity {
 
     private void handleKeypadInput(String value) {
         if (enteredAmount.length() + value.length() > 9) {
-            Toast.makeText(this, "Maximum 9 digits are allowed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_max_9_digits, Toast.LENGTH_SHORT).show();
             return;
         }
         if (value.equals(".") && enteredAmount.contains(".")) {

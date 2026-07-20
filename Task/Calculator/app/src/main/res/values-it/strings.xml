@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Calcolatrice</string>
+    <string name="desc_back">Indietro</string>
+    <string name="result">Risultato</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">Calcola</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">Calcolatore SIP</string>
+    <string name="monthly_sip_amount">Importo mensile SIP</string>
+    <string name="add_amount">Aggiungi importo</string>
+    <string name="rate_percentage">Tasso(%)</string>
+    <string name="add_rate">Aggiungi tasso</string>
+    <string name="investment_period">Periodo di investimento</string>
+    <string name="default_period">01 anno &amp; 00 mesi</string>
+    <string name="expected_amount">Importo previsto</string>
+    <string name="amount_invested">Importo investito</string>
+    <string name="wealth_gain">Guadagno patrimoniale</string>
+    <string name="investment_growth">Crescita dell\'investimento</string>
+    <string name="times_growth">1.00 Volte</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Calcolatore di prestito</string>
+    <string name="loan_amount">Importo del prestito</string>
+    <string name="loan_tenure">Durata del prestito</string>
+    <string name="total_payable">Totale da pagare</string>
+    <string name="monthly_payment">Pagamento mensile</string>
+    <string name="interest_amount">Importo degli interessi</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">Calcolatore GST</string>
+    <string name="original_price">Prezzo originale</string>
+    <string name="gst_rate_percentage">Tasso GST(%)</string>
+    <string name="add">Aggiungi</string>
+    <string name="remove">Rimuovi</string>
+    <string name="supply_type">Tipo di fornitura</string>
+    <string name="intra_state">Intra-statale</string>
+    <string name="inter_state">Inter-statale</string>
+    <string name="total_amount">Importo totale</string>
+    <string name="gst_amount">Importo GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Calcolatore d\'investimento</string>
+    <string name="total_investment">Investimento totale</string>
+    <string name="saving_period">Periodo di risparmio</string>
+    <string name="total_value">Valore totale</string>
+    <string name="total_interest">Interessi totali</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Calcolatore di risparmio</string>
+    <string name="saving_goal">Obiettivo di risparmio</string>
+    <string name="monthly_saving_amount">Importo di risparmio mensile</string>
+    <string name="interest_earned">Interessi maturati</string>
+    <string name="daily_saving">Risparmio giornaliero</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Calcolatore di età</string>
+    <string name="date_of_birth">Data di nascita</string>
+    <string name="today">Oggi</string>
+    <string name="current_age">Età attuale</string>
+    <string name="next_birthday">Prossimo compleanno</string>
+    <string name="placeholder_dob">GG-MM-AAAA</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Anni</string>
+    <string name="year_label">Anno</string>
+    <string name="months_label">mesi</string>
+    <string name="days_label">Giorni</string>
+    <string name="monday">Lunedì</string>
+    <string name="age_result_format">%1$d mesi | %2$d giorni</string>
+    <string name="default_years">15 Anni</string>
+    <string name="default_age_detail">07 mesi | 07 giorni</string>
+    <string name="default_birthday_detail">04 mesi | 21 giorni</string>
+    <string name="desc_current_age">Icona età attuale</string>
+    <string name="desc_next_birthday">Icona prossimo compleanno</string>
+    <string name="jan">Gen</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">Mag</string>
+    <string name="jun">Giu</string>
+    <string name="jul">Lug</string>
+    <string name="aug">Ago</string>
+    <string name="sep">Set</string>
+    <string name="oct">Ott</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dic</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Calcolatore di date</string>
+    <string name="from">Da</string>
+    <string name="to">A</string>
+    <string name="placeholder_date">GG-MM-AAAA</string>
+    <string name="total_difference">Differenza totale</string>
+    <string name="years_date">Anni</string>
+    <string name="months_date">Mesi</string>
+    <string name="days">Giorni</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">Calcolatore BMI</string>
+    <string name="weight">Peso</string>
+    <string name="enter_weight">Inserisci peso</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Altezza</string>
+    <string name="enter_height">Inserisci altezza</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">Il tuo BMI è %s</string>
+    <string name="underweight">Sottopeso</string>
+    <string name="normal">Normale</string>
+    <string name="overweight">Sovrappeso</string>
+    <string name="obese">Obeso</string>
+    <string name="range_underweight">Sotto 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Sopra 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Dati di input non validi</string>
+    <string name="bmi_data_limitations">Limitazioni dei dati</string>
+    <string name="bmi_limit_kg">1. Chilogrammo - da 1.0 a 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - da 50.0 a 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - da 2.0 a 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Pollici - da 20.0 a 98.0 pollici</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Convertitore di valuta</string>
+    <string name="exchange_rate_info">Utilizzo dei dati sui tassi di cambio della Banca centrale europea. I dati sono stati aggiornati il: %s</string>
+    <string name="currencies">Valute</string>
+    <string name="search_here">Cerca qui</string>
+    <string name="offline_title">Sei offline</string>
+    <string name="offline_message">I dati sulle valute richiedono internet. Aggiorneremo una volta online.</string>
+    <string name="no_data_title">Nessun dato sulle valute</string>
+    <string name="no_data_message">Aggiorna per caricare i tassi di cambio aggiornati.</string>
+    <string name="cancel">Annulla</string>
+    <string name="connect_wifi">Connetti al Wi-Fi</string>
+    <string name="refresh">Aggiorna</string>
+    <string name="done">Fatto</string>
+    <string name="ok">OK</string>
+    <string name="years">Anni</string>
+    <string name="months">Mesi</string>
+    <string name="desc_swap">Scambia valute</string>
+    <string name="default_currency_from_name">Rupia indiana</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dollaro</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Cerca valute</string>
+    <string name="please_wait_fetching_data">Attendere, recupero dati in corso&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Calcolatore di sconto</string>
+    <string name="discount_percent">Sconto (%)</string>
+    <string name="placeholder_add_amount">Aggiungi importo</string>
+    <string name="placeholder_add_rate">Aggiungi tasso</string>
+    <string name="final_amount">Importo finale</string>
+    <string name="original_amount">Importo originale</string>
+    <string name="discount_amount">Importo dello sconto</string>
+    <string name="error_fill_all_fields">Compila tutti i campi</string>
+    <string name="error_min_amount">L\'importo deve essere almeno 100</string>
+    <string name="error_max_discount">Lo sconto deve essere inferiore al 100%</string>
+    <string name="error_max_amount">L\'importo non può superare 99,99,99,999</string>
+    <string name="desc_clear_all">Cancella tutto</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Convertitore di unità</string>
+    <string name="category_weight">Peso</string>
+    <string name="category_length">Lunghezza</string>
+    <string name="category_area">Area</string>
+    <string name="category_time">Tempo</string>
+    <string name="category_volume">Volume</string>
+    <string name="category_temperature">Temperatura</string>
+    <string name="category_speed">Velocità</string>
+    <string name="category_data">Dati</string>
+    <string name="category_power">Potenza</string>
+    <string name="category_current">Corrente</string>
+    <string name="category_voltage">Tensione</string>
+
+    <!-- weight -->
+    <string name="kilograms">Chilogrammo</string>
+    <string name="placeholder_unit">Inserisci unità</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Grammo</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Impostazioni</string>
+    <string name="theme">Tema</string>
+    <string name="language">Lingua</string>
+    <string name="vibration">Vibrazione</string>
+    <string name="scientific_mode">Modalità scientifica</string>
+    <string name="result_history_limit">Risultati da mantenere nella cronologia</string>
+    <string name="share_app">Condividi app</string>
+    <string name="rate_app">Valuta questa app</string>
+    <string name="privacy_policy">Informativa sulla privacy</string>
+    <string name="more_apps">Altre app (Annunci)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Tema chiaro</string>
+    <string name="dark_theme">Tema scuro</string>
+    <string name="system_theme">Tema di sistema</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Imposta capacità cronologia</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Inglese</string>
+    <string name="lang_spanish">Spagnolo</string>
+    <string name="lang_arabic">Arabo</string>
+    <string name="lang_french">Francese</string>
+    <string name="lang_portuguese">Portoghese</string>
+    <string name="lang_russian">Russo</string>
+    <string name="lang_japanese">Giapponese</string>
+    <string name="lang_chinese">Cinese</string>
+    <string name="lang_german">Tedesco</string>
+    <string name="lang_italian">Italiano</string>
+    <string name="lang_korean">Coreano</string>
+    <string name="lang_swedish">Svedese</string>
+    <string name="lang_dutch">Olandese</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turco</string>
+    <string name="lang_catalan">Catalano</string>
+    <string name="lang_filipino">Filippino</string>
+    <string name="lang_bahasa">Indonesiano</string>
+    <string name="lang_bengali">Bengalese</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Singalese</string>
+
+    <!-- History -->
+    <string name="select_all">Seleziona tutto</string>
+    <string name="no_history_found">Nessuna cronologia trovata.</string>
+    <string name="delete_history">Elimina cronologia</string>
+    <string name="delete_history_message">Vuoi eliminare il calcolo?</string>
+    <string name="no">No</string>
+    <string name="yes">Sì</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Elenco pesi</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Il compleanno non può essere nel futuro</string>
+    <string name="err_max_3_digits">Consentite massimo 3 cifre</string>
+    <string name="err_invalid_calculation">Dati di calcolo non validi</string>
+    <string name="err_max_9_digits">Consentite massimo 9 cifre</string>
+    <string name="err_calculation_error">Errore di calcolo</string>
+    <string name="err_rate_limit_40">Il tasso deve essere inferiore al 40%</string>
+    <string name="err_min_amount_100">L\'importo deve essere almeno 100</string>
+    <string name="err_history_empty">La cronologia è vuota</string>
+    <string name="err_select_items_delete">Seleziona gli elementi da eliminare</string>
+    <string name="msg_history_deleted">Cronologia eliminata</string>
+    <string name="err_max_rate_99">Il tasso non può superare il 99.99%</string>
+    <string name="err_min_investment_100">L\'investimento minimo è ₹100</string>
+    <string name="err_max_loan_amount_msg">L\'importo massimo del prestito è 99,99,99,999</string>
+    <string name="err_min_loan_100">L\'importo minimo del prestito è ₹100</string>
+    <string name="err_invalid_tenure">Durata non valida</string>
+    <string name="err_value_too_large">Valore troppo grande</string>
+    <string name="err_invalid_input">Input non valido</string>
+    <string name="err_max_20_digits">Impossibile inserire più di 20 cifre</string>
+    <string name="err_max_6_digits">Consentite massimo 6 cifre</string>
+    <string name="err_max_amount_100">L\'importo massimo è 100</string>
+    <string name="err_max_input_limit">Limite massimo di input raggiunto</string>
+    <string name="err_min_goal_100">L\'obiettivo minimo è ₹100</string>
+    <string name="err_invalid_period">Periodo non valido</string>
+
+    <string name="infinity_text">Infinito</string>
+    <string name="error_text">Errore</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

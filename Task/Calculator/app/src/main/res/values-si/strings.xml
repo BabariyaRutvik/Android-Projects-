@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">කැල්කියුලේටරය</string>
+    <string name="desc_back">ආපසු</string>
+    <string name="result">ප්‍රතිඵලය</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">ගණනය කරන්න</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP කැල්කියුලේටරය</string>
+    <string name="monthly_sip_amount">මාසික SIP මුදල</string>
+    <string name="add_amount">මුදල එකතු කරන්න</string>
+    <string name="rate_percentage">අනුපාතිකය(%)</string>
+    <string name="add_rate">අනුපාතිකය එකතු කරන්න</string>
+    <string name="investment_period">ආයෝජන කාලය</string>
+    <string name="default_period">වසර 01 සහ මාස 00</string>
+    <string name="expected_amount">අපේක්ෂිත මුදල</string>
+    <string name="amount_invested">ආයෝජනය කළ මුදල</string>
+    <string name="wealth_gain">ධන ලාභය</string>
+    <string name="investment_growth">ආයෝජන වර්ධනය</string>
+    <string name="times_growth">1.00 වතාවක්</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">ණය කැල්කියුලේටරය</string>
+    <string name="loan_amount">ණය මුදල</string>
+    <string name="loan_tenure">ණය කාලසීමාව</string>
+    <string name="total_payable">මුළු ගෙවිය යුතු මුදල</string>
+    <string name="monthly_payment">මාසික වාරිකය</string>
+    <string name="interest_amount">පොලී මුදල</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST කැල්කියුලේටරය</string>
+    <string name="original_price">මුල් මිල</string>
+    <string name="gst_rate_percentage">GST අනුපාතිකය(%)</string>
+    <string name="add">එකතු කරන්න</string>
+    <string name="remove">ඉවත් කරන්න</string>
+    <string name="supply_type">සැපයුම් වර්ගය</string>
+    <string name="intra_state">ප්‍රාන්තය තුළ</string>
+    <string name="inter_state">ප්‍රාන්ත අතර</string>
+    <string name="total_amount">මුළු මුදල</string>
+    <string name="gst_amount">GST මුදල</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">ආයෝජන කැල්කියුලේටරය</string>
+    <string name="total_investment">මුළු ආයෝජනය</string>
+    <string name="saving_period">ඉතිරි කිරීමේ කාලය</string>
+    <string name="total_value">මුළු වටිනාකම</string>
+    <string name="total_interest">මුළු පොලිය</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">ඉතිරි කිරීමේ කැල්කියුලේටරය</string>
+    <string name="saving_goal">ඉතිරි කිරීමේ ඉලක්කය</string>
+    <string name="monthly_saving_amount">මාසික ඉතිරි කිරීමේ මුදල</string>
+    <string name="interest_earned">උපයාගත් පොලිය</string>
+    <string name="daily_saving">දෛනික ඉතිරි කිරීම</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">වයස කැල්කියුලේටරය</string>
+    <string name="date_of_birth">උපන් දිනය</string>
+    <string name="today">අද</string>
+    <string name="current_age">වත්මන් වයස</string>
+    <string name="next_birthday">ඊළඟ උපන් දිනය</string>
+    <string name="placeholder_dob">DD-MM-YYYY</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">වසර</string>
+    <string name="year_label">වසර</string>
+    <string name="months_label">මාස</string>
+    <string name="days_label">දින</string>
+    <string name="monday">සඳුදා</string>
+    <string name="age_result_format">මාස %1$d | දින %2$d</string>
+    <string name="default_years">වසර 15</string>
+    <string name="default_age_detail">මාස 07 | දින 07</string>
+    <string name="default_birthday_detail">මාස 04 | දින 21</string>
+    <string name="desc_current_age">වත්මන් වයස අයිකනය</string>
+    <string name="desc_next_birthday">ඊළඟ උපන් දිනය අයිකනය</string>
+    <string name="jan">ජනවාරි</string>
+    <string name="feb">පෙබරවාරි</string>
+    <string name="mar">මාර්තු</string>
+    <string name="apr">අප්‍රේල්</string>
+    <string name="may">මැයි</string>
+    <string name="jun">ජූනි</string>
+    <string name="jul">ජූලි</string>
+    <string name="aug">අගෝස්තු</string>
+    <string name="sep">සැප්තැම්බර්</string>
+    <string name="oct">ඔක්තෝබර්</string>
+    <string name="nov">නොවැම්බර්</string>
+    <string name="dec">දෙසැම්බර්</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">දිනය කැල්කියුලේටරය</string>
+    <string name="from">සිට</string>
+    <string name="to">දක්වා</string>
+    <string name="placeholder_date">DD-MM-YYYY</string>
+    <string name="total_difference">මුළු වෙනස</string>
+    <string name="years_date">වසර</string>
+    <string name="months_date">මාස</string>
+    <string name="days">දින</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI කැල්කියුලේටරය</string>
+    <string name="weight">බර</string>
+    <string name="enter_weight">බර ඇතුළත් කරන්න</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">උස</string>
+    <string name="enter_height">උස ඇතුළත් කරන්න</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">ඔබේ BMI අගය %s වේ</string>
+    <string name="underweight">බර අඩුයි</string>
+    <string name="normal">සාමාන්‍ය</string>
+    <string name="overweight">අධික බර</string>
+    <string name="obese">අධික ස්ථුලතාවය</string>
+    <string name="range_underweight">18.5 ට අඩු</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">30.0 ට වැඩි</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">වලංගු නොවන ඇතුළත් කිරීම්</string>
+    <string name="bmi_data_limitations">දත්ත සීමාවන්</string>
+    <string name="bmi_limit_kg">1. කිලෝග්‍රෑම් - 1.0 සිට 175.0 kg දක්වා</string>
+    <string name="bmi_limit_cm">2. සෙන්ටිමීටර - 50.0 සිට 250.0 cm දක්වා</string>
+    <string name="bmi_limit_lbs">3. පවුම් - 2.0 සිට 390.0 lbs දක්වා</string>
+    <string name="bmi_limit_in">4. අඟල් - 20.0 සිට 98.0 inch දක්වා</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">මුදල් පරිවර්තකය</string>
+    <string name="exchange_rate_info">යුරෝපීය මහ බැංකුවේ විනිමය අනුපාත දත්ත භාවිතා කරයි. දත්ත යාවත්කාලීන කරන ලද්දේ: %s</string>
+    <string name="currencies">මුදල් වර්ග</string>
+    <string name="search_here">මෙහි සොයන්න</string>
+    <string name="offline_title">ඔබ නොබැඳිව සිටියි</string>
+    <string name="offline_message">මුදල් දත්ත සඳහා අන්තර්ජාලය අවශ්‍ය වේ. ඔබ සබැඳි වූ පසු අපි යාවත්කාලීන කරන්නෙමු.</string>
+    <string name="no_data_title">මුදල් දත්ත නොමැත</string>
+    <string name="no_data_message">යාවත්කාලීන විනිමය අනුපාත ලබා ගැනීමට කරුණාකර යාවත්කාලීන කරන්න.</string>
+    <string name="cancel">අවලංගු කරන්න</string>
+    <string name="connect_wifi">Wi-Fi වෙත සම්බන්ධ වන්න</string>
+    <string name="refresh">යාවත්කාලීන කරන්න</string>
+    <string name="done">අහවරයි</string>
+    <string name="ok">හරි</string>
+    <string name="years">වසර</string>
+    <string name="months">මාස</string>
+    <string name="desc_swap">මුදල් වර්ග මාරු කරන්න</string>
+    <string name="default_currency_from_name">ඉන්දියානු රුපියල්</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">ඩොලර්</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">මුදල් වර්ග සොයන්න</string>
+    <string name="please_wait_fetching_data">කරුණාකර රැඳී සිටින්න, දත්ත ලබා ගනිමින් පවතී&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">වට්ටම් කැල්කියුලේටරය</string>
+    <string name="discount_percent">වට්ටම් (%)</string>
+    <string name="placeholder_add_amount">මුදල එකතු කරන්න</string>
+    <string name="placeholder_add_rate">අනුපාතිකය එකතු කරන්න</string>
+    <string name="final_amount">අවසාන මුදල</string>
+    <string name="original_amount">මුල් මුදල</string>
+    <string name="discount_amount">වට්ටම් මුදල</string>
+    <string name="error_fill_all_fields">කරුණාකර සියලුම ක්ෂේත්‍ර පුරවන්න</string>
+    <string name="error_min_amount">මුදල අවම වශයෙන් 100 විය යුතුය</string>
+    <string name="error_max_discount">වට්ටම් 100%% ට වඩා අඩු විය යුතුය</string>
+    <string name="error_max_amount">මුදල 99,99,99,999 ඉක්මවිය නොහැක</string>
+    <string name="desc_clear_all">සියල්ල මකන්න</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">ඒකක පරිවර්තකය</string>
+    <string name="category_weight">බර</string>
+    <string name="category_length">දිග</string>
+    <string name="category_area">ප්‍රදේශය</string>
+    <string name="category_time">කාලය</string>
+    <string name="category_volume">පරිමාව</string>
+    <string name="category_temperature">උෂ්ණත්වය</string>
+    <string name="category_speed">වේගය</string>
+    <string name="category_data">දත්ත</string>
+    <string name="category_power">බලය</string>
+    <string name="category_current">ධාරාව</string>
+    <string name="category_voltage">වෝල්ටීයතාවය</string>
+
+    <!-- weight -->
+    <string name="kilograms">කිලෝග්‍රෑම්</string>
+    <string name="placeholder_unit">ඒකකය ඇතුළත් කරන්න</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">ග්‍රෑම්</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">සැකසුම්</string>
+    <string name="theme">තේමාව</string>
+    <string name="language">භාෂාව</string>
+    <string name="vibration">කම්පනය</string>
+    <string name="scientific_mode">විද්‍යාත්මක මාදිලිය</string>
+    <string name="result_history_limit">ඉතිහාසයේ තබා ගත යුතු ප්‍රතිඵල</string>
+    <string name="share_app">යෙදුම බෙදා ගන්න</string>
+    <string name="rate_app">මෙම යෙදුම අගය කරන්න</string>
+    <string name="privacy_policy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</string>
+    <string name="more_apps">තවත් යෙදුම් (දැන්වීම්)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">ලා පැහැති තේමාව</string>
+    <string name="dark_theme">තද පැහැති තේමාව</string>
+    <string name="system_theme">පද්ධති තේමාව</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">ඉතිහාස ධාරිතාව සකසන්න</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">ඉංග්‍රීසි</string>
+    <string name="lang_spanish">ස්පාඤ්ඤ</string>
+    <string name="lang_arabic">අරාබි</string>
+    <string name="lang_french">ප්‍රංශ</string>
+    <string name="lang_portuguese">පෘතුගීසි</string>
+    <string name="lang_russian">රුසියානු</string>
+    <string name="lang_japanese">ජපන්</string>
+    <string name="lang_chinese">චීන</string>
+    <string name="lang_german">ජර්මන්</string>
+    <string name="lang_italian">ඉතාලි</string>
+    <string name="lang_korean">කොරියානු</string>
+    <string name="lang_swedish">ස්වීඩන්</string>
+    <string name="lang_dutch">ලන්දේසි</string>
+    <string name="lang_afrikaans">අප්‍රිකානු</string>
+    <string name="lang_turkish">තුර්කි</string>
+    <string name="lang_catalan">කැටලන්</string>
+    <string name="lang_filipino">පිලිපීන</string>
+    <string name="lang_bahasa">ඉන්දුනීසියානු</string>
+    <string name="lang_bengali">බෙංගාලි</string>
+    <string name="lang_hindi">හින්දි</string>
+    <string name="lang_sinhala">සිංහල</string>
+
+    <!-- History -->
+    <string name="select_all">සියල්ල තෝරන්න</string>
+    <string name="no_history_found">ඉතිහාසයක් හමු නොවීය.</string>
+    <string name="delete_history">ඉතිහාසය මකන්න</string>
+    <string name="delete_history_message">ඔබට මෙම ගණනය කිරීම මැකීමට අවශ්‍යද?</string>
+    <string name="no">නැත</string>
+    <string name="yes">ඔව්</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">බර ලැයිස්තුව</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">උපන් දිනය අනාගත දිනයක් විය නොහැක</string>
+    <string name="err_max_3_digits">උපරිම ඉලක්කම් 3ක් පමණක් අවසර දෙනු ලැබේ</string>
+    <string name="err_invalid_calculation">වලංගු නොවන ගණනය කිරීම් දත්ත</string>
+    <string name="err_max_9_digits">උපරිම ඉලක්කම් 9ක් පමණක් අවසර දෙනු ලැබේ</string>
+    <string name="err_calculation_error">ගණනය කිරීමේ දෝෂයකි</string>
+    <string name="err_rate_limit_40">අනුපාතිකය 40%% ට වඩා අඩු විය යුතුය</string>
+    <string name="err_min_amount_100">මුදල අවම වශයෙන් 100 විය යුතුය</string>
+    <string name="err_history_empty">ඉතිහාසය හිස්ය</string>
+    <string name="err_select_items_delete">කරුණාකර මැකීමට අයිතම තෝරන්න</string>
+    <string name="msg_history_deleted">ඉතිහාසය මකන ලදී</string>
+    <string name="err_max_rate_99">අනුපාතිකය 99.99%% ඉක්මවිය නොහැක</string>
+    <string name="err_min_investment_100">අවම ආයෝජනය ₹100 කි</string>
+    <string name="err_max_loan_amount_msg">උපරිම ණය මුදල 99,99,99,999 කි</string>
+    <string name="err_min_loan_100">අවම ණය මුදල ₹100 කි</string>
+    <string name="err_invalid_tenure">වලංගු නොවන කාලසීමාව</string>
+    <string name="err_value_too_large">අගය වැඩිය</string>
+    <string name="err_invalid_input">වලංගු නොවන ඇතුළත් කිරීමකි</string>
+    <string name="err_max_20_digits">ඉලක්කම් 20කට වඩා ඇතුළත් කළ නොහැක</string>
+    <string name="err_max_6_digits">උපරිම ඉලක්කම් 6ක් පමණක් අවසර දෙනු ලැබේ</string>
+    <string name="err_max_amount_100">උපරිම මුදල 100 කි</string>
+    <string name="err_max_input_limit">උපරිම සීමාව ඉක්මවා ඇත</string>
+    <string name="err_min_goal_100">අවම ඉලක්කය ₹100 කි</string>
+    <string name="err_invalid_period">වලංගු නොවන කාල සීමාවකි</string>
+
+    <string name="infinity_text">අනන්තය</string>
+    <string name="error_text">දෝෂයකි</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

@@ -1,0 +1,313 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">電卓</string>
+    <string name="desc_back">戻る</string>
+    <string name="result">結果</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">バックスペース</string>
+    <string name="desc_equals">計算</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP電卓</string>
+    <string name="monthly_sip_amount">毎月のSIP額</string>
+    <string name="add_amount">金額を追加</string>
+    <string name="rate_percentage">利率(%)</string>
+    <string name="add_rate">利率を追加</string>
+    <string name="investment_period">投資期間</string>
+    <string name="default_period">01年 &amp; 00ヶ月</string>
+    <string name="expected_amount">期待額</string>
+    <string name="amount_invested">投資額</string>
+    <string name="wealth_gain">資産増加</string>
+    <string name="investment_growth">投資の成長</string>
+    <string name="times_growth">1.00 倍</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">ローン電卓</string>
+    <string name="loan_amount">ローン金額</string>
+    <string name="loan_tenure">ローン期間</string>
+    <string name="total_payable">総支払額</string>
+    <string name="monthly_payment">毎月の支払額</string>
+    <string name="interest_amount">利息額</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST電卓</string>
+    <string name="original_price">元の価格</string>
+    <string name="gst_rate_percentage">GST率(%)</string>
+    <string name="add">追加</string>
+    <string name="remove">削除</string>
+    <string name="supply_type">供給タイプ</string>
+    <string name="intra_state">州内</string>
+    <string name="inter_state">州間</string>
+    <string name="total_amount">合計金額</string>
+    <string name="gst_amount">GST額</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">投資電卓</string>
+    <string name="total_investment">総投資額</string>
+    <string name="saving_period">貯蓄期間</string>
+    <string name="total_value">合計価値</string>
+    <string name="total_interest">総利息</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">貯蓄電卓</string>
+    <string name="saving_goal">貯蓄目標</string>
+    <string name="monthly_saving_amount">毎月の貯蓄額</string>
+    <string name="interest_earned">獲得利息</string>
+    <string name="daily_saving">毎日の貯蓄</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">年齢電卓</string>
+    <string name="date_of_birth">生年月日</string>
+    <string name="today">今日</string>
+    <string name="current_age">現在の年齢</string>
+    <string name="next_birthday">次の誕生日</string>
+    <string name="placeholder_dob">日-月-年</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">年</string>
+    <string name="year_label">年</string>
+    <string name="months_label">ヶ月</string>
+    <string name="days_label">日</string>
+    <string name="monday">月曜日</string>
+    <string name="age_result_format">%1$d ヶ月 | %2$d 日</string>
+    <string name="default_years">15 年</string>
+    <string name="default_age_detail">07 ヶ月 | 07 日</string>
+    <string name="default_birthday_detail">04 ヶ月 | 21 日</string>
+    <string name="desc_current_age">現在の年齢アイコン</string>
+    <string name="desc_next_birthday">次の誕生日アイコン</string>
+    <string name="jan">1月</string>
+    <string name="feb">2月</string>
+    <string name="mar">3月</string>
+    <string name="apr">4月</string>
+    <string name="may">5月</string>
+    <string name="jun">6月</string>
+    <string name="jul">7月</string>
+    <string name="aug">8月</string>
+    <string name="sep">9月</string>
+    <string name="oct">10月</string>
+    <string name="nov">11月</string>
+    <string name="dec">12月</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">日付電卓</string>
+    <string name="from">開始</string>
+    <string name="to">終了</string>
+    <string name="placeholder_date">日-月-年</string>
+    <string name="total_difference">総差分</string>
+    <string name="years_date">年</string>
+    <string name="months_date">月</string>
+    <string name="days">日</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI電卓</string>
+    <string name="weight">体重</string>
+    <string name="enter_weight">体重を入力</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">身長</string>
+    <string name="enter_height">身長を入力</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">あなたのBMIは %s です</string>
+    <string name="underweight">低体重</string>
+    <string name="normal">普通体重</string>
+    <string name="overweight">過体重</string>
+    <string name="obese">肥満</string>
+    <string name="range_underweight">18.5未満</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">30.0以上</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">無効な入力データ</string>
+    <string name="bmi_data_limitations">データの制限</string>
+    <string name="bmi_limit_kg">1. キログラム - 1.0 ～ 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 ～ 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 ～ 390.0 lbs</string>
+    <string name="bmi_limit_in">4. インチ - 20.0 ～ 98.0 インチ</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">通貨コンバーター</string>
+    <string name="exchange_rate_info">欧州中央銀行の換算レートデータを使用しています。データ更新日: %s</string>
+    <string name="currencies">通貨</string>
+    <string name="search_here">ここで検索</string>
+    <string name="offline_title">オフラインです</string>
+    <string name="offline_message">通貨データにはインターネットが必要です。オンラインになり次第更新します。</string>
+    <string name="no_data_title">通貨データなし</string>
+    <string name="no_data_message">更新して最新の通貨レートを読み込んでください。</string>
+    <string name="cancel">キャンセル</string>
+    <string name="connect_wifi">Wi-Fiに接続</string>
+    <string name="refresh">更新</string>
+    <string name="done">完了</string>
+    <string name="ok">OK</string>
+    <string name="years">年</string>
+    <string name="months">月</string>
+    <string name="desc_swap">通貨を入れ替え</string>
+    <string name="default_currency_from_name">インド・ルピー</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">ドル</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">通貨を検索</string>
+    <string name="please_wait_fetching_data">データを取得しています。お待ちください&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">割引電卓</string>
+    <string name="discount_percent">割引 (%)</string>
+    <string name="placeholder_add_amount">金額を追加</string>
+    <string name="placeholder_add_rate">利率を追加</string>
+    <string name="final_amount">最終金額</string>
+    <string name="original_amount">元の金額</string>
+    <string name="discount_amount">割引額</string>
+    <string name="error_fill_all_fields">すべてのフィールドを入力してください</string>
+    <string name="error_min_amount">金額は100以上である必要があります</string>
+    <string name="error_max_discount">割引は100%未満である必要があります</string>
+    <string name="error_max_amount">金額は 99,99,99,999 を超えることはできません</string>
+    <string name="desc_clear_all">すべてクリア</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">単位コンバーター</string>
+    <string name="category_weight">重量</string>
+    <string name="category_length">長さ</string>
+    <string name="category_area">面積</string>
+    <string name="category_time">時間</string>
+    <string name="category_volume">体積</string>
+    <string name="category_temperature">温度</string>
+    <string name="category_speed">速度</string>
+    <string name="category_data">データ</string>
+    <string name="category_power">電力</string>
+    <string name="category_current">電流</string>
+    <string name="category_voltage">電圧</string>
+
+    <!-- weight -->
+    <string name="kilograms">キログラム</string>
+    <string name="placeholder_unit">単位を入力</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">グラム</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">設定</string>
+    <string name="theme">テーマ</string>
+    <string name="language">言語</string>
+    <string name="vibration">バイブレーション</string>
+    <string name="scientific_mode">関数モード</string>
+    <string name="result_history_limit">履歴に保持する結果数</string>
+    <string name="share_app">アプリを共有</string>
+    <string name="rate_app">アプリを評価</string>
+    <string name="privacy_policy">プライバシーポリシー</string>
+    <string name="more_apps">他のアプリ（広告）</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">ライトテーマ</string>
+    <string name="dark_theme">ダークテーマ</string>
+    <string name="system_theme">システムテーマ</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">履歴の容量を設定</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">英語</string>
+    <string name="lang_spanish">スペイン語</string>
+    <string name="lang_arabic">アラビア語</string>
+    <string name="lang_french">フランス語</string>
+    <string name="lang_portuguese">ポルトガル語</string>
+    <string name="lang_russian">ロシア語</string>
+    <string name="lang_japanese">日本語</string>
+    <string name="lang_chinese">中国語</string>
+    <string name="lang_german">ドイツ語</string>
+    <string name="lang_italian">イタリア語</string>
+    <string name="lang_korean">韓国語</string>
+    <string name="lang_swedish">スウェーデン語</string>
+    <string name="lang_dutch">オランダ語</string>
+    <string name="lang_afrikaans">アフリカーンス語</string>
+    <string name="lang_turkish">トルコ語</string>
+    <string name="lang_catalan">カタルーニャ語</string>
+    <string name="lang_filipino">フィリピン語</string>
+    <string name="lang_bahasa">インドネシア語</string>
+    <string name="lang_bengali">ベンガル語</string>
+    <string name="lang_hindi">ヒンディー語</string>
+    <string name="lang_sinhala">シンハラ語</string>
+
+    <!-- History -->
+    <string name="history">履歴</string>
+    <string name="delete_all">すべて削除</string>
+    <string name="select_all">すべて選択</string>
+    <string name="no_history_found">履歴が見つかりません。</string>
+    <string name="delete_history">履歴を削除</string>
+    <string name="delete_history_message">計算履歴を削除しますか？</string>
+    <string name="no">いいえ</string>
+    <string name="yes">はい</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">重量リスト</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">誕生日は未来に設定できません</string>
+    <string name="err_max_3_digits">最大3桁まで許可されます</string>
+    <string name="err_invalid_calculation">無効な計算データ</string>
+    <string name="err_max_9_digits">最大9桁まで許可されます</string>
+    <string name="err_calculation_error">計算エラー</string>
+    <string name="err_rate_limit_40">利率は40%未満である必要があります</string>
+    <string name="err_min_amount_100">金額は100以上である必要があります</string>
+    <string name="err_history_empty">履歴が空です</string>
+    <string name="err_select_items_delete">削除する項目を選択してください</string>
+    <string name="msg_history_deleted">履歴を削除しました</string>
+    <string name="err_max_rate_99">利率は99.99%を超えることはできません</string>
+    <string name="err_min_investment_100">最小投資額は ₹100 です</string>
+    <string name="err_max_loan_amount_msg">最大ローン額は 99,99,99,999 です</string>
+    <string name="err_min_loan_100">最小ローン額は ₹100 です</string>
+    <string name="err_invalid_tenure">無効な期間</string>
+    <string name="err_value_too_large">値が大きすぎます</string>
+    <string name="err_invalid_input">無効な入力</string>
+    <string name="err_max_20_digits">20桁を超える入力はできません</string>
+    <string name="err_max_6_digits">最大6桁まで許可されます</string>
+    <string name="err_max_amount_100">最大額は100です</string>
+    <string name="err_max_input_limit">最大入力制限に達しました</string>
+    <string name="err_min_goal_100">最小目標は ₹100 です</string>
+    <string name="err_invalid_period">無効な期間</string>
+
+    <string name="infinity_text">無限大</string>
+    <string name="error_text">エラー</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

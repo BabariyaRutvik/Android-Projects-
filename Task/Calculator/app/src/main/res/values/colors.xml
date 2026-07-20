@@ -30,4 +30,8 @@
     <color name="bmi_green">#4CAF50</color>
     <color name="bmi_orange">#FF9800</color>
     <color name="bmi_red">#F44336</color>
+
+    <color name="settings_icon_bg">#FFF5EE</color>
+    <color name="switch_track_unchecked">#BDBDBD</color>
+    <color name="switch_thumb_unchecked">#FFFFFF</color>
 </resources>

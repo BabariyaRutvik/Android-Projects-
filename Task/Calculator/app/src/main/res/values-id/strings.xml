@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Kalkulator</string>
+    <string name="desc_back">Kembali</string>
+    <string name="result">Hasil</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">Hitung</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">Kalkulator SIP</string>
+    <string name="monthly_sip_amount">Jumlah SIP Bulanan</string>
+    <string name="add_amount">Tambah jumlah</string>
+    <string name="rate_percentage">Tingkat(%)</string>
+    <string name="add_rate">Tambah tingkat</string>
+    <string name="investment_period">Periode Investasi</string>
+    <string name="default_period">01 tahun &amp; 00 bulan</string>
+    <string name="expected_amount">Jumlah yang Diharapkan</string>
+    <string name="amount_invested">Jumlah yang Diinvestasikan</string>
+    <string name="wealth_gain">Keuntungan Kekayaan</string>
+    <string name="investment_growth">Pertumbuhan Investasi</string>
+    <string name="times_growth">1.00 Kali</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Kalkulator Pinjaman</string>
+    <string name="loan_amount">Jumlah Pinjaman</string>
+    <string name="loan_tenure">Tenor Pinjaman</string>
+    <string name="total_payable">Total yang Harus Dibayar</string>
+    <string name="monthly_payment">Pembayaran Bulanan</string>
+    <string name="interest_amount">Jumlah Bunga</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">Kalkulator GST</string>
+    <string name="original_price">Harga Asli</string>
+    <string name="gst_rate_percentage">Tingkat GST(%)</string>
+    <string name="add">Tambah</string>
+    <string name="remove">Hapus</string>
+    <string name="supply_type">Tipe Pasokan</string>
+    <string name="intra_state">Intra State</string>
+    <string name="inter_state">Inter State</string>
+    <string name="total_amount">Total Jumlah</string>
+    <string name="gst_amount">Jumlah GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Kalkulator Investasi</string>
+    <string name="total_investment">Total Investasi</string>
+    <string name="saving_period">Periode Menabung</string>
+    <string name="total_value">Total Nilai</string>
+    <string name="total_interest">Total Bunga</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Kalkulator Tabungan</string>
+    <string name="saving_goal">Tujuan Tabungan</string>
+    <string name="monthly_saving_amount">Jumlah Tabungan Bulanan</string>
+    <string name="interest_earned">Bunga yang Diperoleh</string>
+    <string name="daily_saving">Tabungan Harian</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Kalkulator Usia</string>
+    <string name="date_of_birth">Tanggal Lahir</string>
+    <string name="today">Hari Ini</string>
+    <string name="current_age">Usia Saat Ini</string>
+    <string name="next_birthday">Ulang Tahun Berikutnya</string>
+    <string name="placeholder_dob">TT-BB-TTTT</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Tahun</string>
+    <string name="year_label">Tahun</string>
+    <string name="months_label">bulan</string>
+    <string name="days_label">Hari</string>
+    <string name="monday">Senin</string>
+    <string name="age_result_format">%1$d bulan | %2$d Hari</string>
+    <string name="default_years">15 Tahun</string>
+    <string name="default_age_detail">07 bulan | 07 Hari</string>
+    <string name="default_birthday_detail">04 bulan | 21 Hari</string>
+    <string name="desc_current_age">Ikon Usia Saat Ini</string>
+    <string name="desc_next_birthday">Ikon Ulang Tahun Berikutnya</string>
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">Mei</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Agu</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Okt</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Des</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Kalkulator Tanggal</string>
+    <string name="from">Dari</string>
+    <string name="to">Ke</string>
+    <string name="placeholder_date">TT-BB-TTTT</string>
+    <string name="total_difference">Total Selisih</string>
+    <string name="years_date">Tahun</string>
+    <string name="months_date">Bulan</string>
+    <string name="days">Hari</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">Kalkulator BMI</string>
+    <string name="weight">Berat</string>
+    <string name="enter_weight">Masukkan berat</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Tinggi</string>
+    <string name="enter_height">Masukkan tinggi</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">BMI Anda adalah %s</string>
+    <string name="underweight">Kekurangan Berat Badan</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Kelebihan Berat Badan</string>
+    <string name="obese">Obesitas</string>
+    <string name="range_underweight">Di bawah 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Tinggi 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Data Input Tidak Valid</string>
+    <string name="bmi_data_limitations">Batasan Data</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 hingga 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 hingga 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 hingga 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Inci - 20.0 hingga 98.0 inci</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Pengonversi Mata Uang</string>
+    <string name="exchange_rate_info">Menggunakan data nilai tukar dari Bank Sentral Eropa. Data diperbarui pada: %s</string>
+    <string name="currencies">Mata Uang</string>
+    <string name="search_here">Cari di sini</string>
+    <string name="offline_title">Anda Sedang Offline</string>
+    <string name="offline_message">Data mata uang membutuhkan internet. Kami akan memperbarui setelah Anda online.</string>
+    <string name="no_data_title">Tidak Ada Data Mata Uang</string>
+    <string name="no_data_message">Silakan segarkan untuk memuat nilai tukar mata uang yang diperbarui.</string>
+    <string name="cancel">Batal</string>
+    <string name="connect_wifi">Hubungkan ke Wi-Fi</string>
+    <string name="refresh">Segarkan</string>
+    <string name="done">Selesai</string>
+    <string name="ok">OK</string>
+    <string name="years">Tahun</string>
+    <string name="months">Bulan</string>
+    <string name="desc_swap">Tukar Mata Uang</string>
+    <string name="default_currency_from_name">Rupee India</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dolar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Cari mata uang</string>
+    <string name="please_wait_fetching_data">Harap tunggu, Mengambil Data&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Kalkulator Diskon</string>
+    <string name="discount_percent">Diskon (%)</string>
+    <string name="placeholder_add_amount">Tambah jumlah</string>
+    <string name="placeholder_add_rate">Tambah tingkat</string>
+    <string name="final_amount">Jumlah Akhir</string>
+    <string name="original_amount">Jumlah Asli</string>
+    <string name="discount_amount">Jumlah Diskon</string>
+    <string name="error_fill_all_fields">Harap isi semua bidang</string>
+    <string name="error_min_amount">Jumlah minimal harus 100</string>
+    <string name="error_max_discount">Diskon harus kurang dari 100%</string>
+    <string name="error_max_amount">Jumlah tidak boleh melebihi 99.99.99.999</string>
+    <string name="desc_clear_all">Hapus semua</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Pengonversi Satuan</string>
+    <string name="category_weight">Berat</string>
+    <string name="category_length">Panjang</string>
+    <string name="category_area">Luas</string>
+    <string name="category_time">Waktu</string>
+    <string name="category_volume">Volume</string>
+    <string name="category_temperature">Suhu</string>
+    <string name="category_speed">Kecepatan</string>
+    <string name="category_data">Data</string>
+    <string name="category_power">Daya</string>
+    <string name="category_current">Arus</string>
+    <string name="category_voltage">Tegangan</string>
+
+    <!-- weight -->
+    <string name="kilograms">Kilogram</string>
+    <string name="placeholder_unit">Masukkan Satuan</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Pengaturan</string>
+    <string name="theme">Tema</string>
+    <string name="language">Bahasa</string>
+    <string name="vibration">Getaran</string>
+    <string name="scientific_mode">Mode ilmiah</string>
+    <string name="result_history_limit">Hasil untuk disimpan dalam riwayat</string>
+    <string name="share_app">Bagikan Aplikasi</string>
+    <string name="rate_app">Beri Nilai Aplikasi Ini</string>
+    <string name="privacy_policy">Kebijakan Privasi</string>
+    <string name="more_apps">Aplikasi lainnya (Iklan)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Tema Terang</string>
+    <string name="dark_theme">Tema Gelap</string>
+    <string name="system_theme">Tema Sistem</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Atur Kapasitas Riwayat</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Inggris</string>
+    <string name="lang_spanish">Spanyol</string>
+    <string name="lang_arabic">Arab</string>
+    <string name="lang_french">Prancis</string>
+    <string name="lang_portuguese">Portugis</string>
+    <string name="lang_russian">Rusia</string>
+    <string name="lang_japanese">Jepang</string>
+    <string name="lang_chinese">Tionghoa</string>
+    <string name="lang_german">Jerman</string>
+    <string name="lang_italian">Italia</string>
+    <string name="lang_korean">Korea</string>
+    <string name="lang_swedish">Swedia</string>
+    <string name="lang_dutch">Belanda</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turki</string>
+    <string name="lang_catalan">Katalan</string>
+    <string name="lang_filipino">Filipina</string>
+    <string name="lang_bahasa">Bahasa Indonesia</string>
+    <string name="lang_bengali">Benggala</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Sinhala</string>
+
+    <!-- History -->
+    <string name="select_all">Pilih Semua</string>
+    <string name="no_history_found">Riwayat tidak ditemukan.</string>
+    <string name="delete_history">Hapus Riwayat</string>
+    <string name="delete_history_message">Apakah Anda ingin menghapus perhitungan?</string>
+    <string name="no">Tidak</string>
+    <string name="yes">Ya</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Daftar Berat</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Ulang tahun tidak boleh di masa depan</string>
+    <string name="err_max_3_digits">Maksimum diperbolehkan 3 digit</string>
+    <string name="err_invalid_calculation">Data Perhitungan Tidak Valid</string>
+    <string name="err_max_9_digits">Maksimum diperbolehkan 9 digit</string>
+    <string name="err_calculation_error">Kesalahan perhitungan</string>
+    <string name="err_rate_limit_40">Tingkat harus kurang dari 40%</string>
+    <string name="err_min_amount_100">Nilai Jumlah Harus Minimal 100</string>
+    <string name="err_history_empty">Riwayat kosong</string>
+    <string name="err_select_items_delete">Silakan pilih item untuk dihapus</string>
+    <string name="msg_history_deleted">Riwayat dihapus</string>
+    <string name="err_max_rate_99">Tingkat tidak boleh melebihi 99.99%</string>
+    <string name="err_min_investment_100">Investasi minimum adalah ₹100</string>
+    <string name="err_max_loan_amount_msg">Jumlah pinjaman maksimum adalah 99.99.99.999</string>
+    <string name="err_min_loan_100">Jumlah pinjaman minimum adalah ₹100</string>
+    <string name="err_invalid_tenure">Tenor tidak valid</string>
+    <string name="err_value_too_large">Nilai terlalu besar</string>
+    <string name="err_invalid_input">Input Tidak Valid</string>
+    <string name="err_max_20_digits">Tidak dapat memasukkan lebih dari 20 digit</string>
+    <string name="err_max_6_digits">Maksimum diperbolehkan 6 digit</string>
+    <string name="err_max_amount_100">Jumlah maksimum adalah 100</string>
+    <string name="err_max_input_limit">Batas input maksimum tercapai</string>
+    <string name="err_min_goal_100">Tujuan minimum adalah ₹100</string>
+    <string name="err_invalid_period">Periode tidak valid</string>
+
+    <string name="infinity_text">Tak Terhingga</string>
+    <string name="error_text">Kesalahan</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

@@ -51,11 +51,6 @@ public class AgeCalculatorActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Status bar setup
-        WindowInsetsControllerCompat windowInsetsControllerCompat = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsControllerCompat != null) {
-            windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
-        }
 
         // Hide soft keyboard
         if (getWindow() != null) {
@@ -122,7 +117,7 @@ public class AgeCalculatorActivity extends AppCompatActivity {
         NumberPicker pickerDay = dialog.findViewById(R.id.picker_day);
         NumberPicker pickerYear = dialog.findViewById(R.id.picker_year);
 
-        String[] months = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        String[] months = {getString(R.string.jan), getString(R.string.feb), getString(R.string.mar), getString(R.string.apr), getString(R.string.may), getString(R.string.jun), getString(R.string.jul), getString(R.string.aug), getString(R.string.sep), getString(R.string.oct), getString(R.string.nov), getString(R.string.dec)};
         pickerMonth.setMinValue(0);
         pickerMonth.setMaxValue(months.length - 1);
         pickerMonth.setDisplayedValues(months);
@@ -184,7 +179,7 @@ public class AgeCalculatorActivity extends AppCompatActivity {
 
             if (dobDate != null && todayDate != null) {
                 if (dobDate.after(todayDate)) {
-                    Toast.makeText(this, "Birthday can't be in the future", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.err_birthday_future, Toast.LENGTH_SHORT).show();
                     binding.resultLabelContainer.setVisibility(View.GONE);
                     binding.resultContainerAge.setVisibility(View.GONE);
                     return;
@@ -238,12 +233,12 @@ public class AgeCalculatorActivity extends AppCompatActivity {
                 String dayOfWeekStr = new SimpleDateFormat("EEEE", Locale.getDefault()).format(nextBday.getTime());
 
                 // Update UI
-                String yearText = years == 1 ? "Year" : "Years";
+                String yearText = years == 1 ? getString(R.string.year_label) : getString(R.string.years_label);
                 binding.textCurrentAgeYears.setText(String.format(Locale.getDefault(), "%d %s", years, yearText));
-                binding.textCurrentAgeDetail.setText(String.format(Locale.getDefault(), "%d months | %d Days", months, days));
+                binding.textCurrentAgeDetail.setText(getString(R.string.age_result_format, months, days));
 
                 binding.textNextBirthdayDay.setText(dayOfWeekStr);
-                binding.textNextBirthdayDetail.setText(String.format(Locale.getDefault(), "%d months | %d Days", nextMonths, nextDays));
+                binding.textNextBirthdayDetail.setText(getString(R.string.age_result_format, nextMonths, nextDays));
 
                 binding.resultLabelContainer.setVisibility(View.VISIBLE);
                 binding.resultContainerAge.setVisibility(View.VISIBLE);

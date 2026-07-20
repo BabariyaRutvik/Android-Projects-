@@ -51,11 +51,6 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Status bar optimization
-        WindowInsetsControllerCompat windowInsetsController = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         // Hiding system keyboard
         if (getWindow() != null) {
@@ -202,7 +197,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
     private void handleInvestmentInput(String val) {
         if (selectedField == 0) {
             if (investAmountStr.replace(".", "").length() + val.length() > 9) {
-                Toast.makeText(this, "Maximum 9 digits allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_9_digits, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (val.equals(".") && investAmountStr.contains(".")) return;
@@ -213,7 +208,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             try {
                 double rate = Double.parseDouble(tempRate);
                 if (rate > 99.99) {
-                    Toast.makeText(this, "Rate cannot exceed 99.99%", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.err_max_rate_99, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
@@ -241,7 +236,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
         }
 
         TextView title = dialog.findViewById(R.id.text_dialog_title);
-        title.setText("Saving Period");
+        title.setText(R.string.saving_period);
 
         NumberPicker yearPicker = dialog.findViewById(R.id.picker_years);
         NumberPicker monthPicker = dialog.findViewById(R.id.picker_months);
@@ -277,7 +272,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
 
     private void calculateInvestment() {
         if (investAmountStr.isEmpty() || interestRateStr.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -287,7 +282,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             double totalYears = selectedYears + (selectedMonths / 12.0);
 
             if (principal < 100) {
-                Toast.makeText(this, "Minimum investment is ₹100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_min_investment_100, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -306,7 +301,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             binding.layoutInvestRate.setSelected(false);
             binding.layoutInvestSavingPeriod.setSelected(false);
         } catch (Exception e) {
-            Toast.makeText(this, "Calculation error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
     }
 

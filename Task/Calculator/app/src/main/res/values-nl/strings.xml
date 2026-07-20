@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Rekenmachine</string>
+    <string name="desc_back">Terug</string>
+    <string name="result">Resultaat</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">Berekenen</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP-calculator</string>
+    <string name="monthly_sip_amount">Maandelijks SIP-bedrag</string>
+    <string name="add_amount">Bedrag toevoegen</string>
+    <string name="rate_percentage">Percentage(%)</string>
+    <string name="add_rate">Percentage toevoegen</string>
+    <string name="investment_period">Investeringsperiode</string>
+    <string name="default_period">01 jaar &amp; 00 maanden</string>
+    <string name="expected_amount">Verwacht bedrag</string>
+    <string name="amount_invested">Geïnvesteerd bedrag</string>
+    <string name="wealth_gain">Vermogensgroei</string>
+    <string name="investment_growth">Investeringsgroei</string>
+    <string name="times_growth">1.00 keer</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Leningcalculator</string>
+    <string name="loan_amount">Leenbedrag</string>
+    <string name="loan_tenure">Looptijd</string>
+    <string name="total_payable">Totaal te betalen</string>
+    <string name="monthly_payment">Maandelijkse betaling</string>
+    <string name="interest_amount">Rente bedrag</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST-calculator</string>
+    <string name="original_price">Oorspronkelijke prijs</string>
+    <string name="gst_rate_percentage">GST-percentage(%)</string>
+    <string name="add">Toevoegen</string>
+    <string name="remove">Verwijderen</string>
+    <string name="supply_type">Type levering</string>
+    <string name="intra_state">Binnen de staat</string>
+    <string name="inter_state">Tussen staten</string>
+    <string name="total_amount">Totaal bedrag</string>
+    <string name="gst_amount">GST-bedrag</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Investeringscalculator</string>
+    <string name="total_investment">Totale investering</string>
+    <string name="saving_period">Spaarperiode</string>
+    <string name="total_value">Totale waarde</string>
+    <string name="total_interest">Totale rente</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Spaarcalculator</string>
+    <string name="saving_goal">Spaardoel</string>
+    <string name="monthly_saving_amount">Maandelijks spaarbedrag</string>
+    <string name="interest_earned">Verdiende rente</string>
+    <string name="daily_saving">Dagelijks sparen</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Leeftijdscalculator</string>
+    <string name="date_of_birth">Geboortedatum</string>
+    <string name="today">Vandaag</string>
+    <string name="current_age">Huidige leeftijd</string>
+    <string name="next_birthday">Volgende verjaardag</string>
+    <string name="placeholder_dob">DD-MM-JJJJ</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Jaar</string>
+    <string name="year_label">Jaar</string>
+    <string name="months_label">maanden</string>
+    <string name="days_label">Dagen</string>
+    <string name="monday">Maandag</string>
+    <string name="age_result_format">%1$d maanden | %2$d dagen</string>
+    <string name="default_years">15 jaar</string>
+    <string name="default_age_detail">07 maanden | 07 dagen</string>
+    <string name="default_birthday_detail">04 maanden | 21 dagen</string>
+    <string name="desc_current_age">Icoon huidige leeftijd</string>
+    <string name="desc_next_birthday">Icoon volgende verjaardag</string>
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Maart</string>
+    <string name="apr">Apr</string>
+    <string name="may">Mei</string>
+    <string name="jun">Juni</string>
+    <string name="jul">Juli</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sept</string>
+    <string name="oct">Okt</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Datumcalculator</string>
+    <string name="from">Van</string>
+    <string name="to">Naar</string>
+    <string name="placeholder_date">DD-MM-JJJJ</string>
+    <string name="total_difference">Totaal verschil</string>
+    <string name="years_date">Jaren</string>
+    <string name="months_date">Maanden</string>
+    <string name="days">Dagen</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI-calculator</string>
+    <string name="weight">Gewicht</string>
+    <string name="enter_weight">Voer gewicht in</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Hoogte</string>
+    <string name="enter_height">Voer hoogte in</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">Je BMI is %s</string>
+    <string name="underweight">Ondergewicht</string>
+    <string name="normal">Normaal</string>
+    <string name="overweight">Overgewicht</string>
+    <string name="obese">Obese</string>
+    <string name="range_underweight">Onder 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Boven 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Ongeldige invoergegevens</string>
+    <string name="bmi_data_limitations">Gegevensbeperkingen</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 tot 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 tot 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 tot 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Inch - 20.0 tot 98.0 inch</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Valuta omzetter</string>
+    <string name="exchange_rate_info">Gebruikt wisselkoersgegevens van de Europese Centrale Bank. Gegevens bijgewerkt op: %s</string>
+    <string name="currencies">Valuta\'s</string>
+    <string name="search_here">Zoek hier</string>
+    <string name="offline_title">Je bent offline</string>
+    <string name="offline_message">Valutagegevens hebben internet nodig. We verversen zodra je online bent.</string>
+    <string name="no_data_title">Geen valutagegevens</string>
+    <string name="no_data_message">Ververs om bijgewerkte wisselkoersen te laden.</string>
+    <string name="cancel">Annuleren</string>
+    <string name="connect_wifi">Verbind met Wi-Fi</string>
+    <string name="refresh">Verversen</string>
+    <string name="done">Klaar</string>
+    <string name="ok">OK</string>
+    <string name="years">Jaren</string>
+    <string name="months">Maanden</string>
+    <string name="desc_swap">Valuta\'s wisselen</string>
+    <string name="default_currency_from_name">Indiase roepie</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dollar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Zoek valuta\'s</string>
+    <string name="please_wait_fetching_data">Even geduld, gegevens ophalen&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Kortingscalculator</string>
+    <string name="discount_percent">Korting (%)</string>
+    <string name="placeholder_add_amount">Bedrag toevoegen</string>
+    <string name="placeholder_add_rate">Percentage toevoegen</string>
+    <string name="final_amount">Eindbedrag</string>
+    <string name="original_amount">Oorspronkelijk bedrag</string>
+    <string name="discount_amount">Kortingsbedrag</string>
+    <string name="error_fill_all_fields">Vul alle velden in</string>
+    <string name="error_min_amount">Bedrag moet minimaal 100 zijn</string>
+    <string name="error_max_discount">Korting moet minder dan 100% zijn</string>
+    <string name="error_max_amount">Bedrag mag niet hoger zijn dan 99,99,99,999</string>
+    <string name="desc_clear_all">Alles wissen</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Eenheden omzetter</string>
+    <string name="category_weight">Gewicht</string>
+    <string name="category_length">Lengte</string>
+    <string name="category_area">Oppervlakte</string>
+    <string name="category_time">Tijd</string>
+    <string name="category_volume">Volume</string>
+    <string name="category_temperature">Temperatuur</string>
+    <string name="category_speed">Snelheid</string>
+    <string name="category_data">Data</string>
+    <string name="category_power">Vermogen</string>
+    <string name="category_current">Stroom</string>
+    <string name="category_voltage">Voltage</string>
+
+    <!-- weight -->
+    <string name="kilograms">Kilogram</string>
+    <string name="placeholder_unit">Voer eenheid in</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Instellingen</string>
+    <string name="theme">Thema</string>
+    <string name="language">Taal</string>
+    <string name="vibration">Trillen</string>
+    <string name="scientific_mode">Wetenschappelijke modus</string>
+    <string name="result_history_limit">Resultaten bewaren in geschiedenis</string>
+    <string name="share_app">App delen</string>
+    <string name="rate_app">Beoordeel deze app</string>
+    <string name="privacy_policy">Privacybeleid</string>
+    <string name="more_apps">Meer apps (Advertenties)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Licht thema</string>
+    <string name="dark_theme">Donker thema</string>
+    <string name="system_theme">Systeemthema</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Geschiedeniscapaciteit instellen</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Engels</string>
+    <string name="lang_spanish">Spaans</string>
+    <string name="lang_arabic">Arabisch</string>
+    <string name="lang_french">Frans</string>
+    <string name="lang_portuguese">Portugees</string>
+    <string name="lang_russian">Russisch</string>
+    <string name="lang_japanese">Japans</string>
+    <string name="lang_chinese">Chinees</string>
+    <string name="lang_german">Duits</string>
+    <string name="lang_italian">Italiaans</string>
+    <string name="lang_korean">Koreaans</string>
+    <string name="lang_swedish">Zweeds</string>
+    <string name="lang_dutch">Nederlands</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turks</string>
+    <string name="lang_catalan">Catalaans</string>
+    <string name="lang_filipino">Filipijns</string>
+    <string name="lang_bahasa">Indonesisch</string>
+    <string name="lang_bengali">Bengaals</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Singalees</string>
+
+    <!-- History -->
+    <string name="select_all">Alles selecteren</string>
+    <string name="no_history_found">Geen geschiedenis gevonden.</string>
+    <string name="delete_history">Geschiedenis verwijderen</string>
+    <string name="delete_history_message">Wilt u de berekening verwijderen?</string>
+    <string name="no">Nee</string>
+    <string name="yes">Ja</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Gewichtslijst</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Verjaardag kan niet in de toekomst liggen</string>
+    <string name="err_max_3_digits">Maximaal 3 cijfers toegestaan</string>
+    <string name="err_invalid_calculation">Ongeldige berekeningsgegevens</string>
+    <string name="err_max_9_digits">Maximaal 9 cijfers toegestaan</string>
+    <string name="err_calculation_error">Berekeningsfout</string>
+    <string name="err_rate_limit_40">Percentage moet minder dan 40% zijn</string>
+    <string name="err_min_amount_100">Bedrag moet minimaal 100 zijn</string>
+    <string name="err_history_empty">Geschiedenis is leeg</string>
+    <string name="err_select_items_delete">Selecteer items om te verwijderen</string>
+    <string name="msg_history_deleted">Geschiedenis verwijderd</string>
+    <string name="err_max_rate_99">Percentage mag niet hoger zijn dan 99.99%</string>
+    <string name="err_min_investment_100">Minimale investering is ₹100</string>
+    <string name="err_max_loan_amount_msg">Maximaal leenbedrag is 99,99,99,999</string>
+    <string name="err_min_loan_100">Minimaal leenbedrag is ₹100</string>
+    <string name="err_invalid_tenure">Ongeldige looptijd</string>
+    <string name="err_value_too_large">Waarde te groot</string>
+    <string name="err_invalid_input">Ongeldige invoer</string>
+    <string name="err_max_20_digits">Kan niet meer dan 20 cijfers invoeren</string>
+    <string name="err_max_6_digits">Maximaal 6 cijfers toegestaan</string>
+    <string name="err_max_amount_100">Maximaal bedrag is 100</string>
+    <string name="err_max_input_limit">Maximale invoerlimiet bereikt</string>
+    <string name="err_min_goal_100">Minimaal doel is ₹100</string>
+    <string name="err_invalid_period">Ongeldige periode</string>
+
+    <string name="infinity_text">Oneindig</string>
+    <string name="error_text">Fout</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

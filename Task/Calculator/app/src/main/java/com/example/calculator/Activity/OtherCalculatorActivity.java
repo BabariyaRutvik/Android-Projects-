@@ -33,13 +33,6 @@ public class OtherCalculatorActivity extends AppCompatActivity {
         binding = ActivityOtherCalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Ensure Status Bar icons are dark
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                androidx.core.view.ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-            windowInsetsController.setAppearanceLightNavigationBars(true);
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.main, (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -57,53 +50,44 @@ public class OtherCalculatorActivity extends AppCompatActivity {
 
     private void initData() {
         calculatorList = new ArrayList<>();
-        calculatorList.add(new CalculatorItem("SIP Calculator", R.drawable.sip_calculator, 87));
-        calculatorList.add(new CalculatorItem("Loan Calculator", R.drawable.loan_calculator, 96));
-        calculatorList.add(new CalculatorItem("GST Calculator", R.drawable.gst_calculator, 93));
-        calculatorList.add(new CalculatorItem("Investment Calculator", R.drawable.investment_calculator, 134));
-        calculatorList.add(new CalculatorItem("Currency Converter", R.drawable.hugeicons_coins_swap, 121));
-        calculatorList.add(new CalculatorItem("Saving Calculator", R.drawable.saving_calculator, 107));
-        calculatorList.add(new CalculatorItem("Age Calculator", R.drawable.age_calculator, 90));
-        calculatorList.add(new CalculatorItem("BMI Calculator", R.drawable.bmi_calculator, 90));
-        calculatorList.add(new CalculatorItem("Unit Calculator", R.drawable.unit_calculator, 92));
-        calculatorList.add(new CalculatorItem("Date Calculator", R.drawable.date_calculator, 95));
-        calculatorList.add(new CalculatorItem("Discount Calculator", R.drawable.discount_calculator, 121));
+        calculatorList.add(new CalculatorItem(R.string.sip_calculator, R.drawable.sip_calculator, 87));
+        calculatorList.add(new CalculatorItem(R.string.loan_calculator, R.drawable.loan_calculator, 96));
+        calculatorList.add(new CalculatorItem(R.string.gst_calculator, R.drawable.gst_calculator, 93));
+        calculatorList.add(new CalculatorItem(R.string.investment_calculator, R.drawable.investment_calculator, 134));
+        calculatorList.add(new CalculatorItem(R.string.currency_converter, R.drawable.hugeicons_coins_swap, 121));
+        calculatorList.add(new CalculatorItem(R.string.saving_calculator, R.drawable.saving_calculator, 107));
+        calculatorList.add(new CalculatorItem(R.string.age_calculator, R.drawable.age_calculator, 90));
+        calculatorList.add(new CalculatorItem(R.string.bmi_calculator, R.drawable.bmi_calculator, 90));
+        calculatorList.add(new CalculatorItem(R.string.unit_converter, R.drawable.unit_calculator, 92));
+        calculatorList.add(new CalculatorItem(R.string.date_calculator, R.drawable.date_calculator, 95));
+        calculatorList.add(new CalculatorItem(R.string.discount_calculator, R.drawable.discount_calculator, 121));
     }
 
     private void setupRecyclerView() {
         adapter = new OtherCalculatorAdapter(calculatorList, item -> {
-            if (item.getName().equalsIgnoreCase("SIP Calculator")) {
+            int id = item.getNameResId();
+            if (id == R.string.sip_calculator) {
                 startActivity(new Intent(this, SIPCalculatorActivity.class));
-            } else if (item.getName().equalsIgnoreCase("Loan Calculator")) {
+            } else if (id == R.string.loan_calculator) {
                 startActivity(new Intent(this, LoanCalculatorActivity.class));
-            } else if (item.getName().equalsIgnoreCase("GST Calculator")) {
+            } else if (id == R.string.gst_calculator) {
                 startActivity(new Intent(this, GSTCalculatorActivity.class));
-            } else if (item.getName().equalsIgnoreCase("Investment Calculator")) {
+            } else if (id == R.string.investment_calculator) {
                 startActivity(new Intent(this, InvestmentCalculatorActivity.class));
-            }
-            else if (item.getName().equalsIgnoreCase("Currency Converter")) {
+            } else if (id == R.string.currency_converter) {
                 startActivity(new Intent(this, CurrencyConvertorCalculator.class));
-
-            }
-            else if (item.getName().equalsIgnoreCase("Saving Calculator")){
+            } else if (id == R.string.saving_calculator) {
                 startActivity(new Intent(this, SavingCalculatorActivity.class));
-            }
-            else if (item.getName().equalsIgnoreCase("Age Calculator")){
+            } else if (id == R.string.age_calculator) {
                 startActivity(new Intent(this, AgeCalculatorActivity.class));
-            }
-            else if (item.getName().equalsIgnoreCase("BMI Calculator")){
+            } else if (id == R.string.bmi_calculator) {
                 startActivity(new Intent(this, BmiCalculatorActivity.class));
-            }
-            else if (item.getName().equalsIgnoreCase("Date Calculator")){
+            } else if (id == R.string.date_calculator) {
                 startActivity(new Intent(this, DateCalculatorActivity.class));
-
-
-            }
-            else if (item.getName().equalsIgnoreCase("Discount Calculator")){
+            } else if (id == R.string.discount_calculator) {
                 startActivity(new Intent(this, DiscountCalculatorActivity.class));
-            }
-            else {
-                Toast.makeText(this, item.getName() +" Coming Soon", Toast.LENGTH_SHORT).show();
+            } else {
+                startActivity(new Intent(this, UnitConverterCalculatorActivity.class));
             }
         });
         binding.rvOtherCalculators.setLayoutManager(new GridLayoutManager(this, 2));

@@ -8,13 +8,13 @@
         android:pathData="M0,0h26v26h-26z"/>
     <path
         android:pathData="M11.333,8.917V18.167H9.667V8.917H11.333Z"
-        android:fillColor="#292929"/>
+        android:fillColor="@color/input_text_color"/>
     <path
         android:pathData="M15.667,8.917V18.167H14V8.917H15.667Z"
-        android:fillColor="#292929"/>
+        android:fillColor="@color/input_text_color"/>
     <path
         android:pathData="M15.667,3.5V4.583H21.083V6.25H20V20.583C20,21.112 19.815,21.559 19.438,21.938C19.06,22.315 18.614,22.501 18.084,22.5H7.25C6.721,22.5 6.275,22.315 5.897,21.938C5.52,21.56 5.334,21.113 5.333,20.583V6.25H4.25V4.583H9.667V3.5H15.667ZM7,6.25V20.833H18.333V6.25H7Z"
-        android:fillColor="#292929"
+        android:fillColor="@color/input_text_color"
         android:fillType="evenOdd"/>
   </group>
 </vector>

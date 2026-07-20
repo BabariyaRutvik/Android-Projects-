@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">계산기</string>
+    <string name="desc_back">뒤로</string>
+    <string name="result">결과</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">백스페이스</string>
+    <string name="desc_equals">계산</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP 계산기</string>
+    <string name="monthly_sip_amount">월간 SIP 금액</string>
+    <string name="add_amount">금액 추가</string>
+    <string name="rate_percentage">이율(%)</string>
+    <string name="add_rate">이율 추가</string>
+    <string name="investment_period">투자 기간</string>
+    <string name="default_period">01년 &amp; 00개월</string>
+    <string name="expected_amount">예상 금액</string>
+    <string name="amount_invested">투자 금액</string>
+    <string name="wealth_gain">자산 증식</string>
+    <string name="investment_growth">투자 성장</string>
+    <string name="times_growth">1.00 배</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">대출 계산기</string>
+    <string name="loan_amount">대출 금액</string>
+    <string name="loan_tenure">대출 기간</string>
+    <string name="total_payable">총 납부액</string>
+    <string name="monthly_payment">월 납부액</string>
+    <string name="interest_amount">이자 금액</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST 계산기</string>
+    <string name="original_price">원래 가격</string>
+    <string name="gst_rate_percentage">GST 세율(%)</string>
+    <string name="add">추가</string>
+    <string name="remove">제거</string>
+    <string name="supply_type">공급 유형</string>
+    <string name="intra_state">주 내</string>
+    <string name="inter_state">주 간</string>
+    <string name="total_amount">총 금액</string>
+    <string name="gst_amount">GST 금액</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">투자 계산기</string>
+    <string name="total_investment">총 투자</string>
+    <string name="saving_period">저축 기간</string>
+    <string name="total_value">총 가치</string>
+    <string name="total_interest">총 이자</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">저축 계산기</string>
+    <string name="saving_goal">저축 목표</string>
+    <string name="monthly_saving_amount">월 저축 금액</string>
+    <string name="interest_earned">이자 수익</string>
+    <string name="daily_saving">일일 저축</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">나이 계산기</string>
+    <string name="date_of_birth">생년월일</string>
+    <string name="today">오늘</string>
+    <string name="current_age">현재 나이</string>
+    <string name="next_birthday">다음 생일</string>
+    <string name="placeholder_dob">일-월-년</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">세</string>
+    <string name="year_label">년</string>
+    <string name="months_label">개월</string>
+    <string name="days_label">일</string>
+    <string name="monday">월요일</string>
+    <string name="age_result_format">%1$d 개월 | %2$d 일</string>
+    <string name="default_years">15 세</string>
+    <string name="default_age_detail">07 개월 | 07 일</string>
+    <string name="default_birthday_detail">04 개월 | 21 일</string>
+    <string name="desc_current_age">현재 나이 아이콘</string>
+    <string name="desc_next_birthday">다음 생일 아이콘</string>
+    <string name="jan">1월</string>
+    <string name="feb">2월</string>
+    <string name="mar">3월</string>
+    <string name="apr">4월</string>
+    <string name="may">5월</string>
+    <string name="jun">6월</string>
+    <string name="jul">7월</string>
+    <string name="aug">8월</string>
+    <string name="sep">9월</string>
+    <string name="oct">10월</string>
+    <string name="nov">11월</string>
+    <string name="dec">12월</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">날짜 계산기</string>
+    <string name="from">시작</string>
+    <string name="to">종료</string>
+    <string name="placeholder_date">일-월-년</string>
+    <string name="total_difference">총 차이</string>
+    <string name="years_date">년</string>
+    <string name="months_date">개월</string>
+    <string name="days">일</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI 계산기</string>
+    <string name="weight">체중</string>
+    <string name="enter_weight">체중 입력</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">신장</string>
+    <string name="enter_height">신장 입력</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">당신의 BMI는 %s 입니다</string>
+    <string name="underweight">저체중</string>
+    <string name="normal">정상</string>
+    <string name="overweight">과체중</string>
+    <string name="obese">비만</string>
+    <string name="range_underweight">18.5 미만</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">30.0 이상</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">잘못된 입력 데이터</string>
+    <string name="bmi_data_limitations">데이터 제한</string>
+    <string name="bmi_limit_kg">1. 킬로그램 - 1.0 ~ 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 ~ 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 ~ 390.0 lbs</string>
+    <string name="bmi_limit_in">4. 인치 - 20.0 ~ 98.0 인치</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">환율 변환기</string>
+    <string name="exchange_rate_info">유럽 중앙 은행의 환율 데이터를 사용합니다. 데이터 업데이트 날짜: %s</string>
+    <string name="currencies">통화</string>
+    <string name="search_here">여기서 검색</string>
+    <string name="offline_title">오프라인 상태입니다</string>
+    <string name="offline_message">통화 데이터는 인터넷이 필요합니다. 온라인 상태가 되면 새로고침합니다.</string>
+    <string name="no_data_title">통화 데이터 없음</string>
+    <string name="no_data_message">새로고침하여 업데이트된 환율을 불러오세요.</string>
+    <string name="cancel">취소</string>
+    <string name="connect_wifi">Wi-Fi 연결</string>
+    <string name="refresh">새로고침</string>
+    <string name="done">완료</string>
+    <string name="ok">확인</string>
+    <string name="years">년</string>
+    <string name="months">개월</string>
+    <string name="desc_swap">통화 맞바꾸기</string>
+    <string name="default_currency_from_name">인도 루피</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">달러</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">통화 검색</string>
+    <string name="please_wait_fetching_data">잠시만 기다려 주세요. 데이터를 가져오고 있습니다&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">할인 계산기</string>
+    <string name="discount_percent">할인 (%)</string>
+    <string name="placeholder_add_amount">금액 추가</string>
+    <string name="placeholder_add_rate">이율 추가</string>
+    <string name="final_amount">최종 금액</string>
+    <string name="original_amount">원래 금액</string>
+    <string name="discount_amount">할인 금액</string>
+    <string name="error_fill_all_fields">모든 필드를 채워주세요</string>
+    <string name="error_min_amount">금액은 최소 100이어야 합니다</string>
+    <string name="error_max_discount">할인은 100% 미만이어야 합니다</string>
+    <string name="error_max_amount">금액은 99,99,99,999를 초과할 수 없습니다</string>
+    <string name="desc_clear_all">모두 지우기</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">단위 변환기</string>
+    <string name="category_weight">중량</string>
+    <string name="category_length">길이</string>
+    <string name="category_area">면적</string>
+    <string name="category_time">시간</string>
+    <string name="category_volume">부피</string>
+    <string name="category_temperature">온도</string>
+    <string name="category_speed">속도</string>
+    <string name="category_data">데이터</string>
+    <string name="category_power">전력</string>
+    <string name="category_current">전류</string>
+    <string name="category_voltage">전압</string>
+
+    <!-- weight -->
+    <string name="kilograms">킬로그램</string>
+    <string name="placeholder_unit">단위 입력</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">그램</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">설정</string>
+    <string name="theme">테마</string>
+    <string name="language">언어</string>
+    <string name="vibration">진동</string>
+    <string name="scientific_mode">공학 모드</string>
+    <string name="result_history_limit">기록에 유지할 결과 수</string>
+    <string name="share_app">앱 공유</string>
+    <string name="rate_app">앱 평가하기</string>
+    <string name="privacy_policy">개인정보 처리방침</string>
+    <string name="more_apps">더 많은 앱(광고)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">밝은 테마</string>
+    <string name="dark_theme">어두운 테마</string>
+    <string name="system_theme">시스템 테마</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">기록 용량 설정</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">영어</string>
+    <string name="lang_spanish">스페인어</string>
+    <string name="lang_arabic">아랍어</string>
+    <string name="lang_french">프랑스어</string>
+    <string name="lang_portuguese">포르투갈어</string>
+    <string name="lang_russian">러시아어</string>
+    <string name="lang_japanese">일본어</string>
+    <string name="lang_chinese">중국어</string>
+    <string name="lang_german">독일어</string>
+    <string name="lang_italian">이탈리아어</string>
+    <string name="lang_korean">한국어</string>
+    <string name="lang_swedish">스웨덴어</string>
+    <string name="lang_dutch">네덜란드어</string>
+    <string name="lang_afrikaans">아프리칸스어</string>
+    <string name="lang_turkish">터키어</string>
+    <string name="lang_catalan">카탈루냐어</string>
+    <string name="lang_filipino">필리핀어</string>
+    <string name="lang_bahasa">인도네시아어</string>
+    <string name="lang_bengali">뱅골어</string>
+    <string name="lang_hindi">힌디어</string>
+    <string name="lang_sinhala">싱할라어</string>
+
+    <!-- History -->
+    <string name="select_all">모두 선택</string>
+    <string name="no_history_found">기록을 찾을 수 없습니다.</string>
+    <string name="delete_history">기록 삭제</string>
+    <string name="delete_history_message">계산 기록을 삭제하시겠습니까?</string>
+    <string name="no">아니요</string>
+    <string name="yes">예</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">중량 목록</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">생일은 미래 날짜일 수 없습니다</string>
+    <string name="err_max_3_digits">최대 3자리 숫자까지 허용됩니다</string>
+    <string name="err_invalid_calculation">잘못된 계산 데이터</string>
+    <string name="err_max_9_digits">최대 9자리 숫자까지 허용됩니다</string>
+    <string name="err_calculation_error">계산 오류</string>
+    <string name="err_rate_limit_40">이율은 40% 미만이어야 합니다</string>
+    <string name="err_min_amount_100">금액은 최소 100이어야 합니다</string>
+    <string name="err_history_empty">기록이 비어 있습니다</string>
+    <string name="err_select_items_delete">삭제할 항목을 선택해 주세요</string>
+    <string name="msg_history_deleted">기록이 삭제되었습니다</string>
+    <string name="err_max_rate_99">이율은 99.99%를 초과할 수 없습니다</string>
+    <string name="err_min_investment_100">최소 투자 금액은 ₹100입니다</string>
+    <string name="err_max_loan_amount_msg">최대 대출 금액은 99,99,99,999입니다</string>
+    <string name="err_min_loan_100">최소 대출 금액은 ₹100입니다</string>
+    <string name="err_invalid_tenure">잘못된 기간</string>
+    <string name="err_value_too_large">값이 너무 큽니다</string>
+    <string name="err_invalid_input">잘못된 입력</string>
+    <string name="err_max_20_digits">20자리 이상의 숫자를 입력할 수 없습니다</string>
+    <string name="err_max_6_digits">최대 6자리 숫자까지 허용됩니다</string>
+    <string name="err_max_amount_100">최대 금액은 100입니다</string>
+    <string name="err_max_input_limit">최대 입력 한도에 도달했습니다</string>
+    <string name="err_min_goal_100">최소 목표 금액은 ₹100입니다</string>
+    <string name="err_invalid_period">잘못된 기간</string>
+
+    <string name="infinity_text">무한대</string>
+    <string name="error_text">오류</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

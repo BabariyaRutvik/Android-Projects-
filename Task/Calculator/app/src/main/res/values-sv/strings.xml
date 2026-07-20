@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Miniräknare</string>
+    <string name="desc_back">Bakåt</string>
+    <string name="result">Resultat</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backsteg</string>
+    <string name="desc_equals">Beräkna</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP-kalkylator</string>
+    <string name="monthly_sip_amount">Månatligt SIP-belopp</string>
+    <string name="add_amount">Lägg till belopp</string>
+    <string name="rate_percentage">Ränta(%)</string>
+    <string name="add_rate">Lägg till ränta</string>
+    <string name="investment_period">Investeringsperiod</string>
+    <string name="default_period">01 år &amp; 00 månader</string>
+    <string name="expected_amount">Förväntat belopp</string>
+    <string name="amount_invested">Investerat belopp</string>
+    <string name="wealth_gain">Förmögenhetsvinst</string>
+    <string name="investment_growth">Investeringstillväxt</string>
+    <string name="times_growth">1.00 gånger</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Lånekalkylator</string>
+    <string name="loan_amount">Lånebelopp</string>
+    <string name="loan_tenure">Låneperiod</string>
+    <string name="total_payable">Total att betala</string>
+    <string name="monthly_payment">Månadsbetalning</string>
+    <string name="interest_amount">Räntebelopp</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST-kalkylator</string>
+    <string name="original_price">Ursprungligt pris</string>
+    <string name="gst_rate_percentage">GST-ränta(%)</string>
+    <string name="add">Lägg till</string>
+    <string name="remove">Ta bort</string>
+    <string name="supply_type">Leveranstyp</string>
+    <string name="intra_state">Inom staten</string>
+    <string name="inter_state">Mellan stater</string>
+    <string name="total_amount">Totalbelopp</string>
+    <string name="gst_amount">GST-belopp</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Investeringskalkylator</string>
+    <string name="total_investment">Total investering</string>
+    <string name="saving_period">Sparperiod</string>
+    <string name="total_value">Totalvärde</string>
+    <string name="total_interest">Total ränta</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Sparkalkylator</string>
+    <string name="saving_goal">Sparmål</string>
+    <string name="monthly_saving_amount">Månatligt sparbelopp</string>
+    <string name="interest_earned">Intjänad ränta</string>
+    <string name="daily_saving">Dagligt sparande</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Ålderskalkylator</string>
+    <string name="date_of_birth">Födelsedatum</string>
+    <string name="today">Idag</string>
+    <string name="current_age">Nuvarande ålder</string>
+    <string name="next_birthday">Nästa födelsedag</string>
+    <string name="placeholder_dob">DD-MM-ÅÅÅÅ</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">År</string>
+    <string name="year_label">År</string>
+    <string name="months_label">månader</string>
+    <string name="days_label">Dagar</string>
+    <string name="monday">Måndag</string>
+    <string name="age_result_format">%1$d månader | %2$d dagar</string>
+    <string name="default_years">15 år</string>
+    <string name="default_age_detail">07 månader | 07 dagar</string>
+    <string name="default_birthday_detail">04 månader | 21 dagar</string>
+    <string name="desc_current_age">Ikon för nuvarande ålder</string>
+    <string name="desc_next_birthday">Ikon för nästa födelsedag</string>
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">Maj</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Okt</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Datumkalkylator</string>
+    <string name="from">Från</string>
+    <string name="to">Till</string>
+    <string name="placeholder_date">DD-MM-ÅÅÅÅ</string>
+    <string name="total_difference">Total skillnad</string>
+    <string name="years_date">År</string>
+    <string name="months_date">Månader</string>
+    <string name="days">Dagar</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI-kalkylator</string>
+    <string name="weight">Vikt</string>
+    <string name="enter_weight">Ange vikt</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Höjd</string>
+    <string name="enter_height">Ange höjd</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">Ditt BMI är %s</string>
+    <string name="underweight">Undervikt</string>
+    <string name="normal">Normalvikt</string>
+    <string name="overweight">Övervikt</string>
+    <string name="obese">Fetma</string>
+    <string name="range_underweight">Under 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Över 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Ogiltiga indata</string>
+    <string name="bmi_data_limitations">Databegränsningar</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 till 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 till 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 till 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Tum - 20.0 till 98.0 tum</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Valutakonverterare</string>
+    <string name="exchange_rate_info">Använder växelkursdata från Europeiska centralbanken. Data uppdaterades den: %s</string>
+    <string name="currencies">Valutor</string>
+    <string name="search_here">Sök här</string>
+    <string name="offline_title">Du är offline</string>
+    <string name="offline_message">Valutadata kräver internet. Vi uppdaterar så snart du är online.</string>
+    <string name="no_data_title">Ingen valutadata</string>
+    <string name="no_data_message">Uppdatera för att ladda aktuella växelkurser.</string>
+    <string name="cancel">Avbryt</string>
+    <string name="connect_wifi">Anslut till Wi-Fi</string>
+    <string name="refresh">Uppdatera</string>
+    <string name="done">Klar</string>
+    <string name="ok">OK</string>
+    <string name="years">År</string>
+    <string name="months">Månader</string>
+    <string name="desc_swap">Växla valutor</string>
+    <string name="default_currency_from_name">Indisk rupie</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dollar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Sök valutor</string>
+    <string name="please_wait_fetching_data">Vänta, hämtar data&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Rabattkalkylator</string>
+    <string name="discount_percent">Rabatt (%)</string>
+    <string name="placeholder_add_amount">Lägg till belopp</string>
+    <string name="placeholder_add_rate">Lägg till ränta</string>
+    <string name="final_amount">Slutbelopp</string>
+    <string name="original_amount">Ursprungligt belopp</string>
+    <string name="discount_amount">Rabattbelopp</string>
+    <string name="error_fill_all_fields">Fyll i alla fält</string>
+    <string name="error_min_amount">Beloppet måste vara minst 100</string>
+    <string name="error_max_discount">Rabatten måste vara mindre än 100%</string>
+    <string name="error_max_amount">Beloppet får inte överstiga 99,99,99,999</string>
+    <string name="desc_clear_all">Rensa allt</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Enhetskonverterare</string>
+    <string name="category_weight">Vikt</string>
+    <string name="category_length">Längd</string>
+    <string name="category_area">Area</string>
+    <string name="category_time">Tid</string>
+    <string name="category_volume">Volym</string>
+    <string name="category_temperature">Temperatur</string>
+    <string name="category_speed">Hastighet</string>
+    <string name="category_data">Data</string>
+    <string name="category_power">Effekt</string>
+    <string name="category_current">Ström</string>
+    <string name="category_voltage">Spänning</string>
+
+    <!-- weight -->
+    <string name="kilograms">Kilogram</string>
+    <string name="placeholder_unit">Ange enhet</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Inställningar</string>
+    <string name="theme">Tema</string>
+    <string name="language">Språk</string>
+    <string name="vibration">Vibration</string>
+    <string name="scientific_mode">Vetenskapligt läge</string>
+    <string name="result_history_limit">Resultat att behålla i historiken</string>
+    <string name="share_app">Dela appen</string>
+    <string name="rate_app">Betygsätt denna app</string>
+    <string name="privacy_policy">Integritetspolicy</string>
+    <string name="more_apps">Fler appar (annonser)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Ljust tema</string>
+    <string name="dark_theme">Mörkt tema</string>
+    <string name="system_theme">Systemtema</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Ställ in historikkapacitet</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Engelska</string>
+    <string name="lang_spanish">Spanska</string>
+    <string name="lang_arabic">Arabiska</string>
+    <string name="lang_french">Franska</string>
+    <string name="lang_portuguese">Portugisiska</string>
+    <string name="lang_russian">Ryska</string>
+    <string name="lang_japanese">Japanska</string>
+    <string name="lang_chinese">Kinesiska</string>
+    <string name="lang_german">Tyska</string>
+    <string name="lang_italian">Italienska</string>
+    <string name="lang_korean">Koreanska</string>
+    <string name="lang_swedish">Svenska</string>
+    <string name="lang_dutch">Holländska</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turkiska</string>
+    <string name="lang_catalan">Katalanska</string>
+    <string name="lang_filipino">Filippinska</string>
+    <string name="lang_bahasa">Indonesiska</string>
+    <string name="lang_bengali">Bengaliska</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Singalesiska</string>
+
+    <!-- History -->
+    <string name="select_all">Välj alla</string>
+    <string name="no_history_found">Ingen historik hittades.</string>
+    <string name="delete_history">Radera historik</string>
+    <string name="delete_history_message">Vill du radera beräkningen?</string>
+    <string name="no">Nej</string>
+    <string name="yes">Ja</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Viktlista</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Födelsedagen kan inte vara i framtiden</string>
+    <string name="err_max_3_digits">Maximalt 3 siffror tillåtna</string>
+    <string name="err_invalid_calculation">Ogiltiga beräkningsdata</string>
+    <string name="err_max_9_digits">Maximalt 9 siffror tillåtna</string>
+    <string name="err_calculation_error">Beräkningsfel</string>
+    <string name="err_rate_limit_40">Räntan måste vara mindre än 40%</string>
+    <string name="err_min_amount_100">Beloppet måste vara minst 100</string>
+    <string name="err_history_empty">Historiken är tom</string>
+    <string name="err_select_items_delete">Välj objekt att radera</string>
+    <string name="msg_history_deleted">Historiken raderad</string>
+    <string name="err_max_rate_99">Räntan får inte överstiga 99.99%</string>
+    <string name="err_min_investment_100">Minsta investering är ₹100</string>
+    <string name="err_max_loan_amount_msg">Maximalt lånebelopp är 99,99,99,999</string>
+    <string name="err_min_loan_100">Minsta lånebelopp är ₹100</string>
+    <string name="err_invalid_tenure">Ogiltig period</string>
+    <string name="err_value_too_large">Värdet är för stort</string>
+    <string name="err_invalid_input">Ogiltig inmatning</string>
+    <string name="err_max_20_digits">Kan inte ange mer än 20 siffror</string>
+    <string name="err_max_6_digits">Maximalt 6 siffror tillåtna</string>
+    <string name="err_max_amount_100">Maximalt belopp är 100</string>
+    <string name="err_max_input_limit">Maximal inmatningsgräns nådd</string>
+    <string name="err_min_goal_100">Minsta mål är ₹100</string>
+    <string name="err_invalid_period">Ogiltig period</string>
+
+    <string name="infinity_text">Oändlighet</string>
+    <string name="error_text">Fel</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

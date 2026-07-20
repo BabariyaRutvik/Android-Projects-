@@ -15,7 +15,7 @@
         android:layout_height="?attr/actionBarSize"
         android:background="@color/screen_background"
         app:navigationIcon="@drawable/ic_back"
-        app:title="Other Calculator"
+        app:title="@string/other_calculator"
         app:titleTextAppearance="@style/ToolbarTitleStyle"
         app:layout_constraintTop_toTopOf="parent" />
 

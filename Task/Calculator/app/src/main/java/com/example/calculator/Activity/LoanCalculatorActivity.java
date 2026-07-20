@@ -47,12 +47,6 @@ public class LoanCalculatorActivity extends AppCompatActivity {
         binding = ActivityLoanCalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Handle Status Bar appearance (dark icons for light background)
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         if (getWindow() != null) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -207,7 +201,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
     private void handleLoanInput(String val) {
         if (selectedField == 0) {
             if (loanAmountStr.replace(".", "").length() + val.length() > 9) {
-                Toast.makeText(this, "Maximum loan amount is 99,99,99,999", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_loan_amount_msg, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (val.equals(".") && loanAmountStr.contains(".")) return;
@@ -218,7 +212,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             try {
                 double rate = Double.parseDouble(tempRate);
                 if (rate > 99.99) {
-                    Toast.makeText(this, "Rate cannot exceed 99.99%", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.err_max_rate_99, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
@@ -246,7 +240,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
         }
 
         TextView title = dialog.findViewById(R.id.text_dialog_title);
-        title.setText("Loan Tenure");
+        title.setText(R.string.loan_tenure);
 
         NumberPicker yearPicker = dialog.findViewById(R.id.picker_years);
         NumberPicker monthPicker = dialog.findViewById(R.id.picker_months);
@@ -282,7 +276,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
 
     private void calculateLoan() {
         if (loanAmountStr.isEmpty() || interestRateStr.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -292,12 +286,12 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             int totalMonths = (selectedYears * 12) + selectedMonths;
 
             if (principal < 100) {
-                Toast.makeText(this, "Minimum loan amount is ₹100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_min_loan_100, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (totalMonths <= 0) {
-                Toast.makeText(this, "Invalid tenure", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_invalid_tenure, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -325,7 +319,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             binding.layoutRateLoan.setSelected(false);
             binding.layoutPeriodLoan.setSelected(false);
         } catch (Exception e) {
-            Toast.makeText(this, "Calculation error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
     }
 

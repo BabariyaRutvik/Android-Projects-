@@ -39,4 +39,8 @@ public class HistoryRepository {
     public void deleteSelected(List<Integer> ids) {
         executorService.execute(() -> historyDao.deleteSelected(ids));
     }
+
+    public void prune(int limit) {
+        executorService.execute(() -> historyDao.prune(limit));
+    }
 }

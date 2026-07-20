@@ -46,12 +46,6 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         binding = ActivitySipcalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Handle Status Bar appearance (dark icons for light background)
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         if (getWindow() != null) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -243,7 +237,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
     private void handleInput(String val) {
         if (selectedField == 0) {
             if (sipAmount.length() + val.length() > 6) {
-                Toast.makeText(this, "Maximum 6 digits are allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_6_digits, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (val.equals(".") && sipAmount.contains(".")) return;
@@ -254,7 +248,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             try {
                 double rate = Double.parseDouble(tempRate);
                 if (rate > 99.99) {
-                    Toast.makeText(this, "Rate cannot exceed 99.99%", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.err_max_rate_99, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
@@ -323,7 +317,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
 
     private void calculateSIP() {
         if (sipAmount.isEmpty() || interestRate.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -333,7 +327,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             double annualRate = Double.parseDouble(interestRate);
 
             if (monthlySip < 100) {
-                Toast.makeText(this, "Maximum amount is 100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_amount_100, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -364,7 +358,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.layoutPeriod.setSelected(false);
 
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid input", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_invalid_input, Toast.LENGTH_SHORT).show();
         }
     }
 

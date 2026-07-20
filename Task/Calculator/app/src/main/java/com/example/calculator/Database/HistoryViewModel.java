@@ -37,4 +37,8 @@ public class HistoryViewModel extends AndroidViewModel {
     public void deleteSelected(List<Integer> ids) {
         repository.deleteSelected(ids);
     }
+
+    public void prune(int limit) {
+        repository.prune(limit);
+    }
 }

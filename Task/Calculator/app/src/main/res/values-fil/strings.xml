@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Calculator</string>
+    <string name="desc_back">Bumalik</string>
+    <string name="result">Resulta</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Backspace</string>
+    <string name="desc_equals">Kalkulahin</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">Kalkulator ng SIP</string>
+    <string name="monthly_sip_amount">Buwanang Halaga ng SIP</string>
+    <string name="add_amount">Magdagdag ng halaga</string>
+    <string name="rate_percentage">Rate(%)</string>
+    <string name="add_rate">Magdagdag ng rate</string>
+    <string name="investment_period">Panahon ng Pamumuhunan</string>
+    <string name="default_period">01 taon &amp; 00 buwan</string>
+    <string name="expected_amount">Inaasahang Halaga</string>
+    <string name="amount_invested">Halagang Namuhunan</string>
+    <string name="wealth_gain">Kita sa Kayamanan</string>
+    <string name="investment_growth">Paglago ng Pamumuhunan</string>
+    <string name="times_growth">1.00 Beses</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Kalkulator ng Loan</string>
+    <string name="loan_amount">Halaga ng Loan</string>
+    <string name="loan_tenure">Termino ng Loan</string>
+    <string name="total_payable">Kabuuang Babayaran</string>
+    <string name="monthly_payment">Buwanang Pagbabayad</string>
+    <string name="interest_amount">Halaga ng Interes</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">Kalkulator ng GST</string>
+    <string name="original_price">Orihinal na Presyo</string>
+    <string name="gst_rate_percentage">Rate ng GST(%)</string>
+    <string name="add">Idagdag</string>
+    <string name="remove">Alisin</string>
+    <string name="supply_type">Uri ng Supply</string>
+    <string name="intra_state">Intra State</string>
+    <string name="inter_state">Inter State</string>
+    <string name="total_amount">Kabuuang Halaga</string>
+    <string name="gst_amount">Halaga ng GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Kalkulator ng Pamumuhunan</string>
+    <string name="total_investment">Kabuuang Pamumuhunan</string>
+    <string name="saving_period">Panahon ng Pag-iipon</string>
+    <string name="total_value">Kabuuang Halaga</string>
+    <string name="total_interest">Kabuuang Interes</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Kalkulator ng Pag-iipon</string>
+    <string name="saving_goal">Layunin sa Pag-iipon</string>
+    <string name="monthly_saving_amount">Buwanang Halaga ng Pag-iipon</string>
+    <string name="interest_earned">Interes na Kinita</string>
+    <string name="daily_saving">Pang-araw-araw na Pag-iipon</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Kalkulator ng Edad</string>
+    <string name="date_of_birth">Petsa ng Kapanganakan</string>
+    <string name="today">Ngayon</string>
+    <string name="current_age">Kasalukuyang Edad</string>
+    <string name="next_birthday">Susunod na Kaarawan</string>
+    <string name="placeholder_dob">DD-MM-YYYY</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Taon</string>
+    <string name="year_label">Taon</string>
+    <string name="months_label">buwan</string>
+    <string name="days_label">Araw</string>
+    <string name="monday">Lunes</string>
+    <string name="age_result_format">%1$d buwan | %2$d Araw</string>
+    <string name="default_years">15 Taon</string>
+    <string name="default_age_detail">07 buwan | 07 Araw</string>
+    <string name="default_birthday_detail">04 buwan | 21 Araw</string>
+    <string name="desc_current_age">Icon ng Kasalukuyang Edad</string>
+    <string name="desc_next_birthday">Icon ng Susunod na Kaarawan</string>
+    <string name="jan">Jan</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Apr</string>
+    <string name="may">May</string>
+    <string name="jun">Jun</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Aug</string>
+    <string name="sep">Sep</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Dec</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Kalkulator ng Petsa</string>
+    <string name="from">Mula sa</string>
+    <string name="to">Hanggang</string>
+    <string name="placeholder_date">DD-MM-YYYY</string>
+    <string name="total_difference">Kabuuang Pagkakaiba</string>
+    <string name="years_date">Taon</string>
+    <string name="months_date">Buwan</string>
+    <string name="days">Araw</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">Kalkulator ng BMI</string>
+    <string name="weight">Timbang</string>
+    <string name="enter_weight">Ilagay ang timbang</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Taas</string>
+    <string name="enter_height">Ilagay ang taas</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">Ang iyong BMI ay %s</string>
+    <string name="underweight">Kulang sa timbang</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Sobrang timbang</string>
+    <string name="obese">Obese</string>
+    <string name="range_underweight">Mababa sa 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Higit sa 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Hindi Wastong Data ng Input</string>
+    <string name="bmi_data_limitations">Mga Limitasyon ng Data</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 hanggang 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 hanggang 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 hanggang 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Inch - 20.0 hanggang 98.0 inch</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Converter ng Pera</string>
+    <string name="exchange_rate_info">Gumagamit ng data ng exchange rate mula sa European Central Bank. Na-update ang data noong: %s</string>
+    <string name="currencies">Mga Pera</string>
+    <string name="search_here">Maghanap dito</string>
+    <string name="offline_title">Offline ka</string>
+    <string name="offline_message">Kailangan ng internet para sa data ng pera. Magre-refresh kami kapag online ka na.</string>
+    <string name="no_data_title">Walang Data ng Pera</string>
+    <string name="no_data_message">Mangyaring i-refresh upang mag-load ng mga updated na rate ng pera.</string>
+    <string name="cancel">Ibatay</string>
+    <string name="connect_wifi">Kumonekta sa Wi-Fi</string>
+    <string name="refresh">I-refresh</string>
+    <string name="done">Tapos na</string>
+    <string name="ok">OK</string>
+    <string name="years">Taon</string>
+    <string name="months">Buwan</string>
+    <string name="desc_swap">Pagpalitin ang mga Pera</string>
+    <string name="default_currency_from_name">Indian Rupee</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dolyar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Maghanap ng mga pera</string>
+    <string name="please_wait_fetching_data">Mangyaring maghintay, Kinukuha ang Data&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Kalkulator ng Discount</string>
+    <string name="discount_percent">Discount (%)</string>
+    <string name="placeholder_add_amount">Magdagdag ng halaga</string>
+    <string name="placeholder_add_rate">Magdagdag ng rate</string>
+    <string name="final_amount">Pinal na Halaga</string>
+    <string name="original_amount">Orihinal na Halaga</string>
+    <string name="discount_amount">Halaga ng Discount</string>
+    <string name="error_fill_all_fields">Mangyaring punan ang lahat ng mga patlang</string>
+    <string name="error_min_amount">Ang halaga ay dapat na hindi bababa sa 100</string>
+    <string name="error_max_discount">Ang discount ay dapat na mas mababa sa 100%</string>
+    <string name="error_max_amount">Ang halaga ay hindi maaaring lumampas sa 99,99,99,999</string>
+    <string name="desc_clear_all">I-clear lahat</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Converter ng Unit</string>
+    <string name="category_weight">Timbang</string>
+    <string name="category_length">Haba</string>
+    <string name="category_area">Area</string>
+    <string name="category_time">Oras</string>
+    <string name="category_volume">Volume</string>
+    <string name="category_temperature">Temperatura</string>
+    <string name="category_speed">Bilis</string>
+    <string name="category_data">Data</string>
+    <string name="category_power">Lakas</string>
+    <string name="category_current">Kuryente</string>
+    <string name="category_voltage">Boltahe</string>
+
+    <!-- weight -->
+    <string name="kilograms">Kilogram</string>
+    <string name="placeholder_unit">Ilagay ang Unit</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Mga Setting</string>
+    <string name="theme">Tema</string>
+    <string name="language">Wika</string>
+    <string name="vibration">Vibration</string>
+    <string name="scientific_mode">Scientific mode</string>
+    <string name="result_history_limit">Mga resultang itatago sa history</string>
+    <string name="share_app">Ibahagi ang App</string>
+    <string name="rate_app">I-rate ang App na ito</string>
+    <string name="privacy_policy">Patakaran sa Privacy</string>
+    <string name="more_apps">Higit pang app (Mga Ad)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Light Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="system_theme">System Theme</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Itakda ang Kapasidad ng History</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Ingles</string>
+    <string name="lang_spanish">Espanyol</string>
+    <string name="lang_arabic">Arabe</string>
+    <string name="lang_french">Pranses</string>
+    <string name="lang_portuguese">Portuges</string>
+    <string name="lang_russian">Ruso</string>
+    <string name="lang_japanese">Hapon</string>
+    <string name="lang_chinese">Intsik</string>
+    <string name="lang_german">Aleman</string>
+    <string name="lang_italian">Italyano</string>
+    <string name="lang_korean">Koreano</string>
+    <string name="lang_swedish">Suweko</string>
+    <string name="lang_dutch">Olandes</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turko</string>
+    <string name="lang_catalan">Katalan</string>
+    <string name="lang_filipino">Filipino</string>
+    <string name="lang_bahasa">Indonesian</string>
+    <string name="lang_bengali">Bengali</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Sinhala</string>
+
+    <!-- History -->
+    <string name="select_all">Piliin Lahat</string>
+    <string name="no_history_found">Walang nahanap na history.</string>
+    <string name="delete_history">I-delete ang History</string>
+    <string name="delete_history_message">Gusto mo bang i-delete ang kalkulasyon?</string>
+    <string name="no">Hindi</string>
+    <string name="yes">Oo</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Listahan ng Timbang</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Ang kaarawan ay hindi maaaring sa hinaharap</string>
+    <string name="err_max_3_digits">Maximum na 3 digit ang pinapayagan</string>
+    <string name="err_invalid_calculation">Hindi Wastong Data ng Kalkulasyon</string>
+    <string name="err_max_9_digits">Maximum na 9 na digit ang pinapayagan</string>
+    <string name="err_calculation_error">Error sa kalkulasyon</string>
+    <string name="err_rate_limit_40">Ang rate ay dapat na mas mababa sa 40%</string>
+    <string name="err_min_amount_100">Ang Halaga ng Halaga ay Dapat Man Lamang 100</string>
+    <string name="err_history_empty">Walang laman ang history</string>
+    <string name="err_select_items_delete">Mangyaring pumili ng mga item na ide-delete</string>
+    <string name="msg_history_deleted">Na-delete na ang history</string>
+    <string name="err_max_rate_99">Ang rate ay hindi maaaring lumampas sa 99.99%</string>
+    <string name="err_min_investment_100">Ang minimum na pamumuhunan ay ₹100</string>
+    <string name="err_max_loan_amount_msg">Ang maximum na halaga ng loan ay 99,99,99,999</string>
+    <string name="err_min_loan_100">Ang minimum na halaga ng loan ay ₹100</string>
+    <string name="err_invalid_tenure">Hindi wastong termino</string>
+    <string name="err_value_too_large">Masyadong Malaki ang Halaga</string>
+    <string name="err_invalid_input">Hindi Wastong Input</string>
+    <string name="err_max_20_digits">Hindi makakapaglagay ng higit sa 20 digit</string>
+    <string name="err_max_6_digits">Maximum na 6 na digit ang pinapayagan</string>
+    <string name="err_max_amount_100">Ang maximum na halaga ay 100</string>
+    <string name="err_max_input_limit">Naabot na ang limitasyon ng maximum na input</string>
+    <string name="err_min_goal_100">Ang minimum na layunin ay ₹100</string>
+    <string name="err_invalid_period">Hindi wastong panahon</string>
+
+    <string name="infinity_text">Infinity</string>
+    <string name="error_text">Error</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

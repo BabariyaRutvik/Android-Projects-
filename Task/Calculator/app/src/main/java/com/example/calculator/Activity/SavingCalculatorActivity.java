@@ -51,12 +51,6 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             return insets;
         });
 
-        // status bar setup
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         // hiding system keyboard
         if (getWindow() != null) {
@@ -202,7 +196,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
     private void handleSavingInput(String val) {
         if (selectedField == 0) {
             if (savingGoalStr.replace(",", "").length() + val.length() > 9) {
-                Toast.makeText(this, "Maximum input limit reached", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_input_limit, Toast.LENGTH_SHORT).show();
                 return;
             }
             if (val.equals(".") && savingGoalStr.contains(".")) return;
@@ -214,7 +208,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             try {
                 double rate = Double.parseDouble(tempRate);
                 if (rate > 99.99) {
-                    Toast.makeText(this, "Rate cannot exceed 99.99%", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.err_max_rate_99, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
@@ -282,7 +276,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
 
     private void calculateSaving() {
         if (savingGoalStr.isEmpty() || interestRateStr.isEmpty()) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -292,12 +286,12 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             int totalMonths = (selectedYears * 12) + selectedMonths;
 
             if (targetAmount < 100) {
-                Toast.makeText(this, "Minimum goal is ₹100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_min_goal_100, Toast.LENGTH_SHORT).show();
                 return;
             }
 
             if (totalMonths <= 0) {
-                Toast.makeText(this, "Invalid period", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_invalid_period, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -328,7 +322,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             binding.layoutSavingRate.setSelected(false);
             binding.layoutSavingPeriod.setSelected(false);
         } catch (Exception e) {
-            Toast.makeText(this, "Calculation error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
     }
 

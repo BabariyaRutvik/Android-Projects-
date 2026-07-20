@@ -10,41 +10,41 @@
         android:pathData="M9,1L17,1A8,8 0,0 1,25 9L25,17A8,8 0,0 1,17 25L9,25A8,8 0,0 1,1 17L1,9A8,8 0,0 1,9 1z"
         android:strokeWidth="1.3"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"/>
+        android:strokeColor="@color/input_text_color"/>
     <path
         android:pathData="M8.752,6V11.503M6,8.752H11.503"
         android:strokeLineJoin="round"
         android:strokeWidth="1.4"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"
+        android:strokeColor="@color/input_text_color"
         android:strokeLineCap="round"/>
     <path
         android:pathData="M15.194,8.752H20.698"
         android:strokeLineJoin="round"
         android:strokeWidth="1.4"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"
+        android:strokeColor="@color/input_text_color"
         android:strokeLineCap="round"/>
     <path
         android:pathData="M10.928,15.646L6.574,20M10.928,20L6.574,15.646"
         android:strokeLineJoin="round"
         android:strokeWidth="1.4"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"
+        android:strokeColor="@color/input_text_color"
         android:strokeLineCap="round"/>
     <path
         android:pathData="M14.929,19.274H20.734"
         android:strokeLineJoin="round"
         android:strokeWidth="1.4"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"
+        android:strokeColor="@color/input_text_color"
         android:strokeLineCap="round"/>
     <path
         android:pathData="M14.929,16.372H20.734"
         android:strokeLineJoin="round"
         android:strokeWidth="1.4"
         android:fillColor="#00000000"
-        android:strokeColor="#292929"
+        android:strokeColor="@color/input_text_color"
         android:strokeLineCap="round"/>
   </group>
 </vector>

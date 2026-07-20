@@ -1,0 +1,313 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">कैलकुलेटर</string>
+    <string name="desc_back">पीछे</string>
+    <string name="result">परिणाम</string>
+    <string name="currency_zero">₹ 0.00</string>
+    <string name="other_calculator">अन्य कैलकुलेटर</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">बैकस्पेस</string>
+    <string name="desc_equals">गणना करें</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP कैलकुलेटर</string>
+    <string name="monthly_sip_amount">मासिक SIP राशि</string>
+    <string name="add_amount">राशि जोड़ें</string>
+    <string name="rate_percentage">दर (%)</string>
+    <string name="add_rate">दर जोड़ें</string>
+    <string name="investment_period">निवेश की अवधि</string>
+    <string name="default_period">01 वर्ष और 00 महीने</string>
+    <string name="expected_amount">अपेक्षित राशि</string>
+    <string name="amount_invested">निवेश की गई राशि</string>
+    <string name="wealth_gain">धन लाभ</string>
+    <string name="investment_growth">निवेश वृद्धि</string>
+    <string name="times_growth">1.00 गुना</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">ऋण कैलकुलेटर</string>
+    <string name="loan_amount">ऋण राशि</string>
+    <string name="loan_tenure">ऋण अवधि</string>
+    <string name="total_payable">कुल देय</string>
+    <string name="monthly_payment">मासिक भुगतान</string>
+    <string name="interest_amount">ब्याज राशि</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST कैलकुलेटर</string>
+    <string name="original_price">मूल कीमत</string>
+    <string name="gst_rate_percentage">GST दर (%)</string>
+    <string name="add">जोड़ें</string>
+    <string name="remove">निकालें</string>
+    <string name="supply_type">आपूर्ति का प्रकार</string>
+    <string name="intra_state">राज्य के भीतर</string>
+    <string name="inter_state">अंतर-राज्य</string>
+    <string name="total_amount">कुल राशि</string>
+    <string name="gst_amount">GST राशि</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">निवेश कैलकुलेटर</string>
+    <string name="total_investment">कुल निवेश</string>
+    <string name="saving_period">बचत अवधि</string>
+    <string name="total_value">कुल मूल्य</string>
+    <string name="total_interest">कुल ब्याज</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">बचत कैलकुलेटर</string>
+    <string name="saving_goal">बचत लक्ष्य</string>
+    <string name="monthly_saving_amount">मासिक बचत राशि</string>
+    <string name="interest_earned">अर्जित ब्याज</string>
+    <string name="daily_saving">दैनिक बचत</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">आयु कैलकुलेटर</string>
+    <string name="date_of_birth">जन्म तिथि</string>
+    <string name="today">आज</string>
+    <string name="current_age">वर्तमान आयु</string>
+    <string name="next_birthday">अगला जन्मदिन</string>
+    <string name="placeholder_dob">DD-MM-YYYY</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">वर्ष</string>
+    <string name="year_label">वर्ष</string>
+    <string name="months_label">महीने</string>
+    <string name="days_label">दिन</string>
+    <string name="monday">सोमवार</string>
+    <string name="age_result_format">%1$d महीने | %2$d दिन</string>
+    <string name="default_years">15 वर्ष</string>
+    <string name="default_age_detail">07 महीने | 07 दिन</string>
+    <string name="default_birthday_detail">04 महीने | 21 दिन</string>
+    <string name="desc_current_age">वर्तमान आयु आइकन</string>
+    <string name="desc_next_birthday">अगला जन्मदिन आइकन</string>
+    <string name="jan">जनवरी</string>
+    <string name="feb">फरवरी</string>
+    <string name="mar">मार्च</string>
+    <string name="apr">अप्रैल</string>
+    <string name="may">मई</string>
+    <string name="jun">जून</string>
+    <string name="jul">जुलाई</string>
+    <string name="aug">अगस्त</string>
+    <string name="sep">सितंबर</string>
+    <string name="oct">अक्टूबर</string>
+    <string name="nov">नवंबर</string>
+    <string name="dec">दिसंबर</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">तिथि कैलकुलेटर</string>
+    <string name="from">से</string>
+    <string name="to">तक</string>
+    <string name="placeholder_date">DD-MM-YYYY</string>
+    <string name="total_difference">कुल अंतर</string>
+    <string name="years_date">वर्ष</string>
+    <string name="months_date">महीने</string>
+    <string name="days">दिन</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">BMI कैलकुलेटर</string>
+    <string name="weight">वजन</string>
+    <string name="enter_weight">वजन दर्ज करें</string>
+    <string name="kg">किग्रा</string>
+    <string name="lbs">पॉउंड</string>
+    <string name="height">ऊंचाई</string>
+    <string name="enter_height">ऊंचाई दर्ज करें</string>
+    <string name="cm">सेमी</string>
+    <string name="in">इंच</string>
+    <string name="bmi_result_prefix">आपका BMI %s है</string>
+    <string name="underweight">कम वजन</string>
+    <string name="normal">सामान्य</string>
+    <string name="overweight">अधिक वजन</string>
+    <string name="obese">मोटापा</string>
+    <string name="range_underweight">18.5 से नीचे</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">30.0 से ऊपर</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">अमान्य इनपुट डेटा</string>
+    <string name="bmi_data_limitations">डेटा सीमाएं</string>
+    <string name="bmi_limit_kg">1. किलोग्राम - 1.0 से 175.0 किग्रा</string>
+    <string name="bmi_limit_cm">2. सेमी - 50.0 से 250.0 सेमी</string>
+    <string name="bmi_limit_lbs">3. पॉउंड - 2.0 से 390.0 पॉउंड</string>
+    <string name="bmi_limit_in">4. इंच - 20.0 से 98.0 इंच</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">मुद्रा परिवर्तक</string>
+    <string name="exchange_rate_info">यूरोपीय सेंट्रल बैंक से विनिमय दर डेटा का उपयोग किया जा रहा है। डेटा अपडेट किया गया: %s</string>
+    <string name="currencies">मुद्राएं</string>
+    <string name="search_here">यहाँ खोजें</string>
+    <string name="offline_title">आप ऑफलाइन हैं</string>
+    <string name="offline_message">मुद्रा डेटा के लिए इंटरनेट की आवश्यकता है। आपके ऑनलाइन होने पर हम रिफ्रेश करेंगे।</string>
+    <string name="no_data_title">कोई मुद्रा डेटा नहीं</string>
+    <string name="no_data_message">अद्यतन विनिमय दरों को लोड करने के लिए कृपया रिफ्रेश करें।</string>
+    <string name="cancel">रद्द करें</string>
+    <string name="connect_wifi">Wi-Fi से कनेक्ट करें</string>
+    <string name="refresh">रिफ्रेश</string>
+    <string name="done">हो गया</string>
+    <string name="ok">ठीक है</string>
+    <string name="years">वर्ष</string>
+    <string name="months">महीने</string>
+    <string name="desc_swap">मुद्राएं बदलें</string>
+    <string name="default_currency_from_name">भारतीय रुपया</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">डॉलर</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">मुद्राएं खोजें</string>
+    <string name="please_wait_fetching_data">कृपया प्रतीक्षा करें, डेटा प्राप्त किया जा रहा है&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">छूट कैलकुलेटर</string>
+    <string name="discount_percent">छूट (%)</string>
+    <string name="placeholder_add_amount">राशि जोड़ें</string>
+    <string name="placeholder_add_rate">दर जोड़ें</string>
+    <string name="final_amount">अंतिम राशि</string>
+    <string name="original_amount">मूल राशि</string>
+    <string name="discount_amount">छूट की राशि</string>
+    <string name="error_fill_all_fields">कृपया सभी फ़ील्ड भरें</string>
+    <string name="error_min_amount">राशि कम से कम 100 होनी चाहिए</string>
+    <string name="error_max_discount">छूट 100% से कम होनी चाहिए</string>
+    <string name="error_max_amount">राशि 99,99,99,999 से अधिक नहीं हो सकती</string>
+    <string name="desc_clear_all">सब साफ़ करें</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">इकाई परिवर्तक</string>
+    <string name="category_weight">वजन</string>
+    <string name="category_length">लंबाई</string>
+    <string name="category_area">क्षेत्रफल</string>
+    <string name="category_time">समय</string>
+    <string name="category_volume">आयतन</string>
+    <string name="category_temperature">तापमान</string>
+    <string name="category_speed">गति</string>
+    <string name="category_data">डेटा</string>
+    <string name="category_power">शक्ति</string>
+    <string name="category_current">करंट</string>
+    <string name="category_voltage">वोल्टेज</string>
+
+    <!-- weight -->
+    <string name="kilograms">किलोग्राम</string>
+    <string name="placeholder_unit">इकाई दर्ज करें</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">ग्राम</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">सेटिंग्स</string>
+    <string name="theme">थीम</string>
+    <string name="language">भाषा</string>
+    <string name="vibration">कंपन</string>
+    <string name="scientific_mode">वैज्ञानिक मोड</string>
+    <string name="result_history_limit">इतिहास में रखने के लिए परिणाम</string>
+    <string name="share_app">ऐप साझा करें</string>
+    <string name="rate_app">इस ऐप को रेट करें</string>
+    <string name="privacy_policy">गोपनीयता नीति</string>
+    <string name="more_apps">अधिक ऐप्स (विज्ञापन)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">लाइट थीम</string>
+    <string name="dark_theme">डार्क थीम</string>
+    <string name="system_theme">सिस्टम थीम</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">इतिहास क्षमता सेट करें</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">अंग्रेज़ी</string>
+    <string name="lang_spanish">स्पैनिश</string>
+    <string name="lang_arabic">अरबी</string>
+    <string name="lang_french">फ़्रेंच</string>
+    <string name="lang_portuguese">पुर्तगाली</string>
+    <string name="lang_russian">रूसी</string>
+    <string name="lang_japanese">जापानी</string>
+    <string name="lang_chinese">चीनी</string>
+    <string name="lang_german">जर्मन</string>
+    <string name="lang_italian">इतालवी</string>
+    <string name="lang_korean">कोरियाई</string>
+    <string name="lang_swedish">स्वीडिश</string>
+    <string name="lang_dutch">डच</string>
+    <string name="lang_afrikaans">अफ्रीकी</string>
+    <string name="lang_turkish">तुर्की</string>
+    <string name="lang_catalan">कैटलन</string>
+    <string name="lang_filipino">फिलिपिनो</string>
+    <string name="lang_bahasa">इंडोनेशियाई</string>
+    <string name="lang_bengali">बंगाली</string>
+    <string name="lang_hindi">हिंदी</string>
+    <string name="lang_gujarati">गुजराती</string>
+    <string name="lang_sinhala">सिंहली</string>
+
+    <!-- History -->
+    <string name="select_all">सब चुनें</string>
+    <string name="no_history_found">कोई इतिहास नहीं मिला।</string>
+    <string name="delete_history">इतिहास हटाएं</string>
+    <string name="delete_history_message">क्या आप गणना को हटाना चाहते हैं?</string>
+    <string name="no">नहीं</string>
+    <string name="yes">हाँ</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">वजन सूची</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">जन्मदिन भविष्य में नहीं हो सकता</string>
+    <string name="err_max_3_digits">अधिकतम 3 अंकों की अनुमति है</string>
+    <string name="err_invalid_calculation">अमान्य गणना डेटा</string>
+    <string name="err_max_9_digits">अधिकतम 9 अंकों की अनुमति है</string>
+    <string name="err_calculation_error">गणना त्रुटि</string>
+    <string name="err_rate_limit_40">दर 40% से कम होनी चाहिए</string>
+    <string name="err_min_amount_100">राशि कम से कम 100 होनी चाहिए</string>
+    <string name="err_history_empty">इतिहास खाली है</string>
+    <string name="err_select_items_delete">कृपया हटाने के लिए आइटम चुनें</string>
+    <string name="msg_history_deleted">इतिहास हटा दिया गया</string>
+    <string name="err_max_rate_99">दर 99.99% से अधिक नहीं हो सकती</string>
+    <string name="err_min_investment_100">न्यूनतम निवेश ₹100 है</string>
+    <string name="err_max_loan_amount_msg">अधिकतम ऋण राशि 99,99,99,999 है</string>
+    <string name="err_min_loan_100">न्यूनतम ऋण राशि ₹100 है</string>
+    <string name="err_invalid_tenure">अमान्य कार्यकाल</string>
+    <string name="err_value_too_large">मान बहुत बड़ा है</string>
+    <string name="err_invalid_input">अमान्य इनपुट</string>
+    <string name="err_max_20_digits">20 से अधिक अंक दर्ज नहीं कर सकते</string>
+    <string name="err_max_6_digits">अधिकतम 6 अंकों की अनुमति है</string>
+    <string name="err_max_amount_100">अधिकतम राशि 100 है</string>
+    <string name="err_max_input_limit">अधिकतम इनपुट सीमा पूरी हो गई है</string>
+    <string name="err_min_goal_100">न्यूनतम लक्ष्य ₹100 है</string>
+    <string name="err_invalid_period">अमान्य अवधि</string>
+
+    <string name="infinity_text">अनंत</string>
+    <string name="error_text">त्रुटि</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

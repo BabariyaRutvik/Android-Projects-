@@ -38,7 +38,7 @@ public class OtherCalculatorAdapter extends RecyclerView.Adapter<OtherCalculator
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         CalculatorItem item = items.get(position);
-        holder.textName.setText(item.getName());
+        holder.textName.setText(holder.itemView.getContext().getString(item.getNameResId()));
         holder.imgIcon.setImageResource(item.getIconResId());
 
         holder.itemView.setOnClickListener(v -> {

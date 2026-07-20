@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.VibrationEffect;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -51,18 +53,18 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // Apply saved theme before super.onCreate
+        SharedPreferences preferences = getSharedPreferences("theme_prefs", MODE_PRIVATE);
+        int savedTheme = preferences.getInt("selected_theme", 2);
+        if (savedTheme == 0) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        else if (savedTheme == 1) AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        else AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Ensure Status Bar icons are dark on light background
-        androidx.core.view.WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-            windowInsetsController.setAppearanceLightNavigationBars(true);
-        }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -70,7 +72,28 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        SharedPreferences sciPrefs = getSharedPreferences("scientific_prefs", MODE_PRIVATE);
+        scientificMode = sciPrefs.getBoolean("scientific_enabled", false);
+
         initializeStandardButtons();
+
+        View scientificView = binding.layoutScientific.getRoot();
+
+        if (scientificMode){
+            scientificView.setVisibility(View.VISIBLE);
+            binding.imageSwitch.setImageResource(R.drawable.ic_standard);
+
+            // for the buttons to change their sizes
+            applyLerpedLayoutChanges(1.0f);
+        }
+        else {
+            scientificView.setVisibility(View.GONE);
+            binding.imageSwitch.setImageResource(R.drawable.ic_scientific);
+            applyLerpedLayoutChanges(0.0f);
+        }
+        updateResultFieldForMode();
+
+
         // for Calculate Functionality
         setUpCalculatorButtons();
 
@@ -97,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
             startActivity(intent);
         });
-        binding.imageSettings.setOnClickListener(null);
+        binding.imageSettings.setOnClickListener(v -> {
+        Intent intent = new Intent(this, SettingsScreenActivity.class);
+        startActivity(intent);
+        });
 
         expression = "0";
         refreshDisplay();
@@ -115,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+        setIntent(intent);
         if (intent != null && intent.hasExtra("expression")) {
             expression = intent.getStringExtra("expression");
             refreshDisplay();
@@ -123,7 +150,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void triggerVibration(){
+
+        // Check if the user turned vibration on/off in the settings screen
+        SharedPreferences sharedPrefs = getSharedPreferences("vibration_prefs", MODE_PRIVATE);
+        boolean isVibrationEnabled = sharedPrefs.getBoolean("vibration_enabled", true);
+
+        if (!isVibrationEnabled){
+            return;
+        }
         Vibrator vibrator;
+
 
         // android 12 or above
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
@@ -207,26 +243,30 @@ public class MainActivity extends AppCompatActivity {
             btnAc.setShapeAppearanceModel(currentShape);
         }
 
-        for (MaterialButton btn : numberButtons) {
-            if (btn != null) {
-                btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, numSize);
-                btn.setGravity(Gravity.CENTER);
-                btn.setPadding(0, 0, 0, 0);
-                btn.getLayoutParams().width = dpToPx(78);
-                btn.getLayoutParams().height = currentHeightPx;
-                btn.setShapeAppearanceModel(currentShape);
+        if (numberButtons != null) {
+            for (MaterialButton btn : numberButtons) {
+                if (btn != null) {
+                    btn.setTextSize(TypedValue.COMPLEX_UNIT_SP, numSize);
+                    btn.setGravity(Gravity.CENTER);
+                    btn.setPadding(0, 0, 0, 0);
+                    btn.getLayoutParams().width = dpToPx(78);
+                    btn.getLayoutParams().height = currentHeightPx;
+                    btn.setShapeAppearanceModel(currentShape);
+                }
             }
         }
 
-        for (MaterialButton btn : iconsButtons) {
-            if (btn != null) {
-                btn.setIconSize(iconSizePx);
-                btn.setGravity(Gravity.CENTER);
-                btn.setIconPadding(0);
-                btn.setPadding(0, 0, 0, 0);
-                btn.getLayoutParams().width = dpToPx(78);
-                btn.getLayoutParams().height = currentHeightPx;
-                btn.setShapeAppearanceModel(currentShape);
+        if (iconsButtons != null) {
+            for (MaterialButton btn : iconsButtons) {
+                if (btn != null) {
+                    btn.setIconSize(iconSizePx);
+                    btn.setGravity(Gravity.CENTER);
+                    btn.setIconPadding(0);
+                    btn.setPadding(0, 0, 0, 0);
+                    btn.getLayoutParams().width = dpToPx(78);
+                    btn.getLayoutParams().height = currentHeightPx;
+                    btn.setShapeAppearanceModel(currentShape);
+                }
             }
         }
 
@@ -392,13 +432,13 @@ public class MainActivity extends AppCompatActivity {
             String currentExpression = expression;
             String answer = CalculateExpression();
 
-            if (answer.equals("Infinity")) {
-                Toast.makeText(this, "Value too Large", Toast.LENGTH_SHORT).show();
+            if (answer.equals(getString(R.string.infinity_text))) {
+                Toast.makeText(this, R.string.err_value_too_large, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (answer.equals("Error")) {
-                Toast.makeText(this, "Invalid Input", Toast.LENGTH_SHORT).show();
+            if (answer.equals(getString(R.string.error_text))) {
+                Toast.makeText(this, R.string.err_invalid_input, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -406,7 +446,15 @@ public class MainActivity extends AppCompatActivity {
                 // Save to History only if it's an actual calculation (expression differs from answer)
                 String formattedExp = getFormattedExpression(currentExpression);
                 if (!formattedExp.equals(answer) && !currentExpression.isEmpty()) {
-                    historyViewModel.insert(new HistoryItem(formattedExp, answer, System.currentTimeMillis()));
+                    SharedPreferences historyPrefs = getSharedPreferences("history_prefs", MODE_PRIVATE);
+                    int allowedCapacity = historyPrefs.getInt("history_capacity", -1);
+
+                    if (allowedCapacity != 0) {
+                        historyViewModel.insert(new HistoryItem(formattedExp, answer, System.currentTimeMillis()));
+                        if (allowedCapacity > 0) {
+                            historyViewModel.prune(allowedCapacity);
+                        }
+                    }
                 }
 
                 expression = answer;
@@ -429,7 +477,7 @@ public class MainActivity extends AppCompatActivity {
                     appendOperator("^");
                 } else if (btn.getId() == R.id.btn_deg) {
                     isDegreeMode = !isDegreeMode;
-                    btn.setText(isDegreeMode ? "DEG" : "RAD");
+                    btn.setText(isDegreeMode ? R.string.btn_deg_text : R.string.btn_rad_text);
                     CalculateLive();
                 } else if (btn.getId() == R.id.btn_sin) {
                     appendOperator(isInverseMode ? "asin(" : "sin(");
@@ -471,12 +519,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleInverseMode() {
         isInverseMode = !isInverseMode;
-        binding.layoutScientific.btnE.setText(isInverseMode ? "exp" : "e");
-        binding.layoutScientific.btnLog.setText(isInverseMode ? "ln" : "log");
-        binding.layoutScientific.btnSin.setText(isInverseMode ? "sin⁻¹" : "sin");
-        binding.layoutScientific.btnCos.setText(isInverseMode ? "cos⁻¹" : "cos");
-        binding.layoutScientific.btnTan.setText(isInverseMode ? "tan⁻¹" : "tan");
-        binding.layoutScientific.btnCot.setText(isInverseMode ? "cot⁻¹" : "cot");
+        binding.layoutScientific.btnE.setText(isInverseMode ? R.string.btn_exp : R.string.btn_e_text);
+        binding.layoutScientific.btnLog.setText(isInverseMode ? R.string.btn_ln : R.string.btn_log_text);
+        binding.layoutScientific.btnSin.setText(isInverseMode ? R.string.btn_sin_inv : R.string.btn_sin_text);
+        binding.layoutScientific.btnCos.setText(isInverseMode ? R.string.btn_cos_inv : R.string.btn_cos_text);
+        binding.layoutScientific.btnTan.setText(isInverseMode ? R.string.btn_tan_inv : R.string.btn_tan_text);
+        binding.layoutScientific.btnCot.setText(isInverseMode ? R.string.btn_cot_inv : R.string.btn_cot_text);
         CalculateLive();
     }
 
@@ -528,7 +576,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (currentDigits + digitsToAdd > 20) {
-            Toast.makeText(this, "Cannot enter more than 20 digits", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_max_20_digits, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -843,8 +891,8 @@ public class MainActivity extends AppCompatActivity {
         return result;
     }
     private String format(double value){
-        if (Double.isInfinite(value)) return "Infinity";
-        if (Double.isNaN(value)) return "Error";
+        if (Double.isInfinite(value)) return getString(R.string.infinity_text);
+        if (Double.isNaN(value)) return getString(R.string.error_text);
 
         // Show E notation only for numbers with 15 or more digits
         if (Math.abs(value) >= 1e14) {
@@ -854,5 +902,18 @@ public class MainActivity extends AppCompatActivity {
         // For smaller numbers, show the long format with commas
         DecimalFormat df = new DecimalFormat("#,###.###############");
         return df.format(value);
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Check if the user changed the scientific preference while in the settings screen
+        SharedPreferences sciPrefs = getSharedPreferences("scientific_prefs", MODE_PRIVATE);
+        boolean savedSciMode = sciPrefs.getBoolean("scientific_enabled", false);
+
+        // If the state is different than what's currently showing, trigger the switch transition animation
+        if (savedSciMode != scientificMode) {
+            toggleScientificMode();
+        }
     }
 }

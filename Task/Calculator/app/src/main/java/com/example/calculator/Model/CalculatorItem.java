@@ -1,18 +1,18 @@
 package com.example.calculator.Model;
 
 public class CalculatorItem {
-    private String name;
+    private int nameResId;
     private int iconResId;
     private int textWidth;
 
-    public CalculatorItem(String name, int iconResId, int textWidth) {
-        this.name = name;
+    public CalculatorItem(int nameResId, int iconResId, int textWidth) {
+        this.nameResId = nameResId;
         this.iconResId = iconResId;
         this.textWidth = textWidth;
     }
 
-    public String getName() {
-        return name;
+    public int getNameResId() {
+        return nameResId;
     }
 
     public int getIconResId() {

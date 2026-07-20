@@ -42,11 +42,6 @@ public class GSTCalculatorActivity extends AppCompatActivity {
         binding = ActivityGstCalculatorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        WindowInsetsControllerCompat windowInsetsController =
-                ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsController != null) {
-            windowInsetsController.setAppearanceLightStatusBars(true);
-        }
 
         if (getWindow() != null) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -257,7 +252,7 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             int increment = val.equals("00") ? 2 : (val.equals(".") ? 0 : 1);
             
             if (digitsOnly.length() + increment > 9) {
-                Toast.makeText(this, "Maximum 9 digits allowed", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_max_9_digits, Toast.LENGTH_SHORT).show();
                 return;
             }
             
@@ -271,7 +266,7 @@ public class GSTCalculatorActivity extends AppCompatActivity {
                 if (!tempRate.equals(".")) {
                     double rate = Double.parseDouble(tempRate);
                     if (rate >= 40.0) {
-                        Toast.makeText(this, "Rate must be less 40%", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, R.string.err_rate_limit_40, Toast.LENGTH_SHORT).show();
                         return;
                     }
                 }
@@ -286,13 +281,13 @@ public class GSTCalculatorActivity extends AppCompatActivity {
 
     private void calculateGST() {
         if (rawAmountStr.isEmpty() || rawRateStr.isEmpty() || rawAmountStr.equals(".") || rawRateStr.equals(".")) {
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             return;
         }
         try {
             double amount = Double.parseDouble(rawAmountStr.replace(",", ""));
             if (amount < 100) {
-                Toast.makeText(this, "Amount Value Must be At least 100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.err_min_amount_100, Toast.LENGTH_SHORT).show();
                 return;
             }
         } catch (Exception ignored) {}

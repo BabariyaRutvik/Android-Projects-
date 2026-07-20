@@ -1,0 +1,312 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">آلة حاسبة</string>
+    <string name="desc_back">رجوع</string>
+    <string name="result">النتيجة</string>
+    <string name="currency_zero">₹ 0.00</string>
+    <string name="other_calculator">آلات حاسبة أخرى</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">حذف</string>
+    <string name="desc_equals">حساب</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">حاسبة SIP</string>
+    <string name="monthly_sip_amount">مبلغ SIP الشهري</string>
+    <string name="add_amount">إضافة مبلغ</string>
+    <string name="rate_percentage">المعدل (%)</string>
+    <string name="add_rate">إضافة معدل</string>
+    <string name="investment_period">فترة الاستثمار</string>
+    <string name="default_period">01 سنة و 00 شهر</string>
+    <string name="expected_amount">المبلغ المتوقع</string>
+    <string name="amount_invested">المبلغ المستثمر</string>
+    <string name="wealth_gain">زيادة الثروة</string>
+    <string name="investment_growth">نمو الاستثمار</string>
+    <string name="times_growth">1.00 مرة</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">حاسبة القروض</string>
+    <string name="loan_amount">مبلغ القرض</string>
+    <string name="loan_tenure">مدة القرض</string>
+    <string name="total_payable">إجمالي المستحق</string>
+    <string name="monthly_payment">الدفع الشهري</string>
+    <string name="interest_amount">مبلغ الفائدة</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">حاسبة GST</string>
+    <string name="original_price">السعر الأصلي</string>
+    <string name="gst_rate_percentage">معدل GST (%)</string>
+    <string name="add">إضافة</string>
+    <string name="remove">إزالة</string>
+    <string name="supply_type">نوع التوريد</string>
+    <string name="intra_state">داخل الولاية</string>
+    <string name="inter_state">بين الولايات</string>
+    <string name="total_amount">المبلغ الإجمالي</string>
+    <string name="gst_amount">مبلغ GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">حاسبة الاستثمار</string>
+    <string name="total_investment">إجمالي الاستثمار</string>
+    <string name="saving_period">فترة الادخار</string>
+    <string name="total_value">القيمة الإجمالية</string>
+    <string name="total_interest">إجمالي الفائدة</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">حاسبة الادخار</string>
+    <string name="saving_goal">هدف الادخار</string>
+    <string name="monthly_saving_amount">مبلغ الادخار الشهري</string>
+    <string name="interest_earned">الفائدة المكتسبة</string>
+    <string name="daily_saving">الادخار اليومي</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">حاسبة العمر</string>
+    <string name="date_of_birth">تاريخ الميلاد</string>
+    <string name="today">اليوم</string>
+    <string name="current_age">العمر الحالي</string>
+    <string name="next_birthday">عيد الميلاد القادم</string>
+    <string name="placeholder_dob">DD-MM-YYYY</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">سنوات</string>
+    <string name="year_label">سنة</string>
+    <string name="months_label">أشهر</string>
+    <string name="days_label">أيام</string>
+    <string name="monday">الاثنين</string>
+    <string name="age_result_format">%1$d أشهر | %2$d أيام</string>
+    <string name="default_years">15 سنة</string>
+    <string name="default_age_detail">07 أشهر | 07 أيام</string>
+    <string name="default_birthday_detail">04 أشهر | 21 أيام</string>
+    <string name="desc_current_age">أيقونة العمر الحالي</string>
+    <string name="desc_next_birthday">أيقونة عيد الميلاد القادم</string>
+    <string name="jan">يناير</string>
+    <string name="feb">فبراير</string>
+    <string name="mar">مارس</string>
+    <string name="apr">أبريل</string>
+    <string name="may">مايو</string>
+    <string name="jun">يونيو</string>
+    <string name="jul">يوليو</string>
+    <string name="aug">أغسطس</string>
+    <string name="sep">سبتمبر</string>
+    <string name="oct">أكتوبر</string>
+    <string name="nov">نوفمبر</string>
+    <string name="dec">ديسمبر</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">حاسبة التاريخ</string>
+    <string name="from">من</string>
+    <string name="to">إلى</string>
+    <string name="placeholder_date">DD-MM-YYYY</string>
+    <string name="total_difference">إجمالي الفرق</string>
+    <string name="years_date">سنوات</string>
+    <string name="months_date">أشهر</string>
+    <string name="days">أيام</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">حاسبة BMI</string>
+    <string name="weight">الوزن</string>
+    <string name="enter_weight">أدخل الوزن</string>
+    <string name="kg">كجم</string>
+    <string name="lbs">رطل</string>
+    <string name="height">الطول</string>
+    <string name="enter_height">أدخل الطول</string>
+    <string name="cm">سم</string>
+    <string name="in">بوصة</string>
+    <string name="bmi_result_prefix">مؤشر كتلة جسمك هو %s</string>
+    <string name="underweight">نقص الوزن</string>
+    <string name="normal">طبيعي</string>
+    <string name="overweight">زيادة وزن</string>
+    <string name="obese">سمنة</string>
+    <string name="range_underweight">أقل من 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">أكثر من 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">بيانات إدخال غير صالحة</string>
+    <string name="bmi_data_limitations">حدود البيانات</string>
+    <string name="bmi_limit_kg">1. كجم - 1.0 إلى 175.0 كجم</string>
+    <string name="bmi_limit_cm">2. سم - 50.0 إلى 250.0 سم</string>
+    <string name="bmi_limit_lbs">3. رطل - 2.0 إلى 390.0 رطل</string>
+    <string name="bmi_limit_in">4. بوصة - 20.0 إلى 98.0 بوصة</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">محول العملات</string>
+    <string name="exchange_rate_info">استخدام بيانات سعر الصرف من البنك المركزي الأوروبي. تم تحديث البيانات في: %s</string>
+    <string name="currencies">العملات</string>
+    <string name="search_here">ابحث هنا</string>
+    <string name="offline_title">أنت غير متصل</string>
+    <string name="offline_message">تحتاج بيانات العملة إلى إنترنت. سنقوم بالتحديث بمجرد اتصالك بالإنترنت.</string>
+    <string name="no_data_title">لا توجد بيانات للعملة</string>
+    <string name="no_data_message">يرجى التحديث لتحميل أسعار العملات المحدثة.</string>
+    <string name="cancel">إلغاء</string>
+    <string name="connect_wifi">اتصل بـ Wi-Fi</string>
+    <string name="refresh">تحديث</string>
+    <string name="done">تم</string>
+    <string name="ok">موافق</string>
+    <string name="years">سنوات</string>
+    <string name="months">أشهر</string>
+    <string name="desc_swap">تبديل العملات</string>
+    <string name="default_currency_from_name">روبية هندية</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">دولار</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">البحث عن العملات</string>
+    <string name="please_wait_fetching_data">يرجى الانتظار، جاري جلب البيانات&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">حاسبة الخصم</string>
+    <string name="discount_percent">الخصم (%)</string>
+    <string name="placeholder_add_amount">إضافة مبلغ</string>
+    <string name="placeholder_add_rate">إضافة معدل</string>
+    <string name="final_amount">المبلغ النهائي</string>
+    <string name="original_amount">المبلغ الأصلي</string>
+    <string name="discount_amount">مبلغ الخصم</string>
+    <string name="error_fill_all_fields">يرجى ملء جميع الحقول</string>
+    <string name="error_min_amount">يجب أن يكون المبلغ 100 على الأقل</string>
+    <string name="error_max_discount">يجب أن يكون الخصم أقل من 100%</string>
+    <string name="error_max_amount">المبلغ لا يمكن أن يتجاوز 99,99,99,999</string>
+    <string name="desc_clear_all">مسح الكل</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">محول الوحدات</string>
+    <string name="category_weight">الوزن</string>
+    <string name="category_length">الطول</string>
+    <string name="category_area">المساحة</string>
+    <string name="category_time">الوقت</string>
+    <string name="category_volume">الحجم</string>
+    <string name="category_temperature">درجة الحرارة</string>
+    <string name="category_speed">السرعة</string>
+    <string name="category_data">البيانات</string>
+    <string name="category_power">الطاقة</string>
+    <string name="category_current">التيار</string>
+    <string name="category_voltage">الجهد الكهربائي</string>
+
+    <!-- weight -->
+    <string name="kilograms">كيلوجرام</string>
+    <string name="placeholder_unit">أدخل الوحدة</string>
+    <string name="kg_unit">كجم</string>
+    <string name="gram">جرام</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">جرام</string>
+
+    <!-- Settings -->
+    <string name="settings">الإعدادات</string>
+    <string name="theme">المظهر</string>
+    <string name="language">اللغة</string>
+    <string name="vibration">الاهتزاز</string>
+    <string name="scientific_mode">الوضع العلمي</string>
+    <string name="result_history_limit">عدد النتائج في السجل</string>
+    <string name="share_app">مشاركة التطبيق</string>
+    <string name="rate_app">تقييم التطبيق</string>
+    <string name="privacy_policy">سياسة الخصوصية</string>
+    <string name="more_apps">تطبيقات أكثر</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">فاتح</string>
+    <string name="dark_theme">داكن</string>
+    <string name="system_theme">تلقائي</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">ضبط سعة السجل</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">الإنجليزية</string>
+    <string name="lang_spanish">الإسبانية</string>
+    <string name="lang_arabic">العربية</string>
+    <string name="lang_french">الفرنسية</string>
+    <string name="lang_portuguese">البرتغالية</string>
+    <string name="lang_russian">الروسية</string>
+    <string name="lang_japanese">اليابانية</string>
+    <string name="lang_chinese">الصينية</string>
+    <string name="lang_german">الألمانية</string>
+    <string name="lang_italian">الإيطالية</string>
+    <string name="lang_korean">الكورية</string>
+    <string name="lang_swedish">السويدية</string>
+    <string name="lang_dutch">الهولندية</string>
+    <string name="lang_afrikaans">الأفريقانية</string>
+    <string name="lang_turkish">التركية</string>
+    <string name="lang_catalan">الكتالونية</string>
+    <string name="lang_filipino">الفلبينية</string>
+    <string name="lang_bahasa">الإندونيسية</string>
+    <string name="lang_bengali">البنغالية</string>
+    <string name="lang_hindi">الهندية</string>
+    <string name="lang_sinhala">السنهالية</string>
+
+    <!-- History -->
+    <string name="select_all">تحديد الكل</string>
+    <string name="no_history_found">لم يتم العثور على سجل.</string>
+    <string name="delete_history">حذف السجل</string>
+    <string name="delete_history_message">هل تريد حذف العملية الحسابية؟</string>
+    <string name="no">لا</string>
+    <string name="yes">نعم</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">قائمة الأوزان</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">لا يمكن أن يكون تاريخ الميلاد في المستقبل</string>
+    <string name="err_max_3_digits">يسمح بحد أقصى 3 أرقام</string>
+    <string name="err_invalid_calculation">بيانات حسابية غير صالحة</string>
+    <string name="err_max_9_digits">يسمح بحد أقصى 9 أرقام</string>
+    <string name="err_calculation_error">خطأ في الحساب</string>
+    <string name="err_rate_limit_40">المعدل يجب أن يكون أقل من 40%</string>
+    <string name="err_min_amount_100">يجب أن يكون المبلغ 100 على الأقل</string>
+    <string name="err_history_empty">السجل فارغ</string>
+    <string name="err_select_items_delete">يرجى تحديد العناصر المراد حذفها</string>
+    <string name="msg_history_deleted">تم حذف السجل</string>
+    <string name="err_max_rate_99">المعدل لا يمكن أن يتجاوز 99.99%</string>
+    <string name="err_min_investment_100">الحد الأدنى للاستثمار هو ₹100</string>
+    <string name="err_max_loan_amount_msg">الحد الأقصى لمبلغ القرض هو 99,99,99,999</string>
+    <string name="err_min_loan_100">الحد الأدنى لمبلغ القرض هو ₹100</string>
+    <string name="err_invalid_tenure">مدة غير صالحة</string>
+    <string name="err_value_too_large">القيمة كبيرة جدًا</string>
+    <string name="err_invalid_input">إدخال غير صالح</string>
+    <string name="err_max_20_digits">لا يمكن إدخال أكثر من 20 رقمًا</string>
+    <string name="err_max_6_digits">يسمح بحد أقصى 6 أرقام</string>
+    <string name="err_max_amount_100">الحد الأقصى للمبلغ هو 100</string>
+    <string name="err_max_input_limit">تم الوصول للحد الأقصى للإدخال</string>
+    <string name="err_min_goal_100">الحد الأدنى للهدف هو ₹100</string>
+    <string name="err_invalid_period">فترة غير صالحة</string>
+
+    <string name="infinity_text">ما لا نهاية</string>
+    <string name="error_text">خطأ</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

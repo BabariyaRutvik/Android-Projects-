@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Hesap Makinesi</string>
+    <string name="desc_back">Geri</string>
+    <string name="result">Sonuç</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Geri Sil</string>
+    <string name="desc_equals">Hesapla</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP Hesaplayıcı</string>
+    <string name="monthly_sip_amount">Aylık SIP Tutarı</string>
+    <string name="add_amount">Tutar ekle</string>
+    <string name="rate_percentage">Oran(%)</string>
+    <string name="add_rate">Oran ekle</string>
+    <string name="investment_period">Yatırım Dönemi</string>
+    <string name="default_period">01 yıl &amp; 00 ay</string>
+    <string name="expected_amount">Beklenen Tutar</string>
+    <string name="amount_invested">Yatırılan Tutar</string>
+    <string name="wealth_gain">Servet Kazancı</string>
+    <string name="investment_growth">Yatırım Büyümesi</string>
+    <string name="times_growth">1.00 Kat</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Kredi Hesaplayıcı</string>
+    <string name="loan_amount">Kredi Tutarı</string>
+    <string name="loan_tenure">Kredi Vadesi</string>
+    <string name="total_payable">Toplam Ödenecek</string>
+    <string name="monthly_payment">Aylık Ödeme</string>
+    <string name="interest_amount">Faiz Tutarı</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST Hesaplayıcı</string>
+    <string name="original_price">Orijinal Fiyat</string>
+    <string name="gst_rate_percentage">GST Oranı(%)</string>
+    <string name="add">Ekle</string>
+    <string name="remove">Kaldır</string>
+    <string name="supply_type">Tedarik Türü</string>
+    <string name="intra_state">Eyalet İçi</string>
+    <string name="inter_state">Eyaletler Arası</string>
+    <string name="total_amount">Toplam Tutar</string>
+    <string name="gst_amount">GST Tutarı</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Yatırım Hesaplayıcı</string>
+    <string name="total_investment">Toplam Yatırım</string>
+    <string name="saving_period">Tasarruf Dönemi</string>
+    <string name="total_value">Toplam Değer</string>
+    <string name="total_interest">Toplam Faiz</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Tasarruf Hesaplayıcı</string>
+    <string name="saving_goal">Tasarruf Hedefi</string>
+    <string name="monthly_saving_amount">Aylık Tasarruf Tutarı</string>
+    <string name="interest_earned">Kazanılan Faiz</string>
+    <string name="daily_saving">Günlük Tasarruf</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Yaş Hesaplayıcı</string>
+    <string name="date_of_birth">Doğum Tarihi</string>
+    <string name="today">Bugün</string>
+    <string name="current_age">Mevcut Yaş</string>
+    <string name="next_birthday">Sonraki Doğum Günü</string>
+    <string name="placeholder_dob">GG-AA-YYYY</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Yıl</string>
+    <string name="year_label">Yıl</string>
+    <string name="months_label">ay</string>
+    <string name="days_label">Gün</string>
+    <string name="monday">Pazartesi</string>
+    <string name="age_result_format">%1$d ay | %2$d Gün</string>
+    <string name="default_years">15 Yıl</string>
+    <string name="default_age_detail">07 ay | 07 Gün</string>
+    <string name="default_birthday_detail">04 ay | 21 Gün</string>
+    <string name="desc_current_age">Mevcut Yaş Simgesi</string>
+    <string name="desc_next_birthday">Sonraki Doğum Günü Simgesi</string>
+    <string name="jan">Oca</string>
+    <string name="feb">Şub</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Nis</string>
+    <string name="may">May</string>
+    <string name="jun">Haz</string>
+    <string name="jul">Tem</string>
+    <string name="aug">Ağu</string>
+    <string name="sep">Eyl</string>
+    <string name="oct">Eki</string>
+    <string name="nov">Kas</string>
+    <string name="dec">Ara</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Tarih Hesaplayıcı</string>
+    <string name="from">Başlangıç</string>
+    <string name="to">Bitiş</string>
+    <string name="placeholder_date">GG-AA-YYYY</string>
+    <string name="total_difference">Toplam Fark</string>
+    <string name="years_date">Yıl</string>
+    <string name="months_date">Ay</string>
+    <string name="days">Gün</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">VKI Hesaplayıcı</string>
+    <string name="weight">Ağırlık</string>
+    <string name="enter_weight">Ağırlık girin</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Boy</string>
+    <string name="enter_height">Boy girin</string>
+    <string name="cm">cm</string>
+    <string name="in">inç</string>
+    <string name="bmi_result_prefix">VKI değeriniz %s</string>
+    <string name="underweight">Zayıf</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Fazla Kilolu</string>
+    <string name="obese">Obez</string>
+    <string name="range_underweight">18.5 altı</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">30.0 üstü</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Geçersiz Giriş Verisi</string>
+    <string name="bmi_data_limitations">Veri Sınırlamaları</string>
+    <string name="bmi_limit_kg">1. Kilogram - 1.0 ile 175.0 kg arası</string>
+    <string name="bmi_limit_cm">2. Cm - 50.0 ile 250.0 cm arası</string>
+    <string name="bmi_limit_lbs">3. Lbs - 2.0 ile 390.0 lbs arası</string>
+    <string name="bmi_limit_in">4. İnç - 20.0 ile 98.0 inç arası</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Para Birimi Dönüştürücü</string>
+    <string name="exchange_rate_info">Avrupa Merkez Bankası döviz kuru verileri kullanılmaktadır. Veri güncelleme tarihi: %s</string>
+    <string name="currencies">Para Birimleri</string>
+    <string name="search_here">Burada ara</string>
+    <string name="offline_title">Çevrimdışısınız</string>
+    <string name="offline_message">Para birimi verileri internet gerektirir. Çevrimiçi olduğunuzda yenileyeceğiz.</string>
+    <string name="no_data_title">Para Birimi Verisi Yok</string>
+    <string name="no_data_message">Güncel kurları yüklemek için lütfen yenileyin.</string>
+    <string name="cancel">İptal</string>
+    <string name="connect_wifi">Wi-Fi\'ye Bağlan</string>
+    <string name="refresh">Yenile</string>
+    <string name="done">Tamam</string>
+    <string name="ok">Tamam</string>
+    <string name="years">Yıl</string>
+    <string name="months">Ay</string>
+    <string name="desc_swap">Para Birimlerini Değiştir</string>
+    <string name="default_currency_from_name">Hindistan Rupisi</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dolar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Para birimlerini ara</string>
+    <string name="please_wait_fetching_data">Lütfen bekleyin, Veriler Alınıyor&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">İndirim Hesaplayıcı</string>
+    <string name="discount_percent">İndirim (%)</string>
+    <string name="placeholder_add_amount">Tutar ekle</string>
+    <string name="placeholder_add_rate">Oran ekle</string>
+    <string name="final_amount">Final Tutarı</string>
+    <string name="original_amount">Orijinal Tutar</string>
+    <string name="discount_amount">İndirim Tutarı</string>
+    <string name="error_fill_all_fields">Lütfen tüm alanları doldurun</string>
+    <string name="error_min_amount">Tutar en az 100 olmalıdır</string>
+    <string name="error_max_discount">İndirim %100\'den az olmalıdır</string>
+    <string name="error_max_amount">Tutar 99,99,99,999\'u aşamaz</string>
+    <string name="desc_clear_all">Tümünü temizle</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Birim Dönüştürücü</string>
+    <string name="category_weight">Ağırlık</string>
+    <string name="category_length">Uzunluk</string>
+    <string name="category_area">Alan</string>
+    <string name="category_time">Zaman</string>
+    <string name="category_volume">Hacim</string>
+    <string name="category_temperature">Sıcaklık</string>
+    <string name="category_speed">Hız</string>
+    <string name="category_data">Veri</string>
+    <string name="category_power">Güç</string>
+    <string name="category_current">Akım</string>
+    <string name="category_voltage">Voltaj</string>
+
+    <!-- weight -->
+    <string name="kilograms">Kilogram</string>
+    <string name="placeholder_unit">Birim Girin</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Ayarlar</string>
+    <string name="theme">Tema</string>
+    <string name="language">Dil</string>
+    <string name="vibration">Titreşim</string>
+    <string name="scientific_mode">Bilimsel mod</string>
+    <string name="result_history_limit">Geçmişte tutulacak sonuç sayısı</string>
+    <string name="share_app">Uygulamayı Paylaş</string>
+    <string name="rate_app">Bu Uygulamayı Puanla</string>
+    <string name="privacy_policy">Gizlilik Politikası</string>
+    <string name="more_apps">Daha fazla uygulama (Reklamlar)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Açık Tema</string>
+    <string name="dark_theme">Koyu Tema</string>
+    <string name="system_theme">Sistem Teması</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Geçmiş Kapasitesini Ayarla</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">İngilizce</string>
+    <string name="lang_spanish">İspanyolca</string>
+    <string name="lang_arabic">Arapça</string>
+    <string name="lang_french">Fransızca</string>
+    <string name="lang_portuguese">Portekizce</string>
+    <string name="lang_russian">Rusça</string>
+    <string name="lang_japanese">Japonca</string>
+    <string name="lang_chinese">Çince</string>
+    <string name="lang_german">Almanca</string>
+    <string name="lang_italian">İtalyanca</string>
+    <string name="lang_korean">Korece</string>
+    <string name="lang_swedish">İsveççe</string>
+    <string name="lang_dutch">Flemenkçe</string>
+    <string name="lang_afrikaans">Afrikaanca</string>
+    <string name="lang_turkish">Türkçe</string>
+    <string name="lang_catalan">Katalanca</string>
+    <string name="lang_filipino">Filipince</string>
+    <string name="lang_bahasa">Endonezyaca</string>
+    <string name="lang_bengali">Bengalce</string>
+    <string name="lang_hindi">Hintçe</string>
+    <string name="lang_sinhala">Sinhala dili</string>
+
+    <!-- History -->
+    <string name="select_all">Tümünü Seç</string>
+    <string name="no_history_found">Geçmiş bulunamadı.</string>
+    <string name="delete_history">Geçmişi Sil</string>
+    <string name="delete_history_message">Hesaplamayı silmek istiyor musunuz?</string>
+    <string name="no">Hayır</string>
+    <string name="yes">Evet</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Ağırlık Listesi</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">Doğum günü gelecekte olamaz</string>
+    <string name="err_max_3_digits">Maksimum 3 basamağa izin verilir</string>
+    <string name="err_invalid_calculation">Geçersiz Hesaplama Verisi</string>
+    <string name="err_max_9_digits">Maksimum 9 basamağa izin verilir</string>
+    <string name="err_calculation_error">Hesaplama hatası</string>
+    <string name="err_rate_limit_40">Oran %40\'tan az olmalıdır</string>
+    <string name="err_min_amount_100">Tutar Değeri En Az 100 Olmalıdır</string>
+    <string name="err_history_empty">Geçmiş boş</string>
+    <string name="err_select_items_delete">Lütfen silinecek öğeleri seçin</string>
+    <string name="msg_history_deleted">Geçmiş silindi</string>
+    <string name="err_max_rate_99">Oran %99.99\'u geçemez</string>
+    <string name="err_min_investment_100">Minimum yatırım ₹100\'dür</string>
+    <string name="err_max_loan_amount_msg">Maksimum kredi tutarı 99,99,99,999\'dur</string>
+    <string name="err_min_loan_100">Minimum kredi tutarı ₹100\'dür</string>
+    <string name="err_invalid_tenure">Geçersiz vade</string>
+    <string name="err_value_too_large">Değer çok büyük</string>
+    <string name="err_invalid_input">Geçersiz Giriş</string>
+    <string name="err_max_20_digits">20 basamaktan fazlası girilemez</string>
+    <string name="err_max_6_digits">Maksimum 6 basamağa izin verilir</string>
+    <string name="err_max_amount_100">Maksimum tutar 100\'dür</string>
+    <string name="err_max_input_limit">Maksimum giriş sınırına ulaşıldı</string>
+    <string name="err_min_goal_100">Minimum hedef ₹100\'dür</string>
+    <string name="err_invalid_period">Geçersiz dönem</string>
+
+    <string name="infinity_text">Sonsuz</string>
+    <string name="error_text">Hata</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

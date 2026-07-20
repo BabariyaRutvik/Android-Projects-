@@ -33,7 +33,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginHorizontal="8dp"
             android:fontFamily="@font/regular"
-            android:text="SIP Calculator"
+            android:text=""
             android:textColor="@color/input_text_color"
             android:textSize="13sp"
             android:gravity="center"

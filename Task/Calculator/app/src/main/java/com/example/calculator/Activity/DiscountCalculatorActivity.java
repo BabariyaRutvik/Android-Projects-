@@ -44,11 +44,6 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Status bar setup
-        WindowInsetsControllerCompat windowInsetsControllerCompat = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsControllerCompat != null) {
-            windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
-        }
 
         // hiding Soft Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -184,6 +179,9 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
                 Toast.makeText(this, getString(R.string.error_max_amount), Toast.LENGTH_SHORT).show();
                 return;
             }
+
+
+
             if (val.equals(".") && originalPriceStr.contains(".")) return;
             originalPriceStr += val;
             binding.textOriginalPrice.setText(formatCurrencyNoSymbol(originalPriceStr));
@@ -196,6 +194,7 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
                     Toast.makeText(this, getString(R.string.error_max_discount), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                
                 if (tempRate.contains(".") && tempRate.substring(tempRate.indexOf(".") + 1).length() > 2) {
                     return;
                 }
@@ -219,7 +218,7 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
             double originalPrice = Double.parseDouble(originalPriceStr.replace(",", ""));
             double discountRate = Double.parseDouble(discountPercentStr);
 
-            if (originalPrice < 1) {
+            if (originalPrice < 100) {
                 Toast.makeText(this, getString(R.string.error_min_amount), Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -238,7 +237,7 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
             binding.layoutDiscountPercent.setSelected(false);
 
         } catch (Exception e) {
-            Toast.makeText(this, "Calculation error", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -53,11 +53,6 @@ public class BmiCalculatorActivity extends AppCompatActivity {
             return insets;
         });
 
-        // Status bar setup
-        WindowInsetsControllerCompat windowInsetsControllerCompat = ViewCompat.getWindowInsetsController(getWindow().getDecorView());
-        if (windowInsetsControllerCompat != null) {
-            windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
-        }
 
         // hiding Soft Keyboard
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -253,7 +248,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
         int increment = val.equals("00") ? 2 : (val.equals(".") ? 0 : 1);
 
         if (digitsOnly.length() + increment > 3) {
-            Toast.makeText(this, "Maximum 3 digits are allowed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_max_3_digits, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -292,7 +287,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
     private void calculateBMI(boolean hideKeypad) {
         if (weightInput.isEmpty() || heightInput.isEmpty()) {
             if (hideKeypad) {
-                Toast.makeText(this, "Please Fill All Fields", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.error_fill_all_fields, Toast.LENGTH_SHORT).show();
             }
             return;
         }
@@ -349,7 +344,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
             }
 
             binding.textBmiValue.setTextColor(color);
-            binding.textBmiStatus.setText(String.format("Your BMI is %s", status));
+            binding.textBmiStatus.setText(getString(R.string.bmi_result_prefix, status));
             binding.resultContainer.setVisibility(View.VISIBLE);
 
             if (hideKeypad) {
@@ -362,7 +357,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
             }
 
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Invalid Calculation Data", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.err_invalid_calculation, Toast.LENGTH_SHORT).show();
         }
     }
 }

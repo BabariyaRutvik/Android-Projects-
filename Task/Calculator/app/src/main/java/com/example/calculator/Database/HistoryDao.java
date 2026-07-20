@@ -31,4 +31,8 @@ public interface HistoryDao
     // delete selected
     @Query("DELETE FROM history WHERE id IN (:ids)")
     void deleteSelected(List<Integer> ids);
+
+    // prune history to limit
+    @Query("DELETE FROM history WHERE id NOT IN (SELECT id FROM history ORDER BY timestamp DESC LIMIT :limit)")
+    void prune(int limit);
 }

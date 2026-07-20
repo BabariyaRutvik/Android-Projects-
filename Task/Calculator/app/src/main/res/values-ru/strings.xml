@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Калькулятор</string>
+    <string name="desc_back">Назад</string>
+    <string name="result">Результат</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Удалить</string>
+    <string name="desc_equals">Вычислить</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">SIP калькулятор</string>
+    <string name="monthly_sip_amount">Ежемесячная сумма SIP</string>
+    <string name="add_amount">Добавить сумму</string>
+    <string name="rate_percentage">Ставка(%)</string>
+    <string name="add_rate">Добавить ставку</string>
+    <string name="investment_period">Период инвестирования</string>
+    <string name="default_period">01 год и 00 месяцев</string>
+    <string name="expected_amount">Ожидаемая сумма</string>
+    <string name="amount_invested">Инвестированная сумма</string>
+    <string name="wealth_gain">Прирост капитала</string>
+    <string name="investment_growth">Рост инвестиций</string>
+    <string name="times_growth">1.00 раз</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Кредитный калькулятор</string>
+    <string name="loan_amount">Сумма кредита</string>
+    <string name="loan_tenure">Срок кредита</string>
+    <string name="total_payable">Итого к оплате</string>
+    <string name="monthly_payment">Ежемесячный платеж</string>
+    <string name="interest_amount">Сумма процентов</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">GST калькулятор</string>
+    <string name="original_price">Исходная цена</string>
+    <string name="gst_rate_percentage">Ставка GST(%)</string>
+    <string name="add">Добавить</string>
+    <string name="remove">Вычесть</string>
+    <string name="supply_type">Тип поставки</string>
+    <string name="intra_state">Внутри штата</string>
+    <string name="inter_state">Между штатами</string>
+    <string name="total_amount">Общая сумма</string>
+    <string name="gst_amount">Сумма GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Инвестиционный калькулятор</string>
+    <string name="total_investment">Общий объем инвестиций</string>
+    <string name="saving_period">Период сбережений</string>
+    <string name="total_value">Общая стоимость</string>
+    <string name="total_interest">Общий процент</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Калькулятор сбережений</string>
+    <string name="saving_goal">Цель сбережений</string>
+    <string name="monthly_saving_amount">Ежемесячная сумма сбережений</string>
+    <string name="interest_earned">Начисленные проценты</string>
+    <string name="daily_saving">Ежедневные сбережения</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Калькулятор возраста</string>
+    <string name="date_of_birth">Дата рождения</string>
+    <string name="today">Сегодня</string>
+    <string name="current_age">Текущий возраст</string>
+    <string name="next_birthday">Следующий день рождения</string>
+    <string name="placeholder_dob">ДД-ММ-ГГГГ</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Лет</string>
+    <string name="year_label">Год</string>
+    <string name="months_label">месяцев</string>
+    <string name="days_label">Дней</string>
+    <string name="monday">Понедельник</string>
+    <string name="age_result_format">%1$d месяцев | %2$d дней</string>
+    <string name="default_years">15 лет</string>
+    <string name="default_age_detail">07 месяцев | 07 дней</string>
+    <string name="default_birthday_detail">04 месяцев | 21 дней</string>
+    <string name="desc_current_age">Иконка текущего возраста</string>
+    <string name="desc_next_birthday">Иконка следующего дня рождения</string>
+    <string name="jan">Янв</string>
+    <string name="feb">Фев</string>
+    <string name="mar">Мар</string>
+    <string name="apr">Апр</string>
+    <string name="may">Май</string>
+    <string name="jun">Июн</string>
+    <string name="jul">Июл</string>
+    <string name="aug">Авг</string>
+    <string name="sep">Сен</string>
+    <string name="oct">Окт</string>
+    <string name="nov">Ноя</string>
+    <string name="dec">Дек</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Калькулятор дат</string>
+    <string name="from">От</string>
+    <string name="to">До</string>
+    <string name="placeholder_date">ДД-ММ-ГГГГ</string>
+    <string name="total_difference">Общая разница</string>
+    <string name="years_date">Лет</string>
+    <string name="months_date">Месяцев</string>
+    <string name="days">Дней</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">ИМТ калькулятор</string>
+    <string name="weight">Вес</string>
+    <string name="enter_weight">Введите вес</string>
+    <string name="kg">кг</string>
+    <string name="lbs">фунты</string>
+    <string name="height">Рост</string>
+    <string name="enter_height">Введите рост</string>
+    <string name="cm">см</string>
+    <string name="in">дюймы</string>
+    <string name="bmi_result_prefix">Ваш ИМТ: %s</string>
+    <string name="underweight">Недостаточный вес</string>
+    <string name="normal">Норма</string>
+    <string name="overweight">Избыточный вес</string>
+    <string name="obese">Ожирение</string>
+    <string name="range_underweight">Ниже 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Выше 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Неверные входные данные</string>
+    <string name="bmi_data_limitations">Ограничения данных</string>
+    <string name="bmi_limit_kg">1. Килограммы - от 1.0 до 175.0 кг</string>
+    <string name="bmi_limit_cm">2. См - от 50.0 до 250.0 см</string>
+    <string name="bmi_limit_lbs">3. Фунты - от 2.0 до 390.0 фунтов</string>
+    <string name="bmi_limit_in">4. Дюймы - от 20.0 до 98.0 дюймов</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Конвертер валют</string>
+    <string name="exchange_rate_info">Используются данные о курсах валют Европейского центрального банка. Данные обновлены: %s</string>
+    <string name="currencies">Валюты</string>
+    <string name="search_here">Искать здесь</string>
+    <string name="offline_title">Вы оффлайн</string>
+    <string name="offline_message">Для данных о валютах нужен интернет. Мы обновим их, как только вы будете онлайн.</string>
+    <string name="no_data_title">Нет данных о валютах</string>
+    <string name="no_data_message">Пожалуйста, обновите, чтобы загрузить актуальные курсы валют.</string>
+    <string name="cancel">Отмена</string>
+    <string name="connect_wifi">Подключиться к Wi-Fi</string>
+    <string name="refresh">Обновить</string>
+    <string name="done">Готово</string>
+    <string name="ok">ОК</string>
+    <string name="years">Лет</string>
+    <string name="months">Месяцев</string>
+    <string name="desc_swap">Поменять валюты</string>
+    <string name="default_currency_from_name">Индийская рупия</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Доллар</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Поиск валют</string>
+    <string name="please_wait_fetching_data">Пожалуйста, подождите, получение данных&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Калькулятор скидок</string>
+    <string name="discount_percent">Скидка (%)</string>
+    <string name="placeholder_add_amount">Добавить сумму</string>
+    <string name="placeholder_add_rate">Добавить ставку</string>
+    <string name="final_amount">Конечная сумма</string>
+    <string name="original_amount">Исходная сумма</string>
+    <string name="discount_amount">Сумма скидки</string>
+    <string name="error_fill_all_fields">Пожалуйста, заполните все поля</string>
+    <string name="error_min_amount">Сумма должна быть не менее 100</string>
+    <string name="error_max_discount">Скидка должна быть менее 100%</string>
+    <string name="error_max_amount">Сумма не может превышать 99,99,99,999</string>
+    <string name="desc_clear_all">Очистить все</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Конвертер единиц</string>
+    <string name="category_weight">Вес</string>
+    <string name="category_length">Длина</string>
+    <string name="category_area">Площадь</string>
+    <string name="category_time">Время</string>
+    <string name="category_volume">Объем</string>
+    <string name="category_temperature">Температура</string>
+    <string name="category_speed">Скорость</string>
+    <string name="category_data">Данные</string>
+    <string name="category_power">Мощность</string>
+    <string name="category_current">Ток</string>
+    <string name="category_voltage">Напряжение</string>
+
+    <!-- weight -->
+    <string name="kilograms">Килограмм</string>
+    <string name="placeholder_unit">Введите единицу</string>
+    <string name="kg_unit">кг</string>
+    <string name="gram">Грамм</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">г</string>
+
+    <!-- Settings -->
+    <string name="settings">Настройки</string>
+    <string name="theme">Тема</string>
+    <string name="language">Язык</string>
+    <string name="vibration">Вибрация</string>
+    <string name="scientific_mode">Научный режим</string>
+    <string name="result_history_limit">Количество результатов в истории</string>
+    <string name="share_app">Поделиться приложением</string>
+    <string name="rate_app">Оценить приложение</string>
+    <string name="privacy_policy">Политика конфиденциальности</string>
+    <string name="more_apps">Другие приложения (реклама)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Светлая тема</string>
+    <string name="dark_theme">Темная тема</string>
+    <string name="system_theme">Системная тема</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Установить емкость истории</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Английский</string>
+    <string name="lang_spanish">Испанский</string>
+    <string name="lang_arabic">Арабский</string>
+    <string name="lang_french">Французский</string>
+    <string name="lang_portuguese">Португальский</string>
+    <string name="lang_russian">Русский</string>
+    <string name="lang_japanese">Японский</string>
+    <string name="lang_chinese">Китайский</string>
+    <string name="lang_german">Немецкий</string>
+    <string name="lang_italian">Итальянский</string>
+    <string name="lang_korean">Корейский</string>
+    <string name="lang_swedish">Шведский</string>
+    <string name="lang_dutch">Голландский</string>
+    <string name="lang_afrikaans">Африкаанс</string>
+    <string name="lang_turkish">Турецкий</string>
+    <string name="lang_catalan">Каталанский</string>
+    <string name="lang_filipino">Филиппинский</string>
+    <string name="lang_bahasa">Индонезийский</string>
+    <string name="lang_bengali">Бенгальский</string>
+    <string name="lang_hindi">Хинди</string>
+    <string name="lang_sinhala">Сингальский</string>
+
+    <!-- History -->
+    <string name="select_all">Выбрать все</string>
+    <string name="no_history_found">История не найдена.</string>
+    <string name="delete_history">Удалить историю</string>
+    <string name="delete_history_message">Вы хотите удалить расчет?</string>
+    <string name="no">Нет</string>
+    <string name="yes">Да</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Список весов</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">День рождения не может быть в будущем</string>
+    <string name="err_max_3_digits">Разрешено максимум 3 цифры</string>
+    <string name="err_invalid_calculation">Неверные данные для расчета</string>
+    <string name="err_max_9_digits">Разрешено максимум 9 цифр</string>
+    <string name="err_calculation_error">Ошибка расчета</string>
+    <string name="err_rate_limit_40">Ставка должна быть меньше 40%</string>
+    <string name="err_min_amount_100">Сумма должна быть не менее 100</string>
+    <string name="err_history_empty">История пуста</string>
+    <string name="err_select_items_delete">Пожалуйста, выберите элементы для удаления</string>
+    <string name="msg_history_deleted">История удалена</string>
+    <string name="err_max_rate_99">Ставка не может превышать 99.99%</string>
+    <string name="err_min_investment_100">Минимальная инвестиция — ₹100</string>
+    <string name="err_max_loan_amount_msg">Максимальная сумма кредита — 99,99,99,999</string>
+    <string name="err_min_loan_100">Минимальная сумма кредита — ₹100</string>
+    <string name="err_invalid_tenure">Неверный срок</string>
+    <string name="err_value_too_large">Слишком большое значение</string>
+    <string name="err_invalid_input">Неверный ввод</string>
+    <string name="err_max_20_digits">Нельзя ввести более 20 цифр</string>
+    <string name="err_max_6_digits">Разрешено максимум 6 цифр</string>
+    <string name="err_max_amount_100">Максимальная сумма — 100</string>
+    <string name="err_max_input_limit">Достигнут предел ввода</string>
+    <string name="err_min_goal_100">Минимальная цель — ₹100</string>
+    <string name="err_invalid_period">Неверный период</string>
+
+    <string name="infinity_text">Бесконечность</string>
+    <string name="error_text">Ошибка</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>

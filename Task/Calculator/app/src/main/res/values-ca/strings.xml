@@ -1,0 +1,311 @@
+<resources>
+    <!-- Common -->
+    <string name="app_name">Calculadora</string>
+    <string name="desc_back">Enrere</string>
+    <string name="result">Resultat</string>
+    <string name="currency_zero">₹ 0.00</string>
+
+    <!-- Calculator Buttons -->
+    <string name="btn_ac">AC</string>
+    <string name="btn_7">7</string>
+    <string name="btn_8">8</string>
+    <string name="btn_9">9</string>
+    <string name="btn_4">4</string>
+    <string name="btn_5">5</string>
+    <string name="btn_6">6</string>
+    <string name="btn_1">1</string>
+    <string name="btn_2">2</string>
+    <string name="btn_3">3</string>
+    <string name="btn_00">00</string>
+    <string name="btn_0">0</string>
+    <string name="btn_dot">.</string>
+    <string name="desc_backspace">Retrocés</string>
+    <string name="desc_equals">Calcular</string>
+
+    <!-- SIP Calculator -->
+    <string name="sip_calculator">Calculadora SIP</string>
+    <string name="monthly_sip_amount">Import mensual SIP</string>
+    <string name="add_amount">Afegir import</string>
+    <string name="rate_percentage">Taxa(%)</string>
+    <string name="add_rate">Afegir taxa</string>
+    <string name="investment_period">Període d\'inversió</string>
+    <string name="default_period">01 any i 00 mesos</string>
+    <string name="expected_amount">Import esperat</string>
+    <string name="amount_invested">Import invertit</string>
+    <string name="wealth_gain">Guany de riquesa</string>
+    <string name="investment_growth">Creixement de la inversió</string>
+    <string name="times_growth">1.00 vegades</string>
+
+    <!-- Loan Calculator -->
+    <string name="loan_calculator">Calculadora de préstecs</string>
+    <string name="loan_amount">Import del préstec</string>
+    <string name="loan_tenure">Termini del préstec</string>
+    <string name="total_payable">Total a pagar</string>
+    <string name="monthly_payment">Pagament mensual</string>
+    <string name="interest_amount">Import dels interessos</string>
+
+    <!-- GST Calculator -->
+    <string name="gst_calculator">Calculadora GST</string>
+    <string name="original_price">Preu original</string>
+    <string name="gst_rate_percentage">Taxa GST(%)</string>
+    <string name="add">Afegir</string>
+    <string name="remove">Eliminar</string>
+    <string name="supply_type">Tipus de subministrament</string>
+    <string name="intra_state">Intraestatal</string>
+    <string name="inter_state">Interestatal</string>
+    <string name="total_amount">Import total</string>
+    <string name="gst_amount">Import GST</string>
+    <string name="cgst">CGST</string>
+    <string name="sgst">SGST</string>
+    <string name="igst">IGST</string>
+    <string name="cgst_format">CGST (%1$.1f%%)</string>
+    <string name="sgst_format">SGST (%1$.1f%%)</string>
+    <string name="igst_format">IGST (%1$.0f%%)</string>
+
+    <!-- Investment Calculator -->
+    <string name="investment_calculator">Calculadora d\'inversió</string>
+    <string name="total_investment">Inversió total</string>
+    <string name="saving_period">Període d\'estalvi</string>
+    <string name="total_value">Valor total</string>
+    <string name="total_interest">Interès total</string>
+
+    <!-- Saving Calculator -->
+    <string name="saving_calculator">Calculadora d\'estalvi</string>
+    <string name="saving_goal">Objectiu d\'estalvi</string>
+    <string name="monthly_saving_amount">Import d\'estalvi mensual</string>
+    <string name="interest_earned">Interès guanyat</string>
+    <string name="daily_saving">Estalvi diari</string>
+
+    <!-- Age Calculator -->
+    <string name="age_calculator">Calculadora d\'edat</string>
+    <string name="date_of_birth">Data de naixement</string>
+    <string name="today">Avui</string>
+    <string name="current_age">Edat actual</string>
+    <string name="next_birthday">Proper aniversari</string>
+    <string name="placeholder_dob">DD-MM-AAAA</string>
+    <string name="default_today">06-03-2026</string>
+    <string name="years_label">Anys</string>
+    <string name="year_label">Any</string>
+    <string name="months_label">mesos</string>
+    <string name="days_label">Dies</string>
+    <string name="monday">Dilluns</string>
+    <string name="age_result_format">%1$d mesos | %2$d dies</string>
+    <string name="default_years">15 anys</string>
+    <string name="default_age_detail">07 mesos | 07 dies</string>
+    <string name="default_birthday_detail">04 mesos | 21 dies</string>
+    <string name="desc_current_age">Icona d\'edat actual</string>
+    <string name="desc_next_birthday">Icona de proper aniversari</string>
+    <string name="jan">Gen</string>
+    <string name="feb">Feb</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Abr</string>
+    <string name="may">Maig</string>
+    <string name="jun">Juny</string>
+    <string name="jul">Jul</string>
+    <string name="aug">Agost</string>
+    <string name="sep">Set</string>
+    <string name="oct">Oct</string>
+    <string name="nov">Nov</string>
+    <string name="dec">Des</string>
+
+    <!-- Date Calculator -->
+    <string name="date_calculator">Calculadora de dates</string>
+    <string name="from">Des de</string>
+    <string name="to">Fins a</string>
+    <string name="placeholder_date">DD-MM-AAAA</string>
+    <string name="total_difference">Diferència total</string>
+    <string name="years_date">Anys</string>
+    <string name="months_date">Mesos</string>
+    <string name="days">Dies</string>
+    <string name="default_zero">0</string>
+
+    <!-- BMI Calculator -->
+    <string name="bmi_calculator">Calculadora IMC</string>
+    <string name="weight">Pes</string>
+    <string name="enter_weight">Introdueix pes</string>
+    <string name="kg">kg</string>
+    <string name="lbs">lbs</string>
+    <string name="height">Alçada</string>
+    <string name="enter_height">Introdueix alçada</string>
+    <string name="cm">cm</string>
+    <string name="in">in</string>
+    <string name="bmi_result_prefix">El teu IMC és %s</string>
+    <string name="underweight">Baix pes</string>
+    <string name="normal">Normal</string>
+    <string name="overweight">Sobrepès</string>
+    <string name="obese">Obès</string>
+    <string name="range_underweight">Sota 18.5</string>
+    <string name="range_normal">18.5 – 24.9</string>
+    <string name="range_overweight">25.0 – 29.9</string>
+    <string name="range_obese">Sobre 30.0</string>
+
+    <!-- BMI Invalid Input Dialog -->
+    <string name="bmi_invalid_input_title">Dades d\'entrada no vàlides</string>
+    <string name="bmi_data_limitations">Limitacions de dades</string>
+    <string name="bmi_limit_kg">1. Quilogram - de 1.0 a 175.0 kg</string>
+    <string name="bmi_limit_cm">2. Cm - de 50.0 a 250.0 cm</string>
+    <string name="bmi_limit_lbs">3. Lbs - de 2.0 a 390.0 lbs</string>
+    <string name="bmi_limit_in">4. Polzada - de 20.0 a 98.0 polzades</string>
+
+    <!-- Currency Converter -->
+    <string name="currency_converter">Conversor de moneda</string>
+    <string name="exchange_rate_info">S\'utilitzen dades de tipus de canvi del Banc Central Europeu. Les dades es van actualitzar el: %s</string>
+    <string name="currencies">Monedes</string>
+    <string name="search_here">Cerca aquí</string>
+    <string name="offline_title">Estàs fora de línia</string>
+    <string name="offline_message">Les dades de moneda necessiten internet. Actualitzarem quan estiguis en línia.</string>
+    <string name="no_data_title">No hi ha dades de moneda</string>
+    <string name="no_data_message">Si us plau, actualitza per carregar els tipus de canvi actualitzats.</string>
+    <string name="cancel">Cancel·lar</string>
+    <string name="connect_wifi">Connectar a Wi-Fi</string>
+    <string name="refresh">Actualitzar</string>
+    <string name="done">Fet</string>
+    <string name="ok">D\'acord</string>
+    <string name="years">Anys</string>
+    <string name="months">Mesos</string>
+    <string name="desc_swap">Intercanviar monedes</string>
+    <string name="default_currency_from_name">Rúpia índia</string>
+    <string name="default_currency_from_code">INR</string>
+    <string name="default_currency_to_name">Dòlar</string>
+    <string name="default_currency_to_code">USD</string>
+    <string name="zero">0</string>
+    <string name="search_currencies">Cerca monedes</string>
+    <string name="please_wait_fetching_data">Si us plau espera, obtenint dades&#8230;</string>
+
+    <!-- Discount Calculator -->
+    <string name="discount_calculator">Calculadora de descompte</string>
+    <string name="discount_percent">Descompte (%)</string>
+    <string name="placeholder_add_amount">Afegir import</string>
+    <string name="placeholder_add_rate">Afegir taxa</string>
+    <string name="final_amount">Import final</string>
+    <string name="original_amount">Import original</string>
+    <string name="discount_amount">Import del descompte</string>
+    <string name="error_fill_all_fields">Si us plau, emplena tots els camps</string>
+    <string name="error_min_amount">L\'import ha de ser almenys de 100</string>
+    <string name="error_max_discount">El descompte ha de ser inferior al 100%</string>
+    <string name="error_max_amount">L\'import no pot superar 99,99,99,999</string>
+    <string name="desc_clear_all">Esborrar-ho tot</string>
+
+    <!-- unit Converter -->
+    <string name="unit_converter">Conversor d\'unitats</string>
+    <string name="category_weight">Pes</string>
+    <string name="category_length">Longitud</string>
+    <string name="category_area">Àrea</string>
+    <string name="category_time">Temps</string>
+    <string name="category_volume">Volum</string>
+    <string name="category_temperature">Temperatura</string>
+    <string name="category_speed">Velocitat</string>
+    <string name="category_data">Dades</string>
+    <string name="category_power">Potència</string>
+    <string name="category_current">Corrent</string>
+    <string name="category_voltage">Voltatge</string>
+
+    <!-- weight -->
+    <string name="kilograms">Quilogram</string>
+    <string name="placeholder_unit">Introdueix unitat</string>
+    <string name="kg_unit">Kg</string>
+    <string name="gram">Gram</string>
+    <string name="gram_unit">0</string>
+    <string name="gram_value">g</string>
+
+    <!-- Settings -->
+    <string name="settings">Ajustos</string>
+    <string name="theme">Tema</string>
+    <string name="language">Idioma</string>
+    <string name="vibration">Vibració</string>
+    <string name="scientific_mode">Mode científic</string>
+    <string name="result_history_limit">Resultats a mantenir a l\'historial</string>
+    <string name="share_app">Compartir aplicació</string>
+    <string name="rate_app">Valorar aquesta aplicació</string>
+    <string name="privacy_policy">Política de privadesa</string>
+    <string name="more_apps">Més aplicacions (Anuncis)</string>
+
+    <!-- Theme Dialog -->
+    <string name="light_theme">Tema clar</string>
+    <string name="dark_theme">Tema fosc</string>
+    <string name="system_theme">Tema del sistema</string>
+
+    <!-- History Capacity Dialog -->
+    <string name="set_history_capacity">Establir capacitat de l\'historial</string>
+    <string name="default_history_capacity">10</string>
+    <string name="infinity">∞</string>
+
+    <!-- Languages -->
+    <string name="lang_english">Anglès</string>
+    <string name="lang_spanish">Espanyol</string>
+    <string name="lang_arabic">Àrab</string>
+    <string name="lang_french">Francès</string>
+    <string name="lang_portuguese">Portuguès</string>
+    <string name="lang_russian">Rus</string>
+    <string name="lang_japanese">Japonès</string>
+    <string name="lang_chinese">Xinès</string>
+    <string name="lang_german">Alemany</string>
+    <string name="lang_italian">Italià</string>
+    <string name="lang_korean">Coreà</string>
+    <string name="lang_swedish">Suec</string>
+    <string name="lang_dutch">Neerlandès</string>
+    <string name="lang_afrikaans">Afrikaans</string>
+    <string name="lang_turkish">Turc</string>
+    <string name="lang_catalan">Català</string>
+    <string name="lang_filipino">Filipí</string>
+    <string name="lang_bahasa">Indonesi</string>
+    <string name="lang_bengali">Bengalí</string>
+    <string name="lang_hindi">Hindi</string>
+    <string name="lang_sinhala">Singalès</string>
+
+    <!-- History -->
+    <string name="select_all">Seleccionar-ho tot</string>
+    <string name="no_history_found">No s\'ha trobat historial.</string>
+    <string name="delete_history">Esborrar historial</string>
+    <string name="delete_history_message">Vols esborrar el càlcul?</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+
+    <!-- Unit Converter -->
+    <string name="weight_list">Llista de pesos</string>
+
+    <!-- Toast & Error Messages -->
+    <string name="err_birthday_future">L\'aniversari no pot ser en el futur</string>
+    <string name="err_max_3_digits">Es permet un màxim de 3 dígits</string>
+    <string name="err_invalid_calculation">Dades de càlcul no vàlides</string>
+    <string name="err_max_9_digits">Es permet un màxim de 9 dígits</string>
+    <string name="err_calculation_error">Error de càlcul</string>
+    <string name="err_rate_limit_40">La taxa ha de ser inferior al 40%</string>
+    <string name="err_min_amount_100">L\'import ha de ser almenys de 100</string>
+    <string name="err_history_empty">L\'historial està buit</string>
+    <string name="err_select_items_delete">Si us plau, selecciona els elements a esborrar</string>
+    <string name="msg_history_deleted">Historial esborrat</string>
+    <string name="err_max_rate_99">La taxa no pot superar el 99.99%</string>
+    <string name="err_min_investment_100">La inversió mínima és de ₹100</string>
+    <string name="err_max_loan_amount_msg">L\'import màxim del préstec és 99,99,99,999</string>
+    <string name="err_min_loan_100">L\'import mínim del préstec és de ₹100</string>
+    <string name="err_invalid_tenure">Termini no vàlid</string>
+    <string name="err_value_too_large">Valor massa gran</string>
+    <string name="err_invalid_input">Entrada no vàlida</string>
+    <string name="err_max_20_digits">No es poden introduir més de 20 dígits</string>
+    <string name="err_max_6_digits">Es permet un màxim de 6 dígits</string>
+    <string name="err_max_amount_100">L\'import màxim és de 100</string>
+    <string name="err_max_input_limit">S\'ha assolit el límit màxim d\'entrada</string>
+    <string name="err_min_goal_100">L\'objectiu mínim és de ₹100</string>
+    <string name="err_invalid_period">Període no vàlid</string>
+
+    <string name="infinity_text">Infinit</string>
+    <string name="error_text">Error</string>
+
+    <!-- Scientific Buttons -->
+    <string name="btn_e_text">e</string>
+    <string name="btn_exp">exp</string>
+    <string name="btn_log_text">log</string>
+    <string name="btn_ln">ln</string>
+    <string name="btn_sin_text">sin</string>
+    <string name="btn_sin_inv">sin⁻¹</string>
+    <string name="btn_cos_text">cos</string>
+    <string name="btn_cos_inv">cos⁻¹</string>
+    <string name="btn_tan_text">tan</string>
+    <string name="btn_tan_inv">tan⁻¹</string>
+    <string name="btn_cot_text">cot</string>
+    <string name="btn_cot_inv">cot⁻¹</string>
+    <string name="btn_deg_text">DEG</string>
+    <string name="btn_rad_text">RAD</string>
+    <string name="btn_deg_small">deg</string>
+</resources>
