@@ -4,8 +4,10 @@
     android:layout_height="50dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="12dp"
-    android:paddingHorizontal="15dp"
-    android:background="@drawable/bg_languge_selection">
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:background="@drawable/bg_languge_selection"
+    >
 
 
     <TextView
@@ -14,7 +16,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/input_text_color"
         android:textSize="16sp"
-        android:fontFamily="@font/medium"
+        android:fontFamily="@font/regular"
+        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/img_language_selection"
         app:layout_constraintStart_toStartOf="parent"

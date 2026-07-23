@@ -285,7 +285,7 @@
     <string name="err_invalid_tenure">Plazo inválido</string>
     <string name="err_value_too_large">Valor demasiado grande</string>
     <string name="err_invalid_input">Entrada inválida</string>
-    <string name="err_max_20_digits">No se pueden ingresar más de 20 dígitos</string>
+    <string name="err_max_digits_allowed">No se pueden ingresar más de 15 dígitos</string>
     <string name="err_max_6_digits">Se permiten un máximo de 6 dígitos</string>
     <string name="err_max_amount_100">El monto máximo es 100</string>
     <string name="err_max_input_limit">Se alcanzó el límite máximo de entrada</string>

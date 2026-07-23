@@ -78,6 +78,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             binding.investResultContainer.setVisibility(View.GONE);
             binding.keypadInvestment.setVisibility(View.VISIBLE);
             updateInvestmentSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutTotalInvestAmount.setOnClickListener(fieldClickListener);
@@ -170,6 +171,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             binding.keypadInvestment.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateInvestmentSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnInvestBackspace.setOnClickListener(v -> {
@@ -244,10 +246,12 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
         yearPicker.setMinValue(1);
         yearPicker.setMaxValue(40);
         yearPicker.setValue(selectedYears);
+        yearPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(11);
         monthPicker.setValue(selectedMonths);
+        monthPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         dialog.findViewById(R.id.btn_cancel).setOnClickListener(v -> {
             dialog.dismiss();
@@ -266,7 +270,7 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
     }
 
     private void updatePeriodText() {
-        String fullText = String.format(Locale.getDefault(), "%02dyears & %02dmonths", selectedYears, selectedMonths);
+        String fullText = String.format(Locale.US, "%02dyears & %02dmonths", selectedYears, selectedMonths);
         binding.textInvestPeriod.setText(fullText);
     }
 
@@ -300,9 +304,17 @@ public class InvestmentCalculatorActivity extends AppCompatActivity {
             binding.layoutTotalInvestAmount.setSelected(false);
             binding.layoutInvestRate.setSelected(false);
             binding.layoutInvestSavingPeriod.setSelected(false);
+            updateLabelColors(true);
         } catch (Exception e) {
             Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelInvestAmount.setTextColor(color);
+        binding.labelInvestRate.setTextColor(color);
+        binding.labelInvestPeriod.setTextColor(color);
     }
 
     private String formatCurrency(double amount) {

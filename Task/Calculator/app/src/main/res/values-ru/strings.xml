@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">Неверный срок</string>
     <string name="err_value_too_large">Слишком большое значение</string>
     <string name="err_invalid_input">Неверный ввод</string>
-    <string name="err_max_20_digits">Нельзя ввести более 20 цифр</string>
+    <string name="err_max_digits_allowed">Нельзя ввести более 25 цифр</string>
     <string name="err_max_6_digits">Разрешено максимум 6 цифр</string>
     <string name="err_max_amount_100">Максимальная сумма — 100</string>
     <string name="err_max_input_limit">Достигнут предел ввода</string>

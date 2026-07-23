@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">无效期限</string>
     <string name="err_value_too_large">值太大</string>
     <string name="err_invalid_input">输入无效</string>
-    <string name="err_max_20_digits">输入不能超过 20 位数字</string>
+    <string name="err_max_digits_allowed">输入不能超过 25 位数字</string>
     <string name="err_max_6_digits">最多允许 6 位数字</string>
     <string name="err_max_amount_100">最高金额为 100</string>
     <string name="err_max_input_limit">达到最大输入限制</string>

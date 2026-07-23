@@ -24,7 +24,9 @@
             app:navigationIcon="@drawable/ic_back"
             app:navigationContentDescription="@string/desc_back"
             app:title="@string/unit_converter"
-            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIconTint="@color/input_text_color" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -60,7 +62,6 @@
                 android:id="@+id/input_container_unit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="4dp"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <!-- From Unit Box -->
@@ -71,7 +72,7 @@
                     android:minHeight="80dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -80,7 +81,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text=""
-                        android:textColor="@color/text_label_gray"
+                        android:textColor="@color/result_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -88,24 +89,25 @@
                     <EditText
                         android:id="@+id/text_unit_value_from"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
                         android:cursorVisible="true"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
-                        android:gravity="start|center_vertical"
                         android:hint="@string/placeholder_unit"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:digits="0123456789."
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="8dp"
+                        android:gravity="start|center_vertical"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/layout_unit_picker_from"
                         app:layout_constraintStart_toStartOf="parent"
@@ -154,7 +156,7 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:paddingVertical="8dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_unit_from">
 
                     <TextView
@@ -163,7 +165,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text=""
-                        android:textColor="@color/text_label_gray"
+                        android:textColor="@color/result_text_color"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -171,15 +173,17 @@
                     <TextView
                         android:id="@+id/text_unit_value_to"
                         android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
-                        android:gravity="start|center_vertical"
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="8dp"
+                        android:paddingHorizontal="4dp"
+                        android:gravity="start|center_vertical"
+                        android:textAlignment="viewStart"
+                        android:textDirection="locale"
                         android:text=""
                         android:textColor="@color/input_text_color"
-                        android:textSize="18sp"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/layout_unit_picker_to"
                         app:layout_constraintStart_toStartOf="parent"
@@ -229,8 +233,9 @@
         android:id="@+id/keypad_unit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="6dp"
+        android:paddingHorizontal="@dimen/keypad_padding_horizontal"
         android:paddingBottom="12dp"
+        android:layoutDirection="ltr"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -262,10 +267,10 @@
             android:fontFamily="@font/regular"
             android:text="@string/btn_7"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -275,10 +280,10 @@
             android:fontFamily="@font/regular"
             android:text="@string/btn_8"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -288,10 +293,10 @@
             android:fontFamily="@font/regular"
             android:text="@string/btn_9"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -303,153 +308,155 @@
             android:textColor="@color/red_dark"
             android:textSize="26sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Row 2 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_4"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_4"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_7" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_5"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_5"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_8" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_6"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_6"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_9" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_backspace"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_gray"
             android:contentDescription="@string/desc_backspace"
             app:backgroundTint="@null"
             app:icon="@drawable/backspace_calculator_mode"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            app:iconSize="35dp"
+            app:iconSize="34dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:foregroundGravity="center"
             app:iconTint="@color/input_text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_ac" />
 
         <!-- Row 3 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_1"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_1"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_4" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_2"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_2"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_5" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_3"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_3"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_6" />
 
         <!-- Row 4 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_00"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_00"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_0"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_0"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_2" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_unit_dot"
             style="@style/CalculatorButtonStyle"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_white"
             android:fontFamily="@font/regular"
             android:text="@string/btn_dot"
             android:textColor="@color/input_text_color"
-            android:textSize="32sp"
+            android:textSize="@dimen/text_size_number"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_unit_3" />
 
         <!-- Swap button spanning 2 rows -->
@@ -458,7 +465,7 @@
             style="@style/CalculatorButtonStyle"
             android:layout_width="85dp"
             android:layout_height="165dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginTop="@dimen/button_margin"
             android:background="@drawable/btn_bg_orange"
             android:contentDescription="@string/desc_swap"
             app:backgroundTint="@null"
@@ -468,8 +475,8 @@
             app:iconSize="40dp"
             app:iconTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/btn_unit_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="@id/btn_unit_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

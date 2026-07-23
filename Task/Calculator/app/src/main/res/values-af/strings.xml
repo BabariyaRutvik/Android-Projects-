@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">Ongeldige termyn</string>
     <string name="err_value_too_large">Waarde te groot</string>
     <string name="err_invalid_input">Ongeldige invoer</string>
-    <string name="err_max_20_digits">Kan nie meer as 20 syfers invoer nie</string>
+    <string name="err_max_digits_allowed">Kan nie meer as 15 syfers invoer nie</string>
     <string name="err_max_6_digits">Maksimum 6 syfers word toegelaat</string>
     <string name="err_max_amount_100">Maksimum bedrag is 100</string>
     <string name="err_max_input_limit">Maksimum invoerlimiet bereik</string>

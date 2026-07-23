@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">ভুল মেয়াদ</string>
     <string name="err_value_too_large">মান অনেক বড়</string>
     <string name="err_invalid_input">ভুল ইনপুট</string>
-    <string name="err_max_20_digits">২০টির বেশি অঙ্ক প্রবেশ করানো যাবে না</string>
+    <string name="err_max_digits_allowed">২৫টির বেশি অঙ্ক প্রবেশ করানো যাবে না</string>
     <string name="err_max_6_digits">সর্বোচ্চ ৬টি অঙ্কের অনুমতি আছে</string>
     <string name="err_max_amount_100">সর্বোচ্চ পরিমাণ ১০০</string>
     <string name="err_max_input_limit">সর্বোচ্চ ইনপুট সীমা পৌঁছেছে</string>

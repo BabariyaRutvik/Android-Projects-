@@ -23,6 +23,8 @@ import com.example.calculator.R;
 import com.example.calculator.databinding.ActivityDiscountCalculatorBinding;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class DiscountCalculatorActivity extends AppCompatActivity {
 
@@ -66,6 +68,7 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
             binding.resultContainerDiscount.setVisibility(View.GONE);
             binding.keypadDiscount.setVisibility(View.VISIBLE);
             updateDiscountSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutOriginalPrice.setOnClickListener(fieldClickListener);
@@ -147,6 +150,7 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
             binding.keypadDiscount.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateDiscountSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnDiscountBackspace.setOnClickListener(v -> {
@@ -235,14 +239,23 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
 
             binding.layoutOriginalPrice.setSelected(false);
             binding.layoutDiscountPercent.setSelected(false);
+            updateLabelColors(true);
 
         } catch (Exception e) {
             Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelOriginalPrice.setTextColor(color);
+        binding.labelDiscountPercent.setTextColor(color);
+    }
+
     private String formatCurrency(double amount) {
-        DecimalFormat df = new DecimalFormat("₹#,##,##,###");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat("₹#,##,##,###", symbols);
         return df.format(amount);
     }
 
@@ -250,7 +263,9 @@ public class DiscountCalculatorActivity extends AppCompatActivity {
         if (val == null || val.isEmpty()) return "";
         try {
             double amount = Double.parseDouble(val.replace(",", ""));
-            DecimalFormat df = new DecimalFormat("#,##,##,###");
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setGroupingSeparator(',');
+            DecimalFormat df = new DecimalFormat("#,##,##,###", symbols);
             return df.format(amount);
         } catch (Exception e) {
             return val;

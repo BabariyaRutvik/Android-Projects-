@@ -35,7 +35,7 @@ public class AgeCalculatorActivity extends AppCompatActivity {
     private ActivityAgeCalculatorBinding binding;
     private final Calendar todayCalendar = Calendar.getInstance();
     private final Calendar birthCalendar = Calendar.getInstance();
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
     private int selectedField = -1;
 
     @Override
@@ -69,6 +69,9 @@ public class AgeCalculatorActivity extends AppCompatActivity {
         binding.textToday.setText(dateFormat.format(todayCalendar.getTime()));
 
         View.OnClickListener clickListener = v -> {
+            binding.resultLabelContainer.setVisibility(View.GONE);
+            binding.resultContainerAge.setVisibility(View.GONE);
+            updateLabelColors(false);
             if (v.getId() == R.id.layout_dob || v.getId() == R.id.text_dob || v.getId() == R.id.label_dob) {
                 selectedField = 0;
                 updateSelectionUI();
@@ -124,11 +127,11 @@ public class AgeCalculatorActivity extends AppCompatActivity {
 
         pickerDay.setMinValue(1);
         pickerDay.setMaxValue(31);
-        pickerDay.setFormatter(value -> String.valueOf(value));
+        pickerDay.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         pickerYear.setMinValue(1900);
         pickerYear.setMaxValue(2100);
-        pickerYear.setFormatter(value -> String.valueOf(value));
+        pickerYear.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         pickerMonth.setValue(targetCalendar.get(Calendar.MONTH));
         pickerDay.setValue(targetCalendar.get(Calendar.DAY_OF_MONTH));
@@ -158,6 +161,12 @@ public class AgeCalculatorActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelDob.setTextColor(color);
+        binding.labelToday.setTextColor(color);
     }
 
     private void clearSelections() {
@@ -230,11 +239,11 @@ public class AgeCalculatorActivity extends AppCompatActivity {
                     nextMonths += 12;
                 }
 
-                String dayOfWeekStr = new SimpleDateFormat("EEEE", Locale.getDefault()).format(nextBday.getTime());
+                String dayOfWeekStr = new SimpleDateFormat("EEEE", Locale.US).format(nextBday.getTime());
 
                 // Update UI
                 String yearText = years == 1 ? getString(R.string.year_label) : getString(R.string.years_label);
-                binding.textCurrentAgeYears.setText(String.format(Locale.getDefault(), "%d %s", years, yearText));
+                binding.textCurrentAgeYears.setText(String.format(Locale.US, "%d %s", years, yearText));
                 binding.textCurrentAgeDetail.setText(getString(R.string.age_result_format, months, days));
 
                 binding.textNextBirthdayDay.setText(dayOfWeekStr);
@@ -242,6 +251,7 @@ public class AgeCalculatorActivity extends AppCompatActivity {
 
                 binding.resultLabelContainer.setVisibility(View.VISIBLE);
                 binding.resultContainerAge.setVisibility(View.VISIBLE);
+                updateLabelColors(true);
             }
         } catch (ParseException e) {
             e.printStackTrace();

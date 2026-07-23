@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keypad Dimensions -->
+    <dimen name="button_width">0dp</dimen>
+    <dimen name="button_max_width">110dp</dimen>
+    <dimen name="button_height_std">78dp</dimen>
+    <dimen name="button_height_sci">46dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
+    <dimen name="keypad_padding_horizontal">12dp</dimen>
+    <dimen name="keypad_max_height">650dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_number">32sp</dimen>
+    <dimen name="text_size_operator">26sp</dimen>
+    <dimen name="text_size_sci">22sp</dimen>
+    <dimen name="text_size_deg">18sp</dimen>
+    <dimen name="display_text_size">48sp</dimen>
+    <dimen name="display_result_size">24sp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_size_std">34dp</dimen>
+    <dimen name="icon_size_sci">26dp</dimen>
+    <dimen name="icon_size_swap">28dp</dimen>
+    <dimen name="interactive_icon_size">28dp</dimen>
+
+    <!-- Bar Heights -->
+    <dimen name="interactive_bar_height">64dp</dimen>
+</resources>

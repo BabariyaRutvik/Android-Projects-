@@ -11,9 +11,15 @@ import android.os.Bundle;
 import android.os.VibrationEffect;
 import android.os.Vibrator;
 import android.os.VibratorManager;
+import android.transition.AutoTransition;
+import android.transition.ChangeBounds;
+import android.transition.Fade;
+import android.transition.TransitionManager;
+import android.transition.TransitionSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
 
@@ -24,6 +30,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator;
 
 import com.example.calculator.Database.HistoryItem;
 import com.example.calculator.R;
@@ -33,6 +40,8 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.shape.ShapeAppearanceModel;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -121,8 +130,8 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
         binding.imageSettings.setOnClickListener(v -> {
-        Intent intent = new Intent(this, SettingsScreenActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(this, SettingsScreenActivity.class);
+            startActivity(intent);
         });
 
         expression = "0";
@@ -184,44 +193,26 @@ public class MainActivity extends AppCompatActivity {
     private void toggleScientificMode() {
         scientificMode = !scientificMode;
 
-        float start = scientificMode ? 0.0f : 1.0f;
-        float end = scientificMode ? 1.0f : 0.0f;
+        TransitionSet transitionSet = new TransitionSet();
+        transitionSet.addTransition(new ChangeBounds());
+        transitionSet.addTransition(new Fade());
+        transitionSet.setOrdering(TransitionSet.ORDERING_TOGETHER);
+        transitionSet.setDuration(250);
 
-        ValueAnimator animator = ValueAnimator.ofFloat(start, end);
-        animator.setDuration(350);
-        animator.setInterpolator(new AccelerateDecelerateInterpolator());
+        TransitionManager.beginDelayedTransition((ViewGroup) binding.getRoot(), transitionSet);
 
         View scientificView = binding.layoutScientific.getRoot();
 
-        animator.addUpdateListener(animation -> {
-            float fraction = (float) animation.getAnimatedValue();
+        if (scientificMode) {
+            binding.imageSwitch.setImageResource(R.drawable.ic_standard);
+            scientificView.setVisibility(View.VISIBLE);
+            applyLerpedLayoutChanges(1.0f);
+        } else {
+            binding.imageSwitch.setImageResource(R.drawable.ic_scientific);
+            scientificView.setVisibility(View.GONE);
+            applyLerpedLayoutChanges(0.0f);
+        }
 
-            ConstraintLayout.LayoutParams lpSci = (ConstraintLayout.LayoutParams) scientificView.getLayoutParams();
-            lpSci.verticalWeight = Math.max(0.001f, fraction * 3.0f);
-            scientificView.setLayoutParams(lpSci);
-
-            applyLerpedLayoutChanges(fraction);
-        });
-
-        animator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                if (scientificMode) {
-                    scientificView.setVisibility(View.VISIBLE);
-                    binding.imageSwitch.setImageResource(R.drawable.ic_standard);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                if (!scientificMode) {
-                    scientificView.setVisibility(View.GONE);
-                    binding.imageSwitch.setImageResource(R.drawable.ic_scientific);
-                }
-            }
-        });
-
-        animator.start();
         updateResultFieldForMode();
     }
 
@@ -575,8 +566,8 @@ public class MainActivity extends AppCompatActivity {
             if (Character.isDigit(c)) digitsToAdd++;
         }
 
-        if (currentDigits + digitsToAdd > 20) {
-            Toast.makeText(this, R.string.err_max_20_digits, Toast.LENGTH_SHORT).show();
+        if (currentDigits + digitsToAdd > 15) {
+            Toast.makeText(this, R.string.err_max_digits_allowed, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -650,7 +641,9 @@ public class MainActivity extends AppCompatActivity {
 
             if (!beforeDot.isEmpty() && !beforeDot.equals("-")) {
                 double val = Double.parseDouble(beforeDot);
-                DecimalFormat df = new DecimalFormat("#,###");
+                DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+                symbols.setGroupingSeparator(',');
+                DecimalFormat df = new DecimalFormat("#,###", symbols);
                 beforeDot = df.format(val);
             }
 
@@ -894,13 +887,16 @@ public class MainActivity extends AppCompatActivity {
         if (Double.isInfinite(value)) return getString(R.string.infinity_text);
         if (Double.isNaN(value)) return getString(R.string.error_text);
 
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(',');
+
         // Show E notation only for numbers with 15 or more digits
         if (Math.abs(value) >= 1e14) {
-            return new DecimalFormat("0.########E0").format(value);
+            return new DecimalFormat("0.########E0", symbols).format(value);
         }
 
         // For smaller numbers, show the long format with commas
-        DecimalFormat df = new DecimalFormat("#,###.###############");
+        DecimalFormat df = new DecimalFormat("#,###.###############", symbols);
         return df.format(value);
     }
     @Override

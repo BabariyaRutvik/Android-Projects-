@@ -24,7 +24,9 @@
             app:navigationContentDescription="@string/desc_back"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/bmi_calculator"
-            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIconTint="@color/input_text_color" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -78,6 +80,8 @@
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:paddingTop="4dp"
+                    android:gravity="bottom|left"
+                    android:textDirection="locale"
                     android:textColor="@color/input_text_color"
                     android:textColorHint="@color/result_text_color"
                     android:textCursorDrawable="@drawable/orange_cursor"
@@ -179,6 +183,8 @@
                     android:inputType="numberDecimal"
                     android:digits="0123456789."
                     android:paddingTop="4dp"
+                    android:gravity="bottom|left"
+                    android:textDirection="locale"
                     android:textColor="@color/input_text_color"
                     android:textColorHint="@color/result_text_color"
                     android:textCursorDrawable="@drawable/orange_cursor"
@@ -245,7 +251,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Result Section Container -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/result_container"
                 android:layout_width="match_parent"
@@ -303,6 +308,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_result"
                     android:paddingVertical="20dp"
+                    android:layoutDirection="ltr"
                     app:layout_constraintTop_toBottomOf="@id/layout_result_divider">
 
                     <TextView
@@ -327,6 +333,7 @@
                         android:text=""
                         android:textColor="@color/orange"
                         android:textSize="42sp"
+                        android:textDirection="ltr"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/text_bmi_status" />
 
@@ -484,6 +491,7 @@
         android:paddingStart="6dp"
         android:paddingEnd="6dp"
         android:paddingBottom="6dp"
+        android:layoutDirection="ltr"
         android:background="@color/screen_background"
         app:layout_constraintBottom_toBottomOf="parent">
 
@@ -613,7 +621,9 @@
             app:icon="@drawable/backspace_calculator_mode"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            app:iconSize="35dp"
+            app:iconSize="34dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:foregroundGravity="center"
             app:iconTint="@color/input_text_color"
             android:contentDescription="@string/desc_backspace"
             app:layout_constraintStart_toEndOf="@id/gl_3"

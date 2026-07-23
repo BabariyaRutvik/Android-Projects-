@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keypad Dimensions for Tablets -->
+    <dimen name="button_max_width">150dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
+    <dimen name="keypad_padding_horizontal">12dp</dimen>
+    <dimen name="keypad_max_height">700dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="text_size_number">40sp</dimen>
+    <dimen name="text_size_operator">32sp</dimen>
+    <dimen name="text_size_sci">26sp</dimen>
+    <dimen name="text_size_deg">24sp</dimen>
+
+    <!-- Icon Sizes -->
+    <dimen name="icon_size_std">42dp</dimen>
+    <dimen name="icon_size_sci">32dp</dimen>
+    <dimen name="icon_size_swap">36dp</dimen>
+</resources>

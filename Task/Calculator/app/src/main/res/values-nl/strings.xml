@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">Ongeldige looptijd</string>
     <string name="err_value_too_large">Waarde te groot</string>
     <string name="err_invalid_input">Ongeldige invoer</string>
-    <string name="err_max_20_digits">Kan niet meer dan 20 cijfers invoeren</string>
+    <string name="err_max_digits_allowed">Kan niet meer dan 25 cijfers invoeren</string>
     <string name="err_max_6_digits">Maximaal 6 cijfers toegestaan</string>
     <string name="err_max_amount_100">Maximaal bedrag is 100</string>
     <string name="err_max_input_limit">Maximale invoerlimiet bereikt</string>

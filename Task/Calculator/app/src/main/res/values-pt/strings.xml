@@ -284,7 +284,7 @@
     <string name="err_invalid_tenure">Prazo inválido</string>
     <string name="err_value_too_large">Valor muito grande</string>
     <string name="err_invalid_input">Entrada inválida</string>
-    <string name="err_max_20_digits">Não é possível inserir mais de 20 dígitos</string>
+    <string name="err_max_digits_allowed">Não é possível inserir mais de 25 dígitos</string>
     <string name="err_max_6_digits">Máximo de 6 dígitos permitidos</string>
     <string name="err_max_amount_100">O valor máximo é 100</string>
     <string name="err_max_input_limit">Limite máximo de entrada atingido</string>

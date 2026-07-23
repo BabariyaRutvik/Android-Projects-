@@ -71,6 +71,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
                 selectedField = 1;
             }
             updateBMIUI();
+            updateLabelColors(false);
         };
 
         binding.layoutBmiWeight.setOnClickListener(fieldClickListener);
@@ -153,6 +154,12 @@ public class BmiCalculatorActivity extends AppCompatActivity {
         }
     }
 
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelBmiWeight.setTextColor(color);
+        binding.labelBmiHeight.setTextColor(color);
+    }
+
     private void updateBMIUI() {
         binding.layoutBmiWeight.setSelected(selectedField == 0);
         binding.layoutBmiHeight.setSelected(selectedField == 1);
@@ -214,6 +221,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
             binding.resultContainer.setVisibility(View.GONE);
             selectedField = 0;
             updateBMIUI();
+            updateLabelColors(false);
         });
 
         binding.btnKeyBackspace.setOnClickListener(v -> {
@@ -354,6 +362,7 @@ public class BmiCalculatorActivity extends AppCompatActivity {
                 binding.layoutBmiHeight.setSelected(false);
                 binding.textBmiWeight.clearFocus();
                 binding.textBmiHeight.clearFocus();
+                updateLabelColors(true);
             }
 
         } catch (NumberFormatException e) {

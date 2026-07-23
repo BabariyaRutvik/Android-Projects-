@@ -26,7 +26,9 @@
             app:navigationContentDescription="@string/desc_back"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/gst_calculator"
-            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIconTint="@color/input_text_color" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -60,7 +62,8 @@
                     android:layout_height="80dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -69,7 +72,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/original_price"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -84,12 +87,12 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
-                        android:gravity="center_vertical"
+                        android:gravity="bottom|left"
+                        android:textDirection="locale"
                         android:hint="@string/add_amount"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -109,7 +112,8 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_original_price">
 
                     <TextView
@@ -118,7 +122,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/gst_rate_percentage"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -133,12 +137,13 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
-                        android:gravity="center_vertical"
+                        android:gravity="bottom|left"
+                        android:textDirection="locale"
                         android:hint="@string/add_rate"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
+                        android:layout_marginTop="4dp"
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -150,21 +155,22 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/toggle_container_gst"
-                        android:layout_width="110dp"
-                        android:layout_height="26dp"
+                        android:layout_width="125dp"
+                        android:layout_height="32dp"
                         android:background="@drawable/bg_bmi_toggle_group"
-                        android:padding="2dp"
+                        android:padding="3dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/label_gst_rate">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_gst_add"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/Widget.Material3.Button.UnelevatedButton"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:checkable="true"
                             android:checked="true"
+                            android:fontFamily="@font/medium"
                             android:insetLeft="0dp"
                             android:insetTop="0dp"
                             android:insetRight="0dp"
@@ -176,17 +182,21 @@
                             android:textColor="@color/bmi_toggle_text_selected"
                             android:textSize="13sp"
                             app:backgroundTint="@color/bmi_toggle_bg_selected"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/btn_gst_remove"
                             app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="@android:color/transparent"
                             app:shapeAppearanceOverlay="@style/PerfectPillShape" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_gst_remove"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/Widget.Material3.Button.UnelevatedButton"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:checkable="true"
+                            android:fontFamily="@font/medium"
                             android:insetLeft="0dp"
                             android:insetTop="0dp"
                             android:insetRight="0dp"
@@ -198,9 +208,12 @@
                             android:textColor="@color/bmi_toggle_text_selected"
                             android:textSize="13sp"
                             app:backgroundTint="@color/bmi_toggle_bg_selected"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintStart_toEndOf="@+id/btn_gst_add"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="@android:color/transparent"
                             app:shapeAppearanceOverlay="@style/PerfectPillShape" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -214,6 +227,8 @@
                     android:layout_marginTop="12dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_gst_rate">
 
                     <TextView
@@ -222,7 +237,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/supply_type"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -230,21 +245,22 @@
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/toggle_container_supply"
-                        android:layout_width="160dp"
-                        android:layout_height="26dp"
+                        android:layout_width="190dp"
+                        android:layout_height="32dp"
                         android:background="@drawable/bg_bmi_toggle_group"
-                        android:padding="2dp"
+                        android:padding="3dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_intra_state"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/Widget.Material3.Button.UnelevatedButton"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:checkable="true"
                             android:checked="true"
+                            android:fontFamily="@font/medium"
                             android:insetLeft="0dp"
                             android:insetTop="0dp"
                             android:insetRight="0dp"
@@ -256,17 +272,21 @@
                             android:textColor="@color/bmi_toggle_text_selected"
                             android:textSize="13sp"
                             app:backgroundTint="@color/bmi_toggle_bg_selected"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/btn_inter_state"
-                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintHorizontal_weight="1.2"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="@android:color/transparent"
                             app:shapeAppearanceOverlay="@style/PerfectPillShape" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btn_inter_state"
-                            style="@style/Widget.Material3.Button.TextButton"
+                            style="@style/Widget.Material3.Button.UnelevatedButton"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:checkable="true"
+                            android:fontFamily="@font/medium"
                             android:insetLeft="0dp"
                             android:insetTop="0dp"
                             android:insetRight="0dp"
@@ -278,9 +298,12 @@
                             android:textColor="@color/bmi_toggle_text_selected"
                             android:textSize="13sp"
                             app:backgroundTint="@color/bmi_toggle_bg_selected"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_weight="1"
                             app:layout_constraintStart_toEndOf="@+id/btn_intra_state"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:rippleColor="@android:color/transparent"
                             app:shapeAppearanceOverlay="@style/PerfectPillShape" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -288,7 +311,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Result Section -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/result_container_gst"
                 android:layout_width="match_parent"
@@ -337,9 +359,9 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_result"
                     android:paddingVertical="20dp"
+                    android:layoutDirection="ltr"
                     app:layout_constraintTop_toBottomOf="@id/text_result_label_gst">
 
-                    <!-- total amount -->
                     <TextView
                         android:id="@+id/label_total_amount"
                         android:layout_width="wrap_content"
@@ -362,6 +384,7 @@
                         android:text="@string/currency_zero"
                         android:textColor="@color/orange"
                         android:textSize="42sp"
+                        android:textDirection="ltr"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/label_total_amount" />
 
@@ -373,7 +396,6 @@
                         android:background="@color/divider_silver"
                         app:layout_constraintTop_toBottomOf="@id/text_total_amount" />
 
-                    <!-- GST Amount (Common) -->
                     <TextView
                         android:id="@+id/label_res_gst_amount"
                         android:layout_width="wrap_content"
@@ -396,6 +418,7 @@
                         android:text="@string/currency_zero"
                         android:textColor="@color/orange"
                         android:textSize="16sp"
+                        android:textDirection="ltr"
                         app:layout_constraintBottom_toBottomOf="@id/label_res_gst_amount"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/label_res_gst_amount" />
@@ -436,6 +459,7 @@
                             android:text="@string/currency_zero"
                             android:textColor="@color/orange"
                             android:textSize="16sp"
+                            android:textDirection="ltr"
                             app:layout_constraintBottom_toBottomOf="@id/label_cgst"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/label_cgst" />
@@ -469,6 +493,7 @@
                             android:text="@string/currency_zero"
                             android:textColor="@color/orange"
                             android:textSize="16sp"
+                            android:textDirection="ltr"
                             app:layout_constraintBottom_toBottomOf="@id/label_sgst"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/label_sgst" />
@@ -504,6 +529,7 @@
                             android:text="@string/currency_zero"
                             android:textColor="@color/orange"
                             android:textSize="16sp"
+                            android:textDirection="ltr"
                             app:layout_constraintBottom_toBottomOf="@id/label_igst"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="@id/label_igst" />
@@ -525,6 +551,7 @@
         android:layout_marginTop="8dp"
         android:paddingHorizontal="6dp"
         android:paddingVertical="4dp"
+        android:layoutDirection="ltr"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -558,8 +585,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -571,8 +598,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -584,8 +611,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -597,8 +624,8 @@
             android:textSize="26sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_light_red"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Row 2 -->
@@ -612,8 +639,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_7" />
 
         <com.google.android.material.button.MaterialButton
@@ -626,8 +653,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_8" />
 
         <com.google.android.material.button.MaterialButton
@@ -640,8 +667,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_9" />
 
         <com.google.android.material.button.MaterialButton
@@ -654,10 +681,12 @@
             app:icon="@drawable/backspace_calculator_mode"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            app:iconSize="35dp"
+            app:iconSize="34dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:foregroundGravity="center"
             app:iconTint="@color/input_text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_ac" />
 
         <!-- Row 3 -->
@@ -671,8 +700,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_4" />
 
         <com.google.android.material.button.MaterialButton
@@ -685,8 +714,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_5" />
 
         <com.google.android.material.button.MaterialButton
@@ -698,8 +727,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_6"
             android:layout_marginTop="9dp" />
 
@@ -714,8 +743,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_1" />
 
         <com.google.android.material.button.MaterialButton
@@ -728,8 +757,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_2" />
 
         <com.google.android.material.button.MaterialButton
@@ -742,8 +771,8 @@
             android:textSize="32sp"
             app:backgroundTint="@null"
             android:background="@drawable/btn_bg_white"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_gst_3" />
 
         <!-- Equals button spanning 2 rows -->
@@ -762,8 +791,8 @@
             app:iconSize="34dp"
             app:iconTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/btn_gst_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="@id/btn_gst_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto">
+<resources xmlns:tools="http://schemas.android.com/tools" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Base application theme -->
     <style name="Base.Theme.Calculator" parent="Theme.Material3.DayNight.NoActionBar">
@@ -8,15 +8,74 @@
         <item name="android:windowActivityTransitions">true</item>
     </style>
 
-    <!-- Base Calculator button with layout rules -->
+    <!-- Standard / Financial Calculator Buttons  -->
     <style name="StandardButtonStyle" parent="Widget.Material3.Button">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_height">@dimen/button_height_std</item>
+        <item name="layout_constraintWidth_max">@dimen/button_height_std</item>
 
-        <item name="layout_constraintWidth_default">percent</item>
-        <item name="layout_constraintWidth_percent">0.21</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:padding">0dp</item>
+
+        <item name="android:gravity">center</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="iconGravity">textTop</item>
+        <item name="iconPadding">0dp</item>
+        <item name="shapeAppearance">@style/CircleButtonShape</item>
+    </style>
+
+    <!-- Main Screen Responsive Styles -->
+    <style name="MainStandardButtonStyle" parent="Widget.Material3.Button">
+        <!-- Width matches column width -->
+        <item name="android:layout_width">0dp</item>
+
+
+        <item name="android:layout_height">wrap_content</item>
+
+        <item name="android:layout_margin">@dimen/button_margin</item>
+
+        <!-- Keep buttons 1:1 square/circle ratio -->
         <item name="layout_constraintDimensionRatio">1:1</item>
-        <item name="layout_constraintWidth_max">78dp</item>
+
+        <!-- Clear Material Button default paddings -->
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:padding">0dp</item>
+
+        <item name="android:fontFamily">@font/regular</item>
+        <item name="android:textColor">@color/input_text_color</item>
+        <item name="android:textSize">@dimen/text_size_number</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="shapeAppearance">@style/PerfectPillShape</item>
+    </style>
+
+    <style name="MainScientificButtonStyle" parent="ScientificButtonStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">@dimen/button_margin</item>
+
+        <!-- Use Aspect Ratio for shorter scientific buttons -->
+        <item name="layout_constraintDimensionRatio">5:3</item>
+        <item name="layout_constrainedHeight">true</item>
+
+        <item name="layout_constrainedWidth">false</item>
+
+        <item name="shapeAppearance">@style/PerfectPillShape</item>
+    </style>
+
+    <!-- Scientific Calculator Buttons  -->
+    <style name="ScientificButtonStyle" parent="Widget.Material3.Button">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/button_height_sci</item>
 
         <item name="android:insetTop">0dp</item>
         <item name="android:insetBottom">0dp</item>
@@ -26,26 +85,25 @@
         <item name="android:minHeight">0dp</item>
         <item name="android:padding">0dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:includeFontPadding">false</item>
-        <item name="iconGravity">textTop</item>
-        <item name="iconPadding">0dp</item>
-        <item name="shapeAppearance">@style/CircleButtonShape</item>
-    </style>
-
-    <style name="ScientificButtonStyle" parent="StandardButtonStyle">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-
-        <item name="layout_constraintWidth_default">percent</item>
-        <item name="layout_constraintWidth_percent">0.17</item>
-        <item name="layout_constraintDimensionRatio">78:46</item>
         <item name="shapeAppearance">@style/ScientificButtonShape</item>
     </style>
 
     <style name="CalculatorButtonStyle" parent="StandardButtonStyle" />
 
+    <style name="CalculatorIconButtonStyle" parent="MainStandardButtonStyle">
+        <item name="android:background">?attr/selectableItemBackgroundBorderless</item>
+        <item name="backgroundTint">@android:color/transparent</item>
+        <item name="rippleColor">@color/ripple_color</item>
+    </style>
+
     <!-- Shapes -->
+    <!-- Forces full circular / rounded pill ends -->
     <style name="CircleButtonShape" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="ScientificButtonShape" parent="ShapeAppearance.Material3.MediumComponent">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
@@ -80,18 +138,7 @@
         <item name="android:fontFamily">@font/regular</item>
 
         <item name="backgroundTint">@color/button_gst_toggle_bg</item>
-
-        <!-- Removing manual shape overrides to let MaterialButtonToggleGroup handle corner merging correctly -->
         <item name="rippleColor">@color/ripple_color</item>
-    </style>
-
-
-
-
-
-    <style name="ScientificButtonShape" parent="ShapeAppearance.Material3.MediumComponent">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">23dp</item>
     </style>
 
     <style name="ToolbarTitleStyle" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
@@ -100,12 +147,10 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <!-- style image to crop to circle for currency screen -->
     <style name="CircleImageview">
         <item name="cornerSize">50%</item>
     </style>
 
-    <!-- Removes underlying default underlines from SearchView text line -->
     <style name="CustomSearchViewTheme" parent="Widget.AppCompat.SearchView">
         <item name="android:editTextColor">#2D2D2D</item>
         <item name="android:textColorHint">#A0A0A0</item>
@@ -124,6 +169,5 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
-
 
 </resources>

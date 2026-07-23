@@ -289,7 +289,7 @@
     <string name="err_invalid_tenure">અમાન્ય સમયગાળો</string>
     <string name="err_value_too_large">મૂલ્ય ખૂબ મોટું છે</string>
     <string name="err_invalid_input">અમાન્ય ઇનપુટ</string>
-    <string name="err_max_20_digits">20 થી વધુ અંકો દાખલ કરી શકાતા નથી</string>
+    <string name="err_max_digits_allowed">25 થી વધુ અંકો દાખલ કરી શકાતા નથી</string>
     <string name="err_max_6_digits">મહત્તમ 6 અંકોની મંજૂરી છે</string>
     <string name="err_max_amount_100">મહત્તમ રકમ 100 છે</string>
     <string name="err_max_input_limit">મહત્તમ ઇનપુટ મર્યાદા પહોંચી ગઈ છે</string>

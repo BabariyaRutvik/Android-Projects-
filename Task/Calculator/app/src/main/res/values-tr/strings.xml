@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">Geçersiz vade</string>
     <string name="err_value_too_large">Değer çok büyük</string>
     <string name="err_invalid_input">Geçersiz Giriş</string>
-    <string name="err_max_20_digits">20 basamaktan fazlası girilemez</string>
+    <string name="err_max_digits_allowed">25 basamaktan fazlası girilemez</string>
     <string name="err_max_6_digits">Maksimum 6 basamağa izin verilir</string>
     <string name="err_max_amount_100">Maksimum tutar 100\'dür</string>
     <string name="err_max_input_limit">Maksimum giriş sınırına ulaşıldı</string>

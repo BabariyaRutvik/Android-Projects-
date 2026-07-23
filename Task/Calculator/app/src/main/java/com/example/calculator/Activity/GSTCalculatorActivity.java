@@ -25,6 +25,8 @@ import com.example.calculator.R;
 import com.example.calculator.databinding.ActivityGstCalculatorBinding;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
 
 public class GSTCalculatorActivity extends AppCompatActivity {
 
@@ -72,6 +74,7 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             binding.resultContainerGst.setVisibility(View.GONE);
             binding.keypadGst.setVisibility(View.VISIBLE);
             updateSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutOriginalPrice.setOnClickListener(fieldClickListener);
@@ -221,6 +224,7 @@ public class GSTCalculatorActivity extends AppCompatActivity {
             binding.keypadGst.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnGstBackspace.setOnClickListener(v -> {
@@ -296,6 +300,14 @@ public class GSTCalculatorActivity extends AppCompatActivity {
         binding.resultContainerGst.setVisibility(View.VISIBLE);
         binding.main.requestFocus();
         updateSelectionUI();
+        updateLabelColors(true);
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelOriginalPrice.setTextColor(color);
+        binding.labelGstRate.setTextColor(color);
+        binding.labelSupplyType.setTextColor(color);
     }
 
     private void updateCalculations() {
@@ -318,27 +330,31 @@ public class GSTCalculatorActivity extends AppCompatActivity {
                 binding.layoutCgstSgst.setVisibility(View.VISIBLE);
                 binding.layoutIgst.setVisibility(View.GONE);
                 double halfTax = tax / 2.0; double halfRate = rate / 2.0;
-                binding.labelCgst.setText(String.format("CGST (%.1f%%)", halfRate));
-                binding.labelSgst.setText(String.format("SGST (%.1f%%)", halfRate));
+                binding.labelCgst.setText(String.format(Locale.US, "CGST (%.1f%%)", halfRate));
+                binding.labelSgst.setText(String.format(Locale.US, "SGST (%.1f%%)", halfRate));
                 binding.textCgst.setText(formatCurrency(halfTax));
                 binding.textSgst.setText(formatCurrency(halfTax));
             } else {
                 binding.layoutCgstSgst.setVisibility(View.GONE);
                 binding.layoutIgst.setVisibility(View.VISIBLE);
-                binding.labelIgst.setText(String.format("IGST (%.0f%%)", rate));
+                binding.labelIgst.setText(String.format(Locale.US, "IGST (%.0f%%)", rate));
                 binding.textIgst.setText(formatCurrency(tax));
             }
         } catch (Exception ignored) {}
     }
 
     private String formatCurrency(double val) {
-        return new DecimalFormat("₹#,##,##,###").format(Math.round(val));
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(',');
+        return new DecimalFormat("₹#,##,##,###", symbols).format(Math.round(val));
     }
 
     private String formatCurrencyNoSymbol(String val) {
         if (val.isEmpty() || val.equals(".")) return val;
         try {
-            DecimalFormat df = val.contains(".") ? new DecimalFormat("#,##,##,###.##") : new DecimalFormat("#,##,##,###");
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setGroupingSeparator(',');
+            DecimalFormat df = val.contains(".") ? new DecimalFormat("#,##,##,###.##", symbols) : new DecimalFormat("#,##,##,###", symbols);
             return df.format(Double.parseDouble(val.replace(",", "")));
         } catch (Exception e) { return val; }
     }

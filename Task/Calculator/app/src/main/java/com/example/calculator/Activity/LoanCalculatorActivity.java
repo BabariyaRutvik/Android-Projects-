@@ -82,6 +82,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             binding.resultContainerLoan.setVisibility(View.GONE);
             binding.keypadLoan.setVisibility(View.VISIBLE);
             updateLoanSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutLoanAmount.setOnClickListener(fieldClickListener);
@@ -174,6 +175,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             binding.keypadLoan.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateLoanSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnLoanBackspace.setOnClickListener(v -> {
@@ -248,10 +250,12 @@ public class LoanCalculatorActivity extends AppCompatActivity {
         yearPicker.setMinValue(1);
         yearPicker.setMaxValue(30);
         yearPicker.setValue(selectedYears);
+        yearPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(11);
         monthPicker.setValue(selectedMonths);
+        monthPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         dialog.findViewById(R.id.btn_cancel).setOnClickListener(v -> {
             dialog.dismiss();
@@ -270,7 +274,7 @@ public class LoanCalculatorActivity extends AppCompatActivity {
     }
 
     private void updatePeriodText() {
-        String fullText = String.format(Locale.getDefault(), "%02dyear & %02dmonths", selectedYears, selectedMonths);
+        String fullText = String.format(Locale.US, "%02dyear & %02dmonths", selectedYears, selectedMonths);
         binding.textPeriodLoan.setText(fullText);
     }
 
@@ -318,9 +322,17 @@ public class LoanCalculatorActivity extends AppCompatActivity {
             binding.layoutLoanAmount.setSelected(false);
             binding.layoutRateLoan.setSelected(false);
             binding.layoutPeriodLoan.setSelected(false);
+            updateLabelColors(true);
         } catch (Exception e) {
             Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelLoanAmount.setTextColor(color);
+        binding.labelRateLoan.setTextColor(color);
+        binding.labelLoanTenure.setTextColor(color);
     }
 
     private String formatCurrency(double amount) {

@@ -8,15 +8,15 @@
     android:background="@color/screen_background"
     tools:context=".Activity.HistoryActivity">
 
-    <!-- Custom Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/screen_background"
         app:navigationIcon="@drawable/ic_back"
-        app:title="History"
+        app:title="@string/history"
         app:titleTextAppearance="@style/ToolbarTitleStyle"
+        app:contentInsetStartWithNavigation="0dp"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:padding="8dp"
+            android:layout_marginEnd="6dp"
+            android:padding="12dp"
             android:src="@drawable/ic_delete"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/delete_all" />

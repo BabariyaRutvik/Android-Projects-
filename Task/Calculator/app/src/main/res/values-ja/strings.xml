@@ -284,7 +284,7 @@
     <string name="err_invalid_tenure">無効な期間</string>
     <string name="err_value_too_large">値が大きすぎます</string>
     <string name="err_invalid_input">無効な入力</string>
-    <string name="err_max_20_digits">20桁を超える入力はできません</string>
+    <string name="err_max_digits_allowed">25桁を超える入力はできません</string>
     <string name="err_max_6_digits">最大6桁まで許可されます</string>
     <string name="err_max_amount_100">最大額は100です</string>
     <string name="err_max_input_limit">最大入力制限に達しました</string>

@@ -28,6 +28,7 @@ import com.example.calculator.databinding.ActivitySipcalculatorBinding;
 import com.shawnlin.numberpicker.NumberPicker;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 
 public class SIPCalculatorActivity extends AppCompatActivity {
@@ -118,6 +119,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.resultContainer.setVisibility(View.GONE);
             binding.keypad.setVisibility(View.VISIBLE);
             updateSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutSipAmount.setOnClickListener(fieldClickListener);
@@ -210,6 +212,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.keypad.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnBackspace.setOnClickListener(v -> {
@@ -281,10 +284,12 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         yearPicker.setMinValue(1);
         yearPicker.setMaxValue(40);
         yearPicker.setValue(selectedYears);
+        yearPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(11);
         monthPicker.setValue(selectedMonths);
+        monthPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         yearPicker.setOnValueChangedListener((picker, oldVal, newVal) -> {
             if (newVal == 40) {
@@ -348,7 +353,7 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.textExpectedAmount.setText(formatCurrency(futureValue));
             binding.textAmountInvested.setText(formatCurrency(totalInvestment));
             binding.textWealthGain.setText(formatCurrency(wealthGain));
-            binding.textInvestmentGrowth.setText(String.format(Locale.getDefault(), "%.2f Times", growth));
+            binding.textInvestmentGrowth.setText(String.format(Locale.US, "%.2f Times", growth));
             binding.textInvestmentGrowth.setTextColor(getColor(R.color.orange));
 
             binding.resultContainer.setVisibility(View.VISIBLE);
@@ -356,14 +361,24 @@ public class SIPCalculatorActivity extends AppCompatActivity {
             binding.layoutSipAmount.setSelected(false);
             binding.layoutRate.setSelected(false);
             binding.layoutPeriod.setSelected(false);
+            updateLabelColors(true);
 
         } catch (NumberFormatException e) {
             Toast.makeText(this, R.string.err_invalid_input, Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelSipAmount.setTextColor(color);
+        binding.labelRate.setTextColor(color);
+        binding.labelPeriod.setTextColor(color);
+    }
+
     private String formatCurrency(double amount) {
-        DecimalFormat df = new DecimalFormat("₹#,##,##,###");
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+        symbols.setGroupingSeparator(',');
+        DecimalFormat df = new DecimalFormat("₹#,##,##,###", symbols);
         return df.format(Math.round(amount));
     }
 
@@ -371,7 +386,9 @@ public class SIPCalculatorActivity extends AppCompatActivity {
         if (val.isEmpty()) return "";
         try {
             double amount = Double.parseDouble(val.replace(",", ""));
-            DecimalFormat df = new DecimalFormat("#,##,##,###");
+            DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+            symbols.setGroupingSeparator(',');
+            DecimalFormat df = new DecimalFormat("#,##,##,###", symbols);
             return df.format(Math.round(amount));
         } catch (Exception e) {
             return val;

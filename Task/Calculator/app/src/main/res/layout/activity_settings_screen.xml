@@ -27,7 +27,8 @@
             app:navigationIcon="@drawable/ic_back"
             app:navigationContentDescription="@string/desc_back"
             app:title="@string/settings"
-            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:contentInsetStartWithNavigation="0dp" />
 
 
 

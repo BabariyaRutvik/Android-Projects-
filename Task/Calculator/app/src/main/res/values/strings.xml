@@ -290,7 +290,7 @@
     <string name="err_invalid_tenure">Invalid tenure</string>
     <string name="err_value_too_large">Value too Large</string>
     <string name="err_invalid_input">Invalid Input</string>
-    <string name="err_max_20_digits">Cannot enter more than 20 digits</string>
+    <string name="err_max_digits_allowed">Maximum 15 digits are allowed</string>
     <string name="err_max_6_digits">Maximum 6 digits are allowed</string>
     <string name="err_max_amount_100">Maximum amount is 100</string>
     <string name="err_max_input_limit">Maximum input limit reached</string>

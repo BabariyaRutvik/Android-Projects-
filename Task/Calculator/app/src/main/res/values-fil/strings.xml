@@ -282,7 +282,7 @@
     <string name="err_invalid_tenure">Hindi wastong termino</string>
     <string name="err_value_too_large">Masyadong Malaki ang Halaga</string>
     <string name="err_invalid_input">Hindi Wastong Input</string>
-    <string name="err_max_20_digits">Hindi makakapaglagay ng higit sa 20 digit</string>
+    <string name="err_max_digits_allowed">Hindi makakapaglagay ng higit sa 25 digit</string>
     <string name="err_max_6_digits">Maximum na 6 na digit ang pinapayagan</string>
     <string name="err_max_amount_100">Ang maximum na halaga ay 100</string>
     <string name="err_max_input_limit">Naabot na ang limitasyon ng maximum na input</string>

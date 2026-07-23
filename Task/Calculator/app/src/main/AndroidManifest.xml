@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Calculator">
+        android:theme="@style/Theme.Calculator"
+        tools:replace="android:supportsRtl">
         <activity
             android:name=".Activity.MainActivity"
             android:exported="true"
@@ -34,7 +35,8 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            />
         <activity
             android:name=".Activity.OtherCalculatorActivity"
             android:exported="false"
@@ -64,7 +66,9 @@
         <activity
             android:name=".Activity.InvestmentCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.CurrencyConvertorCalculator"
             android:exported="false"
@@ -74,35 +78,51 @@
         <activity
             android:name=".Activity.SavingCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.AgeCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.BmiCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.DateCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.DiscountCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.UnitConverterCalculatorActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.SettingsScreenActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Activity.LanguageSelectionActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

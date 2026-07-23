@@ -285,7 +285,7 @@
     <string name="err_invalid_tenure">Durée invalide</string>
     <string name="err_value_too_large">Valeur trop grande</string>
     <string name="err_invalid_input">Entrée invalide</string>
-    <string name="err_max_20_digits">Impossible d\'entrer plus de 20 chiffres</string>
+    <string name="err_max_digits_allowed">Impossible d\'entrer plus de 25 chiffres</string>
     <string name="err_max_6_digits">Maximum 6 chiffres autorisés</string>
     <string name="err_max_amount_100">Le montant maximum est de 100</string>
     <string name="err_max_input_limit">Limite d\'entrée maximale atteinte</string>

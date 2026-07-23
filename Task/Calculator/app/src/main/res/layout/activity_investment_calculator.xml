@@ -26,7 +26,9 @@
             app:navigationContentDescription="@string/desc_back"
             app:navigationIcon="@drawable/ic_back"
             app:title="@string/investment_calculator"
-            app:titleTextAppearance="@style/ToolbarTitleStyle" />
+            app:titleTextAppearance="@style/ToolbarTitleStyle"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIconTint="@color/input_text_color" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -58,11 +60,11 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_total_invest_amount"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="80dp"
+                    android:layout_height="80dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
@@ -71,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/total_investment"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -85,13 +87,15 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
-                        android:gravity="center_vertical"
+                        android:gravity="bottom|left"
+                        android:textDirection="locale"
                         android:hint="@string/add_amount"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:digits="0123456789."
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="0dp"
+                        android:layout_marginTop="4dp"
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -107,12 +111,12 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_invest_rate"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_total_invest_amount">
 
                     <TextView
@@ -121,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/rate_percentage"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -135,13 +139,15 @@
                         android:focusable="true"
                         android:focusableInTouchMode="true"
                         android:fontFamily="@font/regular"
-                        android:gravity="center_vertical"
+                        android:gravity="bottom|left"
+                        android:textDirection="locale"
                         android:hint="@string/add_rate"
                         android:importantForAutofill="no"
                         android:inputType="numberDecimal"
                         android:digits="0123456789."
                         android:minHeight="48dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="0dp"
+                        android:layout_marginTop="4dp"
                         android:textColor="@color/input_text_color"
                         android:textColorHint="@color/result_text_color"
                         android:textCursorDrawable="@drawable/orange_cursor"
@@ -157,12 +163,12 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/layout_invest_saving_period"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:minHeight="80dp"
+                    android:layout_height="80dp"
                     android:layout_marginTop="12dp"
                     android:background="@drawable/sl_input_bg"
                     android:paddingHorizontal="16dp"
-                    android:paddingVertical="8dp"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="8dp"
                     app:layout_constraintTop_toBottomOf="@id/layout_invest_rate">
 
                     <TextView
@@ -171,7 +177,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/regular"
                         android:text="@string/saving_period"
-                        android:textColor="@color/input_text_color"
+                        android:textColor="@color/text_label_gray"
                         android:textSize="15sp"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -184,6 +190,7 @@
                         android:text="@string/default_period"
                         android:textColor="@color/input_text_color"
                         android:textSize="18sp"
+                        android:layout_marginTop="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/label_invest_period" />
@@ -192,7 +199,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <!-- Result Section -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/invest_result_container"
                 android:layout_width="match_parent"
@@ -242,6 +248,7 @@
                     android:background="@drawable/bg_result"
                     android:paddingHorizontal="15dp"
                     android:paddingVertical="18dp"
+                    android:layoutDirection="ltr"
                     app:layout_constraintTop_toBottomOf="@id/text_invest_result_label">
 
                     <TextView
@@ -264,6 +271,7 @@
                         android:text="@string/currency_zero"
                         android:textColor="@color/orange"
                         android:textSize="35sp"
+                        android:textDirection="ltr"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/lbl_invest_total_value" />
 
@@ -295,6 +303,7 @@
                         android:text="@string/currency_zero"
                         android:textColor="@color/orange"
                         android:textSize="16sp"
+                        android:textDirection="ltr"
                         app:layout_constraintBottom_toBottomOf="@id/lbl_invest_total_amount"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/lbl_invest_total_amount" />
@@ -327,6 +336,7 @@
                         android:text="@string/currency_zero"
                         android:textColor="@color/orange"
                         android:textSize="16sp"
+                        android:textDirection="ltr"
                         app:layout_constraintBottom_toBottomOf="@id/lbl_invest_total_interest"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="@id/lbl_invest_total_interest" />
@@ -345,6 +355,7 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="6dp"
         android:paddingBottom="12dp"
+        android:layoutDirection="ltr"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.constraintlayout.widget.Guideline
@@ -378,8 +389,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -391,8 +402,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -404,8 +415,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
@@ -417,8 +428,8 @@
             android:textColor="@color/red_dark"
             android:textSize="26sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Row 2 -->
@@ -432,8 +443,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_7" />
 
         <com.google.android.material.button.MaterialButton
@@ -446,8 +457,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_8" />
 
         <com.google.android.material.button.MaterialButton
@@ -460,8 +471,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_9" />
 
         <com.google.android.material.button.MaterialButton
@@ -474,10 +485,12 @@
             app:icon="@drawable/backspace_calculator_mode"
             app:iconGravity="textStart"
             app:iconPadding="0dp"
-            app:iconSize="35dp"
+            app:iconSize="34dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:foregroundGravity="center"
             app:iconTint="@color/input_text_color"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_ac" />
 
         <!-- Row 3 -->
@@ -491,8 +504,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_4" />
 
         <com.google.android.material.button.MaterialButton
@@ -505,8 +518,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_5" />
 
         <com.google.android.material.button.MaterialButton
@@ -519,8 +532,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_6" />
 
         <!-- Row 4 -->
@@ -534,8 +547,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_1"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/gl_1"
+            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_1" />
 
         <com.google.android.material.button.MaterialButton
@@ -548,8 +561,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_2"
-            app:layout_constraintStart_toEndOf="@id/gl_1"
+            app:layout_constraintRight_toLeftOf="@id/gl_2"
+            app:layout_constraintLeft_toRightOf="@id/gl_1"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_2" />
 
         <com.google.android.material.button.MaterialButton
@@ -562,8 +575,8 @@
             android:textColor="@color/input_text_color"
             android:textSize="32sp"
             app:backgroundTint="@null"
-            app:layout_constraintEnd_toStartOf="@id/gl_3"
-            app:layout_constraintStart_toEndOf="@id/gl_2"
+            app:layout_constraintRight_toLeftOf="@id/gl_3"
+            app:layout_constraintLeft_toRightOf="@id/gl_2"
             app:layout_constraintTop_toBottomOf="@id/btn_invest_3" />
 
         <!-- Equals button spanning 2 rows -->
@@ -582,8 +595,8 @@
             app:iconSize="34dp"
             app:iconTint="@android:color/white"
             app:layout_constraintBottom_toBottomOf="@id/btn_invest_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/gl_3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/gl_3"
             app:layout_constraintTop_toTopOf="@id/btn_invest_3" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

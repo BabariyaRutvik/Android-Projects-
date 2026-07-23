@@ -76,6 +76,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             binding.resultContainerSaving.setVisibility(View.GONE);
             binding.keypadSaving.setVisibility(View.VISIBLE);
             updateSavingSelectionUI();
+            updateLabelColors(false);
         };
 
         binding.layoutSavingGoal.setOnClickListener(fieldClickListener);
@@ -167,6 +168,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             binding.keypadSaving.setVisibility(View.VISIBLE);
             selectedField = 0;
             updateSavingSelectionUI();
+            updateLabelColors(false);
         });
 
         binding.btnSavingBackspace.setOnClickListener(v -> {
@@ -245,10 +247,12 @@ public class SavingCalculatorActivity extends AppCompatActivity {
         yearPicker.setMinValue(0);
         yearPicker.setMaxValue(50);
         yearPicker.setValue(selectedYears);
+        yearPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         monthPicker.setMinValue(0);
         monthPicker.setMaxValue(11);
         monthPicker.setValue(selectedMonths);
+        monthPicker.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         dialog.findViewById(R.id.btn_cancel).setOnClickListener(v -> {
             dialog.dismiss();
@@ -270,7 +274,7 @@ public class SavingCalculatorActivity extends AppCompatActivity {
     }
 
     private void updateSavingPeriodText() {
-        String fullText = String.format(Locale.getDefault(), "%02dyear & %02dmonths", selectedYears, selectedMonths);
+        String fullText = String.format(Locale.US, "%02dyear & %02dmonths", selectedYears, selectedMonths);
         binding.textSavingPeriod.setText(fullText);
     }
 
@@ -321,9 +325,17 @@ public class SavingCalculatorActivity extends AppCompatActivity {
             binding.layoutSavingGoal.setSelected(false);
             binding.layoutSavingRate.setSelected(false);
             binding.layoutSavingPeriod.setSelected(false);
+            updateLabelColors(true);
         } catch (Exception e) {
             Toast.makeText(this, R.string.err_calculation_error, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelSavingGoal.setTextColor(color);
+        binding.labelSavingRate.setTextColor(color);
+        binding.labelSavingPeriod.setTextColor(color);
     }
 
     private String formatCurrency(double amount) {

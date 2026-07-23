@@ -73,6 +73,8 @@ public class SettingsScreenActivity extends AppCompatActivity implements ThemeBo
         binding.switchScientific.setOnCheckedChangeListener(((buttonView, isChecked) -> {
             SharedPreferences.Editor editor = sharedPrefsSci.edit();
             editor.putBoolean("scientific_enabled", isChecked);
+            // Also update the active mode to match the master toggle
+            editor.putBoolean("scientific_mode_active", isChecked);
             editor.apply();
         }));
 

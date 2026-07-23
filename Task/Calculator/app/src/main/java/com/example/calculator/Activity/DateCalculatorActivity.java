@@ -65,6 +65,9 @@ public class DateCalculatorActivity extends AppCompatActivity {
         binding.textTo.setTextColor(ContextCompat.getColor(this, R.color.input_text_color));
 
         View.OnClickListener clickListener = v -> {
+            binding.resultContainerDate.setVisibility(View.GONE);
+            binding.resultLabelContainerDate.setVisibility(View.GONE);
+            updateLabelColors(false);
             if (v.getId() == R.id.layout_date_from || v.getId() == R.id.text_from || v.getId() == R.id.label_date_from) {
                 selectedField = 0;
                 updateSelectionUI();
@@ -130,13 +133,14 @@ public class DateCalculatorActivity extends AppCompatActivity {
         pickerYear.setMinValue(1900);
         pickerYear.setMaxValue(2100);
         pickerYear.setValue(initial.get(Calendar.YEAR));
-        pickerYear.setFormatter(value -> String.valueOf(value));
+        pickerYear.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         pickerMonth.setValue(initial.get(Calendar.MONTH));
 
         pickerDay.setMinValue(1);
         pickerDay.setMaxValue(getDaysInMonth(initial.get(Calendar.YEAR), initial.get(Calendar.MONTH) + 1));
         pickerDay.setValue(Math.min(initial.get(Calendar.DAY_OF_MONTH), pickerDay.getMaxValue()));
+        pickerDay.setFormatter(value -> String.format(Locale.US, "%d", value));
 
         // keeping the date range valid month e.g no fab 30
         NumberPicker.OnValueChangeListener updateDayRange = (picker, oldVal, newVal) -> {
@@ -231,6 +235,13 @@ public class DateCalculatorActivity extends AppCompatActivity {
 
         binding.resultLabelContainerDate.setVisibility(View.VISIBLE);
         binding.resultContainerDate.setVisibility(View.VISIBLE);
+        updateLabelColors(true);
+    }
+
+    private void updateLabelColors(boolean isResultMode) {
+        int color = isResultMode ? getColor(R.color.text_secondary) : getColor(R.color.text_label_gray);
+        binding.labelDateFrom.setTextColor(color);
+        binding.labelToDate.setTextColor(color);
     }
 
     private String formatDate(Calendar calendar) {

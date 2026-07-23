@@ -255,6 +255,8 @@
     <string name="lang_sinhala">السنهالية</string>
 
     <!-- History -->
+    <string name="history">السجل</string>
+    <string name="delete_all">حذف الكل</string>
     <string name="select_all">تحديد الكل</string>
     <string name="no_history_found">لم يتم العثور على سجل.</string>
     <string name="delete_history">حذف السجل</string>
@@ -283,7 +285,7 @@
     <string name="err_invalid_tenure">مدة غير صالحة</string>
     <string name="err_value_too_large">القيمة كبيرة جدًا</string>
     <string name="err_invalid_input">إدخال غير صالح</string>
-    <string name="err_max_20_digits">لا يمكن إدخال أكثر من 20 رقمًا</string>
+    <string name="err_max_digits_allowed">لا يمكن إدخال أكثر من 15 رقمًا</string>
     <string name="err_max_6_digits">يسمح بحد أقصى 6 أرقام</string>
     <string name="err_max_amount_100">الحد الأقصى للمبلغ هو 100</string>
     <string name="err_max_input_limit">تم الوصول للحد الأقصى للإدخال</string>

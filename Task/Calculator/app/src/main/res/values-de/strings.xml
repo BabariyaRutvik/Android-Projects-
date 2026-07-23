@@ -283,7 +283,7 @@
     <string name="err_invalid_tenure">Ungültige Laufzeit</string>
     <string name="err_value_too_large">Wert zu groß</string>
     <string name="err_invalid_input">Ungültige Eingabe</string>
-    <string name="err_max_20_digits">Kann nicht mehr als 20 Ziffern eingeben</string>
+    <string name="err_max_digits_allowed">Kann nicht mehr als 25 Ziffern eingeben</string>
     <string name="err_max_6_digits">Maximal 6 Ziffern erlaubt</string>
     <string name="err_max_amount_100">Maximalbetrag ist 100</string>
     <string name="err_max_input_limit">Maximale Eingabebeschränkung erreicht</string>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Keypad Dimensions for Large Phones (Pixel Pro, etc.) -->
+    <dimen name="button_max_width">130dp</dimen>
+    <dimen name="keypad_max_height">650dp</dimen>
+    <dimen name="button_margin">5dp</dimen>
+    <dimen name="keypad_padding_horizontal">12dp</dimen>
+
+    <!-- Text Sizes -->
+    <dimen name="display_text_size">54sp</dimen>
+    <dimen name="display_result_size">28sp</dimen>
+    <dimen name="text_size_number">36sp</dimen>
+    <dimen name="text_size_operator">30sp</dimen>
+</resources>

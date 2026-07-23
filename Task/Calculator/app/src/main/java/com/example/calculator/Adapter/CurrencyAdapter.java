@@ -6,6 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,7 +48,7 @@ public class CurrencyAdapter extends RecyclerView.Adapter<CurrencyAdapter.MyCurr
          CurrencyModel model = currencyModelList.get(position);
 
          // setting up Currency code
-        holder.txtCountryCode.setText(String.format("%s - %s", model.getCurrencyCode(), model.getCurrencyName()));
+        holder.txtCountryCode.setText(String.format(Locale.US, "%s - %s", model.getCurrencyCode(), model.getCurrencyName()));
 
         // set Countryname
         holder.txtCountryName.setText(model.getCountryName());

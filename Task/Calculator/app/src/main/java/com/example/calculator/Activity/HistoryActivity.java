@@ -160,9 +160,15 @@ public class HistoryActivity extends AppCompatActivity implements HistoryAdapter
             binding.emptyStateLayout.setVisibility(View.VISIBLE);
             binding.rvHistory.setVisibility(View.GONE);
             binding.selectAllLayout.setVisibility(View.GONE);
+
+            // hiding the delete icon when state is empty
+            binding.btnDeleteHistory.setVisibility(View.GONE);
         } else {
             binding.emptyStateLayout.setVisibility(View.GONE);
             binding.rvHistory.setVisibility(View.VISIBLE);
+
+            // showing the delete icon when state is not empty
+            binding.btnDeleteHistory.setVisibility(View.VISIBLE);
         }
     }
 

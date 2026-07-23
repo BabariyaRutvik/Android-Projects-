@@ -284,7 +284,7 @@
     <string name="err_invalid_tenure">अमान्य कार्यकाल</string>
     <string name="err_value_too_large">मान बहुत बड़ा है</string>
     <string name="err_invalid_input">अमान्य इनपुट</string>
-    <string name="err_max_20_digits">20 से अधिक अंक दर्ज नहीं कर सकते</string>
+    <string name="err_max_digits_allowed">25 से अधिक अंक दर्ज नहीं कर सकते</string>
     <string name="err_max_6_digits">अधिकतम 6 अंकों की अनुमति है</string>
     <string name="err_max_amount_100">अधिकतम राशि 100 है</string>
     <string name="err_max_input_limit">अधिकतम इनपुट सीमा पूरी हो गई है</string>

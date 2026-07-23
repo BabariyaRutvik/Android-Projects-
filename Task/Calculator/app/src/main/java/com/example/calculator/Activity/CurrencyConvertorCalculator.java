@@ -279,7 +279,7 @@ public class CurrencyConvertorCalculator extends AppCompatActivity {
             Double multiplier = exchangeRates.get(targetCurrency);
             if (multiplier != null) {
                 double conversionOutput = enteredVal * multiplier;
-                binding.textCurrencyValueTo.setText(String.format(Locale.getDefault(), "%.2f", conversionOutput));
+                binding.textCurrencyValueTo.setText(String.format(Locale.US, "%.2f", conversionOutput));
             } else {
                 binding.textCurrencyValueTo.setText("---");
             }

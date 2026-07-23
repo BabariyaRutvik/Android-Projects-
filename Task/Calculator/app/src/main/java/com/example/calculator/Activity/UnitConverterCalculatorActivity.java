@@ -296,12 +296,22 @@ public class UnitConverterCalculatorActivity extends AppCompatActivity {
         binding.toolbar.setNavigationOnClickListener(v -> finish());
 
         // picker interaction from to bottom shhet
-        binding.layoutUnitPickerFrom.setOnClickListener(v -> showUnitPicker(true));
-        binding.layoutUnitPickerTo.setOnClickListener(v -> showUnitPicker(false));
+        binding.layoutUnitPickerFrom.setOnClickListener(v -> {
+            showUnitPicker(true);
+        });
+        binding.layoutUnitPickerTo.setOnClickListener(v -> {
+            showUnitPicker(false);
+        });
 
-        binding.layoutUnitFrom.setOnClickListener(v -> updateUnitConverterUI(true));
-        binding.textUnitValueFrom.setOnClickListener(v -> updateUnitConverterUI(true));
-        binding.layoutUnitTo.setOnClickListener(v -> updateUnitConverterUI(false));
+        binding.layoutUnitFrom.setOnClickListener(v -> {
+            updateUnitConverterUI(true);
+        });
+        binding.textUnitValueFrom.setOnClickListener(v -> {
+            updateUnitConverterUI(true);
+        });
+        binding.layoutUnitTo.setOnClickListener(v -> {
+            updateUnitConverterUI(false);
+        });
 
         binding.textUnitValueFrom.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -380,6 +390,8 @@ public class UnitConverterCalculatorActivity extends AppCompatActivity {
 
 
     }
+
+
     private void handleKeypadInputs(String character) {
         if (enteredAmount.length() + character.length() > 9) {
             Toast.makeText(this, R.string.err_max_9_digits, Toast.LENGTH_SHORT).show();
@@ -406,9 +418,9 @@ public class UnitConverterCalculatorActivity extends AppCompatActivity {
             if (currentCategory.equals("Temperature")) {
                 double finalResult = calculateTemperature(inputVal, selectedUnitFrom.getCode(), selectedUnitTo.getCode());
                 if (finalResult == (long) finalResult) {
-                    resultStr = String.format(java.util.Locale.getDefault(), "%d", (long) finalResult);
+                    resultStr = String.format(java.util.Locale.US, "%d", (long) finalResult);
                 } else {
-                    resultStr = String.format(java.util.Locale.getDefault(), "%.4f", finalResult)
+                    resultStr = String.format(java.util.Locale.US, "%.4f", finalResult)
                             .replaceAll("0+$", "")
                             .replaceAll("\\.$", "");
                 }
